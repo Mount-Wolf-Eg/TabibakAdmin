@@ -298,4 +298,6 @@ return [
     'not_allowed' => 'غير مسموح',
     'accept' => 'قبول',
     'vendor_status' => 'حالة القسم',
+    'referrals_accepted' => 'الإحالات المقبولة',
+    'referrals_rejected' => 'الإحالات المرفوضة',
 ];

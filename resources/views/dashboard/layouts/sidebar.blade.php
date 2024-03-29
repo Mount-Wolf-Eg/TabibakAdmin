@@ -38,13 +38,6 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{route('overview')}}" @class(['nav-link', 'menu-link', 'active' => request()->routeIs('overview')])>
-                        <i class="bi bi-book"></i>
-                        <span data-key="t-dashboard">{{ __('t-overview') }}</span>
-                    </a>
-                </li>
-
                 @if(auth()->user()->can('read-role') || auth()->user()->can('view-all-role'))
                 <li class="nav-item">
                     <a href="{{route('roles.index')}}" @class(['nav-link', 'menu-link',

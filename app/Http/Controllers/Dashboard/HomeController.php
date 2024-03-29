@@ -7,17 +7,44 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\User;
 use App\Models\Vendor;
+use App\Repositories\Contracts\ConsultationContract;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class HomeController extends Controller
 {
-    public function __invoke()
+    private ConsultationContract $consultationContract;
+
+    public function __construct(ConsultationContract $consultationContract)
     {
-        return view('dashboard.home.index');
+        $this->consultationContract = $consultationContract;
     }
 
-    public function overview()
+    public function __invoke()
+    {
+        if(auth()->user()->vendor){
+            return $this->vendorOverview();
+        }else{
+            return $this->adminOverview();
+        }
+    }
+
+    public function vendorOverview()
+    {
+        $totalConsultations = $this->consultationContract->freshRepo()
+            ->countWithFilters(['mineAsVendor' => true]);
+        $totalApprovedConsultations = $this->consultationContract->freshRepo()
+            ->countWithFilters(['mineAsVendor' => true, 'vendorAcceptedStatus'=> true]);
+        $totalRejectedConsultations = $this->consultationContract->freshRepo()
+            ->countWithFilters(['mineAsVendor' => true, 'vendorRejectedStatus'=> true]);
+        return view('dashboard.home.vendor-overview', compact([
+            'totalConsultations',
+            'totalApprovedConsultations',
+            'totalRejectedConsultations',
+        ]));
+    }
+
+    public function adminOverview()
     {
         $patientsCount = User::query()->whereHas('patient')->count();
         $doctorsCount = User::query()->whereHas('doctor')->count();
@@ -29,7 +56,7 @@ class HomeController extends Controller
         $labsCount = $this->getVendorCount('Lab');
         $totalTransactions = 0;
         $totalRevenues = 0;
-        return view('dashboard.home.overview', compact([
+        return view('dashboard.home.admin-overview', compact([
             'patientsCount',
             'doctorsCount',
             'vendorsCount',

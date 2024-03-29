@@ -300,4 +300,6 @@ return [
     'not_allowed' => 'Not Allowed',
     'accept' => 'Accept',
     'vendor_status' => 'Vendor Status',
+    'referrals_accepted' => 'Referrals Accepted',
+    'referrals_rejected' => 'Referrals Rejected'
 ];

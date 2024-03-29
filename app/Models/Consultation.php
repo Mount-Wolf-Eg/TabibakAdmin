@@ -29,7 +29,8 @@ class Consultation extends Model
         'other_diseases' , 'latest_surgeries', 'doctor_schedule_day_shift_id', 'contact_type',
         'reminder_at', 'transfer_reason', 'transfer_notes', 'transfer_case_rate',
         'payment_type', 'amount', 'coupon_id', 'is_active'];
-    protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor', 'mineAsVendor'];
+    protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
+        'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus'];
     protected array $searchable = [];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];
@@ -103,6 +104,20 @@ class Consultation extends Model
     {
         return $query->whereHas('vendors', function ($q) {
             $q->where('vendor_id', auth()->user()->vendor?->id);
+        });
+    }
+
+    public function scopeOfVendorAcceptedStatus($query)
+    {
+        return $query->whereHas('vendors', function ($q) {
+            $q->where('status', ConsultationVendorStatusConstants::ACCEPTED->value);
+        });
+    }
+
+    public function scopeOfVendorRejectedStatus($query)
+    {
+        return $query->whereHas('vendors', function ($q) {
+            $q->where('status', ConsultationVendorStatusConstants::REJECTED->value);
         });
     }
     //---------------------Scopes-------------------------------------
