@@ -36,8 +36,6 @@ class NoteRequest extends FormRequest
             'text' => 'required|string|max:500',
             'notable_id' => 'required|integer',
             'notable_type' => 'required|string',
-            'attachments' => config('validations.array.null'),
-            'attachments.*.id' => sprintf(config('validations.soft_deleted_model.null'), 'files'),
         ];
     }
 

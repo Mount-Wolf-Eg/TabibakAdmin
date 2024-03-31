@@ -182,7 +182,7 @@
                         <a href="{{route('consultations.index')}}" @class(['nav-link', 'menu-link',
                     'active' => request()->routeIs('consultations.index', 'consultations.show')])>
                             <i class="bi bi-tv"></i>
-                            <span data-key="t-dashboard">{{ __('messages.consultations') }}</span>
+                            <span data-key="t-dashboard">{{ __('messages.referrals') }}</span>
                         </a>
                     </li>
                 @endif

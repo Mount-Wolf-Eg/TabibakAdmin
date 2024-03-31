@@ -86,6 +86,11 @@ class Consultation extends Model
     {
         return $this->belongsToMany(Disease::class, 'consultation_disease')->withTimestamps();
     }
+
+    public function notes(): MorphMany
+    {
+        return $this->morphMany(Note::class, 'notable');
+    }
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------

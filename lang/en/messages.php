@@ -302,5 +302,12 @@ return [
     'accept' => 'Accept',
     'vendor_status' => 'Vendor Status',
     'referrals_accepted' => 'Referrals Accepted',
-    'referrals_rejected' => 'Referrals Rejected'
+    'referrals_rejected' => 'Referrals Rejected',
+    'notes' => 'Notes',
+    'note' => 'Note',
+    'add_note' => 'Add New Note',
+    'referrals' => 'Referrals',
+    'manage_referrals' => 'Manage Referrals',
+    'referral' => 'Referral',
+    'referral_details' => 'Referral Details',
 ];

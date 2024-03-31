@@ -1,9 +1,9 @@
 @extends('dashboard.layouts.master')
 @section('title')
-    {{__('messages.consultation')}}
+    {{__('messages.referral')}}
 @endsection
 @section('content')
-    <x-breadcrumb title="{{__('messages.consultation_details')}}" pagetitle="{{__('messages.consultations')}}" route="{{route('consultations.index')}}"/>
+    <x-breadcrumb title="{{__('messages.referral_details')}}" pagetitle="{{__('messages.referrals')}}" route="{{route('consultations.index')}}"/>
     <div class="row">
         <div class="col-md-12">
             <div class="card p-2">
@@ -113,18 +113,8 @@
                             </div>
                         @endif
                     </div>
-                    <div class="py-2">
-                        <h5 class="card-title py-2">{{__('messages.attachments')}}</h5>
-                        <div class="row py-2">
-                            @foreach($consultation->attachments as $attachment)
-                                <div class="col-6 col-md-4">{{$attachment->name}}</div>
-                                <div class="col-6 col-md-8">
-                                    <span class="px-2 fs-5"><a target="_blank" href="{{ asset($attachment->asset_url) }}"><i class="bi bi-eye"></i></a></span>
-                                </div>
-                            @endforeach
-                            @include('dashboard.consultations.partials.__upload-attachments')
-                        </div>
-                    </div>
+                    @include('dashboard.consultations.partials.__attachments')
+                    @include('dashboard.consultations.partials.__notes')
                 </div>
             </div>
         </div>

@@ -14,6 +14,7 @@ use App\Http\Controllers\Dashboard\FaqSubjectController;
 use App\Http\Controllers\Dashboard\FileController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\MedicalSpecialityController;
+use App\Http\Controllers\Dashboard\NoteController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -54,6 +55,7 @@ Route::group([
 
     Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         Route::resource('files', FileController::class)->only(['store', 'destroy']);
+        Route::resource('notes', NoteController::class)->only(['store', 'update', 'destroy']);
         Route::get('/', HomeController::class)->name('dashboard');
         Route::get('overview', [HomeController::class, 'overview'])->name('overview');
         Route::resource('roles', RoleController::class);

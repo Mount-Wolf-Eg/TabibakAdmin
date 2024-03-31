@@ -53,6 +53,7 @@ class ConsultationController extends BaseWebController
      */
     public function show(Consultation $consultation): View|Factory|Application
     {
+        $consultation->load('attachments', 'notes.user', 'vendors');
         return $this->showBlade(['consultation' => $consultation]);
     }
 

@@ -301,4 +301,11 @@ return [
     'vendor_status' => 'حالة القسم',
     'referrals_accepted' => 'الإحالات المقبولة',
     'referrals_rejected' => 'الإحالات المرفوضة',
+    'notes' => 'الملاحظات',
+    'note' => 'ملاحظة',
+    'add_note' => 'إضافة ملاحظة',
+    'referrals' => 'الإحالات',
+    'manage_referrals' => 'إدارة الإحالات',
+    'referral' => 'إحالة',
+    'referral_details' => 'تفاصيل الإحالة',
 ];
