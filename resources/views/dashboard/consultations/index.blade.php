@@ -6,7 +6,29 @@
     <x-breadcrumb title="{{__('messages.manage_referrals')}}"
                   pagetitle="{{__('messages.referrals')}}"
                   route="{{route('consultations.index')}}"/>
-    <x-filter/>
+    <x-filter>
+        <div class="col-lg-2">
+            {{ Form::label('Date', __('messages.date'), ['class' => 'form-label']) }}
+            {!! Form::date('creationDate' , request('creationDate'), ['class' => 'form-control']) !!}
+        </div>
+        <div class="col-lg-2">
+            {{ Form::label('doctor', __('messages.doctor'), ['class' => 'form-label']) }}
+            {!! Form::select('doctor' , $doctors->pluck('user.name', 'id')->prepend(__('messages.select'), ''),
+                request('doctor'),  ['class' => 'form-control select2']) !!}
+        </div>
+        <div class="col-lg-2">
+            {{ Form::label('urgency_levels', __('messages.urgency_levels'), ['class' => 'form-label']) }}
+            {!! Form::select('type' , $types->pluck('txt', 'value')->prepend(__('messages.select'), ''),
+                request('type'),  ['class' => 'form-control select2']) !!}
+        </div>
+        @if(auth()->user()->vendor)
+            <div class="col-lg-2">
+                {{ Form::label('status', __('messages.status'), ['class' => 'form-label']) }}
+                {!! Form::select('myVendorStatus' , $vendorStatuses->pluck('txt', 'value')->prepend(__('messages.select'), ''),
+                    request('myVendorStatus'),  ['class' => 'form-control select2']) !!}
+            </div>
+        @endif
+    </x-filter>
     <div class="row">
         <div class="col-12">
             <table class="table table-nowrap">
@@ -44,7 +66,9 @@
                         'disableDelete' => !auth()->user()->can('delete-consultation'),
                         'route' => 'consultations', 'hideActive' => true, 'showModel' => false])
                         @if(auth()->user()?->vendor)
-                            <td><span class="text-{{$resource->getVendorStatusColor(auth()->user()->vendor->id)}}">{{$resource->getVendorStatusTxt(auth()->user()->vendor->id)}}</td>
+                            <td><span
+                                    class="text-{{$resource->getVendorStatusColor(auth()->user()->vendor->id)}}">{{$resource->getVendorStatusTxt(auth()->user()->vendor->id)}}
+                            </td>
                             <td>
                                 @if($resource->isPendingVendor(auth()->user()?->vendor->id))
                                     <a class="link-success accept-vendor-consultation cursor-pointer px-2"

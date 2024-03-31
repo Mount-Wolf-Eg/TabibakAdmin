@@ -30,8 +30,9 @@ class Consultation extends Model
         'reminder_at', 'transfer_reason', 'transfer_notes', 'transfer_case_rate',
         'payment_type', 'amount', 'coupon_id', 'is_active'];
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
-        'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus'];
-    protected array $searchable = [];
+        'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
+        'myVendorStatus', 'creationDate'];
+    protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];
     public array $filterCustom = ['types', 'paymentMethods', 'reminders'];
@@ -123,6 +124,29 @@ class Consultation extends Model
     {
         return $query->whereHas('vendors', function ($q) {
             $q->where('status', ConsultationVendorStatusConstants::REJECTED->value);
+        });
+    }
+
+    public function scopeOfDoctor($query, $doctorId)
+    {
+        return $query->where('doctor_id', $doctorId);
+    }
+
+    public function scopeOfType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
+    public function scopeOfCreationDate($query, $date)
+    {
+        return $query->whereDate('created_at', $date);
+    }
+
+    public function scopeOfMyVendorStatus($query, $status)
+    {
+        $vendorId = auth()->user()->vendor?->id;
+        return $query->whereHas('vendors', function ($q) use ($vendorId, $status) {
+            $q->where('vendor_id', $vendorId)->where('status', $status);
         });
     }
     //---------------------Scopes-------------------------------------

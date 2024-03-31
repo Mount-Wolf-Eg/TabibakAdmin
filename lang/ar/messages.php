@@ -308,4 +308,6 @@ return [
     'manage_referrals' => 'إدارة الإحالات',
     'referral' => 'إحالة',
     'referral_details' => 'تفاصيل الإحالة',
+    'date' => 'التاريخ',
+    'urgency_levels' => 'مستويات الطوارئ',
 ];

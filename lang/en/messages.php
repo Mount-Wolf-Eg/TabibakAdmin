@@ -310,4 +310,6 @@ return [
     'manage_referrals' => 'Manage Referrals',
     'referral' => 'Referral',
     'referral_details' => 'Referral Details',
+    'date' => 'Date',
+    'urgency_levels' => 'Urgency Levels',
 ];
