@@ -3,7 +3,13 @@
         <div class="row justify-content-between align-items-center">
             <div class="col-md-4 col-9">
                 <div class="fs-14 fw-medium">
-                    <i class="bi bi-clock align-middle {{app()->getLocale() == 'ar' ? 'ms-2' : 'me-2'}}"></i> <span id="current-time"></span>
+                    <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                        <span class="hamburger-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
                 </div>
             </div>
             <div class="col-md-4 col-6 d-none d-xxl-block">
@@ -18,9 +24,6 @@
             </div>
             <div class="col-md-4 col-3">
                 <div class="d-flex align-items-center justify-content-end gap-3 fs-14">
-                    {{-- <a href="#!" class="text-reset fw-normal d-none d-lg-block">
-                        Balance: <span class="fw-semibold">$8451.36</span>
-                    </a> --}}
                     <hr class="vr d-none d-lg-block">
                     <div class="dropdown topbar-head-dropdown topbar-tag-dropdown justify-content-end">
                         <button type="button" class="btn btn-icon btn-topbar text-reset rounded-circle fs-14 fw-medium"

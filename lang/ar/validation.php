@@ -16,6 +16,7 @@ return [
     'accepted' => 'يجب قبول :attribute.',
     'accepted_if' => 'يجب قبول :attribute عندما تكون :other هي :value.',
     'active_url' => 'الرابط :attribute ليس عنوان URL صالحًا.',
+    'active' => ':attribute غير مفعل.',
     'after' => 'يجب أن يكون :attribute تاريخًا بعد :date.',
     'after_or_equal' => 'يجب أن يكون :attribute تاريخًا بعد أو يساوي :date.',
     'alpha' => 'يجب أن يحتوي :attribute على أحرف فقط.',

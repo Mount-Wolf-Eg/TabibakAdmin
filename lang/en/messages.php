@@ -215,6 +215,7 @@ return [
         'check_credentials' => 'Check your credentials and try again',
         'reset_link_not_sent' => 'Reset link not sent',
         'token_expired' => 'Password reset token has expired, please request another one',
+        'cannot_delete' => 'Can\'t delete this :model, it has :relation please remove them first',
         'something_wrong' => 'Something went wrong!'
     ],
     'confirm' => [
