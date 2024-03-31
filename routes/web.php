@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\DiseaseController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\FaqController;
 use App\Http\Controllers\Dashboard\FaqSubjectController;
+use App\Http\Controllers\Dashboard\FileController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\MedicalSpecialityController;
 use App\Http\Controllers\Dashboard\PatientController;
@@ -34,8 +35,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-    ], function() {
+    'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+], function () {
 
     Route::middleware(['guest'])->group(function () {
         // Login
@@ -52,6 +53,7 @@ Route::group([
     });
 
     Route::middleware(['auth'])->prefix('dashboard')->group(function () {
+        Route::resource('files', FileController::class)->only(['store', 'destroy']);
         Route::get('/', HomeController::class)->name('dashboard');
         Route::get('overview', [HomeController::class, 'overview'])->name('overview');
         Route::resource('roles', RoleController::class);

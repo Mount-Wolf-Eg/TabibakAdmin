@@ -71,6 +71,7 @@ return [
         'update_success' => 'تم التحديث بنجاح',
         'delete_success' => 'تم الحذف بنجاح',
         'cannot_do_action' => 'لا يمكنك القيام بهذا الإجراء',
+        'upload_success' => 'تم التحميل بنجاح',
     ],
     'academic_degrees' => 'الدرجات العلمية',
     'manage_academic_degrees' => 'إدارة الدرجات العلمية',

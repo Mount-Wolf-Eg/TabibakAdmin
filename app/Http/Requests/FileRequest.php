@@ -24,6 +24,7 @@ class FileRequest extends FormRequest
         $validated['fileable_type'] = isset($validated['fileable_id']) ? match ($validated['type']){
             FileConstants::FILE_USER_AVATAR->value => 'User',
             FileConstants::FILE_TYPE_ARTICLE_MAIN_IMAGE->value => 'Article',
+            FileConstants::FILE_TYPE_CONSULTATION_ATTACHMENTS->value => 'Consultation',
             default => null
         } : null;
         return $validated;

@@ -120,9 +120,9 @@
                                 <div class="col-6 col-md-4">{{$attachment->name}}</div>
                                 <div class="col-6 col-md-8">
                                     <span class="px-2 fs-5"><a target="_blank" href="{{ asset($attachment->asset_url) }}"><i class="bi bi-eye"></i></a></span>
-{{--                                    <span class="px-2 fs-5"><a href="{{route('download', ['dir' => 'consultations', 'file_name' => $attachment->name])}}" class="text-success"><i class="bi bi-download"></i></a></span>--}}
                                 </div>
                             @endforeach
+                            @include('dashboard.consultations.partials.__upload-attachments')
                         </div>
                     </div>
                 </div>
