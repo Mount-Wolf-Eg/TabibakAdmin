@@ -31,6 +31,7 @@ return [
     'delete' => 'Delete',
     'activation' => 'Activation',
     'add_new' => 'Add New',
+    'edit_details' => 'Edit Details',
     'add_role' => 'Add New Role',
     'edit_role' => 'Edit Role',
     'role_details' => 'Role Details',
@@ -313,4 +314,7 @@ return [
     'referral_details' => 'Referral Details',
     'date' => 'Date',
     'urgency_levels' => 'Urgency Levels',
+    'old_pass' => 'Old Password',
+    'enter_old_pass' => 'Enter old password',
+    'change_password' => 'Change Password',
 ];

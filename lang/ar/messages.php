@@ -32,6 +32,7 @@ return [
     'delete' => 'حذف',
     'activation' => 'تفعيل',
     'add_new' => 'اضف جديد',
+    'edit_details' => 'تعديل البيانات',
     'add_role' => 'إضافة دور جديد',
     'edit_role' => 'تعديل الدور',
     'role_details' => 'تفاصيل الدور',
@@ -311,4 +312,7 @@ return [
     'referral_details' => 'تفاصيل الإحالة',
     'date' => 'التاريخ',
     'urgency_levels' => 'مستويات الطوارئ',
+    'old_pass' => 'كلمة المرور القديمة',
+    'enter_old_pass' => 'أدخل كلمة المرور القديمة',
+    'change_password' => 'تغيير كلمة المرور',
 ];

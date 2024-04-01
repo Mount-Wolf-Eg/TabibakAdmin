@@ -70,12 +70,6 @@ class HomeController extends Controller
         ]));
     }
 
-    public function profile()
-    {
-        $user = auth()->user();
-        return view('dashboard.home.profile', compact(['user']));
-    }
-
     public function download(Request $request): BinaryFileResponse
     {
         $fileName = 'storage/uploads/' . $request['dir'] . '/' . $request['file_name'];

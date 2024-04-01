@@ -1,7 +1,4 @@
 {!! Form::open(['route' => $action, 'method' => $method, 'enctype' => 'multipart/form-data']) !!}
-@if(request('profile'))
-    <input type="hidden" name="profile" value="true">
-@endif
 <div class="row justify-content-center">
     <div class="col-lg-10">
         <div class="card">
@@ -78,7 +75,7 @@
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
                                 @if(isset($user) && $user->avatar)
-                                    <img src="{{$user->avatar->asset_url}}" title="{{$user->avatar->name}}" class="img-fluid mt-3" alt="user-image" style="max-height: 200px">
+                                    <img src="{{$user->avatar->asset_url}}" title="{{$user->avatar->name}}" class="img-fluid mt-3" alt="" style="max-height: 200px">
                                 @endif
                             </div>
                         </div>

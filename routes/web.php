@@ -16,6 +16,7 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\MedicalSpecialityController;
 use App\Http\Controllers\Dashboard\NoteController;
 use App\Http\Controllers\Dashboard\PatientController;
+use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\VendorController;
@@ -93,7 +94,10 @@ Route::group([
         Route::put('consultations/{consultation}/vendor-reject', [ConsultationController::class, 'vendorReject'])
             ->name('consultations.vendor-reject');
 
-        Route::get('profile', [HomeController::class, 'profile'])->name('profile');
+        Route::prefix('profile')->group(function () {
+            Route::get('/', [ProfileController::class, 'profile'])->name('profile');
+            Route::get('change-password', [ProfileController::class, 'changePassword'])->name('change-password');
+        });
         Route::get('download', [HomeController::class, 'download'])->name('download');
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     });

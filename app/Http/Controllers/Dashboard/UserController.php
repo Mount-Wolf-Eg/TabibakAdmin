@@ -101,7 +101,7 @@ class UserController extends BaseWebController
     {
         $this->contract->update($user, $request->validated());
         if (request()->has('profile')) {
-            return redirect()->route('profile');
+            return redirect()->route('profile')->with('success', __('messages.actions_messages.update_success'));
         }
         return $this->redirectToIndex()->with('success', __('messages.actions_messages.update_success'));
     }

@@ -34,6 +34,20 @@
             eyeConfirmIcon.classList.add('bi-eye');
         }
     }
+    function toggleOldPasswordVisibility() {
+        let oldPasswordInput = document.getElementById('old_password');
+        let eyeOldIcon = document.getElementById('eyeOldIcon');
+
+        if (oldPasswordInput.type === 'password') {
+            oldPasswordInput.type = 'text';
+            eyeOldIcon.classList.remove('bi-eye');
+            eyeOldIcon.classList.add('bi-eye-slash');
+        } else {
+            oldPasswordInput.type = 'password';
+            eyeOldIcon.classList.remove('bi-eye-slash');
+            eyeOldIcon.classList.add('bi-eye');
+        }
+    }
 
     function setDiscountValueAttributes() {
         const discountTypeInput = document.getElementById('discount_type');
