@@ -340,4 +340,5 @@ return [
     'url' => 'URL',
     'uploader' => 'Uploader',
     'already' => 'Already',
+    'no_medicines' => 'No Medicines',
 ];
