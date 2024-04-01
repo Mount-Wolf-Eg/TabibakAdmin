@@ -109,4 +109,9 @@ class User extends Authenticatable
         return Attribute::make(fn($value) => explode(' ', $this->name)[0]);
     }
 
+    public function avatarAssetDefaultUrl(): Attribute
+    {
+        return Attribute::make(fn($value) => $this->avatar->asset_url ?? asset('assets/images/users/user-dummy-img.jpg'));
+    }
+
 }

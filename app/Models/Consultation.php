@@ -42,7 +42,8 @@ class Consultation extends Model
         'type' => ConsultationTypeConstants::class,
         'contact_type' => ConsultationContactTypeConstants::class,
         'payment_type' => ConsultationPaymentTypeConstants::class,
-        'transfer_case_rate' => ConsultationTransferCaseRateConstants::class
+        'transfer_case_rate' => ConsultationTransferCaseRateConstants::class,
+        'prescription' => 'json'
     ];
 
     //---------------------relations-------------------------------------

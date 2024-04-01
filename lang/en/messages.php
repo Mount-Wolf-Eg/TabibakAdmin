@@ -331,4 +331,13 @@ return [
     'doctor_name' => 'Doctor Name',
     'urgency_level' => 'Urgency Level',
     'referral_reason' => 'Referral Reason',
+    'gender' => 'Gender',
+    'doctor_notes_recommendations' => 'Doctor Notes & Recommendations',
+    'medicines' => 'Medicines',
+    'quantity' => 'Quantity',
+    'dosage' => 'Dosage',
+    'strength' => 'Strength',
+    'url' => 'URL',
+    'uploader' => 'Uploader',
+    'already' => 'Already',
 ];

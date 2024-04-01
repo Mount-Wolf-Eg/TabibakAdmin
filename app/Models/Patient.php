@@ -6,6 +6,7 @@ use App\Constants\PatientSocialStatusConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -62,8 +63,10 @@ class Patient extends Model
     {
         return PatientSocialStatusConstants::valuesCollection();
     }
-    public function age()
+    public function age(): Attribute
     {
-        return Carbon::parse($this->attributes['date_of_birth'])->age;
+        return new Attribute(function ($value) {
+            return Carbon::parse($value)->age;
+        });
     }
 }

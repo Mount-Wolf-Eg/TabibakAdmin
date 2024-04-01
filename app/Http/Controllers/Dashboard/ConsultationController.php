@@ -44,7 +44,7 @@ class ConsultationController extends BaseWebController
         $doctors = resolve(DoctorContract::class)->search([], ['user'], ['limit' => 0]);
         $vendorStatuses = collect(ConsultationVendorStatusConstants::valuesCollection());
         $types = collect(Consultation::types());
-        $resources = $this->contract->search($filters, ['doctor', 'patient', 'medicalSpeciality']);
+        $resources = $this->contract->search($filters, ['doctor', 'patient', 'medicalSpeciality', 'vendors']);
         return $this->indexBlade(['resources' => $resources, 'doctors' => $doctors,
             'vendorStatuses' => $vendorStatuses, 'types' => $types]);
     }
@@ -58,7 +58,7 @@ class ConsultationController extends BaseWebController
      */
     public function show(Consultation $consultation): View|Factory|Application
     {
-        $consultation->load('attachments', 'notes.user', 'vendors');
+        $consultation->load('attachments.user', 'notes.user', 'vendors');
         return $this->showBlade(['consultation' => $consultation]);
     }
 
