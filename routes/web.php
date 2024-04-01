@@ -96,6 +96,7 @@ Route::group([
 
         Route::prefix('profile')->group(function () {
             Route::get('/', [ProfileController::class, 'profile'])->name('profile');
+            Route::post('update', [ProfileController::class, 'updateProfile'])->name('profile.update');
             Route::get('change-password', [ProfileController::class, 'changePassword'])->name('change-password');
             Route::post('update-password', [ProfileController::class, 'updatePassword'])->name('update-password');
         });

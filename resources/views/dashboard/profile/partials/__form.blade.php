@@ -4,8 +4,6 @@
         <div class="card">
             <div class="card-body">
                 <div class="row g-3">
-                    <input type="hidden" name="profile" value="true">
-                    <input type="hidden" name="role_id" class="form-check-input" value="{{$user->roles()->first()->id}}">
                     <div class="col-12">
                         {{Form::label('name', __('messages.name'), ['class' => 'form-label'])}}
                         <span class="text-danger fw-bold">*</span>
@@ -30,6 +28,29 @@
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
+                    @if($user->vendor)
+                        <input type="hidden" name="vendor_profile" value="true">
+                        <div class="col-lg-6">
+                            {{Form::label('services', __('messages.services'), ['class' => 'form-label'])}}
+                            <span class="text-danger fw-bold">*</span>
+                            {!! Form::select('services[]' ,$services->pluck('name', 'id'),
+                                $user->vendor->vendorServices->pluck('id'),
+                                ['class' => 'form-select', 'multiple' => true]) !!}
+                            @error("services")
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                            @error("services.*")
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="col-lg-6">
+                            {{Form::label('address', __('messages.address'), ['class' => 'form-label'])}}
+                            {!! Form::text('address' , $user->vendor->address ?? '', ['class' => 'form-control']) !!}
+                            @error("address")
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                    @endif
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
