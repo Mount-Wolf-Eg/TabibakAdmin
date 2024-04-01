@@ -6,7 +6,7 @@
     <x-breadcrumb title="{{__('messages.profile')}}" pagetitle="{{__('messages.tabibak')}}" route="{{route('dashboard')}}"/>
     <div class="row">
         <div class="col-md-12">
-            @include('dashboard.profile.partials.__form', ['action' => ['users.update', $user->id], 'method' => 'PUT'])
+            @include('dashboard.profile.partials.__form', ['action' => ['profile.update'], 'method' => 'POST'])
         </div>
     </div>
 @endsection
