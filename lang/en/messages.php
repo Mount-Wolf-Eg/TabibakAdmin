@@ -321,4 +321,5 @@ return [
     'new_password_confirm' => 'Confirm New Password',
     'enter_old_password' => 'Enter old password',
     'change_password' => 'Change Password',
+    'doctor_phone' => 'Doctor Phone',
 ];

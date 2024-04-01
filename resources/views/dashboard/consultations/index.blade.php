@@ -35,13 +35,12 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{__('messages.doctor')}}</th>
                     <th scope="col">{{__('messages.patient')}}</th>
-                    <th scope="col">{{__('messages.speciality')}}</th>
+                    <th scope="col">{{__('messages.doctor')}}</th>
+                    <th scope="col">{{__('messages.doctor_phone')}}</th>
                     <th scope="col">{{__('messages.type')}}</th>
-                    <th scope="col">{{__('messages.contact_type')}}</th>
-                    <th scope="col">{{__('messages.payment_type')}}</th>
-                    <th scope="col">{{__('messages.amount')}}</th>
+                    <th scope="col">{{__('messages.transfer_reason')}}</th>
+                    <th scope="col">{{__('messages.status')}}</th>
                     <th scope="col">{{__('messages.actions')}}</th>
                     @if(auth()->user()?->vendor)
                         <th scope="col">{{__('messages.vendor_status')}}</th>
@@ -55,13 +54,12 @@
                         <th scope="row">
                             <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
                         </th>
-                        <td>{{$resource->doctor?->user->name}}</td>
                         <td>{{$resource->patient->user->name}}</td>
-                        <td>{{$resource->medicalSpeciality->name}}</td>
+                        <td>{{$resource->doctor?->user->name}}</td>
+                        <td>{{$resource->doctor?->user->phone}}</td>
                         <td>{{ucfirst(strtolower($resource->type->name))}}</td>
-                        <td>{{ucfirst(strtolower($resource->contact_type->name))}}</td>
-                        <td>{{ucfirst(strtolower($resource->payment_type->name))}}</td>
-                        <td>{{$resource->amount}}</td>
+                        <td>{{$consultation->transfer_reason}}</td>
+                        <td>{{ucfirst(strtolower($consultation->status->name))}}</td>
                         @include('dashboard.partials.__table-actions', ['resource' => $resource, 'disableEdit' => true,
                         'disableDelete' => !auth()->user()->can('delete-consultation'),
                         'route' => 'consultations', 'hideActive' => true, 'showModel' => false])

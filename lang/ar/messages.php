@@ -319,4 +319,5 @@ return [
     'new_password_confirm' => 'تأكيد كلمة المرور الجديدة',
     'enter_old_password' => 'أدخل كلمة المرور القديمة',
     'change_password' => 'تغيير كلمة المرور',
+    'doctor_phone' => 'رقم هاتف الطبيب',
 ];
