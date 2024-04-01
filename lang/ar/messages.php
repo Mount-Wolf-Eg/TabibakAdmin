@@ -323,4 +323,10 @@ return [
     'doctor_phone' => 'رقم هاتف الطبيب',
     'doctor_info' => 'بيانات الطبيب',
     'patient_info' => 'بيانات المريض',
+    'request_id' => 'رقم الطلب',
+    'reporting_date' => 'تاريخ الإبلاغ',
+    'patient_name' => 'اسم المريض',
+    'doctor_name' => 'اسم الطبيب',
+    'urgency_level' => 'مستوى الطوارئ',
+    'referral_reason' => 'سبب الإحالة',
 ];
