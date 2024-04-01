@@ -58,8 +58,8 @@
                         <td>{{$resource->doctor?->user->name}}</td>
                         <td>{{$resource->doctor?->user->phone}}</td>
                         <td>{{ucfirst(strtolower($resource->type->name))}}</td>
-                        <td>{{$consultation->transfer_reason}}</td>
-                        <td>{{ucfirst(strtolower($consultation->status->name))}}</td>
+                        <td>{{$resource->transfer_reason}}</td>
+                        <td>{{ucfirst(strtolower($resource->status->name))}}</td>
                         @include('dashboard.partials.__table-actions', ['resource' => $resource, 'disableEdit' => true,
                         'disableDelete' => !auth()->user()->can('delete-consultation'),
                         'route' => 'consultations', 'hideActive' => true, 'showModel' => false])
