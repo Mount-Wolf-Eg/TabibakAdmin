@@ -16,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            @if($consultation->prescription->isEmpty())
+            @if(!$consultation->prescription)
                 <tr>
                     <td colspan="4" class="text-center">{{__('messages.no_medicines')}}</td>
                 </tr>
