@@ -18,6 +18,7 @@ return [
     'phone' => 'Phone',
     'password' => 'Password',
     'profile_image' => 'Profile Image',
+    'age' => 'Age',
     'upload' => 'Upload',
     'select' => 'Select',
     'select_all' => 'Select all',
@@ -293,7 +294,7 @@ return [
     'payment' => 'Payment',
     'payment_type' => 'Payment Type',
     'transferred' => 'Transferred',
-    'transfer_reason' => 'Reason',
+    'transfer_reason' => 'Referral Reason',
     'transfer_notes' => 'Notes',
     'transfer_case_rate' => 'Case Rate',
     'case_description' => 'Case Description',
@@ -322,4 +323,6 @@ return [
     'enter_old_password' => 'Enter old password',
     'change_password' => 'Change Password',
     'doctor_phone' => 'Doctor Phone',
+    'doctor_info' => 'Doctor Info',
+    'patient_info' => 'Patient Info',
 ];

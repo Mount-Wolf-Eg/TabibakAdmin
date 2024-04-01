@@ -19,6 +19,7 @@ return [
     'phone' => 'رقم الهاتف',
     'password' => 'كلمة المرور',
     'profile_image' => 'الصورة الشخصية',
+    'age' => 'العمر',
     'upload' => 'تحميل',
     'select' => 'اختر',
     'select_all' => 'اختر الكل',
@@ -290,7 +291,7 @@ return [
     'payment' => 'الدفع',
     'payment_type' => 'طريقة الدفع',
     'transferred' => 'تم التحويل',
-    'transfer_reason' => 'السبب',
+    'transfer_reason' => 'سبب الإحالة',
     'transfer_notes' => 'الملاحظات',
     'transfer_case_rate' => 'درجة الخطورة',
     'case_description' => 'وصف الحالة',
@@ -320,4 +321,6 @@ return [
     'enter_old_password' => 'أدخل كلمة المرور القديمة',
     'change_password' => 'تغيير كلمة المرور',
     'doctor_phone' => 'رقم هاتف الطبيب',
+    'doctor_info' => 'بيانات الطبيب',
+    'patient_info' => 'بيانات المريض',
 ];
