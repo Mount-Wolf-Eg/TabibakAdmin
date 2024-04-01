@@ -14,11 +14,11 @@ class Vendor extends Model
 {
     use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['user_id', 'vendor_type_id', 'address', 'is_active'];
-    protected array $filters = ['keyword', 'vendorType', 'active', 'active'];
+    protected $fillable = ['user_id', 'vendor_type_id', 'city_id', 'address', 'is_active'];
+    protected array $filters = ['keyword', 'active', 'vendorType', 'vendorService', 'city'];
     protected array $searchable = ['user.name'];
     protected array $dates = [];
-    public array $filterModels = [];
+    public array $filterModels = ['VendorService', 'VendorType', 'City'];
     public array $filterCustom = [];
     public array $translatable = [];
     public $with = ['user', 'vendorType'];
@@ -37,12 +37,29 @@ class Vendor extends Model
     {
         return $this->belongsToMany(VendorService::class, 'service_vendor');
     }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
     public function scopeOfVendorType($query, $type)
     {
         return $query->whereIn('vendor_type_id', (array)$type);
+    }
+
+    public function scopeOfVendorService($query, $value)
+    {
+        return $query->whereHas('vendorServices', function ($q) use ($value) {
+            $q->whereIn('vendor_service_id', (array)$value);
+        });
+    }
+
+    public function scopeOfCity($query, $value)
+    {
+        return $query->whereIn('city_id', (array)$value);
     }
     //---------------------Scopes-------------------------------------
 

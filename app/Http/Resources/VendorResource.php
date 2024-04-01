@@ -27,8 +27,9 @@ class VendorResource extends BaseResource
         ];
         $this->full = [
         ];
-        //$this->relationLoaded()
         $this->relations = [
+            'user' => $this->relationLoaded('user') ? new UserResource($this->user) : null,
+            'city' => $this->relationLoaded('city') ? new CityResource($this->city) : null,
         ];
         return $this->getResource();
     }
