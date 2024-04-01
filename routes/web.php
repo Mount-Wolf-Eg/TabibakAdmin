@@ -97,6 +97,7 @@ Route::group([
         Route::prefix('profile')->group(function () {
             Route::get('/', [ProfileController::class, 'profile'])->name('profile');
             Route::get('change-password', [ProfileController::class, 'changePassword'])->name('change-password');
+            Route::post('update-password', [ProfileController::class, 'updatePassword'])->name('update-password');
         });
         Route::get('download', [HomeController::class, 'download'])->name('download');
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
