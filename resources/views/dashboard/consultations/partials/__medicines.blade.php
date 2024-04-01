@@ -16,14 +16,20 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($consultation->prescription as $medicine)
+            @if($consultation->prescription->isEmpty())
                 <tr>
-                    <td>{{$medicine['name']}}</td>
-                    <td>{{$medicine['quantity']}}</td>
-                    <td>{{$medicine['strength']}}</td>
-                    <td>{{$medicine['dosage']}}</td>
+                    <td colspan="4" class="text-center">{{__('messages.no_medicines')}}</td>
                 </tr>
-            @endforeach
+            @else
+                @foreach($consultation->prescription as $medicine)
+                    <tr>
+                        <td>{{$medicine['name']}}</td>
+                        <td>{{$medicine['quantity']}}</td>
+                        <td>{{$medicine['strength']}}</td>
+                        <td>{{$medicine['dosage']}}</td>
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
     </div>
