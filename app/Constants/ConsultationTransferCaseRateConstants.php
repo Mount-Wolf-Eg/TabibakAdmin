@@ -22,6 +22,6 @@ enum ConsultationTransferCaseRateConstants : int
 
     public function label(): string
     {
-        return self::getLabels($this->value);
+        return self::getLabels($this);
     }
 }

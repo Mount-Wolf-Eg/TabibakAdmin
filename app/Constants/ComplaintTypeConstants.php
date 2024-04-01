@@ -14,14 +14,14 @@ enum ComplaintTypeConstants : int
     public static function getLabels($value): string
     {
         return match ($value) {
-            self::OFFENSIVE->value => __('messages.offensive'),
-            self::WRONG_INFORMATION->value => __('messages.wrong_information'),
-            self::SPAM->value => __('messages.spam')
+            self::OFFENSIVE => __('messages.offensive'),
+            self::WRONG_INFORMATION => __('messages.wrong_information'),
+            self::SPAM => __('messages.spam')
         };
     }
 
     public function label(): string
     {
-        return self::getLabels($this->value);
+        return self::getLabels($this);
     }
 }

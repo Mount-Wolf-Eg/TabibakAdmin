@@ -16,6 +16,6 @@ enum {{constantName}} : {{type}}
 
     public function label(): string
     {
-        return self::getLabels($this->value);
+        return self::getLabels($this);
     }
 }

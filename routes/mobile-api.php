@@ -46,7 +46,10 @@ Route::group(['middleware' => 'auth:sanctum'], static function () {
     Route::group(['prefix' => 'doctor'], static function () {
         Route::apiResource('articles', ArticleController::class)->only('store', 'update', 'destroy');
         Route::put('articles/{article}/change-activation', [ArticleController::class, 'changeActivation'])->name('articles.active');
-        Route::apiResource('consultations', DoctorConsultationController::class)->only('index');
+        Route::apiResource('consultations', DoctorConsultationController::class)->only('index', 'show');
+        Route::controller(DoctorConsultationController::class)->prefix('consultations')->group(static function () {
+            Route::post('/{consultation}/referral', [DoctorConsultationController::class, 'referral']);
+        });
     });
 
 });

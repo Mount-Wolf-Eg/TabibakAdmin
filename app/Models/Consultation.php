@@ -35,7 +35,7 @@ class Consultation extends Model
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];
-    public array $filterCustom = ['types', 'paymentMethods', 'reminders'];
+    public array $filterCustom = ['types', 'paymentMethods', 'reminders', 'transferCaseRates'];
     public array $translatable = [];
     protected $casts = [
         'status' => ConsultationStatusConstants::class,
@@ -166,6 +166,11 @@ class Consultation extends Model
     public static function reminders(): array
     {
         return ReminderConstants::valuesCollection();
+    }
+
+    public static function transferCaseRates(): array
+    {
+        return ConsultationTransferCaseRateConstants::valuesCollection();
     }
     //---------------------constants-------------------------------------
 

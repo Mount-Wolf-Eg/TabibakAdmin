@@ -13,13 +13,13 @@ enum CouponTypeConstants : int
     public static function getLabels($value): string
     {
         return match ($value) {
-            self::PERCENTAGE->value => __('messages.percentage'),
-            self::AMOUNT->value => __('messages.amount')
+            self::PERCENTAGE => __('messages.percentage'),
+            self::AMOUNT => __('messages.amount')
         };
     }
 
     public function label(): string
     {
-        return self::getLabels($this->value);
+        return self::getLabels($this);
     }
 }

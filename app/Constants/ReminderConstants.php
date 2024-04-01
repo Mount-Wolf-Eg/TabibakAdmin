@@ -16,16 +16,16 @@ enum ReminderConstants : int
     public static function getLabels($value): ?string
     {
         return match ($value) {
-            self::TEN_MINUTES->value => __('messages.10_minutes'),
-            self::FIFTEEN_MINUTES->value => __('messages.15_minutes'),
-            self::THIRTY_MINUTES->value => __('messages.30_minutes'),
-            self::FORTY_FIVE_MINUTES->value => __('messages.45_minutes'),
-            self::ONE_HOUR->value => __('messages.1_hour')
+            self::TEN_MINUTES => __('messages.10_minutes'),
+            self::FIFTEEN_MINUTES => __('messages.15_minutes'),
+            self::THIRTY_MINUTES => __('messages.30_minutes'),
+            self::FORTY_FIVE_MINUTES => __('messages.45_minutes'),
+            self::ONE_HOUR => __('messages.1_hour')
         };
     }
 
     public function label(): ?string
     {
-        return self::getLabels($this->value);
+        return self::getLabels($this);
     }
 }

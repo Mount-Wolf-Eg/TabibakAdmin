@@ -49,10 +49,9 @@ class ConsultationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'patient_id' => sprintf(config('validations.model.null'), 'patients'),
-            'doctor_id' => sprintf(config('validations.model.null'), 'doctors')
+            'patient_id' => sprintf(config('validations.model.active_null'), 'patients'),
+            'doctor_id' => sprintf(config('validations.model.active_null'), 'doctors')
                 .'|required_if:type,==,'.ConsultationTypeConstants::WITH_APPOINTMENT->value,
-            'medical_speciality_id' => sprintf(config('validations.model.active_req'), 'medical_specialities'),
             'patient_description' => config('validations.text.req'),
             'other_diseases' => config('validations.text.null'),
             'latest_surgeries' => config('validations.text.null'),
@@ -67,8 +66,7 @@ class ConsultationRequest extends FormRequest
                 .'|in:'. implode(',', ConsultationContactTypeConstants::values()),
             'reminder_before' => 'required_if:type,==,'.ConsultationTypeConstants::WITH_APPOINTMENT->value.'|'.
                 config('validations.integer.null').'|in:'. implode(',', ReminderConstants::values()),
-            'payment_type' => config('validations.integer.req').'|in:'. implode(',', ConsultationPaymentTypeConstants::values()),
-            'amount' => config('validations.double.req'),
+            'payment_type' => config('validations.integer.req').'|in:'. implode(',', ConsultationPaymentTypeConstants::values())
         ];
     }
 

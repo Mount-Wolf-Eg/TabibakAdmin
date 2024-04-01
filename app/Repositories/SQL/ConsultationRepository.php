@@ -27,5 +27,7 @@ class ConsultationRepository extends BaseRepository implements ConsultationContr
                 $model->attachments()->save($fileModel);
             }
         }
+        if (!empty($relations['vendors']))
+            $model->vendors()->sync($relations['vendors']);
     }
 }
