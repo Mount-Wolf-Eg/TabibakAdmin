@@ -75,7 +75,9 @@
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
                                 @if(isset($user) && $user->avatar)
-                                    <img src="{{$user->avatar->asset_url}}" title="{{$user->avatar->name}}" class="img-fluid mt-3" alt="" style="max-height: 200px">
+                                    <div class="col-6">
+                                        <img src="{{$user->avatar->asset_url}}" title="{{$user->avatar->name}}" class="img-fluid mt-3" alt="{{__('messages.profile_image')}}" style="max-height: 200px">
+                                    </div>
                                 @endif
                             </div>
                         </div>
