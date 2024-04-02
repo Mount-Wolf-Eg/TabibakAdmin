@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth:sanctum'], static function () {
         Route::apiResource('consultations', DoctorConsultationController::class)->only('index', 'show');
         Route::controller(DoctorConsultationController::class)->prefix('consultations')->group(static function () {
             Route::post('/{consultation}/referral', [DoctorConsultationController::class, 'referral']);
+            Route::post('/{consultation}/prescription', [DoctorConsultationController::class, 'prescription']);
         });
     });
 

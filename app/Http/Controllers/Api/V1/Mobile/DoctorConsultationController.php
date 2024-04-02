@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Api\V1\BaseApiController;
+use App\Http\Requests\ConsultationPrescriptionRequest;
 use App\Http\Requests\ConsultationReferralRequest;
 use App\Http\Resources\ConsultationResource;
 use App\Models\Consultation;
@@ -41,6 +42,18 @@ class DoctorConsultationController extends BaseApiController
     }
 
     public function referral(ConsultationReferralRequest $request, Consultation $consultation)
+    {
+        try {
+            if (!$consultation->isMineAsDoctor())
+                abort(403, __('messages.not_allowed'));
+            $consultation = $this->contract->update($consultation, $request->validated());
+            return $this->respondWithModel($consultation);
+        }catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    public function prescription(ConsultationPrescriptionRequest $request,Consultation $consultation)
     {
         try {
             if (!$consultation->isMineAsDoctor())
