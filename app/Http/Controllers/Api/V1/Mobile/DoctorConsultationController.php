@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile;
 
+use App\Constants\ConsultationStatusConstants;
 use App\Http\Controllers\Api\V1\BaseApiController;
 use App\Http\Requests\ConsultationPrescriptionRequest;
 use App\Http\Requests\ConsultationReferralRequest;
@@ -13,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 
 class DoctorConsultationController extends BaseApiController
 {
+
     /**
      * PatientConsultationController constructor.
      * @param ConsultationContract $contract
@@ -24,6 +26,7 @@ class DoctorConsultationController extends BaseApiController
         $this->relations = ['patient', 'doctorScheduleDayShift', 'doctor.rates'];
         parent::__construct($contract, ConsultationResource::class);
     }
+
     /**
      * Display the specified resource.
      * @param Consultation $consultation
@@ -41,10 +44,16 @@ class DoctorConsultationController extends BaseApiController
         }
     }
 
+    /**
+     * Update referral vendors for the consultation.
+     * @param ConsultationReferralRequest $request
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
     public function referral(ConsultationReferralRequest $request, Consultation $consultation)
     {
         try {
-            if (!$consultation->isMineAsDoctor())
+            if (!$consultation->isMineAsDoctor() || !$consultation->status->is(ConsultationStatusConstants::PENDING))
                 abort(403, __('messages.not_allowed'));
             $consultation = $this->contract->update($consultation, $request->validated());
             return $this->respondWithModel($consultation);
@@ -53,12 +62,35 @@ class DoctorConsultationController extends BaseApiController
         }
     }
 
+    /**
+     * Update prescription for the consultation.
+     * @param ConsultationPrescriptionRequest $request
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
     public function prescription(ConsultationPrescriptionRequest $request,Consultation $consultation)
     {
         try {
-            if (!$consultation->isMineAsDoctor())
+            if (!$consultation->isMineAsDoctor() || !$consultation->status->is(ConsultationStatusConstants::PENDING))
                 abort(403, __('messages.not_allowed'));
             $consultation = $this->contract->update($consultation, $request->validated());
+            return $this->respondWithModel($consultation);
+        }catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Approve medical report for the consultation.
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
+    public function approveMedicalReport(Consultation $consultation)
+    {
+        try {
+            if (!$consultation->isMineAsDoctor() || !$consultation->status->is(ConsultationStatusConstants::PENDING))
+                abort(403, __('messages.not_allowed'));
+            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
