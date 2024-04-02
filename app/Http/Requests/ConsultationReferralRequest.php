@@ -7,6 +7,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ConsultationReferralRequest extends FormRequest
 {
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     public function rules(): array
     {
         return [
@@ -16,10 +21,5 @@ class ConsultationReferralRequest extends FormRequest
             'vendors' => config('validations.array.req'),
             'vendors.*' => sprintf(config('validations.model.active_req'), 'vendors'),
         ];
-    }
-
-    public function authorize(): bool
-    {
-        return true;
     }
 }
