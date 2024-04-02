@@ -71,6 +71,7 @@
                                 @error("main_image")
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
+                                <br>
                                 @if(isset($article) && $article->mainImage)
                                     <div class="col-6">
                                         <img src="{{$article->mainImage->asset_url}}" title="{{$article->mainImage->name}}" class="img-fluid mt-3" alt="{{__('messages.main_image')}}" style="max-height: 200px">
@@ -101,6 +102,7 @@
                                 @error("images")
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
+                                <br>
                                 @if(isset($article) && $article->images)
                                     <div class="row">
                                         @foreach($article->images  as $index => $image)

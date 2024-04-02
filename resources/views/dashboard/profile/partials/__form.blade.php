@@ -73,6 +73,7 @@
                                 @error("image")
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
+                                <br>
                                 @if(isset($user) && $user->avatar)
                                     <img src="{{$user->avatar->asset_url}}" title="{{$user->avatar->name}}" class="img-fluid mt-3" alt="" style="max-height: 200px">
                                 @endif
