@@ -340,4 +340,5 @@ return [
     'uploader' => 'المرفق',
     'already' => 'موجود بالفعل',
     'no_medicines' => 'لا توجد أدوية',
+    'doctor_approved_medical_report' => 'تم اعتماد التقرير الطبي',
 ];

@@ -341,4 +341,5 @@ return [
     'uploader' => 'Uploader',
     'already' => 'Already',
     'no_medicines' => 'No Medicines',
+    'doctor_approved_medical_report' => 'Doctor Approved Medical Report',
 ];
