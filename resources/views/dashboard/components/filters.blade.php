@@ -4,7 +4,7 @@
     {!! Form::text('keyword' , request('keyword'), ['class' => 'form-control']) !!}
 </div>
 {!! $slot !!}
-<div class="col-lg-3 align-self-end">
+<div class="col-lg-3 align-self-end py-1">
     <button type="submit" class="btn btn-primary mb-0">
         <i class="bi bi-search"></i>
         {{__('messages.search')}}
