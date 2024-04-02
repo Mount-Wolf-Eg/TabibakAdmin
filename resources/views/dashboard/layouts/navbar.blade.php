@@ -62,8 +62,12 @@
                         <div class="dropdown-menu dropdown-menu-end text-{{app()->getLocale() == 'ar' ? 'end' : 'start'}}">
                             {{--item--}}
                             <a class="dropdown-item" href="{{ route('profile') }}">
-                                <i class="bi bi-gear {{app()->getLocale() == 'ar' ? 'ms-2' : 'me-2'}}"></i>
+                                <i class="bi bi-person-circle {{app()->getLocale() == 'ar' ? 'ms-2' : 'me-2'}}"></i>
                                 <span class="align-middle">@lang('messages.profile')</span>
+                            </a>
+                            <a class="dropdown-item" href="{{ route('change-password') }}">
+                                <i class="bi bi-gear {{app()->getLocale() == 'ar' ? 'ms-2' : 'me-2'}}"></i>
+                                <span class="align-middle">@lang('messages.change_password')</span>
                             </a>
                             <button type="button" id="logout-btn" class="dropdown-item w-100" data-bs-toggle="modal" data-bs-target="#logoutModal">
                                 <i class="bi bi-box-arrow-right {{app()->getLocale() == 'ar' ? 'ms-2' : 'me-2'}}"></i>
