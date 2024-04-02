@@ -56,7 +56,7 @@
             @foreach($article->images as $index => $image)
                 <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
-                        <img src="{{$image->asset_url}}" data-index="{{$index}}" class="img-fluid cursor-pointer rounded gallery-image object-fit-cover" style="height: 200px; width: 100%;">
+                        <img src="{{$image->asset_url}}" title="{{$image->name}}" data-index="{{$index}}" class="img-fluid cursor-pointer rounded gallery-image w-100 object-fit-cover" style="max-height: 200px;">
                     </div>
                 </div>
             @endforeach

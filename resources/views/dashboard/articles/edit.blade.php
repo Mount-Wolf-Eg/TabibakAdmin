@@ -7,6 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             @include('dashboard.articles.partials.__form', ['action' => ['articles.update', $article->id], 'method' => 'PUT'])
+            @include('dashboard.articles.image-modal')
         </div>
     </div>
 @endsection
