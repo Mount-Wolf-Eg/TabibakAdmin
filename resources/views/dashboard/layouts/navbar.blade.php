@@ -86,7 +86,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="logoutModalLabel">@lang('messages.logout')</h5>
                 <button type="button" class="btn btn-flat-light close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><i data-feather="x"></i></span>
+                    <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
                 </button>
             </div>
             <div class="modal-body text-start">

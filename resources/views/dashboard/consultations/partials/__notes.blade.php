@@ -4,7 +4,7 @@
             <i class="bi bi-text-paragraph mx-2"></i>
             {{__('messages.notes')}}
         </h5>
-        <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
+        <button type="button" class="btn btn-primary btn-sm float-{{app()->getLocale() == 'ar' ? 'start' : 'end'}}" data-bs-toggle="modal"
                 data-bs-target="#noteForm">
             <i class="bi bi-plus"></i>
             {{__('messages.add_note')}}
