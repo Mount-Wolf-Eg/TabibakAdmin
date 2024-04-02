@@ -1,5 +1,5 @@
 {!! Form::open(['route'=> Route::current()->getName(), 'method'=>'GET', 'class' => 'row']) !!}
-<div class="col-lg-4">
+<div class="col-lg-3 py-1">
     {{ Form::label('keyword', __('messages.keyword'), ['class' => 'form-label']) }}
     {!! Form::text('keyword' , request('keyword'), ['class' => 'form-control']) !!}
 </div>

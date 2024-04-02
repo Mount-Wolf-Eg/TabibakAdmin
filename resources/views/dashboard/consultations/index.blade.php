@@ -7,22 +7,22 @@
                   pagetitle="{{__('messages.referrals')}}"
                   route="{{route('consultations.index')}}"/>
     <x-filter>
-        <div class="col-lg-2">
+        <div class="col-lg-2 py-1">
             {{ Form::label('Date', __('messages.date'), ['class' => 'form-label']) }}
             {!! Form::date('creationDate' , request('creationDate'), ['class' => 'form-control']) !!}
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-2 py-1">
             {{ Form::label('doctor', __('messages.doctor'), ['class' => 'form-label']) }}
             {!! Form::select('doctor' , $doctors->pluck('user.name', 'id')->prepend(__('messages.select'), ''),
                 request('doctor'),  ['class' => 'form-control select2']) !!}
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-2 py-1">
             {{ Form::label('urgency_levels', __('messages.urgency_levels'), ['class' => 'form-label']) }}
             {!! Form::select('type' , $types->pluck('txt', 'value')->prepend(__('messages.select'), ''),
                 request('type'),  ['class' => 'form-control select2']) !!}
         </div>
         @if(auth()->user()->vendor)
-            <div class="col-lg-2">
+            <div class="col-lg-2 py-1">
                 {{ Form::label('status', __('messages.status'), ['class' => 'form-label']) }}
                 {!! Form::select('myVendorStatus' , $vendorStatuses->pluck('txt', 'value')->prepend(__('messages.select'), ''),
                     request('myVendorStatus'),  ['class' => 'form-control select2']) !!}
