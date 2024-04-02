@@ -35,8 +35,8 @@ class ProfileRequest extends FormRequest
     {
         $this->merge([
             'name' => [
-                'en' => $this->name,
-                'ar' => $this->name,
+                'en' => $this['name'],
+                'ar' => $this['name'],
             ],
         ]);
     }
