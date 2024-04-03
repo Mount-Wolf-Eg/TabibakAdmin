@@ -30,7 +30,7 @@ class Consultation extends Model
         'transfer_notes', 'transfer_case_rate', 'payment_type', 'amount', 'coupon_id', 'is_active'];
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
-        'myVendorStatus', 'creationDate'];
+        'myVendorStatus', 'creationDate', 'status', 'completed'];
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];
@@ -145,6 +145,22 @@ class Consultation extends Model
             $q->where('vendor_id', $vendorId)->where('status', $status);
         });
     }
+
+    public function scopeOfStatus($query, $status)
+    {
+        return $query->whereIn('status', (array)$status);
+    }
+
+    public function scopeOfCompleted($query, $value = "true")
+    {
+        $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        if ($value){
+            return $query->ofStatus([ConsultationStatusConstants::CANCELLED->value,
+                ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
+        }
+        return $query->ofStatus(ConsultationStatusConstants::PENDING->value);
+    }
+
     //---------------------Scopes-------------------------------------
 
     //---------------------constants-------------------------------------
