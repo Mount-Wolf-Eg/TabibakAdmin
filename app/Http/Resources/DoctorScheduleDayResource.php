@@ -18,6 +18,7 @@ class DoctorScheduleDayResource extends BaseResource
         $this->micro = [
             'id' => $this->id,
             'date' => $this->date?->format('Y-m-d'),
+            'name' => $this->day_name,
         ];
         $this->mini = [
             'is_active' => $this->is_active,

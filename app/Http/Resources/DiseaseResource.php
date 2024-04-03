@@ -17,6 +17,7 @@ class DiseaseResource extends BaseResource
     {
         $this->micro = [
             'id' => $this->id,
+            'name' => $this->name,
         ];
         $this->mini = [
             'is_active' => $this->is_active,

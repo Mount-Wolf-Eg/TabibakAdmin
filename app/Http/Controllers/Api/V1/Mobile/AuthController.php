@@ -75,6 +75,6 @@ class AuthController extends BaseApiController
 
     public function profile()
     {
-        return $this->respondWithModel(auth()->user()->load('patient', 'doctor'));
+        return $this->respondWithModel(auth()->user()->load('patient.diseases', 'doctor'));
     }
 }

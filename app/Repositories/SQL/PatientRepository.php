@@ -27,4 +27,11 @@ class PatientRepository extends BaseRepository implements PatientContract
         return resolve(UserContract::class)->prepareUserForRoleUsers($attributes);
     }
 
+    public function syncRelations($model, $relations): void
+    {
+        if (isset($relations['diseases'])) {
+            $model->diseases()->sync($relations['diseases']);
+        }
+    }
+
 }

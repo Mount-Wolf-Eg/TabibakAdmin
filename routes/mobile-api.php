@@ -36,6 +36,7 @@ Route::group(['middleware' => 'locale'], static function () {
 
         Route::group(['prefix' => 'patient'], static function () {
             Route::put('update-main-info', [PatientProfileController::class, 'updateMainInfo']);
+            Route::put('update-medical-records', [PatientProfileController::class, 'updateMedicalRecords']);
             Route::apiResource('relatives', PatientRelativeController::class);
             Route::apiResource('consultations', PatientConsultationController::class);
             Route::put('consultations/{consultation}/cancel', [PatientConsultationController::class, 'cancel']);

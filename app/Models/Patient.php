@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\PatientBloodTypeConstants;
 use App\Constants\PatientSocialStatusConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
@@ -9,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
@@ -17,16 +19,19 @@ class Patient extends Model
 {
     use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['user_id', 'parent_id', 'date_of_birth', 'national_id', 'social_status', 'is_active'];
+    protected $fillable = ['user_id', 'parent_id', 'date_of_birth', 'national_id',
+        'other_diseases', 'latest_surgeries', 'weight', 'height', 'blood_type',
+        'social_status', 'is_active'];
     protected array $filters = ['keyword','parent', 'active'];
     protected array $searchable = ['user.name'];
     protected array $dates = ['date_of_birth'];
-    public array $filterModels = [];
-    public array $filterCustom = ['socialStatuses'];
+    public array $filterModels = ['Disease'];
+    public array $filterCustom = ['socialStatuses', 'bloodTypes'];
     public array $translatable = [];
     protected $with = ['user'];
     protected $casts = [
-        'social_status' => PatientSocialStatusConstants::class
+        'social_status' => PatientSocialStatusConstants::class,
+        'blood_type' => PatientBloodTypeConstants::class
     ];
     protected array $definedRelations = ['consultations'];
     //---------------------relations-------------------------------------
@@ -49,6 +54,11 @@ class Patient extends Model
     {
         return $this->hasMany(Consultation::class);
     }
+
+    public function diseases(): BelongsToMany
+    {
+        return $this->belongsToMany(Disease::class, 'disease_patient')->withTimestamps();
+    }
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
@@ -63,6 +73,12 @@ class Patient extends Model
     {
         return PatientSocialStatusConstants::valuesCollection();
     }
+
+    public static function bloodTypes(): array
+    {
+        return PatientSocialStatusConstants::valuesCollection();
+    }
+
     public function age(): Attribute
     {
         return new Attribute(function ($value) {

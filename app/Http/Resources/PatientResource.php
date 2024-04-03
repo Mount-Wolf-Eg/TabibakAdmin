@@ -32,9 +32,18 @@ class PatientResource extends BaseResource
                 'value' => $this->social_status?->value,
                 'label' => $this->social_status?->label(),
             ],
+            'weight' => $this->weight,
+            'height' => $this->height,
+            'blood_type' => [
+                'value' => $this->blood_type?->value,
+                'label' => $this->blood_type?->label(),
+            ],
+            'other_diseases' => $this->other_diseases,
+            'latest_surgeries' => $this->latest_surgeries
         ];
         $this->relations = [
-            'user' => $this->relationLoaded('user') ? new UserResource($this->user) : ''
+            'user' => $this->relationLoaded('user') ? new UserResource($this->user) : '',
+            'diseases' => $this->relationLoaded('diseases') ? DiseaseResource::collection($this->diseases) : '',
         ];
         return $this->getResource();
     }

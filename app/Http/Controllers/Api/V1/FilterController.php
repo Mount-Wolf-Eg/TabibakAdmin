@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AcademicDegreeResource;
 use App\Http\Resources\CityResource;
+use App\Http\Resources\DiseaseResource;
 use App\Http\Resources\MedicalSpecialityResource;
 use App\Http\Resources\VendorServiceResource;
 use App\Http\Resources\VendorTypeResource;
@@ -71,6 +72,7 @@ class FilterController extends Controller
             'AcademicDegree' => AcademicDegreeResource::collection($data),
             'VendorType' => VendorTypeResource::collection($data),
             'VendorService' => VendorServiceResource::collection($data),
+            'Disease' => DiseaseResource::collection($data),
             default => $model::collection($data),
         };
     }

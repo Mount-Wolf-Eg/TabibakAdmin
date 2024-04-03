@@ -26,9 +26,8 @@ class Consultation extends Model
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['doctor_id', 'patient_id', 'status', 'medical_speciality_id',
         'patient_description', 'doctor_description', 'medical_review', 'prescription', 'type',
-        'other_diseases' , 'latest_surgeries', 'doctor_schedule_day_shift_id', 'contact_type',
-        'reminder_at', 'transfer_reason', 'transfer_notes', 'transfer_case_rate',
-        'payment_type', 'amount', 'coupon_id', 'is_active'];
+        'doctor_schedule_day_shift_id', 'contact_type', 'reminder_at', 'transfer_reason',
+        'transfer_notes', 'transfer_case_rate', 'payment_type', 'amount', 'coupon_id', 'is_active'];
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
         'myVendorStatus', 'creationDate'];
@@ -83,11 +82,6 @@ class Consultation extends Model
     {
         return $this->belongsToMany(Vendor::class, 'consultation_vendor')
             ->withPivot('status')->withTimestamps();
-    }
-
-    public function diseases(): BelongsToMany
-    {
-        return $this->belongsToMany(Disease::class, 'consultation_disease')->withTimestamps();
     }
 
     public function notes(): MorphMany
