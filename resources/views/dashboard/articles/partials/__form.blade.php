@@ -73,7 +73,10 @@
                                 @enderror
                                 <br>
                                 @if(isset($article) && $article->mainImage)
-                                    <div class="col-6">
+                                    <div class="col-6 position-relative">
+                                        <a class="btn btn-flat-light my-3 mx-2 remove-image-resource position-absolute top-0 {{app()->getLocale() == 'ar' ? 'start' : 'end'}}-0" data-id="{{$article->mainImage->id}}">
+                                            <i class="bi bi-x-lg"></i>
+                                        </a>
                                         <img src="{{$article->mainImage->asset_url}}" title="{{$article->mainImage->name}}" class="img-fluid mt-3" alt="{{__('messages.main_image')}}" style="max-height: 200px">
                                     </div>
                                 @endif
@@ -110,10 +113,6 @@
                                                 <a class="btn btn-flat-light my-3 mx-2 remove-image-resource position-absolute top-0 {{app()->getLocale() == 'ar' ? 'start' : 'end'}}-0" data-id="{{$image->id}}">
                                                     <i class="bi bi-x-lg"></i>
                                                 </a>
-                                                <form action="" class="d-inline" method="POST" id="removeResourceForm-{{$image->id}}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
                                                 <img src="{{$image->asset_url}}" title="{{$image->name}}" data-index="{{$index}}" class="img-fluid cursor-pointer gallery-image mt-3" alt="{{$image->name}}" style="max-height: 200px">
                                             </div>
                                         @endforeach
@@ -134,26 +133,7 @@
     <!--end col-->
 </div>
 {!! Form::close() !!}
-
-@push('scripts')
-    <script>
-        $('.remove-image-resource').on('click', function(e) {
-            e.preventDefault();
-            let id = $(this).data('id');
-            Swal.fire({
-                title: '{{__('messages.confirm.are_you_sure')}}',
-                text: '{{__('messages.confirm.remove_resource')}}',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#2a4fd7',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '{{__('messages.confirm.yes_remove')}}',
-                cancelButtonText: '{{__('messages.confirm.cancel')}}',
-            }).then((result) => {
-                if (result.isConfirmed && result.value) {
-                    $('#removeResourceForm-'+id).submit();
-                }
-            })
-        })
-    </script>
-@endpush
+<form class="d-inline" method="POST" id="removeImageForm">
+    @csrf
+    @method('DELETE')
+</form>

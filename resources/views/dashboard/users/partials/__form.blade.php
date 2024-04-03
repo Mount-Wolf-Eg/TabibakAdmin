@@ -76,7 +76,10 @@
                                 @enderror
                                 <br>
                                 @if(isset($user) && $user->avatar)
-                                    <div class="col-6">
+                                    <div class="col-6 position-relative">
+                                        <a class="btn btn-flat-light my-3 mx-2 remove-image-resource position-absolute top-0 {{app()->getLocale() == 'ar' ? 'start' : 'end'}}-0" data-id="{{$user->avatar->id}}">
+                                            <i class="bi bi-x-lg"></i>
+                                        </a>
                                         <img src="{{$user->avatar->asset_url}}" title="{{$user->avatar->name}}" class="img-fluid mt-3" alt="{{__('messages.profile_image')}}" style="max-height: 200px">
                                     </div>
                                 @endif
@@ -122,15 +125,20 @@
                                 </div>
                             </div>
                         </div>
-                    <div class="col-lg-12">
-                        <div class="{{app()->getLocale() == 'ar' ? 'text-start' : 'text-end'}}">
-                            <button type="submit" class="btn btn-primary">{{__('messages.save')}}</button>
+                        <div class="col-lg-12">
+                            <div class="{{app()->getLocale() == 'ar' ? 'text-start' : 'text-end'}}">
+                                <button type="submit" class="btn btn-primary">{{__('messages.save')}}</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--end col-->
 </div>
 {!! Form::close() !!}
+<form class="d-inline" method="POST" id="removeImageForm">
+    @csrf
+    @method('DELETE')
+</form>
+

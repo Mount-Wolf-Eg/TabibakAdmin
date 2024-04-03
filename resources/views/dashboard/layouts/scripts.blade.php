@@ -101,5 +101,24 @@
         });
     });
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+    $('.remove-image-resource').on('click', function(e) {
+        e.preventDefault();
+        let id = $(this).data('id');
+        Swal.fire({
+            title: '{{__('messages.confirm.are_you_sure')}}',
+            text: '{{__('messages.confirm.remove_image')}}',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#2a4fd7',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '{{__('messages.confirm.yes_remove')}}',
+            cancelButtonText: '{{__('messages.confirm.cancel')}}',
+        }).then((result) => {
+            if (result.isConfirmed && result.value) {
+                let url = '{{ asset('') . app()->getLocale() . '/' }}' + 'dashboard/files/' + id
+                $('#removeImageForm').attr('action', url).submit();
+            }
+        })
+    })
 </script>
 @stack('scripts')

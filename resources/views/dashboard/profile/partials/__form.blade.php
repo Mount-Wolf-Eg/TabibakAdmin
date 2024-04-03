@@ -75,7 +75,12 @@
                                 @enderror
                                 <br>
                                 @if(isset($user) && $user->avatar)
-                                    <img src="{{$user->avatar->asset_url}}" title="{{$user->avatar->name}}" class="img-fluid mt-3" alt="" style="max-height: 200px">
+                                    <div class="col-6 position-relative">
+                                        <a class="btn btn-flat-light my-3 mx-2 remove-image-resource position-absolute top-0 {{app()->getLocale() == 'ar' ? 'start' : 'end'}}-0" data-id="{{$user->avatar->id}}">
+                                            <i class="bi bi-x-lg"></i>
+                                        </a>
+                                        <img src="{{$user->avatar->asset_url}}" title="{{$user->avatar->name}}" class="img-fluid mt-3" alt="" style="max-height: 200px">
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -92,4 +97,9 @@
         </div>
         <!--end col-->
     </div>
+</div>
 {!! Form::close() !!}
+<form class="d-inline" method="POST" id="removeImageForm">
+    @csrf
+    @method('DELETE')
+</form>

@@ -227,7 +227,7 @@ return [
         'doctor_approve' => 'Do you want to approve this doctor request?',
         'doctor_reject' => 'Do you want to reject this doctor request?',
         'delete_resource' => 'You want to delete this resource!',
-        'remove_resource' => 'You want to remove this resource!',
+        'remove_image' => 'You want to remove this image!',
         'change_resource_activation' => 'You want to change this resource activation!',
         'logout' => 'You want to logout!',
         'yes_delete' => 'Yes, delete!',

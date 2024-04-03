@@ -226,7 +226,7 @@ return [
         'doctor_approve' => 'هل تريد الموافقة على طلب هذا الطبيب؟',
         'doctor_reject' => 'هل تريد رفض طلب هذا الطبيب؟',
         'delete_resource' => 'تريد حذف هذا العنصر!',
-        'remove_resource' => 'تريد إزالة هذا العنصر!',
+        'remove_image' => 'تريد إزالة هذه الصورة!',
         'change_resource_activation' => 'تريد تغيير تفعيل هذا العنصر!',
         'logout' => 'تأكيد تسجيل الخروج!',
         'yes_delete' => 'حذف!',
