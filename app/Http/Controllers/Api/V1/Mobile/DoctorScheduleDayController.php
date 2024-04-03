@@ -19,6 +19,6 @@ class DoctorScheduleDayController extends BaseApiController
     public function __construct(DoctorScheduleDayContract $contract)
     {
         parent::__construct($contract, DoctorScheduleDayResource::class);
-        $this->relations = ['shifts.availableSlots'];
+        $this->relations = ['availableSlots'];
     }
 }

@@ -38,6 +38,13 @@ class DoctorScheduleDay extends Model
     {
         return $this->hasMany(DoctorScheduleDayShift::class)->whereNotNull('parent_id');
     }
+
+    public function availableSlots(): HasMany
+    {
+        return $this->hasMany(DoctorScheduleDayShift::class)
+            ->whereNotNull('parent_id')->whereDoesntHave('consultation');
+    }
+
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
