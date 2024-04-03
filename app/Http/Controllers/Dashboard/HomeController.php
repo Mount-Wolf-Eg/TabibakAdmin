@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Constants\VendorTypeConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\Patient;
@@ -49,11 +50,11 @@ class HomeController extends Controller
         $patientsCount = User::query()->whereHas('patient')->count();
         $doctorsCount = User::query()->whereHas('doctor')->count();
         $vendorsCount = Vendor::query()->count();
-        $hospitalsCount = $this->getVendorCount('Hospital');
-        $clinicsCount = $this->getVendorCount('Clinic');
-        $pharmaciesCount = $this->getVendorCount('Pharmacy');
-        $homeCaresCount = $this->getVendorCount('Home Care');
-        $labsCount = $this->getVendorCount('Lab');
+        $hospitalsCount = $this->getVendorCount(VendorTypeConstants::HOSPITAL->value);
+        $clinicsCount = $this->getVendorCount(VendorTypeConstants::CLINIC->value);
+        $pharmaciesCount = $this->getVendorCount(VendorTypeConstants::PHARMACY->value);
+        $homeCaresCount = $this->getVendorCount(VendorTypeConstants::HOMECARE->value);
+        $labsCount = $this->getVendorCount(VendorTypeConstants::LAB->value);
         $totalTransactions = 0;
         $totalRevenues = 0;
         return view('dashboard.home.admin-overview', compact([
