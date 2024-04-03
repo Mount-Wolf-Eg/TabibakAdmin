@@ -12,7 +12,8 @@
                 {!! Form::hidden('notable_id', $consultation->id) !!}
                 {!! Form::hidden('notable_type', 'Consultation') !!}
                 <div class="col-lg-12">
-                    {!! Form::textarea('text' , old('note'), ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::textarea('text' , old('text'), ['class' => 'form-control', 'required' => 'required', 'id' => 'note', 'maxlength' => 500]) !!}
+                    <div id="noteTextCounter" class="text-end"></div>
                     @error("text")
                         <span class="text-danger">{{$message}}</span>
                     @enderror
@@ -26,3 +27,15 @@
     </div>
 </div>
 {!! Form::close() !!}
+@push('scripts')
+    <script>
+        const textarea = document.getElementById("note");
+        const charCount = document.getElementById("noteTextCounter");
+        let currentLength = textarea.value.length;
+        charCount.textContent = `${currentLength}/500`;
+        textarea.addEventListener("input", () => {
+            currentLength = textarea.value.length;
+            charCount.textContent = `${currentLength}/500`;
+        });
+    </script>
+@endpush
