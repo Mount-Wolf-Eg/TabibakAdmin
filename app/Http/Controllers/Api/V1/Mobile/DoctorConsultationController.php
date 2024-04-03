@@ -37,7 +37,7 @@ class DoctorConsultationController extends BaseApiController
         try {
             if (!$consultation->isMineAsDoctor())
                 abort(403, __('messages.not_allowed'));
-            $this->relations = array_merge($this->relations, ['attachments', 'diseases', 'medicalSpeciality', 'vendors']);
+            $this->relations = array_merge($this->relations, ['attachments', 'medicalSpeciality', 'vendors']);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());

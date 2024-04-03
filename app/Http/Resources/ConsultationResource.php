@@ -38,8 +38,6 @@ class ConsultationResource extends BaseResource
             'doctor_description' => $this->doctor_description,
             'medical_review' => $this->medical_review,
             'prescription' => $this->prescription,
-            'other_diseases' => $this->other_diseases,
-            'latest_surgeries' => $this->latest_surgeries,
             'amount' => $this->amount,
             'contact_type' => [
                 'value' => $this->contact_type?->value,

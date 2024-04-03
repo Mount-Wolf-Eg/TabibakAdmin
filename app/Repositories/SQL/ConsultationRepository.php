@@ -19,8 +19,6 @@ class ConsultationRepository extends BaseRepository implements ConsultationContr
 
     public function syncRelations($model, $relations): void
     {
-        if (!empty($relations['diseases']))
-            $model->diseases()->sync($relations['diseases']);
         if (!empty($relations['attachments'])){
             foreach ($relations['attachments'] as $attachment){
                 $fileModel = resolve(FileContract::class)->find($attachment);
