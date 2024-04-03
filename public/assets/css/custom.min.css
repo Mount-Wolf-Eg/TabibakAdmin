@@ -31,3 +31,6 @@ tr td {
     height: 400px !important;
     object-fit: cover;
 }
+.navbar-nav .simplebar-content-wrapper .simplebar-content {
+    padding: 0 !important;
+}

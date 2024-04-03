@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Constants\VendorTypeConstants;
 use App\Http\Controllers\Controller;
-use App\Models\Doctor;
-use App\Models\Patient;
 use App\Models\User;
 use App\Models\Vendor;
 use App\Repositories\Contracts\ConsultationContract;
