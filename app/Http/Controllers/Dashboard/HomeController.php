@@ -28,6 +28,11 @@ class HomeController extends Controller
         }
     }
 
+    public function home()
+    {
+        return redirect()->route('login');
+    }
+
     public function vendorOverview()
     {
         $totalConsultations = $this->consultationContract->freshRepo()
