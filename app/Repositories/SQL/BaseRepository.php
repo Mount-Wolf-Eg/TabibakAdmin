@@ -248,7 +248,7 @@ abstract class BaseRepository implements BaseContract
         // Check if has relations
         foreach ($model->getDefinedRelations() as $relation) {
             if ($model->$relation()->count()) {
-                throw new CantDeleteModelException(__("messages.errors.cannot_delete", ['model' => $this->modelName, 'relation' => $relation]));
+                throw new CantDeleteModelException(__("messages.errors.cannot_delete", ['model' => __('messages.modelSingle.' . lcfirst($this->modelName)), 'relation' => __('messages.' . $relation)]));
             }
         }
         $this->propertyLogActivity(
