@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('messages.close')}}</button>
+                <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">{{__('messages.close')}}</button>
                 <button type="submit" class="btn btn-primary">{{__('messages.save')}}</button>
             </div>
         </div>
@@ -29,13 +29,19 @@
 {!! Form::close() !!}
 @push('scripts')
     <script>
-        const textarea = document.getElementById("note");
-        const charCount = document.getElementById("noteTextCounter");
-        let currentLength = textarea.value.length;
-        charCount.textContent = `${currentLength}/500`;
-        textarea.addEventListener("input", () => {
-            currentLength = textarea.value.length;
-            charCount.textContent = `${currentLength}/500`;
+        $(document).ready(function() {
+            const textarea = $("#note");
+            const charCount = $("#noteTextCounter");
+            let currentLength = textarea.val().length;
+            charCount.text(`${currentLength}/500`);
+            textarea.on("input", () => {
+                currentLength = textarea.val().length;
+                charCount.text(`${currentLength}/500`);
+            });
+            $(".close").on("click", function(e) {
+                textarea.val("");
+                charCount.text("0/500");
+            });
         });
     </script>
 @endpush
