@@ -176,6 +176,8 @@ return [
         ],
     ],
     'profile_mimes' => 'Profile image should be only one of these extensions  (PNG - JPG - JPEG)',
+    'main_image_mimes' => 'Main image should be only one of these extensions  (PNG - JPG - JPEG)',
+    'images_mimes' => 'All images should be only one of these extensions  (PNG - JPG - JPEG)',
 
     /*
     |--------------------------------------------------------------------------

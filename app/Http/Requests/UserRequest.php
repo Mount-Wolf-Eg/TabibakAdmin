@@ -98,6 +98,7 @@ class UserRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'image.image' => __('validation.profile_mimes'),
             'image.mimes' => __('validation.profile_mimes'),
         ];
     }
