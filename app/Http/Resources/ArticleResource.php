@@ -34,6 +34,7 @@ class ArticleResource extends BaseResource
         ];
         $this->relations = [
             'main_image' => $this->relationLoaded('mainImage') ? new FileResource($this->mainImage) : null,
+            'images' => $this->relationLoaded('images') ? FileResource::collection($this->images) : null,
             'publisher' => $this->relationLoaded('publisher') ? new UserResource($this->publisher) : null,
             'author' => $this->relationLoaded('author') ? new UserResource($this->author) : null,
             'likes_count' => $this->relationLoaded('likes') ? $this->likes->count() : 0,

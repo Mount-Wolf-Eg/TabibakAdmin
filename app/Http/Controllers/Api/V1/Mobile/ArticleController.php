@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Api\V1\BaseApiController;
 use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\DoctorArticleRequest;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use App\Repositories\Contracts\ArticleContract;
@@ -24,7 +25,7 @@ class ArticleController extends BaseApiController
     {
         parent::__construct($contract, ArticleResource::class);
         $this->likeContract = $likeContract;
-        $this->relations = ['mainImage', 'author', 'likes'];
+        $this->relations = ['mainImage', 'author', 'likes', 'images'];
         $this->defaultScopes = ['isPublished'];
         $this->middleware('permission:create-article')->only(['store']);
         $this->middleware('permission:update-article')->only(['update']);
@@ -33,10 +34,10 @@ class ArticleController extends BaseApiController
 
     /**
      * Store a newly created resource in storage.
-     * @param ArticleRequest $request
+     * @param DoctorArticleRequest $request
      * @return JsonResponse
      */
-    public function store(ArticleRequest $request): JsonResponse
+    public function store(DoctorArticleRequest $request): JsonResponse
     {
         try {
             $article = $this->contract->create($request->validated());
@@ -64,11 +65,11 @@ class ArticleController extends BaseApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param ArticleRequest $request
+     * @param DoctorArticleRequest $request
      * @param Article $article
      * @return JsonResponse
      */
-    public function update(ArticleRequest $request, Article $article) : JsonResponse
+    public function update(DoctorArticleRequest $request, Article $article) : JsonResponse
     {
         try {
             $article = $this->contract->update($article, $request->validated());

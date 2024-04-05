@@ -38,8 +38,8 @@ return [
         'null' => 'nullable|string|min:3|max:500',
     ],
     'long_text' => [
-        'req' => 'required|string|min:10|max:2000',
-        'null' => 'nullable|string|min:10|max:2000',
+        'req' => 'required|string|min:3|max:2000',
+        'null' => 'nullable|string|min:3|max:2000',
     ],
     'extra_long_text' => [
         'req' => 'required|string|min:10|max:10000',
