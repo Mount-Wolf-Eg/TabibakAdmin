@@ -105,6 +105,9 @@
                                 @error("images")
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror
+                                @error("images.*")
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
                                 <br>
                                 @if(isset($article) && $article->images)
                                     <div class="row">

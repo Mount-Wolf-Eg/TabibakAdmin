@@ -6,89 +6,16 @@
     <x-breadcrumb title="{{__('messages.overview')}}" pagetitle="{{__('messages.tabibak')}}" route="{{route('overview')}}"/>
     <div class="col-xxl-12 col-lg-6 order-first">
         <div class="row row-cols-xxl-4 row-cols-1">
-            @php($components = [
-                'patients' => [
-                    'title' => __('messages.patients'),
-                    'count' => $patientsCount,
-                    'icon' => 'bi bi-person-badge',
-                    'color' => 'warning'
-                ],
-                'doctors' => [
-                    'title' => __('messages.doctors'),
-                    'count' => $doctorsCount,
-                    'icon' => 'bi bi-journal-plus',
-                    'color' => 'info'
-                ],
-                'vendors' => [
-                    'title' => __('messages.vendors'),
-                    'count' => $vendorsCount,
-                    'icon' => 'bi bi-houses',
-                    'color' => 'success'
-                ],
-                'hospitals' => [
-                    'title' => __('messages.hospitals'),
-                    'count' => $hospitalsCount,
-                    'icon' => 'bi bi-hospital',
-                    'color' => 'dark'
-                ],
-                'clinics' => [
-                    'title' => __('messages.clinics'),
-                    'count' => $clinicsCount,
-                    'icon' => 'bi bi-clipboard-pulse',
-                    'color' => 'primary'
-                ],
-                'pharmacies' => [
-                    'title' => __('messages.pharmacies'),
-                    'count' => $pharmaciesCount,
-                    'icon' => 'bi bi-prescription2',
-                    'color' => 'secondary'
-                ],
-                'home_cares' => [
-                    'title' => __('messages.Home_cares'),
-                    'count' => $homeCaresCount,
-                    'icon' => 'bi bi-chat-heart',
-                    'color' => 'danger'
-                ],
-                'labs' => [
-                    'title' => __('messages.labs'),
-                    'count' => $labsCount,
-                    'icon' => 'bi bi-stack',
-                    'color' => 'warning'
-                ],
-                'transactions' => [
-                    'title' => __('messages.total_transactions'),
-                    'count' => $totalTransactions,
-                    'icon' => 'bi bi-currency-exchange',
-                    'color' => 'secondary'
-                ],
-                'revenues' => [
-                    'title' => __('messages.total_revenues'),
-                    'count' => $totalRevenues,
-                    'icon' => 'bi bi-wallet',
-                    'color' => 'success'
-                ],
-            ])
-            @foreach($components as $ele)
-                <!-- card -->
-                <div class="col my-2">
-                    <div class="card card-animate">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <div class="vr rounded bg-{{$ele['color']}} opacity-50" style="width: 4px;"></div>
-                                <div class="flex-grow-1 {{ app()->getLocale() == 'ar' ? 'me-3' : 'ms-3' }}">
-                                    <p class="text-uppercase fw-medium text-{{$ele['color']}} fs-14 text-truncate">{{$ele['title']}}</p>
-                                    <h4 class="fs-22 fw-semibold mb-3">{{$ele['count']}}</h4>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                <span class="avatar-title bg-secondary-subtle text-{{$ele['color']}} rounded fs-3">
-                                    <i class="{{$ele['icon']}}"></i>
-                                </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+            <x-overview-card title="{{__('messages.patients')}}" icon="bi bi-person-badge" color="warning" count="{{$patientsCount}}" />
+            <x-overview-card title="{{__('messages.doctors')}}" icon="bi bi-journal-plus" color="info" count="{{$doctorsCount}}" />
+            <x-overview-card title="{{__('messages.vendors')}}" icon="bi bi-houses" color="success" count="{{$vendorsCount}}" />
+            <x-overview-card title="{{__('messages.hospitals')}}" icon="bi bi-hospital" color="dark" count="{{$hospitalsCount}}" />
+            <x-overview-card title="{{__('messages.clinics')}}" icon="bi bi-clipboard-pulse" color="primary" count="{{$clinicsCount}}" />
+            <x-overview-card title="{{__('messages.pharmacies')}}" icon="bi bi-prescription2" color="secondary" count="{{$pharmaciesCount}}" />
+            <x-overview-card title="{{__('messages.Home_cares')}}" icon="bi bi-chat-heart" color="danger" count="{{$homeCaresCount}}" />
+            <x-overview-card title="{{__('messages.labs')}}" icon="bi bi-stack" color="warning" count="{{$labsCount}}" />
+            <x-overview-card title="{{__('messages.total_transactions')}}" icon="bi bi-currency-exchange" color="secondary" count="{{$totalTransactions}}" />
+            <x-overview-card title="{{__('messages.total_revenues')}}" icon="bi bi-wallet" color="success" count="{{$totalRevenues}}" />
         </div>
     </div>
 @endsection

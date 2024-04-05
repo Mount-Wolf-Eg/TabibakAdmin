@@ -40,12 +40,12 @@ class ArticleRequest extends FormRequest
             'content.ar' => config('validations.long_text.req'),
             'content.en' => config('validations.long_text.req'),
             'images' => 'nullable|array',
-            'images.*' => 'nullable|'.config('validations.file.image').'|max:2048',
+            'images.*' => 'nullable|'.config('validations.file.image').'|mimes:jpeg,jpg,png|max:2048',
         ];
         if ($this->isMethod('post')) {
-            $rules['main_image'] = 'required|'.config('validations.file.image').'|required|max:2048';
+            $rules['main_image'] = 'required|'.config('validations.file.image').'|mimes:jpeg,jpg,png|max:2048';
         }else{
-            $rules['main_image'] = 'nullable|'.config('validations.file.image').'|max:2048';
+            $rules['main_image'] = 'nullable|'.config('validations.file.image').'|mimes:jpeg,jpg,png|max:2048';
         }
         return $rules;
     }
@@ -61,6 +61,9 @@ class ArticleRequest extends FormRequest
             'title.en' => __('messages.title_en'),
             'content.ar' => __('messages.content_ar'),
             'content.en' => __('messages.content_en'),
+            'main_image' => __('messages.image'),
+            'images' => __('messages.images'),
+            'images.*' => __('messages.image'),
         ];
     }
 
@@ -69,6 +72,11 @@ class ArticleRequest extends FormRequest
      */
     public function messages() : array
     {
-        return [];
+        return [
+            'main_image.image' => __('validation.main_image_mimes'),
+            'main_image.mimes' => __('validation.main_image_mimes'),
+            'images.*.image' => __('validation.images_mimes'),
+            'images.*.mimes' => __('validation.images_mimes'),
+        ];
     }
 }

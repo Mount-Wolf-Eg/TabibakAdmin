@@ -39,11 +39,11 @@ Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
-
     Route::middleware(['guest'])->group(function () {
+        Route::get('/', [HomeController::class, 'home'])->name('home');
         // Login
-        Route::get('/', [AuthController::class, 'login'])->name('login');
-        Route::post('/', [AuthController::class, 'checkCredentials'])->name('checkCredentials');
+        Route::get('login', [AuthController::class, 'login'])->name('login');
+        Route::post('check-credentials', [AuthController::class, 'checkCredentials'])->name('checkCredentials');
         // Reset Password
         Route::prefix('password')->group(function () {
             Route::get('request', [ForgetPasswordController::class, 'requestPassword'])->name('password.request');

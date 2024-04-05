@@ -24,7 +24,7 @@
                                             <a href="#" class="btn btn-link" data-bs-toggle="collapse"
                                                data-bs-target="#{{$module['0']['model']}}" aria-expanded="true"
                                                aria-controls="{{$module['0']['model']}}">
-                                                {{__('messages.role_models.' . lcfirst($module[0]['model']))}}
+                                                {{__('messages.models.' . lcfirst($module[0]['model']))}}
                                             </a>
                                         </h5>
                                     </div>
