@@ -55,6 +55,8 @@ Route::group(['middleware' => 'locale'], static function () {
                 Route::post('/{consultation}/referral', [DoctorConsultationController::class, 'referral']);
                 Route::post('/{consultation}/prescription', [DoctorConsultationController::class, 'prescription']);
                 Route::post('/{consultation}/approve-medical-report', [DoctorConsultationController::class, 'approveMedicalReport']);
+                Route::post('/{consultation}/accept-urgent-case', [DoctorConsultationController::class, 'acceptUrgentCase']);
+                Route::post('/{consultation}/cancel', [DoctorConsultationController::class, 'cancel']);
             });
         });
 

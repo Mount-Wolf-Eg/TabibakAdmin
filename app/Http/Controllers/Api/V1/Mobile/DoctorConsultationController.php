@@ -6,6 +6,7 @@ use App\Constants\ConsultationStatusConstants;
 use App\Http\Controllers\Api\V1\BaseApiController;
 use App\Http\Requests\ConsultationPrescriptionRequest;
 use App\Http\Requests\ConsultationReferralRequest;
+use App\Http\Requests\DoctorAcceptUrgentConsultationRequest;
 use App\Http\Resources\ConsultationResource;
 use App\Models\Consultation;
 use App\Repositories\Contracts\ConsultationContract;
@@ -53,7 +54,7 @@ class DoctorConsultationController extends BaseApiController
     public function referral(ConsultationReferralRequest $request, Consultation $consultation)
     {
         try {
-            if (!$consultation->isMineAsDoctor() || !$consultation->status->is(ConsultationStatusConstants::PENDING))
+            if (!$consultation->doctorCanDoReferral())
                 abort(403, __('messages.not_allowed'));
             $consultation = $this->contract->update($consultation, $request->validated());
             return $this->respondWithModel($consultation);
@@ -71,7 +72,7 @@ class DoctorConsultationController extends BaseApiController
     public function prescription(ConsultationPrescriptionRequest $request,Consultation $consultation)
     {
         try {
-            if (!$consultation->isMineAsDoctor() || !$consultation->status->is(ConsultationStatusConstants::PENDING))
+            if (!$consultation->doctorCanWritePrescription())
                 abort(403, __('messages.not_allowed'));
             $consultation = $this->contract->update($consultation, $request->validated());
             return $this->respondWithModel($consultation);
@@ -88,9 +89,33 @@ class DoctorConsultationController extends BaseApiController
     public function approveMedicalReport(Consultation $consultation)
     {
         try {
-            if (!$consultation->isMineAsDoctor() || !$consultation->status->is(ConsultationStatusConstants::PENDING))
+            if (!$consultation->doctorCanApproveMedicalReport())
                 abort(403, __('messages.not_allowed'));
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
+            return $this->respondWithModel($consultation);
+        }catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    public function acceptUrgentCase(DoctorAcceptUrgentConsultationRequest $request, Consultation $consultation)
+    {
+        try {
+            if (!$consultation->doctorCanAcceptUrgentCase())
+                abort(403, __('messages.not_allowed'));
+            $consultation = $this->contract->update($consultation, $request->validated());
+            return $this->respondWithModel($consultation);
+        }catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    public function cancel(Consultation $consultation)
+    {
+        try {
+            if (!$consultation->doctorCanCancel())
+                abort(403, __('messages.not_allowed'));
+            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::CANCELLED->value]);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());

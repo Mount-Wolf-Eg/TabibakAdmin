@@ -369,4 +369,5 @@ return [
     'already' => 'موجود بالفعل',
     'no_medicines' => 'لا توجد أدوية',
     'doctor_approved_medical_report' => 'تم اعتماد التقرير الطبي',
+    'doctor_accepted_urgent_case' => 'تم قبول الحالة الطارئة',
 ];

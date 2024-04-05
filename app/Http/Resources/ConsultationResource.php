@@ -54,6 +54,13 @@ class ConsultationResource extends BaseResource
             'reminder_at' => $this->reminder_at?->format('Y-m-d H:i:s'),
             'transfer_reason' => $this->transfer_reason,
             'transfer_notes' => $this->transfer_notes,
+            'is_mine_as_patient' => $this->isMineAsPatient(),
+            'is_mine_as_doctor' => $this->isMineAsDoctor(),
+            'doctor_can_do_referral' => $this->doctorCanDoReferral(),
+            'doctor_can_write_prescription' => $this->doctorCanWritePrescription(),
+            'doctor_can_approve_medical_report' => $this->doctorCanApproveMedicalReport(),
+            'doctor_can_cancel' => $this->doctorCanCancel(),
+            'doctor_can_accept_urgent_case' => $this->doctorCanAcceptUrgentCase(),
         ];
         $this->relations = [
             'attachments' => $this->relationLoaded('attachments') ? FileResource::collection($this->attachments) : [],

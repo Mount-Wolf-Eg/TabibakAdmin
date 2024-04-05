@@ -26,8 +26,9 @@ class Consultation extends Model
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['doctor_id', 'patient_id', 'status', 'medical_speciality_id',
         'patient_description', 'doctor_description', 'medical_review', 'prescription', 'type',
-        'doctor_schedule_day_shift_id', 'contact_type', 'reminder_at', 'transfer_reason',
-        'transfer_notes', 'transfer_case_rate', 'payment_type', 'amount', 'coupon_id', 'is_active'];
+        'doctor_schedule_day_shift_id', 'doctor_set_urgent_at', 'contact_type', 'reminder_at',
+        'transfer_reason', 'transfer_notes', 'transfer_case_rate', 'payment_type', 'amount',
+        'coupon_id', 'is_active'];
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
         'myVendorStatus', 'creationDate', 'status', 'completed'];
@@ -215,6 +216,39 @@ class Consultation extends Model
     {
         return $this->vendors->where('id', $vendorId)
             ->where('pivot.status', ConsultationVendorStatusConstants::PENDING->value)->isNotEmpty();
+    }
+
+    public function doctorCanCancel(): bool
+    {
+        return $this->isMineAsDoctor() && $this->status->is(ConsultationStatusConstants::PENDING);
+    }
+
+    public function doctorCanDoReferral(): bool
+    {
+        if ($this->isMineAsDoctor())
+        {
+            if ($this->type->is(ConsultationTypeConstants::URGENT))
+            {
+                return $this->status->is(ConsultationStatusConstants::DOCTOR_ACCEPTED_URGENT_CASE);
+            }
+            return $this->status->is(ConsultationStatusConstants::PENDING);
+        }
+        return false;
+    }
+
+    public function doctorCanWritePrescription(): bool
+    {
+        return $this->doctorCanDoReferral();
+    }
+
+    public function doctorCanApproveMedicalReport(): bool
+    {
+        return $this->doctorCanDoReferral();
+    }
+
+    public function doctorCanAcceptUrgentCase(): bool
+    {
+        return $this->isMineAsDoctor() && $this->status->is(ConsultationStatusConstants::PENDING);
     }
 
     public function getVendorStatusColor($vendorId): string

@@ -370,4 +370,5 @@ return [
     'already' => 'Already',
     'no_medicines' => 'No Medicines',
     'doctor_approved_medical_report' => 'Doctor Approved Medical Report',
+    'doctor_accepted_urgent_case' => 'Doctor Accepted Urgent Case'
 ];
