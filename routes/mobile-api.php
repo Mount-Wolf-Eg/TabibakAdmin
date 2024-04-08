@@ -39,7 +39,11 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::put('update-medical-records', [PatientProfileController::class, 'updateMedicalRecords']);
             Route::apiResource('relatives', PatientRelativeController::class);
             Route::apiResource('consultations', PatientConsultationController::class);
-            Route::put('consultations/{consultation}/cancel', [PatientConsultationController::class, 'cancel']);
+            Route::controller(DoctorConsultationController::class)->prefix('consultations')->group(static function () {
+                Route::put('/{consultation}/cancel', [PatientConsultationController::class, 'cancel']);
+                Route::post('/{consultation}/approve-urgent-doctor-offer', [PatientConsultationController::class, 'approveUrgentDoctorOffer']);
+                Route::post('/{consultation}/reject-urgent-doctor-offer', [PatientConsultationController::class, 'rejectUrgentDoctorOffer']);
+            });
             Route::apiResource('rates', RateController::class)->only('store', 'update', 'destroy');
             Route::apiResource('complaints', ComplaintController::class)->only('store', 'show', 'update', 'destroy');
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('index');

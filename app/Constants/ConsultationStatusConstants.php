@@ -8,15 +8,17 @@ enum ConsultationStatusConstants : int
     use ConstantsTrait;
 
     case PENDING = 1;
-    case DOCTOR_ACCEPTED_URGENT_CASE = 2;
-    case DOCTOR_APPROVED_MEDICAL_REPORT = 3;
-    case CANCELLED = 4;
+    case URGENT_HAS_DOCTORS_REPLIES = 2;
+    case URGENT_PATIENT_APPROVE_DOCTOR_OFFER = 3;
+    case DOCTOR_APPROVED_MEDICAL_REPORT = 4;
+    case CANCELLED = 5;
 
     public static function getLabels($value): string
     {
         return match ($value) {
             self::PENDING => __('messages.pending'),
-            self::DOCTOR_ACCEPTED_URGENT_CASE => __('messages.doctor_accepted_urgent_case'),
+            self::URGENT_HAS_DOCTORS_REPLIES => __('messages.urgent_has_doctors_replies'),
+            self::URGENT_PATIENT_APPROVE_DOCTOR_OFFER => __('messages.urgent_patient_approve_doctor_offer'),
             self::DOCTOR_APPROVED_MEDICAL_REPORT => __('messages.doctor_approved_medical_report'),
             self::CANCELLED => __('messages.cancelled')
         };

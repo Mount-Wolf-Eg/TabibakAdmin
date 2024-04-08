@@ -38,7 +38,7 @@ class DoctorConsultationController extends BaseApiController
         try {
             if (!$consultation->isMineAsDoctor())
                 abort(403, __('messages.not_allowed'));
-            $this->relations = array_merge($this->relations, ['attachments', 'medicalSpeciality', 'vendors']);
+            $this->relations = array_merge($this->relations, ['attachments', 'medicalSpeciality', 'vendors', 'patient.diseases']);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
@@ -103,7 +103,8 @@ class DoctorConsultationController extends BaseApiController
         try {
             if (!$consultation->doctorCanAcceptUrgentCase())
                 abort(403, __('messages.not_allowed'));
-            $consultation = $this->contract->update($consultation, $request->validated());
+            $this->contract->sync($consultation, 'replies', $request->validated());
+            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES->value]);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());

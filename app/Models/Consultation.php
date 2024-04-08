@@ -10,6 +10,7 @@ use App\Constants\ConsultationTypeConstants;
 use App\Constants\ConsultationVendorStatusConstants;
 use App\Constants\FileConstants;
 use App\Constants\ReminderConstants;
+use App\Constants\ConsultationPatientStatusConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -26,12 +27,12 @@ class Consultation extends Model
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['doctor_id', 'patient_id', 'status', 'medical_speciality_id',
         'patient_description', 'doctor_description', 'medical_review', 'prescription', 'type',
-        'doctor_schedule_day_shift_id', 'doctor_set_urgent_at', 'contact_type', 'reminder_at',
-        'transfer_reason', 'transfer_notes', 'transfer_case_rate', 'payment_type', 'amount',
+        'doctor_schedule_day_shift_id', 'contact_type', 'reminder_at', 'transfer_reason',
+        'transfer_notes', 'transfer_case_rate', 'payment_type', 'amount',
         'coupon_id', 'is_active'];
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
-        'myVendorStatus', 'creationDate', 'status', 'completed'];
+        'myVendorStatus', 'creationDate', 'status', 'completed', 'urgentWithNoDoctor'];
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];
@@ -88,6 +89,12 @@ class Consultation extends Model
     public function notes(): MorphMany
     {
         return $this->morphMany(Note::class, 'notable');
+    }
+
+    public function replies(): BelongsToMany
+    {
+        return $this->belongsToMany(Doctor::class, 'consultation_doctor_replies')
+            ->withPivot('doctor_set_consultation_at', 'amount', 'status')->withTimestamps();
     }
     //---------------------relations-------------------------------------
 
@@ -162,6 +169,15 @@ class Consultation extends Model
         return $query->ofStatus(ConsultationStatusConstants::PENDING->value);
     }
 
+    public function scopeOfUrgentWithNoDoctor($query)
+    {
+        return $query->where('type', ConsultationTypeConstants::URGENT)
+            ->where(function ($q) {
+                $q->whereHas('replies', fn($q) => $q->where('status', '!=', ConsultationPatientStatusConstants::APPROVED->value))
+                    ->orWhereDoesntHave('replies');
+            })
+            ->whereNull('doctor_id');
+    }
     //---------------------Scopes-------------------------------------
 
     //---------------------constants-------------------------------------
@@ -229,7 +245,7 @@ class Consultation extends Model
         {
             if ($this->type->is(ConsultationTypeConstants::URGENT))
             {
-                return $this->status->is(ConsultationStatusConstants::DOCTOR_ACCEPTED_URGENT_CASE);
+                return $this->status->is(ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER);
             }
             return $this->status->is(ConsultationStatusConstants::PENDING);
         }
@@ -248,7 +264,16 @@ class Consultation extends Model
 
     public function doctorCanAcceptUrgentCase(): bool
     {
-        return $this->isMineAsDoctor() && $this->status->is(ConsultationStatusConstants::PENDING);
+        return ($this->status->is(ConsultationStatusConstants::PENDING)
+                || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES));
+    }
+
+    public function patientCanChangeDoctorStatusOffer($doctorId): bool
+    {
+        return ($this->status->is(ConsultationStatusConstants::PENDING)
+            || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES))
+            && $this->replies->where('id', $doctorId)
+                ->where('pivot.status', ConsultationPatientStatusConstants::PENDING->value)->isNotEmpty();
     }
 
     public function getVendorStatusColor($vendorId): string

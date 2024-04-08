@@ -370,5 +370,8 @@ return [
     'already' => 'Already',
     'no_medicines' => 'No Medicines',
     'doctor_approved_medical_report' => 'Doctor Approved Medical Report',
-    'doctor_accepted_urgent_case' => 'Doctor Accepted Urgent Case'
+    'doctor_accepted_urgent_case' => 'Doctor Accepted Urgent Case',
+    'patient_accepted_doctor_offer' => 'Patient Accepted Doctor Offer',
+    'urgent_has_doctors_replies' => 'Has Doctors Replies',
+    'urgent_patient_approve_doctor_offer' => 'Patient Approve Doctor Offer',
 ];

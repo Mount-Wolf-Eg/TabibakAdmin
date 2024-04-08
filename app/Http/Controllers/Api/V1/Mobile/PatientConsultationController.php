@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Constants\ConsultationStatusConstants;
 use App\Http\Controllers\Api\V1\BaseApiController;
 use App\Http\Requests\ConsultationRequest;
+use App\Http\Requests\PatientUrgentApproveRequest;
+use App\Http\Requests\PatientUrgentRejectRequest;
 use App\Http\Resources\ConsultationResource;
 use App\Models\Consultation;
 use App\Repositories\Contracts\ConsultationContract;
@@ -114,4 +116,41 @@ class PatientConsultationController extends BaseApiController
             return $this->respondWithError($e->getMessage());
         }
     }
+
+    /**
+     * approve urgent doctor offer
+     * @param PatientUrgentApproveRequest $request
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
+    public function approveUrgentDoctorOffer(PatientUrgentApproveRequest $request, Consultation $consultation)
+    {
+        try {
+            $data = $request->validated();
+            $consultation = $this->contract->update($consultation, ['doctor_id' => $data['doctor_id'],
+                'status' => ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value]);
+            $this->contract->sync($consultation, 'replies', $data['replies']);
+            return $this->respondWithModel($consultation);
+        }catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * reject urgent doctor offer
+     * @param PatientUrgentRejectRequest $request
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
+    public function rejectUrgentDoctorOffer(PatientUrgentRejectRequest $request, Consultation $consultation)
+    {
+        try {
+            $data = $request->validated();
+            $this->contract->sync($consultation, 'replies', $data['replies']);
+            return $this->respondWithModel($consultation);
+        }catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
 }

@@ -11,22 +11,24 @@ class DoctorAcceptUrgentConsultationRequest extends FormRequest
 
     public function authorize(): bool
     {
-        return true;
+        return (bool) auth()->user()->doctor;
     }
 
-    public function validated($key = null, $default = null)
+    public function validated($key = null, $default = null): array
     {
         $data = parent::validated();
-        $data['doctor_id'] = auth()->user()->doctor?->id;
-        $data['status'] = ConsultationStatusConstants::DOCTOR_ACCEPTED_URGENT_CASE->value;
-        $data['doctor_set_urgent_at'] = Carbon::parse($data['doctor_set_urgent_at']);
-        return $data;
+        return [
+            auth()->user()->doctor->id => [
+                'doctor_set_consultation_at' => Carbon::parse($data['doctor_set_consultation_at']),
+                'amount' => $data['amount'],
+            ]
+        ];
     }
 
     public function rules(): array
     {
         return [
-            'doctor_set_urgent_at' => config('validations.datetime.req').'|after_or_equal:now',
+            'doctor_set_consultation_at' => config('validations.datetime.req').'|after_or_equal:now',
             'amount' => config('validations.integer.req'),
         ];
     }
