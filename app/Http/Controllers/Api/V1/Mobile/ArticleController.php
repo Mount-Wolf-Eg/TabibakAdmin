@@ -25,7 +25,7 @@ class ArticleController extends BaseApiController
     {
         parent::__construct($contract, ArticleResource::class);
         $this->likeContract = $likeContract;
-        $this->relations = ['mainImage', 'author', 'likes', 'images'];
+        $this->relations = ['mainImage', 'author', 'likes', 'images', 'author.doctor.medicalSpecialities'];
         $this->defaultScopes = ['isPublished'];
         $this->middleware('permission:create-article')->only(['store']);
         $this->middleware('permission:update-article')->only(['update']);
