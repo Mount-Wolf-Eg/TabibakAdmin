@@ -107,7 +107,15 @@ class Consultation extends Model
 
     public function scopeOfMineAsDoctor($query)
     {
-        return $query->where('doctor_id', auth()->user()->doctor?->id)->whereNotNull('doctor_id');
+        return $query->where(function ($q) {
+            $q->where('doctor_id', auth()->user()->doctor?->id)->whereNotNull('doctor_id');
+            $q->orWhere(function ($q) {
+                $q->where('type', ConsultationTypeConstants::URGENT)
+                    ->whereIn('status', [ConsultationStatusConstants::PENDING,
+                        ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES])
+                    ->whereNull('doctor_id');
+            });
+        });
     }
 
     public function scopeOfMineAsVendor($query)
@@ -162,7 +170,7 @@ class Consultation extends Model
     public function scopeOfCompleted($query, $value = "true")
     {
         $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
-        if ($value){
+        if ($value) {
             return $query->ofStatus([ConsultationStatusConstants::CANCELLED->value,
                 ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
         }
@@ -186,7 +194,7 @@ class Consultation extends Model
         return ConsultationTypeConstants::valuesCollection();
     }
 
-    public static function  paymentMethods(): array
+    public static function paymentMethods(): array
     {
         return ConsultationPaymentTypeConstants::valuesCollection();
     }
@@ -241,10 +249,8 @@ class Consultation extends Model
 
     public function doctorCanDoReferral(): bool
     {
-        if ($this->isMineAsDoctor())
-        {
-            if ($this->type->is(ConsultationTypeConstants::URGENT))
-            {
+        if ($this->isMineAsDoctor()) {
+            if ($this->type->is(ConsultationTypeConstants::URGENT)) {
                 return $this->status->is(ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER);
             }
             return $this->status->is(ConsultationStatusConstants::PENDING);
@@ -265,13 +271,13 @@ class Consultation extends Model
     public function doctorCanAcceptUrgentCase(): bool
     {
         return ($this->status->is(ConsultationStatusConstants::PENDING)
-                || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES));
+            || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES));
     }
 
     public function patientCanChangeDoctorStatusOffer($doctorId): bool
     {
         return ($this->status->is(ConsultationStatusConstants::PENDING)
-            || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES))
+                || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES))
             && $this->replies->where('id', $doctorId)
                 ->where('pivot.status', ConsultationPatientStatusConstants::PENDING->value)->isNotEmpty();
     }
@@ -280,7 +286,7 @@ class Consultation extends Model
     {
         $vendor = $this->vendors->where('id', $vendorId)->first();
         if ($vendor) {
-            $case =  ConsultationVendorStatusConstants::tryFrom($vendor->pivot->status);
+            $case = ConsultationVendorStatusConstants::tryFrom($vendor->pivot->status);
             if ($case) {
                 return $case->color();
             }
@@ -292,7 +298,7 @@ class Consultation extends Model
     {
         $vendor = $this->vendors->where('id', $vendorId)->first();
         if ($vendor) {
-            $case =  ConsultationVendorStatusConstants::tryFrom($vendor->pivot->status);
+            $case = ConsultationVendorStatusConstants::tryFrom($vendor->pivot->status);
             if ($case) {
                 return $case->label();
             }
