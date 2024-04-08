@@ -27,6 +27,7 @@ class PatientResource extends BaseResource
         ];
         $this->full = [
             'date_of_birth' => $this->date_of_birth?->format('Y-m-d'),
+            'age' => $this->age,
             'national_id' => $this->national_id,
             'social_status' => [
                 'value' => $this->social_status?->value,

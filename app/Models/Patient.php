@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Constants\PatientBloodTypeConstants;
 use App\Constants\PatientSocialStatusConstants;
+use App\Constants\UserGenderConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
 use Carbon\Carbon;
@@ -26,7 +27,7 @@ class Patient extends Model
     protected array $searchable = ['user.name'];
     protected array $dates = ['date_of_birth'];
     public array $filterModels = ['Disease'];
-    public array $filterCustom = ['socialStatuses', 'bloodTypes'];
+    public array $filterCustom = ['socialStatuses', 'bloodTypes', 'genders'];
     public array $translatable = [];
     protected $with = ['user'];
     protected $casts = [
@@ -76,13 +77,18 @@ class Patient extends Model
 
     public static function bloodTypes(): array
     {
-        return PatientSocialStatusConstants::valuesCollection();
+        return PatientBloodTypeConstants::valuesCollection();
+    }
+
+    public static function genders(): array
+    {
+        return UserGenderConstants::valuesCollection();
     }
 
     public function age(): Attribute
     {
-        return new Attribute(function ($value) {
-            return Carbon::parse($value)->age;
+        return new Attribute(function () {
+            return Carbon::parse($this->date_of_birth)->age;
         });
     }
 }

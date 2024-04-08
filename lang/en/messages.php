@@ -374,4 +374,6 @@ return [
     'patient_accepted_doctor_offer' => 'Patient Accepted Doctor Offer',
     'urgent_has_doctors_replies' => 'Has Doctors Replies',
     'urgent_patient_approve_doctor_offer' => 'Patient Approve Doctor Offer',
+    'male' => 'Male',
+    'female' => 'Female'
 ];

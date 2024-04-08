@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Constants\FileConstants;
+use App\Constants\UserGenderConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -22,7 +23,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasTranslations,
         HasRoles, HasPermissions, ModelTrait, SearchTrait;
 
-	protected $fillable = ['name', 'username', 'email', 'password', 'phone',
+	protected $fillable = ['name', 'username', 'email', 'password', 'phone', 'gender',
         'verification_code', 'phone_verified_at', 'is_active'];
     protected array $filters = ['keyword', 'role', 'roleName', 'email', 'active'];
     public array $filterModels = ['Role'];
@@ -30,7 +31,6 @@ class User extends Authenticatable
     protected array $searchable = ['name', 'email'];
     public array $translatable = ['name'];
     protected $with = ['avatar'];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -46,6 +46,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
+        'gender' => UserGenderConstants::class
     ];
 
     //---------------------relations-------------------------------------

@@ -38,6 +38,7 @@ class UserRequest extends FormRequest
         $validated['user']['phone'] = $validated['phone'] ?? null;
         $validated['user']['image'] = $validated['image'] ?? null;
         $validated['user']['password'] = $validated['password'] ?? null;
+        $validated['user']['gender'] = $validated['gender'] ?? null;
         $validated['user']['role_id'] = resolve(RoleContract::class)->findBy('name', $role)?->id;
         unset($validated['name'], $validated['email'], $validated['phone'], $validated['password']);
         return $validated;

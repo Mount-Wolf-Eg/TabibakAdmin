@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Constants\PatientSocialStatusConstants;
 use App\Constants\RoleNameConstants;
+use App\Constants\UserGenderConstants;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\JsonValidationTrait;
 
@@ -39,6 +40,7 @@ class PatientProfileRequest extends FormRequest
     {
         return [
             'name' => config('validations.string.req'),
+            'gender' => config('validations.integer.null').'|in:'. implode(',', UserGenderConstants::values()),
             'date_of_birth' => config('validations.date.req'),
             'phone' => config('validations.phone.req').'|unique:users,phone,'.auth()->id(),
             'national_id' => config('validations.string.null').'|unique:patients,national_id,'.auth()->user()->patient?->id,

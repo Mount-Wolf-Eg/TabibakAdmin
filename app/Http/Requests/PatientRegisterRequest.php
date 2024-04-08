@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Constants\RoleNameConstants;
+use App\Constants\UserGenderConstants;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -31,6 +32,7 @@ class PatientRegisterRequest extends FormRequest
     {
         return [
             'name' => config('validations.string.req'),
+            'gender' => config('validations.integer.null').'|in:'. implode(',', UserGenderConstants::values()),
             'national_id' => config('validations.integer.req'),
             'date_of_birth' => config('validations.date.req'),
             'phone' => config('validations.phone.req').'|unique:users,phone',

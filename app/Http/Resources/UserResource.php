@@ -24,6 +24,10 @@ class UserResource extends BaseResource
             'email' => $this->email,
         ];
         $this->full = [
+            'gender' => [
+                'value' => $this->gender?->value,
+                'label' => $this->gender?->label(),
+            ],
             $this->mergeWhen(isset($this->api_token), [
                 'token' => $this->api_token,
             ]),

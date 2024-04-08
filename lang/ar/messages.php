@@ -370,4 +370,9 @@ return [
     'no_medicines' => 'لا توجد أدوية',
     'doctor_approved_medical_report' => 'تم اعتماد التقرير الطبي',
     'doctor_accepted_urgent_case' => 'تم قبول الحالة الطارئة',
+    'patient_accepted_doctor_offer' => 'تم قبول عرض الطبيب',
+    'urgent_has_doctors_replies' => 'الحالة الطارئة لديها ردود من الأطباء',
+    'urgent_patient_approve_doctor_offer' => 'الحالة الطارئة تحتاج موافقة المريض على عرض الطبيب',
+    'male' => 'ذكر',
+    'female' => 'أنثى',
 ];
