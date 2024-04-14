@@ -37,10 +37,10 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::put('update-medical-records', [PatientProfileController::class, 'updateMedicalRecords']);
             Route::apiResource('relatives', PatientRelativeController::class);
             Route::apiResource('consultations', PatientConsultationController::class);
-            Route::controller(DoctorConsultationController::class)->prefix('consultations')->group(static function () {
-                Route::put('/{consultation}/cancel', [PatientConsultationController::class, 'cancel']);
-                Route::post('/{consultation}/approve-urgent-doctor-offer', [PatientConsultationController::class, 'approveUrgentDoctorOffer']);
-                Route::post('/{consultation}/reject-urgent-doctor-offer', [PatientConsultationController::class, 'rejectUrgentDoctorOffer']);
+            Route::controller(PatientConsultationController::class)->prefix('consultations')->group(static function () {
+                Route::put('/{consultation}/cancel',  'cancel');
+                Route::post('/{consultation}/approve-urgent-doctor-offer', 'approveUrgentDoctorOffer');
+                Route::post('/{consultation}/reject-urgent-doctor-offer',  'rejectUrgentDoctorOffer');
             });
             Route::apiResource('rates', RateController::class)->only('store', 'update', 'destroy');
             Route::apiResource('complaints', ComplaintController::class)->only('store', 'show', 'update', 'destroy');
@@ -52,13 +52,14 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::apiResource('articles', ArticleController::class)->only('store', 'update', 'destroy');
             Route::put('articles/{article}/change-activation', [ArticleController::class, 'changeActivation'])->name('articles.active');
             Route::apiResource('vendors', VendorController::class)->only('index');
+            Route::get('/consultations/statistics', [DoctorConsultationController::class, 'statistics']);
             Route::apiResource('consultations', DoctorConsultationController::class)->only('index', 'show');
             Route::controller(DoctorConsultationController::class)->prefix('consultations')->group(static function () {
-                Route::post('/{consultation}/referral', [DoctorConsultationController::class, 'referral']);
-                Route::post('/{consultation}/prescription', [DoctorConsultationController::class, 'prescription']);
-                Route::post('/{consultation}/approve-medical-report', [DoctorConsultationController::class, 'approveMedicalReport']);
-                Route::post('/{consultation}/accept-urgent-case', [DoctorConsultationController::class, 'acceptUrgentCase']);
-                Route::post('/{consultation}/cancel', [DoctorConsultationController::class, 'cancel']);
+                Route::post('/{consultation}/referral','referral');
+                Route::post('/{consultation}/prescription', 'prescription');
+                Route::post('/{consultation}/approve-medical-report', 'approveMedicalReport');
+                Route::post('/{consultation}/accept-urgent-case', 'acceptUrgentCase');
+                Route::post('/{consultation}/cancel', 'cancel');
             });
         });
 

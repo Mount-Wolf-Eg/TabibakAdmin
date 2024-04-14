@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Constants\ConsultationStatusConstants;
+use App\Constants\ConsultationTypeConstants;
 use App\Http\Controllers\Api\V1\BaseApiController;
 use App\Http\Requests\ConsultationPrescriptionRequest;
 use App\Http\Requests\ConsultationReferralRequest;
@@ -23,7 +24,7 @@ class DoctorConsultationController extends BaseApiController
     public function __construct(ConsultationContract $contract)
     {
         $this->middleware('role:doctor');
-        $this->defaultScopes = ['mineAsDoctor' => true];
+        $this->defaultScopes = ['doctorsList' => true];
         $this->relations = ['patient', 'doctorScheduleDayShift', 'doctor.rates'];
         parent::__construct($contract, ConsultationResource::class);
     }
@@ -98,6 +99,12 @@ class DoctorConsultationController extends BaseApiController
         }
     }
 
+    /**
+     * Accept urgent case for the consultation.
+     * @param DoctorAcceptUrgentConsultationRequest $request
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
     public function acceptUrgentCase(DoctorAcceptUrgentConsultationRequest $request, Consultation $consultation)
     {
         try {
@@ -111,6 +118,11 @@ class DoctorConsultationController extends BaseApiController
         }
     }
 
+    /**
+     * Cancel the consultation.
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
     public function cancel(Consultation $consultation)
     {
         try {
@@ -123,4 +135,22 @@ class DoctorConsultationController extends BaseApiController
         }
     }
 
+    /**
+     * Doctor statistics.
+     * @return JsonResponse
+     */
+    public function statistics()
+    {
+        try {
+            $calendarCases = $this->contract->freshRepo()->countWithFilters(['mineAsDoctor' => true, 'type' => ConsultationTypeConstants::WITH_APPOINTMENT->value]);
+            $urgentCases = $this->contract->freshRepo()->countWithFilters(['mineAsDoctor' => true, 'type' => ConsultationTypeConstants::URGENT->value]);
+            return $this->respondWithArray([
+                'calendar_cases' => $calendarCases,
+                'urgent_cases' => $urgentCases,
+                'total_cases' => $calendarCases + $urgentCases,
+            ]);
+        }catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
 }

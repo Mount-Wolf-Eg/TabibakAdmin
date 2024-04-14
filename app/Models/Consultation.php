@@ -32,7 +32,8 @@ class Consultation extends Model
         'coupon_id', 'is_active'];
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
-        'myVendorStatus', 'creationDate', 'status', 'completed', 'urgentWithNoDoctor'];
+        'myVendorStatus', 'creationDate', 'status', 'completed', 'urgentWithNoDoctor',
+        'doctorsList', 'doctor'];
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];
@@ -105,7 +106,7 @@ class Consultation extends Model
         return $query->where('patient_id', auth()->user()->patient?->id)->whereNotNull('patient_id');
     }
 
-    public function scopeOfMineAsDoctor($query)
+    public function scopeOfDoctorsList($query)
     {
         return $query->where(function ($q) {
             $q->where('doctor_id', auth()->user()->doctor?->id)->whereNotNull('doctor_id');
@@ -116,6 +117,17 @@ class Consultation extends Model
                     ->whereNull('doctor_id');
             });
         });
+    }
+
+    public function scopeOfMineAsDoctor($query)
+    {
+        return $query->ofDoctor(auth()->user()->doctor?->id)
+            ->whereNotNull('doctor_id');
+    }
+
+    public function scopeOfDoctor($query)
+    {
+        return $query->where('doctor_id', auth()->user()->doctor?->id);
     }
 
     public function scopeOfMineAsVendor($query)
@@ -137,11 +149,6 @@ class Consultation extends Model
         return $query->whereHas('vendors', function ($q) {
             $q->where('status', ConsultationVendorStatusConstants::REJECTED->value);
         });
-    }
-
-    public function scopeOfDoctor($query, $doctorId)
-    {
-        return $query->where('doctor_id', $doctorId);
     }
 
     public function scopeOfType($query, $type)
