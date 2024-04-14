@@ -88,7 +88,7 @@ class ArticleController extends BaseApiController
     {
         try {
             $this->contract->remove($article);
-            return $this->respondWithSuccess(__('messages.deleted'));
+            return $this->respondWithSuccess(__('messages.actions_messages.delete_success'));
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
