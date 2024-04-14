@@ -26,8 +26,6 @@ class PatientResource extends BaseResource
             'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
         ];
         $this->full = [
-            'date_of_birth' => $this->date_of_birth?->format('Y-m-d'),
-            'age' => $this->age,
             'national_id' => $this->national_id,
             'social_status' => [
                 'value' => $this->social_status?->value,

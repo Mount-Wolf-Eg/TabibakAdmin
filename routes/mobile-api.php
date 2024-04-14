@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\Mobile\ArticleController;
 use App\Http\Controllers\Api\V1\Mobile\AuthController;
 use App\Http\Controllers\Api\V1\Mobile\ComplaintController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorConsultationController;
+use App\Http\Controllers\Api\V1\Mobile\DoctorProfileController;
 use App\Http\Controllers\Api\V1\Mobile\PatientConsultationController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorScheduleDayController;
@@ -49,6 +50,7 @@ Route::group(['middleware' => 'locale'], static function () {
 
         Route::post('register-user-as-doctor', [AuthController::class, 'registerUserAsDoctor']);
         Route::group(['prefix' => 'doctor'], static function () {
+            Route::put('update-main-info', [DoctorProfileController::class, 'updateMainInfo']);
             Route::apiResource('articles', ArticleController::class)->only('store', 'update', 'destroy');
             Route::put('articles/{article}/change-activation', [ArticleController::class, 'changeActivation'])->name('articles.active');
             Route::apiResource('vendors', VendorController::class)->only('index');

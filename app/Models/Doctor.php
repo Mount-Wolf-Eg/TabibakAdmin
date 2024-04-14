@@ -86,31 +86,31 @@ class Doctor extends Model
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
-    public function scopeOfRequestStatus($query, $value): void
+    public function scopeOfRequestStatus($query, $value)
     {
-        $query->where('request_status', $value);
+        return $query->where('request_status', $value);
     }
 
-    public function scopeOfMedicalSpeciality($query, $value): void
+    public function scopeOfMedicalSpeciality($query, $value)
     {
-        $query->whereHas('medicalSpecialities', function ($q) use ($value) {
+        return $query->whereHas('medicalSpecialities', function ($q) use ($value) {
             $q->whereIn('medical_speciality_id', (array)$value);
         });
     }
 
-    public function scopeOfAcademicDegree($query, $value): void
+    public function scopeOfAcademicDegree($query, $value)
     {
-        $query->where('academic_degree_id', (array)$value);
+        return $query->where('academic_degree_id', (array)$value);
     }
 
-    public function scopeOfCity($query, $value): void
+    public function scopeOfCity($query, $value)
     {
-        $query->where('city_id', (array)$value);
+        return $query->where('city_id', (array)$value);
     }
 
-    public function scopeOfTopRated($query): void
+    public function scopeOfTopRated($query)
     {
-        $query->withAvg('rates', 'value')->orderBy('rates_avg_value', 'desc');
+        return $query->withAvg('rates', 'value')->orderBy('rates_avg_value', 'desc');
     }
     //---------------------Scopes-------------------------------------
 

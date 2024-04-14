@@ -32,15 +32,35 @@ class UserRequest extends FormRequest
 
     public static function prepareUserForRoles($validated, $role): array
     {
-        $validated['user']['name']['ar'] = $validated['name'] ?? null;
-        $validated['user']['name']['en'] = $validated['name'] ?? null;
-        $validated['user']['email'] = $validated['email'] ?? null;
-        $validated['user']['phone'] = $validated['phone'] ?? null;
-        $validated['user']['image'] = $validated['image'] ?? null;
-        $validated['user']['password'] = $validated['password'] ?? null;
-        $validated['user']['gender'] = $validated['gender'] ?? null;
+        if (isset($validated['name'])){
+            $validated['user']['name']['ar'] = $validated['name'];
+            $validated['user']['name']['en'] = $validated['name'];
+        }
+        if (isset($validated['email'])){
+            $validated['user']['email'] = $validated['email'];
+        }
+        if (isset($validated['phone'])){
+            $validated['user']['phone'] = $validated['phone'];
+        }
+        if (isset($validated['address'])){
+            $validated['user']['address'] = $validated['address'];
+        }
+        if (isset($validated['date_of_birth'])){
+            $validated['user']['date_of_birth'] = $validated['date_of_birth'];
+        }
+        if (isset($validated['image'])){
+            $validated['user']['image'] = $validated['image'];
+        }
+        if (isset($validated['password'])){
+            $validated['user']['password'] = $validated['password'];
+        }
+        if (isset($validated['gender'])) {
+            $validated['user']['gender'] = $validated['gender'];
+        }
         $validated['user']['role_id'] = resolve(RoleContract::class)->findBy('name', $role)?->id;
-        unset($validated['name'], $validated['email'], $validated['phone'], $validated['password']);
+        unset($validated['name'], $validated['email'], $validated['phone'],
+            $validated['password'], $validated['address'], $validated['date_of_birth'],
+            $validated['image'], $validated['gender']);
         return $validated;
     }
 

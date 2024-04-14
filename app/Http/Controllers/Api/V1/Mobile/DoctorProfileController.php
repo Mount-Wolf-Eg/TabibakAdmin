@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Api\V1\BaseApiController;
-use App\Http\Requests\DoctorRequest;
+use App\Http\Requests\DoctorProfileRequest;
 use App\Http\Resources\UserResource;
 use App\Repositories\Contracts\DoctorContract;
 
@@ -14,11 +14,11 @@ class DoctorProfileController extends BaseApiController
         parent::__construct($contract, UserResource::class);
     }
 
-    public function updateMainInfo(DoctorRequest $request)
+    public function updateMainInfo(DoctorProfileRequest $request)
     {
         $doctor = auth()->user()->doctor;
         $doctor = $this->contract->update($doctor, $request->validated());
-        $user = $doctor->user->load('patient');
+        $user = $doctor->user->load('doctor');
         return $this->respondWithModel($user);
     }
 

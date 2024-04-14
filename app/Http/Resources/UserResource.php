@@ -24,6 +24,8 @@ class UserResource extends BaseResource
             'email' => $this->email,
         ];
         $this->full = [
+            'date_of_birth' => $this->date_of_birth?->format('Y-m-d'),
+            'age' => $this->age,
             'gender' => [
                 'value' => $this->gender?->value,
                 'label' => $this->gender?->label(),

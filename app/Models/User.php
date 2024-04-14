@@ -6,6 +6,7 @@ use App\Constants\FileConstants;
 use App\Constants\UserGenderConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -24,7 +25,7 @@ class User extends Authenticatable
         HasRoles, HasPermissions, ModelTrait, SearchTrait;
 
 	protected $fillable = ['name', 'username', 'email', 'password', 'phone', 'gender',
-        'verification_code', 'phone_verified_at', 'is_active'];
+        'date_of_birth', 'address', 'verification_code', 'phone_verified_at', 'is_active'];
     protected array $filters = ['keyword', 'role', 'roleName', 'email', 'active'];
     public array $filterModels = ['Role'];
     public array $filterCustom = [];
@@ -46,6 +47,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
+        'date_of_birth' => 'date',
         'gender' => UserGenderConstants::class
     ];
 
@@ -113,6 +115,13 @@ class User extends Authenticatable
     public function avatarAssetDefaultUrl(): Attribute
     {
         return Attribute::make(fn($value) => $this->avatar->asset_url ?? asset('assets/images/users/user-dummy-img.jpg'));
+    }
+
+    public function age(): Attribute
+    {
+        return new Attribute(function () {
+            return Carbon::parse($this->date_of_birth)->age;
+        });
     }
 
 }

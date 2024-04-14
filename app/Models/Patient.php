@@ -20,12 +20,12 @@ class Patient extends Model
 {
     use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['user_id', 'parent_id', 'date_of_birth', 'national_id',
+    protected $fillable = ['user_id', 'parent_id', 'national_id',
         'other_diseases', 'latest_surgeries', 'weight', 'height', 'blood_type',
         'social_status', 'is_active'];
     protected array $filters = ['keyword','parent', 'active'];
     protected array $searchable = ['user.name'];
-    protected array $dates = ['date_of_birth'];
+    protected array $dates = [];
     public array $filterModels = ['Disease'];
     public array $filterCustom = ['socialStatuses', 'bloodTypes', 'genders'];
     public array $translatable = [];
@@ -85,10 +85,4 @@ class Patient extends Model
         return UserGenderConstants::valuesCollection();
     }
 
-    public function age(): Attribute
-    {
-        return new Attribute(function () {
-            return Carbon::parse($this->date_of_birth)->age;
-        });
-    }
 }
