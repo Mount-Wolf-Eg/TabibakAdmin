@@ -22,9 +22,7 @@ Route::group(['middleware' => 'locale'], static function () {
     // visitors apis (not authenticated)
     Route::get('filters/{model}', FilterController::class);
     Route::apiResource('articles', ArticleController::class)->only('index', 'show');
-    Route::group(['prefix' => 'patient'], static function () {
-        Route::apiResource('doctors', DoctorController::class)->only('index', 'show');
-    });
+    Route::apiResource('doctors', DoctorController::class)->only('index', 'show');
     Route::apiResource('files', FileController::class)->only('store', 'destroy');
 
     Route::group(['middleware' => 'auth:sanctum'], static function () {
