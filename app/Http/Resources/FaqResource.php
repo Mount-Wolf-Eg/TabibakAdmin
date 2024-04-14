@@ -17,6 +17,8 @@ class FaqResource extends BaseResource
     {
         $this->micro = [
             'id' => $this->id,
+            'question' => $this->question,
+            'answer' => $this->answer,
         ];
         $this->mini = [
             'is_active' => $this->is_active,
@@ -27,8 +29,8 @@ class FaqResource extends BaseResource
         ];
         $this->full = [
         ];
-        //$this->relationLoaded()
         $this->relations = [
+            'subject' => $this->relationLoaded('faqSubject') ? new FaqSubjectResource($this->faqSubject) : null,
         ];
         return $this->getResource();
     }

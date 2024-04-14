@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\Mobile\AuthController;
 use App\Http\Controllers\Api\V1\Mobile\ComplaintController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorConsultationController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorProfileController;
+use App\Http\Controllers\Api\V1\Mobile\FaqController;
 use App\Http\Controllers\Api\V1\Mobile\PatientConsultationController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorScheduleDayController;
@@ -23,6 +24,7 @@ Route::group(['middleware' => 'locale'], static function () {
     // visitors apis (not authenticated)
     Route::get('filters/{model}', FilterController::class);
     Route::apiResource('articles', ArticleController::class)->only('index', 'show');
+    Route::apiResource('faqs', FaqController::class)->only('index');
     Route::apiResource('doctors', DoctorController::class)->only('index', 'show');
     Route::apiResource('files', FileController::class)->only('store', 'destroy');
 
