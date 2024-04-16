@@ -2,7 +2,7 @@
 <div class="app-menu navbar-menu">
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="{{route('home')}}" class="logo logo-dark">
+        <a href="{{route('front.home')}}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="26">
             </span>
@@ -10,7 +10,7 @@
                 <img src="{{ URL::asset('assets/images/logo-dark.png') }}" alt="" height="26">
             </span>
         </a>
-        <a href="{{route('home')}}" class="logo logo-light">
+        <a href="{{route('front.home')}}" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="24">
             </span>
