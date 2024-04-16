@@ -15,6 +15,7 @@ class PatientRelativeController extends BaseApiController
     {
         parent::__construct($contract, PatientResource::class);
         $this->defaultScopes = ['parent' => auth('sanctum')->user()->patient?->id];
+        $this->relations = ['diseases'];
     }
 
     /**
