@@ -28,7 +28,7 @@ class Doctor extends Model
         'city', 'topRated', 'active'];
     protected array $searchable = ['user.name'];
     protected array $dates = [];
-    public array $filterModels = ['City', 'MedicalSpeciality', 'AcademicDegree'];
+    public array $filterModels = ['City', 'MedicalSpeciality', 'AcademicDegree', 'University', 'Hospital'];
     public array $filterCustom = [];
     public array $translatable = [];
     public $casts = [

@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AcademicDegreeResource;
 use App\Http\Resources\CityResource;
 use App\Http\Resources\DiseaseResource;
+use App\Http\Resources\HospitalResource;
 use App\Http\Resources\MedicalSpecialityResource;
+use App\Http\Resources\UniversityResource;
 use App\Http\Resources\VendorServiceResource;
 use App\Http\Resources\VendorTypeResource;
 use Illuminate\Http\JsonResponse;
@@ -73,6 +75,8 @@ class FilterController extends Controller
             'VendorType' => VendorTypeResource::collection($data),
             'VendorService' => VendorServiceResource::collection($data),
             'Disease' => DiseaseResource::collection($data),
+            'Hospital' => HospitalResource::collection($data),
+            'University' => UniversityResource::collection($data),
             default => $model::collection($data),
         };
     }
