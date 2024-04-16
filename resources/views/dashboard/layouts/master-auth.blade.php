@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <div class="row justify-content-between align-items-center">
                 <div class="col-2">
-                    <a class="navbar-brand mb-2 mb-sm-0" href="{{route('home')}}">
+                    <a class="navbar-brand mb-2 mb-sm-0" href="{{route('front.home')}}">
                         <img src="{{ URL::asset('assets/images/logo-dark.png') }}" class="card-logo card-logo-dark"
                              alt="logo dark" height="22">
                         <img src="{{ URL::asset('assets/images/logo-light.png') }}"
