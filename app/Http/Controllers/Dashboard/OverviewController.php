@@ -10,7 +10,7 @@ use App\Repositories\Contracts\ConsultationContract;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class HomeController extends Controller
+class OverviewController extends Controller
 {
     private ConsultationContract $consultationContract;
 
@@ -26,11 +26,6 @@ class HomeController extends Controller
         }else{
             return $this->adminOverview();
         }
-    }
-
-    public function home()
-    {
-        return redirect()->route('login');
     }
 
     public function vendorOverview()

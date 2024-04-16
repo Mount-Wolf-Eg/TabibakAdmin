@@ -375,5 +375,10 @@ return [
     'urgent_has_doctors_replies' => 'Has Doctors Replies',
     'urgent_patient_approve_doctor_offer' => 'Patient Approve Doctor Offer',
     'male' => 'Male',
-    'female' => 'Female'
+    'female' => 'Female',
+    'home' => 'Home',
+    'aboutUs' => 'About us',
+    'about' => 'About',
+    'contactUs' => 'Contact us',
+    'contact' => 'Contact',
 ];

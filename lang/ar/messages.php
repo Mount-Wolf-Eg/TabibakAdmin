@@ -375,4 +375,9 @@ return [
     'urgent_patient_approve_doctor_offer' => 'الحالة الطارئة تحتاج موافقة المريض على عرض الطبيب',
     'male' => 'ذكر',
     'female' => 'أنثى',
+    'home' => 'الرئيسية',
+    'aboutUs' => 'من نحن',
+    'about' => 'عنا',
+    'contactUs' => 'تواصل معنا',
+    'contact' => 'راسلنا',
 ];

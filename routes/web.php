@@ -1,28 +1,31 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\Passwords\ForgetPasswordController;
-use App\Http\Controllers\Auth\Passwords\ResetPasswordController;
-use App\Http\Controllers\Dashboard\AcademicDegreeController;
-use App\Http\Controllers\Dashboard\ArticleController;
-use App\Http\Controllers\Dashboard\ConsultationController;
-use App\Http\Controllers\Dashboard\CouponController;
-use App\Http\Controllers\Dashboard\DiseaseController;
-use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Dashboard\FaqController;
-use App\Http\Controllers\Dashboard\FaqSubjectController;
+use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Dashboard\FileController;
-use App\Http\Controllers\Dashboard\HomeController;
-use App\Http\Controllers\Dashboard\MedicalSpecialityController;
 use App\Http\Controllers\Dashboard\NoteController;
-use App\Http\Controllers\Dashboard\PatientController;
-use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\CouponController;
+use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\VendorController;
+use App\Http\Controllers\Dashboard\ArticleController;
+use App\Http\Controllers\Dashboard\DiseaseController;
+use App\Http\Controllers\Dashboard\PatientController;
+use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\OverviewController;
+use App\Http\Controllers\Dashboard\FaqSubjectController;
+use App\Http\Controllers\Dashboard\ConsultationController;
 use App\Http\Controllers\Dashboard\VendorServiceController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\AcademicDegreeController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use App\Http\Controllers\Dashboard\MedicalSpecialityController;
+use App\Http\Controllers\Auth\Passwords\ResetPasswordController;
+use App\Http\Controllers\Auth\Passwords\ForgetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +43,9 @@ Route::group([
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
     Route::middleware(['guest'])->group(function () {
-        Route::get('/', [HomeController::class, 'home'])->name('home');
+        Route::get('/', [HomeController::class, 'index'])->name('front.home');
+        Route::get('about-us', [AboutController::class, 'index'])->name('front.about');
+        Route::get('contact-us', [ContactController::class, 'index'])->name('front.contact');
         // Login
         Route::get('login', [AuthController::class, 'login'])->name('login');
         Route::post('check-credentials', [AuthController::class, 'checkCredentials'])->name('checkCredentials');
@@ -57,8 +62,8 @@ Route::group([
     Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         Route::resource('files', FileController::class)->only(['store', 'destroy']);
         Route::resource('notes', NoteController::class)->only(['store', 'update', 'destroy']);
-        Route::get('/', HomeController::class)->name('dashboard');
-        Route::get('overview', [HomeController::class, 'overview'])->name('overview');
+        Route::get('/', OverviewController::class)->name('dashboard');
+        Route::get('overview', [OverviewController::class, 'overview'])->name('overview');
         Route::resource('roles', RoleController::class);
         Route::put('roles/{role}/change-activation', [RoleController::class, 'changeActivation'])->name('roles.active');
         Route::resource('users', UserController::class);
@@ -100,7 +105,7 @@ Route::group([
             Route::get('change-password', [ProfileController::class, 'changePassword'])->name('change-password');
             Route::post('update-password', [ProfileController::class, 'updatePassword'])->name('update-password');
         });
-        Route::get('download', [HomeController::class, 'download'])->name('download');
+        Route::get('download', [OverviewController::class, 'download'])->name('download');
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     });
 });
