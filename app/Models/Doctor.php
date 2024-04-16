@@ -18,7 +18,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Doctor extends Model
 {
-    use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
+    use ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['user_id', 'academic_degree_id', 'national_id', 'city_id', 'university', 'bio',
         'urgent_consultation_enabled', 'with_appointment_consultation_enabled', 'experience_years', 'consultation_period',
@@ -82,6 +82,17 @@ class Doctor extends Model
     public function scheduleDaysShifts(): HasManyThrough
     {
         return $this->hasManyThrough(DoctorScheduleDayShift::class, DoctorScheduleDay::class);
+    }
+
+    public function universities(): HasMany
+    {
+        return $this->hasMany(DoctorUniversity::class);
+    }
+
+    public function hospitals(): BelongsToMany
+    {
+        return $this->belongsToMany(Hospital::class, 'doctor_hospital')
+            ->withPivot('start_date', 'end_date')->withTimestamps();
     }
     //---------------------relations-------------------------------------
 

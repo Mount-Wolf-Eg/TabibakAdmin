@@ -44,6 +44,19 @@ class DoctorRepository extends BaseRepository implements DoctorContract
         if (isset($attributes['role'])) {
             $model->user->assignRole($attributes['role']);
         }
+        if (isset($attributes['universities'])) {
+            foreach ($attributes['universities'] as $university) {
+                $data = collect($university)->except(['certificate'])->toArray();
+                $universityModel = $model->universities()->updateOrCreate($data);
+                if (isset($university['certificate'])) {
+                    $file = resolve(FileContract::class)->find($university['certificate']);
+                    $universityModel->certificate()->save($file);
+                }
+            }
+        }
+        if (isset($attributes['hospitals'])) {
+            $model->hospitals()->sync($attributes['hospitals']);
+        }
         return $model;
     }
 

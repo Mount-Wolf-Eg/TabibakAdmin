@@ -53,6 +53,7 @@ Route::group(['middleware' => 'locale'], static function () {
         Route::post('register-user-as-doctor', [AuthController::class, 'registerUserAsDoctor']);
         Route::group(['prefix' => 'doctor'], static function () {
             Route::put('update-main-info', [DoctorProfileController::class, 'updateMainInfo']);
+            Route::put('update-professional-status', [DoctorProfileController::class, 'updateProfessionalStatus']);
             Route::apiResource('articles', ArticleController::class)->only('store', 'update', 'destroy');
             Route::put('articles/{article}/change-activation', [ArticleController::class, 'changeActivation'])->name('articles.active');
             Route::apiResource('vendors', VendorController::class)->only('index');

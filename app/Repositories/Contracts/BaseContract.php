@@ -79,10 +79,10 @@ interface BaseContract
     /**
      * @param string $key
      * @param mixed $value
-     *
+     * @param bool $fail
      * @return mixed
      */
-    public function findBy(string $key, mixed $value): mixed;
+    public function findBy(string $key, mixed $value, bool $fail = true): mixed;
 
     /**
      * @param mixed $fields
