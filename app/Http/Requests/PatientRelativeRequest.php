@@ -21,6 +21,8 @@ class PatientRelativeRequest extends FormRequest
     public function validated($key = null, $default = null): array
     {
         $validated = parent::validated();
+        if ($this->method() === 'PUT')
+            $validated['user']['id'] = $this->relative->user_id;
         $validated['parent_id'] = auth()->user()->patient->id;
         return UserRequest::prepareUserForRoles($validated, RoleNameConstants::PATIENT->value);
     }
@@ -45,6 +47,7 @@ class PatientRelativeRequest extends FormRequest
             'diseases.*' => sprintf(config('validations.model.req'), 'diseases'),
             'latest_surgeries' => config('validations.text.null'),
             'other_diseases' => config('validations.text.null'),
+            'image' => sprintf(config('validations.model.null'), 'files'),
         ];
     }
 }
