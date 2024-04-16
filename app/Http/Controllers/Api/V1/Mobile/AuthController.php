@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends BaseApiController
 {
     private UserAuthService $userAuthService;
+    private array $doctorRelations = ['doctor.medicalSpecialities', 'doctor.academicDegree', 'doctor.attachments', 'doctor.city'];
+    private array $patientRelations = ['patient.diseases'];
+
     public function __construct(UserContract $userContract, UserAuthService $userAuthService)
     {
         parent::__construct($userContract, UserResource::class);
@@ -61,7 +64,7 @@ class AuthController extends BaseApiController
     {
         $doctor = $this->userAuthService->registerUserAsDoctor($request->validated());
         $user = $doctor->user;
-        $user->load('doctor');
+        $user->load($this->doctorRelations);
         return $this->respondWithModel($user);
     }
 
@@ -75,6 +78,7 @@ class AuthController extends BaseApiController
 
     public function profile()
     {
-        return $this->respondWithModel(auth()->user()->load('patient.diseases', 'doctor'));
+        $relations = array_merge($this->doctorRelations, $this->patientRelations);
+        return $this->respondWithModel(auth()->user()->load($relations));
     }
 }
