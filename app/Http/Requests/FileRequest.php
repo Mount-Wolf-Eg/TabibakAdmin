@@ -22,7 +22,7 @@ class FileRequest extends FormRequest
         $validated = parent::validated();
         $validated['user_id'] = auth('sanctum')->id();
         $validated['fileable_type'] = isset($validated['fileable_id']) ? match ($validated['type']){
-            FileConstants::FILE_USER_AVATAR->value => 'User',
+            FileConstants::FILE_TYPE_USER_AVATAR->value => 'User',
             FileConstants::FILE_TYPE_ARTICLE_MAIN_IMAGE->value => 'Article',
             FileConstants::FILE_TYPE_CONSULTATION_ATTACHMENTS->value => 'Consultation',
             default => null
@@ -50,7 +50,7 @@ class FileRequest extends FormRequest
             config('validations.file.mixed').','.str_replace('.','',$this->accept)
             : config('validations.file.mixed');
         return match(request('type')){
-            FileConstants::FILE_USER_AVATAR->value, FileConstants::FILE_TYPE_ARTICLE_MAIN_IMAGE->value
+            FileConstants::FILE_TYPE_USER_AVATAR->value, FileConstants::FILE_TYPE_ARTICLE_MAIN_IMAGE->value
             => config('validations.file.image'),
             default => $mixed
         };

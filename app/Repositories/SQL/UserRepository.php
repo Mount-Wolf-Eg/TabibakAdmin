@@ -32,7 +32,7 @@ class UserRepository extends BaseRepository implements UserContract
                 $file = resolve(FileContract::class)->find($attributes['image']);
             }else{
                 $file = resolve(FileContract::class)->create(['file' => $attributes['image'],
-                    'type' => FileConstants::FILE_USER_AVATAR->value]);
+                    'type' => FileConstants::FILE_TYPE_USER_AVATAR->value]);
             }
             $model->avatar()->save($file);
         }

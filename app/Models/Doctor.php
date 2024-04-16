@@ -56,7 +56,7 @@ class Doctor extends Model
     public function attachments(): MorphMany
     {
         return $this->morphMany(File::class, 'fileable')
-            ->where('type', FileConstants::FILE_DOCTOR_ATTACHMENTS);
+            ->where('type', FileConstants::FILE_TYPE_DOCTOR_ATTACHMENTS);
     }
 
     public function city(): BelongsTo

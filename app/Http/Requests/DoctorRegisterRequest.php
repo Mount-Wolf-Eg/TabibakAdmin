@@ -54,8 +54,8 @@ class DoctorRegisterRequest extends FormRequest
             'city_id' => sprintf(config('validations.model.active_req'), 'cities'),
             'experience_years' => config('validations.integer.req'),
             'bio' => config('validations.string.req'),
-            'files' => config('validations.array.null'),
-            'files.*' => sprintf(config('validations.model.req'), 'files','id'),
+            'attachments' => config('validations.array.null'),
+            'attachments.*' => sprintf(config('validations.model.req'), 'files'),
             'urgent_consultation_enabled' => config('validations.boolean.req'),
             'with_appointment_consultation_enabled' => config('validations.boolean.req'),
             'consultation_period' => config('validations.integer.req'),
@@ -67,7 +67,7 @@ class DoctorRegisterRequest extends FormRequest
             'schedule_repeat_from' => config('validations.date.req').'|after_or_equal:today',
             'schedule_repeat_to' => config('validations.date.req').'|after:schedule_repeat_from',
             'reminder_before_consultation' => config('validations.integer.req'),
-            'price' => config('validations.integer.req'),
+            'price' => config('validations.integer.req')
         ];
     }
 
