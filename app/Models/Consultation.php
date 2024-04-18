@@ -33,7 +33,7 @@ class Consultation extends Model
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
         'myVendorStatus', 'creationDate', 'status', 'completed', 'urgentWithNoDoctor',
-        'doctorsList', 'doctor'];
+        'doctorsList', 'medicalSpeciality', 'doctor'];
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];
@@ -187,11 +187,13 @@ class Consultation extends Model
     public function scopeOfUrgentWithNoDoctor($query)
     {
         return $query->where('type', ConsultationTypeConstants::URGENT)
-            ->where(function ($q) {
-                $q->whereHas('replies', fn($q) => $q->where('status', '!=', ConsultationPatientStatusConstants::APPROVED->value))
-                    ->orWhereDoesntHave('replies');
-            })
+            ->whereHas('replies', fn($q) => $q->where('status', '!=', ConsultationPatientStatusConstants::APPROVED->value))
             ->whereNull('doctor_id');
+    }
+
+    public function scopeOfMedicalSpeciality($query, $medicalSpeciality)
+    {
+        return $query->where('medical_speciality_id', $medicalSpeciality);
     }
     //---------------------Scopes-------------------------------------
 
