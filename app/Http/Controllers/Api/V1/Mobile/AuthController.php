@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends BaseApiController
 {
     private UserAuthService $userAuthService;
-    private array $doctorRelations = ['doctor.medicalSpecialities', 'doctor.academicDegree', 'doctor.attachments', 'doctor.city'];
+    private array $doctorRelations = ['doctor.medicalSpecialities', 'doctor.academicDegree',
+        'doctor.attachments', 'doctor.city', 'doctor.scheduleDays.shifts.availableSlots'];
     private array $patientRelations = ['patient.diseases'];
 
     public function __construct(UserContract $userContract, UserAuthService $userAuthService)

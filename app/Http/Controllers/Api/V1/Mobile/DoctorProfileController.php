@@ -5,16 +5,27 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Http\Controllers\Api\V1\BaseApiController;
 use App\Http\Requests\DoctorProfessionalStatusRequest;
 use App\Http\Requests\DoctorProfileRequest;
+use App\Http\Requests\DoctorScheduleRequest;
 use App\Http\Resources\UserResource;
 use App\Repositories\Contracts\DoctorContract;
+use Illuminate\Http\JsonResponse;
 
 class DoctorProfileController extends BaseApiController
 {
+
+    /**
+     * DoctorProfileController constructor.
+     * @param DoctorContract $contract
+     */
     public function __construct(DoctorContract $contract)
     {
         parent::__construct($contract, UserResource::class);
     }
 
+    /**
+     * @param DoctorProfileRequest $request
+     * @return JsonResponse
+     */
     public function updateMainInfo(DoctorProfileRequest $request)
     {
         $doctor = auth()->user()->doctor;
@@ -23,12 +34,24 @@ class DoctorProfileController extends BaseApiController
         return $this->respondWithModel($user);
     }
 
+    /**
+     * @param DoctorProfessionalStatusRequest $request
+     * @return JsonResponse
+     */
     public function updateProfessionalStatus(DoctorProfessionalStatusRequest $request)
     {
         $doctor = auth()->user()->doctor;
         $doctor = $this->contract->update($doctor, $request->validated());
         $user = $doctor->user->load('doctor.universities.university',
             'doctor.universities.academicDegree', 'doctor.universities.certificate');
+        return $this->respondWithModel($user);
+    }
+
+    public function updateSchedule(DoctorScheduleRequest $request)
+    {
+        $doctor = auth()->user()->doctor;
+        $doctor = $this->contract->update($doctor, $request->validated());
+        $user = $doctor->user->load('doctor.scheduleDays.shifts.availableSlots');
         return $this->respondWithModel($user);
     }
 

@@ -29,6 +29,11 @@ class DoctorScheduleDay extends Model
         return $this->belongsTo(Doctor::class);
     }
 
+    public function scheduleDayShifts(): HasMany
+    {
+        return $this->hasMany(DoctorScheduleDayShift::class);
+    }
+
     public function shifts(): HasMany
     {
         return $this->hasMany(DoctorScheduleDayShift::class)->whereNull('parent_id');

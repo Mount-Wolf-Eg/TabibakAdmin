@@ -19,6 +19,7 @@ class DoctorScheduleDayRepository extends BaseRepository implements DoctorSchedu
     public function syncRelations($model, $attributes)
     {
         if (isset($attributes['shifts'])) {
+            $model->scheduleDayShifts()->delete();
             foreach ($attributes['shifts'] as $shift) {
                 $parentShift = $model->shifts()->create($shift);
                 $period = $model->doctor->consultation_period;
