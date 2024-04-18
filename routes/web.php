@@ -6,6 +6,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Dashboard\FaqController;
 use App\Http\Controllers\Front\ContactController;
+use App\Http\Controllers\Front\DoctorsController;
 use App\Http\Controllers\Dashboard\FileController;
 use App\Http\Controllers\Dashboard\NoteController;
 use App\Http\Controllers\Dashboard\RoleController;
@@ -42,10 +43,12 @@ Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('front.home');
+    Route::get('about-us', [AboutController::class, 'index'])->name('front.about');
+    Route::get('doctors', [DoctorsController::class, 'index'])->name('front.doctors');
+    Route::get('doctor-details', [DoctorsController::class, 'view'])->name('front.doctorDetails');
+    Route::get('contact-us', [ContactController::class, 'index'])->name('front.contact');
     Route::middleware(['guest'])->group(function () {
-        Route::get('/', [HomeController::class, 'index'])->name('front.home');
-        Route::get('about-us', [AboutController::class, 'index'])->name('front.about');
-        Route::get('contact-us', [ContactController::class, 'index'])->name('front.contact');
         // Login
         Route::get('login', [AuthController::class, 'login'])->name('login');
         Route::post('check-credentials', [AuthController::class, 'checkCredentials'])->name('checkCredentials');

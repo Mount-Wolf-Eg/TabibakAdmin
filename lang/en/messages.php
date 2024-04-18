@@ -149,6 +149,7 @@ return [
     'doctors' => 'Doctors',
     'doctors_requests' => 'Doctors Requests',
     'all_doctors' => 'All Doctors',
+    'our_doctors' => 'Our Doctors',
     'add_doctor' => 'Add New Doctor',
     'edit_doctor' => 'Edit Doctor',
     'doctor_details' => 'Doctor Details',

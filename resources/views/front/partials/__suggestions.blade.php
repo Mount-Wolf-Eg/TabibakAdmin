@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="image">
-                                <img src="img/team/profile-3.jpg" alt="">
+                                <img src="{{ asset('assets/images/front/avatar-1.jpg') }}" alt="">
                                 <p class="name">Milan Markovic</p>
                                 <p class="spec">General Dentist</p>
                             </div>
@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="image">
-                                <img src="img/team/profile-2.jpg" alt="">
+                                <img src="{{ asset('assets/images/front/avatar-2.jpg') }}" alt="">
                                 <p class="name">Milan Markovic</p>
                                 <p class="spec">General Dentist</p>
                             </div>
@@ -88,7 +88,7 @@
                             </div>
 
                             <div class="image">
-                                <img src="img/team/profile-3.jpg" alt="">
+                                <img src="{{ asset('assets/images/front/avatar-3.jpg') }}" alt="">
                                 <p class="name">Milan Markovic</p>
                                 <p class="spec">General Dentist</p>
                             </div>
@@ -109,7 +109,7 @@
                             </div>
 
                             <div class="image">
-                                <img src="img/team/profile-1.jpg" alt="">
+                                <img src="{{ asset('assets/images/front/avatar-1.jpg') }}" alt="">
                                 <p class="name">Milan Markovic</p>
                                 <p class="spec">General Dentist</p>
                             </div>

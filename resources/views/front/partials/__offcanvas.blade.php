@@ -5,7 +5,7 @@
             <div class="offcanvas__top mb-40 d-flex justify-content-between align-items-center">
                 <div class="offcanvas__logo logo">
                     <a href="index.html">
-                        <img src="img/logo.png" alt="">
+                        <img src="{{ asset('assets/images/logo-sm.png') }}" alt="">
                     </a>
                 </div>
                 <div class="offcanvas__close">
