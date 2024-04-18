@@ -16,7 +16,7 @@ enum PatientBloodTypeConstants : int
     case O_POSITIVE = 7;
     case O_NEGATIVE = 8;
 
-    public function getLabels($value):string
+    public static function getLabels($value):string
     {
         return match ($value) {
             self::A_POSITIVE => 'A+',

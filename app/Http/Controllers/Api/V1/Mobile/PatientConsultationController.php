@@ -118,6 +118,34 @@ class PatientConsultationController extends BaseApiController
     }
 
     /**
+     * get urgent doctor replies
+     *
+     * @return JsonResponse
+     */
+    public function replies(): JsonResponse
+    {
+        try {
+            $filters = ['urgentWithNoDoctor' => true, 'medicalSpeciality' => request('medicalSpeciality')];
+            $consultation = $this->contract->findByFilters($filters, ['replies.rates']);
+            if (!$consultation)
+                return $this->respondWithSuccess(__('messages.no_data'));
+            if (request('orderBy') == 'topRated'){
+                $consultation->replies = $consultation->replies->sortByDesc(function ($reply) {
+                    return $reply->rates->avg('value');
+                });
+            }elseif (request('orderBy') == 'highestPrice'){
+                $consultation->replies = $consultation->replies->sortBy('amount')->reverse();
+            }elseif (request('orderBy') == 'lowestPrice'){
+                $consultation->replies = $consultation->replies->sortBy('amount');
+            }
+            $this->relations = ['replies.rates', 'medicalSpeciality'];
+            return $this->respondWithModel($consultation);
+        }catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
      * approve urgent doctor offer
      * @param PatientUrgentApproveRequest $request
      * @param Consultation $consultation

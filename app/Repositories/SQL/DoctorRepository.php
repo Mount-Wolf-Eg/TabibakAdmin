@@ -38,11 +38,28 @@ class DoctorRepository extends BaseRepository implements DoctorContract
         if (isset($attributes['schedule_days'])) {
             foreach ($attributes['schedule_days'] as $day) {
                 $day['doctor_id'] = $model->id;
-                resolve(DoctorScheduleDayRepository::class)->create($day);
+                $scheduleDay = resolve(DoctorScheduleDayRepository::class)->findBy('date', $day['date']);
+                if ($scheduleDay)
+                    resolve(DoctorScheduleDayRepository::class)->update($scheduleDay, $day);
+                else
+                    resolve(DoctorScheduleDayRepository::class)->create($day);
             }
         }
         if (isset($attributes['role'])) {
             $model->user->assignRole($attributes['role']);
+        }
+        if (isset($attributes['universities'])) {
+            foreach ($attributes['universities'] as $university) {
+                $data = collect($university)->except(['certificate'])->toArray();
+                $universityModel = $model->universities()->updateOrCreate($data);
+                if (isset($university['certificate'])) {
+                    $file = resolve(FileContract::class)->find($university['certificate']);
+                    $universityModel->certificate()->save($file);
+                }
+            }
+        }
+        if (isset($attributes['hospitals'])) {
+            $model->hospitals()->sync($attributes['hospitals']);
         }
         return $model;
     }

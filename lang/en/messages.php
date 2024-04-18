@@ -382,4 +382,5 @@ return [
     'about' => 'About',
     'contactUs' => 'Contact us',
     'contact' => 'Contact',
+    'no_data' => 'No Data'
 ];

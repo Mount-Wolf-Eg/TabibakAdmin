@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -79,10 +80,10 @@ interface BaseContract
     /**
      * @param string $key
      * @param mixed $value
-     *
+     * @param bool $fail
      * @return mixed
      */
-    public function findBy(string $key, mixed $value): mixed;
+    public function findBy(string $key, mixed $value, bool $fail = true): mixed;
 
     /**
      * @param mixed $fields
@@ -90,6 +91,13 @@ interface BaseContract
      * @return mixed
      */
     public function findByFields(array $fields): mixed;
+
+    /**
+     * @param array $filters
+     * @param array $relations
+     * @return Model|Builder|null
+     */
+    public function findByFilters(array $filters, array $relations = []): Model|Builder|null;
 
     /**
      * @param array $wheres

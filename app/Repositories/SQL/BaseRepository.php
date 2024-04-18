@@ -220,22 +220,7 @@ abstract class BaseRepository implements BaseContract
         // Clean the attributes from unnecessary inputs
         $attributes = $this->cleanUpAttributes($attributes);
         $identifier = $this->cleanUpAttributes($identifier);
-        if (key_exists('dynamics_id', $identifier)) {
-            $exists = $this->query->where('dynamics_id', $identifier['dynamics_id'])->exists();
-            $message = $exists ? 'Updated' : 'created';
-            $action = $exists ? 'Update' : 'Creation';
-        } else {
-            $message = 'created';
-            $action = 'Creation';
-        }
-        $model = $this->query->updateOrCreate($attributes, $identifier);
-        $this->propertyLogActivity(
-            $model,
-            auth()->user(),
-            "$this->modelName $message",
-            ['action' => $action]
-        );
-        return $model;
+        return $this->query->updateOrCreate($attributes, $identifier);
     }
 
     /**
@@ -550,6 +535,19 @@ abstract class BaseRepository implements BaseContract
                 }
             });
         }
+        return $query->first();
+    }
+
+    /**
+     * @param array $filters
+     * @param array $relations
+     * @return Model|Builder|null
+     */
+    public function findByFilters(array $filters, array $relations = []): Model|Builder|null
+    {
+        $query = $this->query;
+        $query = $this->applyRelations($query, $relations);
+        $query = $this->withFilters($query, $filters);
         return $query->first();
     }
 

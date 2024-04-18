@@ -39,6 +39,7 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::put('update-main-info', [PatientProfileController::class, 'updateMainInfo']);
             Route::put('update-medical-records', [PatientProfileController::class, 'updateMedicalRecords']);
             Route::apiResource('relatives', PatientRelativeController::class);
+            Route::get('consultations/replies', [PatientConsultationController::class, 'replies']);
             Route::apiResource('consultations', PatientConsultationController::class);
             Route::controller(PatientConsultationController::class)->prefix('consultations')->group(static function () {
                 Route::put('/{consultation}/cancel',  'cancel');
@@ -53,6 +54,8 @@ Route::group(['middleware' => 'locale'], static function () {
         Route::post('register-user-as-doctor', [AuthController::class, 'registerUserAsDoctor']);
         Route::group(['prefix' => 'doctor'], static function () {
             Route::put('update-main-info', [DoctorProfileController::class, 'updateMainInfo']);
+            Route::put('update-professional-status', [DoctorProfileController::class, 'updateProfessionalStatus']);
+            Route::put('update-schedule', [DoctorProfileController::class, 'updateSchedule']);
             Route::apiResource('articles', ArticleController::class)->only('store', 'update', 'destroy');
             Route::put('articles/{article}/change-activation', [ArticleController::class, 'changeActivation'])->name('articles.active');
             Route::apiResource('vendors', VendorController::class)->only('index');

@@ -47,6 +47,8 @@ class DoctorResource extends BaseResource
             'attachments' => $this->relationLoaded('attachments') ? FileResource::collection($this->attachments) : [],
             'rates_count' => $this->relationLoaded('rates') ? $this->rates->count() : 0,
             'rates_avg' => $this->relationLoaded('rates') ? $this->rates->avg('value') : 0,
+            'universities' => $this->relationLoaded('universities') ? DoctorUniversityResource::collection($this->universities) : [],
+            'schedule_days' => $this->relationLoaded('scheduleDays') ? DoctorScheduleDayResource::collection($this->scheduleDays) : [],
         ];
         return $this->getResource();
     }
