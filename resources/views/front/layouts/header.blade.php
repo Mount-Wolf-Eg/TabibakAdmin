@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-8"></div>
                 <div class="col-sm-4">
-                    <div class="social-icon text-end">
+                    <div class="social-icon text-{{app()->getLocale() == 'ar' ? 'start' : 'end'}}">
                         <a href="#"><i class="bi bi-facebook"></i></a>
                         <a href="#"><i class="bi bi-twitter-x"></i></a>
                         <a href="#"><i class="bi bi-google"></i></a>
@@ -21,19 +21,19 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-6">
                     <div class="logo">
-                        <a href="index.html"><img src="{{ URL::asset('assets/images/favicon.ico') }}" alt=""
+                        <a href="{{route('front.home')}}"><img src="{{ URL::asset('assets/images/favicon.ico') }}" alt=""
                                 style="max-width: 40px" /></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-6">
-                    <div class="main-menu text-end">
+                    <div class="main-menu text-{{app()->getLocale() == 'ar' ? 'start' : 'end'}}">
                         <div class="basic-menu">
                             <nav id="mobile-nav">
                                 <ul>
-                                    <li><a href="{{ route('front.home') }}">Home</a></li>
-                                    <li><a href="{{ route('front.about') }}">About us</a></li>
-                                    <li><a href="{{ route('front.doctors') }}">Doctors</a></li>
-                                    <li><a href="{{ route('front.contact') }}">Contact us</a></li>
+                                    <li><a href="{{ route('front.home') }}">{{__('messages.home')}}</a></li>
+                                    <li><a href="{{ route('front.about') }}">{{__('messages.aboutUs')}}</a></li>
+                                    <li><a href="{{ route('front.doctors') }}">{{__('messages.doctors')}}</a></li>
+                                    <li><a href="{{ route('front.contact') }}">{{__('messages.contactUs')}}</a></li>
                                     <li>
                                         <div
                                             class="dropdown topbar-head-dropdown topbar-tag-dropdown justify-content-end">
@@ -76,7 +76,7 @@
                             </nav>
                         </div>
                     </div>
-                    <div class="nav-bar text-white d-lg-none text-end">
+                    <div class="nav-bar text-white d-lg-none text-{{ app()->getLocale() == 'ar' ? 'start' : 'end' }}">
                         <button class="nav-bar"><i class="fa fa-bars"></i></button>
                     </div>
                 </div>

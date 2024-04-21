@@ -1,5 +1,6 @@
 <?php
 return [
+    'welcomeTo' => 'Welcome to',
     'tabibak' => 'Tabibak',
     'dashboard' => 'Dashboard',
     'overview' => 'Overview',
@@ -378,9 +379,22 @@ return [
     'male' => 'Male',
     'female' => 'Female',
     'home' => 'Home',
-    'aboutUs' => 'About us',
     'about' => 'About',
-    'contactUs' => 'Contact us',
+    'aboutUs' => 'About us',
+    'aboutDoctor' => 'About Doctor',
     'contact' => 'Contact',
-    'no_data' => 'No Data'
+    'contactUs' => 'Contact us',
+    'contactInfo' => 'Contact Info',
+    'no_data' => 'No Data',
+    'ourDepartments' => 'Our Departments',
+    'ourDoctors' => 'Our Doctors',
+    'happySmiles' => 'Happy Smiles',
+    'medicalSpeciality' => 'Medical Speciality',
+    'activeDoctor' => 'Active Doctor',
+    'completedConsultations' => 'Completed Consultations',
+    'getApp' => 'Get Tabibak App',
+    'suggestions' => 'Suggestions',
+    'message' => 'Message',
+    'send' => 'Send',
+    'sendUsNow' => 'Send to us now'
 ];

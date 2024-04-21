@@ -2,7 +2,7 @@
 <div class="about-area pt-90 pb-60">
     <div class="container">
         <div class="area-title text-center">
-            <h2>Welcome to <span>Medifine</span></h2>
+            <h2>{{__('messages.welcomeTo')}} <span>{{__('messages.tabibak')}}</span></h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi tempora veritatis nemo aut ea iusto
                 eos est expedita, quas ab adipisci.</p>
         </div>

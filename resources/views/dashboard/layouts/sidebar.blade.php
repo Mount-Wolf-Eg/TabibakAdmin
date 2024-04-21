@@ -74,7 +74,7 @@
                         <a href="{{route('medical-specialities.index')}}" @class(['nav-link', 'menu-link',
                     'active' => request()->routeIs('medical-specialities.index', 'medical-specialities.show', 'medical-specialities.create',
                      'medical-specialities.edit')])>
-                            <i class="bi bi-journal-medical"></i>
+                            <i class="bi bi-heart-pulse-fill"></i>
                             <span data-key="t-dashboard">{{ __('messages.medical_specialities') }}</span>
                         </a>
                     </li>
@@ -139,7 +139,7 @@
                     <li class="nav-item">
                         <a href="{{route('articles.index')}}" @class(['nav-link', 'menu-link',
                     'active' => request()->routeIs('articles.index', 'articles.show', 'articles.create', 'articles.edit')])>
-                            <i class="bi bi-postcard"></i>
+                            <i class="bi bi-postcard-fill"></i>
                             <span data-key="t-dashboard">{{ __('messages.articles') }}</span>
                         </a>
                     </li>

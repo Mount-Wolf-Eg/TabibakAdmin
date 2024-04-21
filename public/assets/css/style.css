@@ -634,28 +634,6 @@ label {
 
 }
 
-.basic-menu ul > li::after {
-
-  background: #d7d7d7 none repeat scroll 0 0;
-
-  content: "";
-
-  height: 15px;
-
-  position: absolute;
-
-  right: -16px;
-
-  top: 32px;
-
-  transform: rotate(45deg);
-
-  transition: all 0.3s ease 0s;
-
-  width: 1px;
-
-}
-
 .basic-menu  li:last-child:after{display:none}
 
 .basic-menu li  a {
