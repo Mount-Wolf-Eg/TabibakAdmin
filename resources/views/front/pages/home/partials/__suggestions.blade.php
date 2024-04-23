@@ -4,8 +4,7 @@
         <div class="row">
             <div class="col-md-7 mb-30">
                 <div class="area-title2">
-                    <h2>Suggestions</h2>
-                    <p>Top tips from doctors</p>
+                    <h2>{{__('messages.suggestions')}}</h2>
                 </div>
 
                 <div class="my-tab">
@@ -46,7 +45,7 @@
                             </div>
 
                             <div class="image">
-                                <img src="img/team/profile-3.jpg" alt="">
+                                <img src="{{ asset('assets/images/front/avatar-1.jpg') }}" alt="">
                                 <p class="name">Milan Markovic</p>
                                 <p class="spec">General Dentist</p>
                             </div>
@@ -67,7 +66,7 @@
                             </div>
 
                             <div class="image">
-                                <img src="img/team/profile-2.jpg" alt="">
+                                <img src="{{ asset('assets/images/front/avatar-2.jpg') }}" alt="">
                                 <p class="name">Milan Markovic</p>
                                 <p class="spec">General Dentist</p>
                             </div>
@@ -88,7 +87,7 @@
                             </div>
 
                             <div class="image">
-                                <img src="img/team/profile-3.jpg" alt="">
+                                <img src="{{ asset('assets/images/front/avatar-3.jpg') }}" alt="">
                                 <p class="name">Milan Markovic</p>
                                 <p class="spec">General Dentist</p>
                             </div>
@@ -109,7 +108,7 @@
                             </div>
 
                             <div class="image">
-                                <img src="img/team/profile-1.jpg" alt="">
+                                <img src="{{ asset('assets/images/front/avatar-1.jpg') }}" alt="">
                                 <p class="name">Milan Markovic</p>
                                 <p class="spec">General Dentist</p>
                             </div>
@@ -124,8 +123,7 @@
             </div>
             <div class="col-md-5 mb-30">
                 <div class="area-title2">
-                    <h2>FAQ</h2>
-                    <p>Fast answers questions</p>
+                    <h2>{{__('messages.faqs')}}</h2>
                 </div>
 
 
@@ -133,7 +131,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-                            <i class="fa fa-heartbeat" aria-hidden="true"></i> Cardio health
+                            <i class="fa fa-heartbeat" aria-hidden="true"></i> <span class="{{ app()->getLocale() == 'ar' ? 'pe-2' : '' }}">Cardio health</span>
                         </button>
                       </h2>
                       <div id="collapseOne1" class="accordion-collapse collapse show" aria-labelledby="headingOne1" data-bs-parent="#accordionExample">
@@ -148,7 +146,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingTwo1">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo">
-                            <i class="fa fa-medkit" aria-hidden="true"></i>Teeth whitening
+                            <i class="fa fa-medkit" aria-hidden="true"></i><span class="{{ app()->getLocale() == 'ar' ? 'pe-2' : '' }}">Teeth whitening</span>
                         </button>
                       </h2>
                       <div id="collapseTwo1" class="accordion-collapse collapse" aria-labelledby="headingTwo1" data-bs-parent="#accordionExample">
@@ -163,7 +161,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingThree1">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree1" aria-expanded="false" aria-controls="collapseThree1">
-                            <i class="fa fa-user-md" aria-hidden="true"></i>Oral exams
+                            <i class="fa fa-user-md" aria-hidden="true"></i> <span class="{{ app()->getLocale() == 'ar' ? 'pe-2' : '' }}">Oral exams</span>
                         </button>
                       </h2>
                       <div id="collapseThree1" class="accordion-collapse collapse" aria-labelledby="headingThree1" data-bs-parent="#accordionExample">
@@ -178,7 +176,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingFour1">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour1" aria-expanded="false" aria-controls="collapseFour1">
-                            <i class="fa fa-user-md" aria-hidden="true"></i>Dental exams
+                            <i class="fa fa-user-md" aria-hidden="true"></i> <span class="{{ app()->getLocale() == 'ar' ? 'pe-2' : '' }}">Dental exams</span>
                         </button>
                       </h2>
                       <div id="collapseFour1" class="accordion-collapse collapse" aria-labelledby="headingFour1" data-bs-parent="#accordionExample">

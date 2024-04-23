@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-8"></div>
                 <div class="col-sm-4">
-                    <div class="social-icon text-end">
+                    <div class="social-icon text-{{app()->getLocale() == 'ar' ? 'start' : 'end'}}">
                         <a href="#"><i class="bi bi-facebook"></i></a>
                         <a href="#"><i class="bi bi-twitter-x"></i></a>
                         <a href="#"><i class="bi bi-google"></i></a>
@@ -21,39 +21,62 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-6">
                     <div class="logo">
-                        <a href="index.html"><img src="{{ URL::asset('assets/images/favicon.ico') }}" alt="" style="max-width: 40px"/></a>
+                        <a href="{{route('front.home')}}"><img src="{{ URL::asset('assets/images/favicon.ico') }}" alt=""
+                                style="max-width: 40px" /></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-6">
-                    <div class="main-menu text-end">
+                    <div class="main-menu text-{{app()->getLocale() == 'ar' ? 'start' : 'end'}}">
                         <div class="basic-menu">
                             <nav id="mobile-nav">
                                 <ul>
-                                    <li><a href="{{route('front.home')}}">Home</a></li>
-                                    <li><a href="{{route('front.about')}}">about us</a></li>
-                                    <li><a href="doctor.html">Doctors</a>
-                                        <ul>
-                                            <li><a href="doctor.html">doctor style 1</a></li>
-                                            <li><a href="doctor-2.html">doctor style 2</a></li>
-                                            <li><a href="doctor-single.html">doctor Details</a></li>
-                                        </ul>
+                                    <li><a href="{{ route('front.home') }}">{{__('messages.home')}}</a></li>
+                                    <li><a href="{{ route('front.about') }}">{{__('messages.aboutUs')}}</a></li>
+                                    <li><a href="{{ route('front.doctors') }}">{{__('messages.doctors')}}</a></li>
+                                    <li><a href="{{ route('front.contact') }}">{{__('messages.contactUs')}}</a></li>
+                                    <li>
+                                        <div
+                                            class="dropdown topbar-head-dropdown topbar-tag-dropdown justify-content-end">
+                                            <button type="button"
+                                                class="btn-icon btn-topbar text-reset rounded-circle fs-14 fw-medium"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                @switch(app()->getLocale())
+                                                    @case('ar')
+                                                        @php($lang = 'العربية')
+                                                    @break
+
+                                                    @default
+                                                        @php($lang = 'English')
+                                                    @break
+                                                @endswitch
+                                                <img src="{{ URL::asset('assets/images/flags/' . app()->getLocale() . '.svg') }}"
+                                                    class="rounded-circle {{ app()->getLocale() == 'ar' ? 'ms-2' : 'me-2' }}"
+                                                    alt="" height="18">
+                                                <span id="lang-name">{{ $lang }}</span>
+                                            </button>
+                                            <div
+                                                class="dropdown-menu dropdown-menu-end text-{{ app()->getLocale() == 'ar' ? 'end' : 'start' }}">
+                                                @foreach (\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                                    <!-- item-->
+                                                    <a rel="alternate" hreflang="{{ $localeCode }}"
+                                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"
+                                                        class="dropdown-item notify-item language py-2"
+                                                        title="{{ $properties['native'] }}">
+                                                        <img src="{{ URL::asset('assets/images/flags/' . $localeCode . '.svg') }}"
+                                                            alt="{{ $properties['native'] . '-image' }}"
+                                                            class="{{ app()->getLocale() == 'ar' ? 'ms-2' : 'me-2' }} rounded-circle"
+                                                            height="18">
+                                                        <span class="align-middle">{{ $properties['native'] }}</span>
+                                                    </a>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </li>
-                                    <li><a href="blog-left-sidebar.html">blog</a>
-                                        <ul>
-                                            <li><a href="blog-2-col.html">blog 2 col</a></li>
-                                            <li><a href="blog-3-col.html">blog 3 col</a></li>
-                                            <li><a href="blog-no-sidebar.html">blog no sidebar</a></li>
-                                            <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                            <li><a href="blog-details.html">blog Details 1</a></li>
-                                            <li><a href="blog-details-right-sidebar.html">blog Details 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="{{route('front.contact')}}">contact us</a></li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
-                    <div class="nav-bar text-white d-lg-none text-end">
+                    <div class="nav-bar text-white d-lg-none text-{{ app()->getLocale() == 'ar' ? 'start' : 'end' }}">
                         <button class="nav-bar"><i class="fa fa-bars"></i></button>
                     </div>
                 </div>

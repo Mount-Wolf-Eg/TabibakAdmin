@@ -2,7 +2,7 @@
 <div class="department-area theme-bg pt-90 pb-50">
     <div class="container">
         <div class="area-title text-center text-white">
-            <h2>Our Department</h2>
+            <h2>{{__('messages.ourDepartments')}}</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi tempora veritatis nemo aut ea iusto
                 eos est expedita, quas ab adipisci.</p>
         </div>

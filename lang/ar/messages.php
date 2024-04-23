@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'welcomeTo' => 'مرحباً بك فى',
     'tabibak' => 'طبيبك',
     'dashboard' => 'لوحة القيادة',
     'overview' => 'ملخص',
@@ -376,10 +377,23 @@ return [
     'male' => 'ذكر',
     'female' => 'أنثى',
     'home' => 'الرئيسية',
-    'aboutUs' => 'من نحن',
     'about' => 'عنا',
-    'contactUs' => 'تواصل معنا',
+    'aboutUs' => 'من نحن',
+    'aboutDoctor' => 'نبذة عن الطبيب',
     'contact' => 'راسلنا',
+    'contactUs' => 'تواصل معنا',
+    'contactInfo' => 'معلومات التواصل',
     'no_data' => 'لا توجد بيانات',
+    'ourDepartments' => 'أقسامنا',
+    'ourDoctors' => 'أطباؤنا',
+    'happySmiles' => 'وجوه سعيدة',
+    'medicalSpeciality' => 'تخصص طبي',
+    'activeDoctor' => 'طبيب نشط',
+    'completedConsultations' => 'استشارات مكتملة',
+    'getApp' => 'الحصول على التطبيق',
+    'suggestions' => 'المقترحات',
+    'message' => 'الرسالة',
+    'send' => 'إرسال',
+    'sendUsNow' => 'أرسل لنا الأن',
     'your_verification_code' => 'كود التحقق الخاص بك هو :code',
 ];

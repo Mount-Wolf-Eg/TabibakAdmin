@@ -482,13 +482,13 @@ label {
 
 .bg-1 {
 
-  background: rgba(0, 0, 0, 0) url("img/bg/bg-1.jpg") repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) url("../images/front/bg-1.jpg") repeat scroll 0 0;
 
 }
 
 .bg-2 {
 
-  background: rgba(0, 0, 0, 0) url("img/bg/bg-2.jpg") repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) url("../images/front/bg-2.jpg") repeat scroll 0 0;
 
 }
 
@@ -631,28 +631,6 @@ label {
   position: relative;
 
   transition: all 0.3s ease 0s;
-
-}
-
-.basic-menu ul > li::after {
-
-  background: #d7d7d7 none repeat scroll 0 0;
-
-  content: "";
-
-  height: 15px;
-
-  position: absolute;
-
-  right: -16px;
-
-  top: 32px;
-
-  transform: rotate(45deg);
-
-  transition: all 0.3s ease 0s;
-
-  width: 1px;
 
 }
 
@@ -3697,7 +3675,7 @@ ul.list-default > li::before {
 
 .post-preview img {
 
-  width: 100%;
+    width: 100%;
 
 }
 
