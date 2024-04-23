@@ -381,5 +381,6 @@ return [
     'about' => 'About',
     'contactUs' => 'Contact us',
     'contact' => 'Contact',
-    'no_data' => 'No Data'
+    'no_data' => 'No Data',
+    'your_verification_code' => 'Your verification code is: :code',
 ];

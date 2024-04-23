@@ -381,4 +381,5 @@ return [
     'contactUs' => 'تواصل معنا',
     'contact' => 'راسلنا',
     'no_data' => 'لا توجد بيانات',
+    'your_verification_code' => 'كود التحقق الخاص بك هو :code',
 ];

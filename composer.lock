@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0469b36e56a5c212eef70b7b9c3ec01",
+    "content-hash": "08c7127afd5e4ef991d3cfa9394198b3",
     "packages": [
         {
             "name": "blade-ui-kit/blade-icons",
@@ -6730,6 +6730,54 @@
                 }
             ],
             "time": "2024-02-15T11:23:52+00:00"
+        },
+        {
+            "name": "taqnyat/php",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/taqnyat/php.git",
+                "reference": "090348cbe732a025f2542d0f0d2e9810bab55804"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/taqnyat/php/zipball/090348cbe732a025f2542d0f0d2e9810bab55804",
+                "reference": "090348cbe732a025f2542d0f0d2e9810bab55804",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "TaqnyatSms.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taqnyat",
+                    "email": "dev@taqnyat.sa"
+                }
+            ],
+            "description": "A PHP wrapper for Taqnyat's API",
+            "homepage": "https://taqnyat.sa/",
+            "keywords": [
+                "api",
+                "php",
+                "sms",
+                "taqnyat",
+                "taqnyat.sa"
+            ],
+            "support": {
+                "issues": "https://github.com/taqnyat/php/issues",
+                "source": "https://github.com/taqnyat/php/tree/1.0.2"
+            },
+            "time": "2021-10-24T13:46:54+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
