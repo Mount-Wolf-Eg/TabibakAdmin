@@ -13,7 +13,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Note extends Model
 {
-    use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
+    use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['text', 'notable_id', 'notable_type', 'user_id'];
     protected array $filters = ['keyword', 'active'];

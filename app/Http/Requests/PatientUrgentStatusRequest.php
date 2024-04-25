@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Constants\ConsultationPatientStatusConstants;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PatientUrgentStatusRequest extends FormRequest
@@ -22,14 +21,15 @@ class PatientUrgentStatusRequest extends FormRequest
 
     public function prepareForValidation(): void
     {
-        $consultation = $this->route('consultation');
-        if (!$consultation->patientCanChangeDoctorStatusOffer(request('doctor_id')))
+        if (!$this->route('consultation')->patientCanChangeDoctorStatusOffer(request('doctor_id')))
             abort(403, __('messages.not_allowed'));
     }
 
     public function validated($key = null, $default = null)
     {
         $data = parent::validated();
+        $data['doctor_id'] = (int) $data['doctor_id'];
+        $data['amount'] = $this->route('consultation')->replies->where('id', $data['doctor_id'])->first()->pivot->amount;
         $data['replies'] = [
             $data['doctor_id'] => [
                 'status' => $this->status

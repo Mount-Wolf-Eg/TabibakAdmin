@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Front\HomeController;
@@ -96,11 +97,12 @@ Route::group([
         Route::put('vendors/{vendor}/change-activation', [VendorController::class, 'changeActivation'])->name('vendors.active');
         Route::resource('coupons', CouponController::class);
         Route::put('coupons/{coupon}/change-activation', [CouponController::class, 'changeActivation'])->name('coupons.active');
-        Route::apiResource('consultations', ConsultationController::class)->only(['index', 'show', 'destroy']);
+        Route::resource('consultations', ConsultationController::class)->only(['index', 'show', 'destroy']);
         Route::put('consultations/{consultation}/vendor-accept', [ConsultationController::class, 'vendorAccept'])
             ->name('consultations.vendor-accept');
         Route::put('consultations/{consultation}/vendor-reject', [ConsultationController::class, 'vendorReject'])
             ->name('consultations.vendor-reject');
+        Route::resource('payments', PaymentController::class)->only(['index', 'destroy']);
 
         Route::prefix('profile')->group(function () {
             Route::get('/', [ProfileController::class, 'profile'])->name('profile');

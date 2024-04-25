@@ -6,6 +6,7 @@ use App\Constants\ConsultationContactTypeConstants;
 use App\Constants\ConsultationPaymentTypeConstants;
 use App\Constants\ConsultationTypeConstants;
 use App\Constants\ReminderConstants;
+use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\DoctorScheduleDayShiftContract;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
@@ -30,6 +31,7 @@ class ConsultationRequest extends FormRequest
         $validated = parent::validated($key, $default);
         $validated['patient_id'] = $validated['patient_id'] ?? $this->user()->patient?->id;
         if ($validated['type'] == ConsultationTypeConstants::WITH_APPOINTMENT->value) {
+            $validated['amount'] = resolve(DoctorContract::class)->find($validated['doctor_id'])->with_appointment_consultation_price;
             $scheduleSlot = resolve(DoctorScheduleDayShiftContract::class)
                 ->find($validated['doctor_schedule_day_shift_id']);
             $scheduleDay = $scheduleSlot->day;

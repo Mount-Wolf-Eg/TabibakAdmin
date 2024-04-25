@@ -156,7 +156,7 @@ class PatientConsultationController extends BaseApiController
         try {
             $data = $request->validated();
             $consultation = $this->contract->update($consultation, ['doctor_id' => $data['doctor_id'],
-                'status' => ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value]);
+                'amount' => $data['amount'], 'status' => ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value]);
             $this->contract->sync($consultation, 'replies', $data['replies']);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {

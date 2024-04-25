@@ -396,4 +396,16 @@ return [
     'send' => 'إرسال',
     'sendUsNow' => 'أرسل لنا الأن',
     'your_verification_code' => 'كود التحقق الخاص بك هو :code',
+    'completed' => 'مكتمل',
+    'failed' => 'فشل',
+    'refunded' => 'مرتجع',
+    'credit_card' => 'بطاقة الائتمان',
+    'debit_card' => 'بطاقة الخصم',
+    'payments' => 'المدفوعات',
+    'payment_details' => 'تفاصيل الدفع',
+    'manage_payments' => 'إدارة المدفوعات',
+    'transaction_id' => 'رقم العملية',
+    'payment_method' => 'طريقة الدفع',
+    'from' => 'من',
+    'to' => 'to'
 ];

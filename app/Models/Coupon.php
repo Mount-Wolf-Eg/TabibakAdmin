@@ -13,7 +13,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Coupon extends Model
 {
-    use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
+    use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['code', 'description', 'discount_type', 'discount_amount', 'valid_from', 'valid_to', 'user_limit', 'total_limit', 'is_active'];
     protected array $filters = ['keyword', 'active'];

@@ -11,7 +11,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Region extends Model
 {
-    use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
+    use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = [];
     protected array $filters = ['keyword', 'active'];

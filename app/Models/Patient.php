@@ -18,7 +18,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Patient extends Model
 {
-    use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
+    use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['user_id', 'parent_id', 'national_id',
         'other_diseases', 'latest_surgeries', 'weight', 'height', 'blood_type',

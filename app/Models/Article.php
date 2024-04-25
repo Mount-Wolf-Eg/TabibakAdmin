@@ -16,7 +16,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Article extends Model
 {
-    use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
+    use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['author_id','title', 'content', 'medical_speciality_id', 'publish_date',
         'publisher_id', 'views', 'likes', 'dislikes', 'reports', 'is_active'];

@@ -13,7 +13,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Complaint extends Model
 {
-    use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
+    use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['user_id', 'type', 'complaintable_id', 'complaintable_type',
         'title', 'description', 'status', 'is_active'];

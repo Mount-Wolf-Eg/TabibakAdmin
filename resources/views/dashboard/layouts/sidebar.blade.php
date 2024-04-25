@@ -186,6 +186,16 @@
                         </a>
                     </li>
                 @endif
+
+                @if(auth()->user()->can('read-payment') || auth()->user()->can('view-all-payment'))
+                    <li class="nav-item">
+                        <a href="{{route('payments.index')}}" @class(['nav-link', 'menu-link',
+                    'active' => request()->routeIs('payments.index', 'payments.show')])>
+                            <i class="bi bi-tv"></i>
+                            <span data-key="t-dashboard">{{ __('messages.payments') }}</span>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
         <!-- Sidebar -->

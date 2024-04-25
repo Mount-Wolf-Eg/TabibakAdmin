@@ -12,7 +12,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Vendor extends Model
 {
-    use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
+    use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['user_id', 'vendor_type_id', 'city_id', 'address', 'is_active'];
     protected array $filters = ['keyword', 'active', 'vendorType', 'vendorService', 'city'];

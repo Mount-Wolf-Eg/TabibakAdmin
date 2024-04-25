@@ -14,7 +14,7 @@ use Spatie\Translatable\HasTranslations;
 
 class DoctorScheduleDayShift extends Model
 {
-    use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
+    use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['doctor_schedule_day_id', 'parent_id', 'from_time', 'to_time', 'notes', 'is_active'];
     protected array $filters = ['keyword', 'active'];

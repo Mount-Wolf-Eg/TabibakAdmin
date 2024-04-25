@@ -12,7 +12,7 @@ use Spatie\Translatable\HasTranslations;
 
 class MedicalSpeciality extends Model
 {
-    use SoftDeletes, ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
+    use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['name', 'description', 'percentage', 'is_active'];
     protected array $filters = ['keyword', 'active'];
