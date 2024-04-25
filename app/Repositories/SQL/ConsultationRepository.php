@@ -42,7 +42,7 @@ class ConsultationRepository extends BaseRepository implements ConsultationContr
             ]);
         }
 
-        if ($model->isCancelled() && $model->payment){
+        if ($model->status && $model->isCancelled() && $model->payment){
             $model->payment->update([
                 'status' => PaymentStatusConstants::REFUNDED->value
             ]);
