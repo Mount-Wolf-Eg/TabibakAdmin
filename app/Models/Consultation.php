@@ -222,6 +222,12 @@ class Consultation extends Model
         }
         return '';
     }
+
+    public function isCancelled(): bool
+    {
+        return $this->status->is(ConsultationStatusConstants::PATIENT_CANCELLED)
+            || $this->status->is(ConsultationStatusConstants::DOCTOR_CANCELLED);
+    }
     //---------------------methods-------------------------------------
 
     //---------------------attributes-------------------------------------

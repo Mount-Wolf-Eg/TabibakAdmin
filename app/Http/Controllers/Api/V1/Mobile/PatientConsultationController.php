@@ -110,7 +110,7 @@ class PatientConsultationController extends BaseApiController
     public function cancel(Consultation $consultation): JsonResponse
     {
         try {
-            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::CANCELLED->value]);
+            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::PATIENT_CANCELLED->value]);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());

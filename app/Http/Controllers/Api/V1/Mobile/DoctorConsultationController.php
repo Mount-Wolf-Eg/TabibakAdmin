@@ -128,7 +128,7 @@ class DoctorConsultationController extends BaseApiController
         try {
             if (!$consultation->doctorCanCancel())
                 abort(403, __('messages.not_allowed'));
-            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::CANCELLED->value]);
+            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_CANCELLED->value]);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());

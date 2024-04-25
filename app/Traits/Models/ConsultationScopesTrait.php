@@ -88,7 +88,8 @@ trait ConsultationScopesTrait
     {
         $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
         if ($value) {
-            return $query->ofStatus([ConsultationStatusConstants::CANCELLED->value,
+            return $query->ofStatus([ConsultationStatusConstants::PATIENT_CANCELLED->value,
+                ConsultationStatusConstants::DOCTOR_CANCELLED->value,
                 ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
         }
         return $query->ofStatus(ConsultationStatusConstants::PENDING->value);
