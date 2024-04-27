@@ -16,7 +16,8 @@ class AuthController extends BaseApiController
 {
     private UserAuthService $userAuthService;
     private array $doctorRelations = ['doctor.medicalSpecialities', 'doctor.academicDegree',
-        'doctor.attachments', 'doctor.city', 'doctor.scheduleDays.shifts.availableSlots', 'doctor.hospitals'];
+        'doctor.attachments', 'doctor.city', 'doctor.scheduleDays.shifts.availableSlots', 'doctor.hospitals',
+        'doctor.universities.academicDegree', 'doctor.universities.certificate', 'doctor.universities.university'];
     private array $patientRelations = ['patient.diseases'];
 
     public function __construct(UserContract $userContract, UserAuthService $userAuthService)
