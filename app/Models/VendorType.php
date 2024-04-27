@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Constants\FileConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
@@ -19,9 +21,14 @@ class VendorType extends Model
     public array $filterModels = [];
     public array $filterCustom = [];
     public array $translatable = ['name', 'description'];
+    protected $with = ['icon'];
 
     //---------------------relations-------------------------------------
-
+    public function icon(): MorphOne
+    {
+        return $this->morphOne(File::class, 'fileable')
+            ->where('type', FileConstants::FILE_TYPE_VENDOR_TYPE_ICON)->latest();
+    }
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------

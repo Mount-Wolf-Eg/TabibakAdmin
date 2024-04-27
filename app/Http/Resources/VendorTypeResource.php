@@ -18,6 +18,7 @@ class VendorTypeResource extends BaseResource
         $this->micro = [
             'id' => $this->id,
             'name' => $this->name,
+            'icon' => $this->relationLoaded('icon') ? $this->icon?->asset_url : null,
         ];
         $this->mini = [
             'is_active' => $this->is_active,

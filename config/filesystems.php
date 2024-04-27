@@ -99,6 +99,7 @@ return [
             'article' => $base_dir . DIRECTORY_SEPARATOR . 'articles' . DIRECTORY_SEPARATOR,
             'doctor' => $base_dir . DIRECTORY_SEPARATOR . 'doctors' . DIRECTORY_SEPARATOR,
             'vendor' => $base_dir . DIRECTORY_SEPARATOR . 'vendors' . DIRECTORY_SEPARATOR,
+            'vendor_type' => $base_dir . DIRECTORY_SEPARATOR . 'vendor_types' . DIRECTORY_SEPARATOR,
         ],
     ],
 
