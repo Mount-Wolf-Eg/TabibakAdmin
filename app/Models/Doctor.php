@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Constants\DoctorConsultationPeriodConstants;
 use App\Constants\DoctorRequestStatusConstants;
 use App\Constants\FileConstants;
+use App\Constants\ReminderConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +30,7 @@ class Doctor extends Model
     protected array $searchable = ['user.name'];
     protected array $dates = [];
     public array $filterModels = ['City', 'MedicalSpeciality', 'AcademicDegree', 'University', 'Hospital'];
-    public array $filterCustom = ['consultationPeriods'];
+    public array $filterCustom = ['consultationPeriods', 'reminders'];
     public array $translatable = [];
     public $casts = [
         'request_status' => DoctorRequestStatusConstants::class
@@ -128,6 +129,11 @@ class Doctor extends Model
     public static function consultationPeriods(): array
     {
         return DoctorConsultationPeriodConstants::valuesCollection();
+    }
+
+    public static function reminders(): array
+    {
+        return ReminderConstants::valuesCollection();
     }
 
 }
