@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Constants\FileConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
@@ -41,6 +43,12 @@ class Vendor extends Model
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function icon(): MorphOne
+    {
+        return $this->morphOne(File::class, 'fileable')
+            ->where('type', FileConstants::FILE_TYPE_VENDOR_ICON)->latest();
     }
     //---------------------relations-------------------------------------
 

@@ -30,6 +30,7 @@ class VendorResource extends BaseResource
         $this->relations = [
             'user' => $this->relationLoaded('user') ? new UserResource($this->user) : null,
             'city' => $this->relationLoaded('city') ? new CityResource($this->city) : null,
+            'icon' => $this->relationLoaded('icon') ? new FileResource($this->icon) : null,
         ];
         return $this->getResource();
     }

@@ -15,7 +15,7 @@ class VendorController extends BaseApiController
     public function __construct(VendorContract $contract)
     {
         $this->defaultScopes = ['active' => true];
-        $this->relations = ['city'];
+        $this->relations = ['city', 'icon'];
         parent::__construct($contract, VendorResource::class);
     }
 }

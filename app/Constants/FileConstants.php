@@ -14,6 +14,7 @@ enum FileConstants: string
     case FILE_TYPE_ARTICLE_IMAGES = 'article_images';
     case FILE_TYPE_CONSULTATION_ATTACHMENTS = 'consultation_attachments';
     case FILE_TYPE_DOCTOR_UNIVERSITY_CERTIFICATE = 'doctor_university_certificate';
+    case FILE_TYPE_VENDOR_ICON = 'vendor_icon';
 
     public static function fileableTypes(): array
     {
