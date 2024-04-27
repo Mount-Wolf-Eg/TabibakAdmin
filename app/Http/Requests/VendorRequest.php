@@ -48,8 +48,10 @@ class VendorRequest extends FormRequest
         ];
         if($this->method() === 'POST'){
             $rules['password'] = config('validations.password.req');
+            $rules['icon'] = 'required|'.config('validations.file.image').'|mimes:jpeg,jpg,png|max:2048';
         }else{
             $rules['password'] = config('validations.password.null');
+            $rules['icon'] = 'nullable|'.config('validations.file.image').'|mimes:jpeg,jpg,png|max:2048';
         }
         return $rules;
     }

@@ -1,4 +1,4 @@
-{!! Form::open(['route' => $action, 'method'=> $method]) !!}
+{!! Form::open(['route' => $action, 'method'=> $method, 'enctype' => 'multipart/form-data']) !!}
 <div class="row justify-content-center">
     <div class="col-lg-10">
         <div class="card">
@@ -81,6 +81,43 @@
                         @error("password_confirmation")
                         <span class="text-danger">{{$message}}</span>
                         @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0 {{app()->getLocale() == 'ar' ? 'ms-3' : 'me-3'}}">
+                                        <div class="avatar-sm">
+                                            <div class="avatar-title rounded-circle bg-light text-primary fs-20">
+                                                <i class="bi bi-images"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title mb-1 d-inline">{{__('messages.icon')}}</h5>
+                                        @if(request()->routeIs('vendors.create'))
+                                            <span class="text-danger fw-bold">*</span>
+                                        @endif
+                                        <p class="text-muted mb-0">{{__('messages.upload') . ' ' . __('messages.icon')}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body pt-2 pb-3">
+                                {!! Form::file('icon', ['class' => 'form-control', 'accept' => 'image/jpeg, image/png', 'value' => old('icon')]) !!}
+                                @error("icon")
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
+                                <br>
+                                @if(isset($vendor) && $vendor->icon)
+                                    <div class="col-6 position-relative">
+                                        <a class="btn btn-flat-light my-3 mx-2 remove-image-resource position-absolute top-0 {{app()->getLocale() == 'ar' ? 'start' : 'end'}}-0" data-id="{{$vendor->icon->id}}">
+                                            <i class="bi bi-x-lg"></i>
+                                        </a>
+                                        <img src="{{$vendor->icon->asset_url}}" title="{{$vendor->icon->name}}" class="img-fluid mt-3" alt="{{__('messages.icon')}}" style="max-height: 200px">
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="{{app()->getLocale() == 'ar' ? 'text-start' : 'text-end'}}">

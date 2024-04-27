@@ -407,5 +407,6 @@ return [
     'transaction_id' => 'رقم العملية',
     'payment_method' => 'طريقة الدفع',
     'from' => 'من',
-    'to' => 'to'
+    'to' => 'إلى',
+    'icon' => 'الأيقونة',
 ];

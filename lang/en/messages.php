@@ -409,4 +409,5 @@ return [
     'payment_method' => 'Payment Method',
     'from' => 'From',
     'to' => 'To',
+    'icon' => 'Icon',
 ];
