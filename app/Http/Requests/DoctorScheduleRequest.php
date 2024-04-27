@@ -40,7 +40,7 @@ class DoctorScheduleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'consultation_period' => config('validations.integer.req'). '!min:5|max:300',
+            'consultation_period' => config('validations.integer.req'). '|min:5|max:300',
             'schedule_days' => config('validations.array.req'),
             'schedule_days.*.day' => config('validations.day.req'),
             'schedule_days.*.shifts' => config('validations.array.req'),
