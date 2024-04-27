@@ -49,6 +49,8 @@ class DoctorResource extends BaseResource
             'rates_avg' => $this->relationLoaded('rates') ? $this->rates->avg('value') : 0,
             'universities' => $this->relationLoaded('universities') ? DoctorUniversityResource::collection($this->universities) : [],
             'schedule_days' => $this->relationLoaded('scheduleDays') ? DoctorScheduleDayResource::collection($this->scheduleDays) : [],
+            'hospitals' => $this->relationLoaded('hospitals') ? HospitalResource::collection($this->hospitals) : [],
+            'last_hospital' => $this->relationLoaded('hospitals') ? new HospitalResource($this->hospitals->last()) : null,
         ];
         return $this->getResource();
     }

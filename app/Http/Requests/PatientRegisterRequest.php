@@ -36,7 +36,7 @@ class PatientRegisterRequest extends FormRequest
             'national_id' => config('validations.integer.req'),
             'date_of_birth' => config('validations.date.req'),
             'phone' => config('validations.phone.req').'|unique:users,phone',
-            'image' => sprintf(config('validations.model.req'), 'files'),
+            'image' => sprintf(config('validations.model.null'), 'files')
         ];
     }
 }

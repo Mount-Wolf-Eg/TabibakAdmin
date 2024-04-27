@@ -38,7 +38,7 @@ class DoctorRepository extends BaseRepository implements DoctorContract
         if (isset($attributes['schedule_days'])) {
             foreach ($attributes['schedule_days'] as $day) {
                 $day['doctor_id'] = $model->id;
-                $scheduleDay = resolve(DoctorScheduleDayRepository::class)->findBy('date', $day['date']);
+                $scheduleDay = resolve(DoctorScheduleDayRepository::class)->findBy('date', $day['date'], false);
                 if ($scheduleDay)
                     resolve(DoctorScheduleDayRepository::class)->update($scheduleDay, $day);
                 else
