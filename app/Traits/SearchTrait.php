@@ -34,6 +34,7 @@ trait SearchTrait
 
     public function scopeOfActive($query, $active = true)
     {
+        $active = filter_var($active, FILTER_VALIDATE_BOOLEAN);
         return $query->where('is_active', $active);
     }
 
