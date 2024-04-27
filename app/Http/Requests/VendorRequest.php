@@ -51,7 +51,7 @@ class VendorRequest extends FormRequest
             $rules['icon'] = 'required|'.config('validations.file.image').'|mimes:jpeg,jpg,png|max:2048';
         }else{
             $rules['password'] = config('validations.password.null');
-            $rules['icon'] = 'nullable|'.config('validations.file.image').'|mimes:jpeg,jpg,png|max:2048';
+            $rules['icon'] = 'nullable|'.config('validations.file.image').'|max:2048';
         }
         return $rules;
     }
