@@ -5,21 +5,18 @@
             <div class="row">
                 <div class="col-md-6 mb-40">
                     <div class="footer-widget">
-                        <h4><span>get in touch</span></h4>
-                        <p>Medifine Bibendum auctor, nisi elit consequat ipsum, nec sagittis sem</p>
+                        <h4><span>{{__('messages.sections.contact_us_title')}}</span></h4>
+                        <p>{{__('messages.sections.contact_us_message')}}</p>
                         <div class="contact-widget">
                             <ul>
                                 <li>
-                                    <i class="fa fa-home"></i>
-                                    <p>Medifine link Ltd, Manhattan 1258, New York, USA Lahore</p>
+                                    <p>{{__('messages.address')}}: {{__('messages.saudi_arabia')}}</p>
                                 </li>
                                 <li>
-                                    <i class="fa fa-globe"></i>
-                                    <p><a href="#.">www.Medifine.com</a></p>
+                                    <p>{{__('messages.email')}}: <a href="mailto:info@tabebak.com">info@tabebak.com</a></p>
                                 </li>
                                 <li>
-                                    <i class="fa fa-mobile"></i>
-                                    <p class="phone-number">(+1) 234 567 8901</p>
+                                    <p>{{__('messages.phone')}}: <a href="tel:+9665500000">9665500000+</a></p>
                                 </li>
                             </ul>
                         </div>
@@ -27,15 +24,24 @@
                 </div>
                 <div class="col-md-6 mb-40">
                     <div class="footer-widget">
-                        <h4><span>newsletter</span></h4>
+                        <h4><span>{{__('messages.sections.message_us_title')}}</span></h4>
                         <div class="newsletter clearfix">
-                            <i class="fa fa-envelope"></i>
-                            <p class="newsletter-text">Sign up with your name and email to get updates fresh
-                                updates.</p>
-                            <form action="#">
-                                <input type="text" placeholder="Your Name" />
-                                <input type="email" placeholder="Your Email" />
-                                <button class="btn">Subscribe</button>
+                            <form action="#" method="POST">
+                                <div class="row pb-2">
+                                    <div class="col-6">
+                                        <input class="form-control" type="text" name="name" placeholder="{{__('messages.name')}}" />
+                                    </div>
+                                    <div class="col-6">
+                                        <input class="form-control" type="text" name="phone" placeholder="{{__('messages.phone')}}" />
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="form-control" type="email" name="email" placeholder="{{__('messages.email')}}" />
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea class="form-control input-lg" rows="7" name="message" placeholder="{{__('messages.message')}}" style="min-height: 150px"></textarea>                                    </div>
+                                    </div>
+                                </div>
+                                <button class="btn" type="submit">{{__('messages.send')}}</button>
                             </form>
                         </div>
                     </div>

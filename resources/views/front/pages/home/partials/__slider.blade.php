@@ -1,4 +1,4 @@
-<div class="single-silder height-vh hero-slide" style="background-image: url('{{ asset('assets/images/front/slider-1.jpg') }}')">
+<div class="single-silder height-vh hero-slide" style="background-image: url('{{ asset('assets/images/front/home-header.jpg') }}')">
     <div class="container">
         <div class="display-table">
             <div class="table-cell">
