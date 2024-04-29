@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Http\Controllers\Api\V1\BaseApiController;
 use App\Http\Resources\PaymentResource;
+use App\Models\GeneralSettings;
 use App\Repositories\Contracts\PaymentContract;
 
 class PaymentController extends BaseApiController
@@ -31,7 +32,10 @@ class PaymentController extends BaseApiController
     public function doctorIndex()
     {
         $this->defaultScopes = ['doctor' => auth()->user()->doctor?->id];
-        return parent::index();
+        $totalAmount = $this->contract->sumWithFilters($this->defaultScopes, 'amount');
+        $appAmount = $totalAmount * GeneralSettings::getSettingValue('app_payment_percentage');
+        $doctorAmount = $totalAmount - $appAmount;
+        return parent::index(['total_amount' => $totalAmount, 'app_amount' => $appAmount, 'doctor_amount' => $doctorAmount]);
     }
 
     /**

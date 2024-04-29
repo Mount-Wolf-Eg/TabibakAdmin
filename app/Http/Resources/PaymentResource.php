@@ -34,6 +34,8 @@ class PaymentResource extends BaseResource
         ];
         $this->full = [
             'metadata' => $this->metadata,
+            'app_percentage' => $this->app_percentage,
+            'doctor_percentage' => $this->doctor_percentage,
         ];
         $this->relations = [
             'payer' => $this->relationLoaded('payer')? new UserResource($this->payer) : null,

@@ -451,6 +451,23 @@ abstract class BaseRepository implements BaseContract
     }
 
     /**
+     * @param $filters
+     * @param $column
+     * @return float
+     */
+    public function sumWithFilters($filters, $column): float
+    {
+        $query = $this->query;
+        foreach ($this->model->getFilters() as $filter) {
+            if (isset($filters[$filter])) {
+                $withFilter = "of" . ucfirst($filter);
+                $query = $query->$withFilter($filters[$filter]);
+            }
+        }
+        return $query->sum($column);
+    }
+
+    /**
      * @param $function
      * @param $column
      * @return mixed

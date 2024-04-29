@@ -6,6 +6,7 @@ use App\Constants\PaymentMethodConstants;
 use App\Constants\PaymentStatusConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -19,7 +20,7 @@ class Payment extends Model
     protected $fillable = ['payer_id', 'beneficiary_id', 'payable_id', 'payable_type', 'coupon_id',
         'transaction_id', 'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
     protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'payer',
-        'fromCreationDate', 'toCreationDate'];
+        'fromCreationDate', 'toCreationDate', 'consultationType'];
     protected array $searchable = ['transaction_id', 'currency.name'];
     protected array $dates = [];
     public array $filterModels = [];
@@ -89,6 +90,25 @@ class Payment extends Model
     {
         return $query->whereDate('created_at', '<=', $date);
     }
+
+    public function scopeOfConsultationType($query, $type)
+    {
+        return $query->whereHasMorph('payable', [Consultation::class], function ($query) use ($type) {
+            $query->where('type', $type);
+        });
+    }
     //---------------------Scopes-------------------------------------
 
+    //---------------------Attributes-------------------------------------
+    public function appPercentage():Attribute
+    {
+        $appPaymentPercentage = GeneralSettings::getSettingValue('app_payment_percentage');
+        return Attribute::make(fn() => $this->amount * $appPaymentPercentage);
+    }
+
+    public function doctorPercentage():Attribute
+    {
+        return Attribute::make(fn() => $this->amount - $this->app_percentage);
+    }
+    //---------------------Attributes-------------------------------------
 }

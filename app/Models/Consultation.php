@@ -9,6 +9,8 @@ use App\Constants\ConsultationTransferCaseRateConstants;
 use App\Constants\ConsultationTypeConstants;
 use App\Constants\ConsultationVendorStatusConstants;
 use App\Constants\FileConstants;
+use App\Constants\PaymentMethodConstants;
+use App\Constants\PaymentStatusConstants;
 use App\Constants\ReminderConstants;
 use App\Constants\ConsultationPatientStatusConstants;
 use App\Traits\Models\ConsultationScopesTrait;
@@ -40,7 +42,7 @@ class Consultation extends Model
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];
     public array $filterCustom = ['types', 'paymentMethods', 'reminders', 'transferCaseRates',
-        'statuses', 'contactTypes'];
+        'statuses', 'contactTypes', 'paymentStatuses', 'paymentTypes'];
     public array $translatable = [];
     protected $casts = [
         'status' => ConsultationStatusConstants::class,
@@ -111,9 +113,14 @@ class Consultation extends Model
         return ConsultationTypeConstants::valuesCollection();
     }
 
-    public static function paymentMethods(): array
+    public static function paymentTypes(): array
     {
         return ConsultationPaymentTypeConstants::valuesCollection();
+    }
+
+    public static function paymentMethods(): array
+    {
+        return PaymentMethodConstants::valuesCollection();
     }
 
     public static function reminders(): array
@@ -134,6 +141,11 @@ class Consultation extends Model
     public static function contactTypes(): array
     {
         return ConsultationContactTypeConstants::valuesCollection();
+    }
+
+    public static function paymentStatuses(): array
+    {
+        return PaymentStatusConstants::valuesCollection();
     }
     //---------------------constants-------------------------------------
 
