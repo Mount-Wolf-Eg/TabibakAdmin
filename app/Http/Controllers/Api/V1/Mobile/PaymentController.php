@@ -31,7 +31,7 @@ class PaymentController extends BaseApiController
      */
     public function doctorIndex()
     {
-        $this->defaultScopes = ['doctor' => auth()->user()->doctor?->id];
+        $this->defaultScopes = ['beneficiary' => auth()->id()];
         $totalAmount = $this->contract->sumWithFilters($this->defaultScopes, 'amount');
         $appAmount = $totalAmount * GeneralSettings::getSettingValue('app_payment_percentage');
         $doctorAmount = $totalAmount - $appAmount;
@@ -45,7 +45,7 @@ class PaymentController extends BaseApiController
     public function patientIndex()
     {
         $user = auth()->user();
-        $this->defaultScopes = ['patient' => $user->patient?->id];
+        $this->defaultScopes = ['payer' => $user->id];
         return parent::index(['available_balance' => $user->wallet]);
     }
 }

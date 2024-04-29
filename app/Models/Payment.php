@@ -20,7 +20,7 @@ class Payment extends Model
     protected $fillable = ['payer_id', 'beneficiary_id', 'payable_id', 'payable_type', 'coupon_id',
         'transaction_id', 'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
     protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'payer',
-        'fromCreationDate', 'toCreationDate', 'consultationType'];
+        'beneficiary', 'fromCreationDate', 'toCreationDate', 'consultationType'];
     protected array $searchable = ['transaction_id', 'currency.name'];
     protected array $dates = [];
     public array $filterModels = [];
@@ -64,6 +64,11 @@ class Payment extends Model
     public function scopeOfPayer($query, $payer_id)
     {
         return $query->where('payer_id', $payer_id);
+    }
+
+    public function scopeOfBeneficiary($query, $beneficiary_id)
+    {
+        return $query->where('beneficiary_id', $beneficiary_id);
     }
 
     public function scopeCreationDate($query, $date)
