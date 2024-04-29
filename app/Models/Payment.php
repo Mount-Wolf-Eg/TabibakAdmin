@@ -16,7 +16,7 @@ class Payment extends Model
 {
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['user_id', 'payable_id', 'payable_type', 'transaction_id',
+    protected $fillable = ['payer_id', 'beneficiary_id', 'payable_id', 'payable_type', 'transaction_id',
         'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
     protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'user',
         'fromCreationDate', 'toCreationDate'];
