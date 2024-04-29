@@ -16,5 +16,6 @@ class FaqController extends BaseApiController
     {
         parent::__construct($contract, FaqResource::class);
         $this->relations = ['faqSubject'];
+        $this->defaultScopes = ['active' => true];
     }
 }
