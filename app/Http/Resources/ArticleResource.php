@@ -39,6 +39,7 @@ class ArticleResource extends BaseResource
             'author' => $this->relationLoaded('author') ? new UserResource($this->author) : null,
             'likes_count' => $this->relationLoaded('likes') ? $this->likes->count() : 0,
             'auth_like_status' => $this->relationLoaded('likes') ? $this->auth_like_status : false,
+            'medical_speciality' => $this->relationLoaded('medicalSpeciality') ? new MedicalSpecialityResource($this->medicalSpeciality) : null,
         ];
         return $this->getResource();
     }
