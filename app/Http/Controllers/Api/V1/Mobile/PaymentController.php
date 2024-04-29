@@ -21,6 +21,7 @@ class PaymentController extends BaseApiController
     public function __construct(PaymentContract $paymentContract)
     {
         parent::__construct($paymentContract, PaymentResource::class);
+        $this->relations = ['payer', 'beneficiary', 'currency', 'payable'];
     }
 
     /**
@@ -39,7 +40,8 @@ class PaymentController extends BaseApiController
      */
     public function patientIndex()
     {
-        $this->defaultScopes = ['patient' => auth()->user()->patient?->id];
-        return parent::index();
+        $user = auth()->user();
+        $this->defaultScopes = ['patient' => $user->patient?->id];
+        return parent::index(['available_balance' => $user->wallet]);
     }
 }

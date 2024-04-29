@@ -41,9 +41,10 @@ class BaseApiController extends Controller
     /**
      * index() Display a listing of the resource.
      *
+     * @param array $additional
      * @return mixed
      */
-    public function index(): mixed
+    public function index(array $additional = []): mixed
     {
         $page = 1;
         $limit = 10;
@@ -58,13 +59,12 @@ class BaseApiController extends Controller
         if (request()->has('order')) {
             $order = request('order');
         }
-
         $data = array_merge(request()->all(), ['order' => $order, 'limit' => $limit, 'page' => $page]);
         $models = $this->contract->search($filters, $this->relations, $data);
         $groupBy = request('groupBy');
         if ($groupBy)
             return $this->respondWithGroupByCollection($models, $groupBy);
-        return $this->respondWithCollection($models);
+        return $this->respondWithCollection($models, null, [], $additional);
     }
 
 
@@ -83,12 +83,13 @@ class BaseApiController extends Controller
      *
      * @param $resources
      * @param array $headers
+     * @param array $additional
      * @return mixed
      */
-    protected function respond($resources, array $headers = []): mixed
+    protected function respond($resources, array $headers = [], array $additional = []): mixed
     {
         return $resources
-            ->additional(['status' => $this->getStatusCode()])
+            ->additional(array_merge(['status' => $this->getStatusCode()], $additional))
             ->response()
             ->setStatusCode($this->getStatusCode())
             ->withHeaders($headers);
@@ -101,13 +102,14 @@ class BaseApiController extends Controller
      * @param $collection
      * @param int|null $statusCode
      * @param array $headers
+     * @param array $additional
      * @return mixed
      */
-    protected function respondWithCollection($collection, int $statusCode = null, array $headers = []): mixed
+    protected function respondWithCollection($collection, int $statusCode = null, array $headers = [], array $additional = []): mixed
     {
         $statusCode = $statusCode ?? Response::HTTP_OK;
         $resources = forward_static_call([$this->modelResource, 'collection'], $collection);
-        return $this->setStatusCode($statusCode)->respond($resources, $headers);
+        return $this->setStatusCode($statusCode)->respond($resources, $headers, $additional);
     }
 
     /**

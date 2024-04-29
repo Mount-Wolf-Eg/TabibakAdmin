@@ -56,7 +56,7 @@
                         <td><a href="{{route('consultations.show', $resource->payable->id)}}">#{{$resource->payable->id}}</a></td>
                         <td>{{$resource->created_at->format('Y-m-d h:i A')}}</td>
                         <td>{{$resource->payable->doctor?->user->name}}</td>
-                        <td>{{$resource->beneficiary->name}}</td>
+                        <td>{{$resource->payer->name}}</td>
                         <td>{{$resource->transaction_id}}</td>
                         <td>{{$resource->amount . ' ' . $resource->currency->symbol}}</td>
                         <td>{{$resource->payment_method->label()}}</td>

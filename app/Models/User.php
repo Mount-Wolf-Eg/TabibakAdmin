@@ -26,8 +26,9 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasTranslations,
         HasRoles, HasPermissions, ModelTrait, SearchTrait, SoftDeletes;
 
-	protected $fillable = ['name', 'username', 'email', 'password', 'phone', 'gender', 'city_id',
-        'date_of_birth', 'address', 'verification_code', 'phone_verified_at', 'is_active'];
+	protected $fillable = ['name', 'username', 'email', 'password', 'phone', 'gender',
+        'city_id', 'date_of_birth', 'address','wallet', 'verification_code',
+        'phone_verified_at', 'is_active'];
     protected array $filters = ['keyword', 'role', 'roleName', 'email', 'active'];
     public array $filterModels = ['Role'];
     public array $filterCustom = [];

@@ -17,18 +17,29 @@ class PaymentResource extends BaseResource
     {
         $this->micro = [
             'id' => $this->id,
+            'transaction_id' => $this->transaction_id,
+            'amount' => $this->amount,
         ];
         $this->mini = [
-            'is_active' => $this->is_active,
-            'active_status' => $this->active_status,
-            'active_class' => $this->active_class,
+            'status' => [
+                'value' => $this->status->value,
+                'label' => $this->status->label(),
+            ],
+            'payment_method' => [
+                'value' => $this->payment_method->value,
+                'label' => $this->payment_method->label(),
+            ],
             'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
         ];
         $this->full = [
+            'metadata' => $this->metadata,
         ];
-        //$this->relationLoaded()
         $this->relations = [
+            'payer' => $this->relationLoaded('payer')? new UserResource($this->payer) : null,
+            'beneficiary' => $this->relationLoaded('beneficiary')? new UserResource($this->beneficiary) : null,
+            'currency' => $this->relationLoaded('currency')? new CurrencyResource($this->currency) : null,
+            'consultation' => $this->relationLoaded('payable')? new ConsultationResource($this->payable) : null,
         ];
         return $this->getResource();
     }
