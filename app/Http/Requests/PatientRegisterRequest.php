@@ -32,10 +32,11 @@ class PatientRegisterRequest extends FormRequest
     {
         return [
             'name' => config('validations.string.req'),
-            'gender' => config('validations.integer.null').'|in:'. implode(',', UserGenderConstants::values()),
-            'national_id' => config('validations.integer.req'),
+            'gender' => config('validations.integer.req').'|in:'. implode(',', UserGenderConstants::values()),
+            'national_id' => config('validations.integer.req').'|unique:patients,national_id',
             'date_of_birth' => config('validations.date.req'),
             'phone' => config('validations.phone.req').'|unique:users,phone',
+            'city_id' => sprintf(config('validations.model.req'), 'cities'),
             'image' => sprintf(config('validations.model.null'), 'files')
         ];
     }

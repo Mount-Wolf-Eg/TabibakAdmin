@@ -57,10 +57,13 @@ class UserRequest extends FormRequest
         if (isset($validated['gender'])) {
             $validated['user']['gender'] = $validated['gender'];
         }
+        if (isset($validated['city_id'])){
+            $validated['user']['city_id'] = $validated['city_id'];
+        }
         $validated['user']['role_id'] = resolve(RoleContract::class)->findBy('name', $role)?->id;
         unset($validated['name'], $validated['email'], $validated['phone'],
             $validated['password'], $validated['address'], $validated['date_of_birth'],
-            $validated['image'], $validated['gender']);
+            $validated['image'], $validated['gender'], $validated['city_id']);
         return $validated;
     }
 
