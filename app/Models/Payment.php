@@ -16,8 +16,8 @@ class Payment extends Model
 {
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['payer_id', 'beneficiary_id', 'payable_id', 'payable_type', 'transaction_id',
-        'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
+    protected $fillable = ['payer_id', 'beneficiary_id', 'payable_id', 'payable_type', 'coupon_id',
+        'transaction_id', 'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
     protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'payer',
         'fromCreationDate', 'toCreationDate'];
     protected array $searchable = ['transaction_id', 'currency.name'];
@@ -50,6 +50,11 @@ class Payment extends Model
     public function payable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function coupon(): BelongsTo
+    {
+        return $this->belongsTo(Coupon::class);
     }
 
     //---------------------relations-------------------------------------

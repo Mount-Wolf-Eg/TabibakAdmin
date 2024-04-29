@@ -40,6 +40,7 @@ class PaymentResource extends BaseResource
             'beneficiary' => $this->relationLoaded('beneficiary')? new UserResource($this->beneficiary) : null,
             'currency' => $this->relationLoaded('currency')? new CurrencyResource($this->currency) : null,
             'consultation' => $this->relationLoaded('payable')? new ConsultationResource($this->payable) : null,
+            'coupon' => $this->relationLoaded('coupon')? new CouponResource($this->coupon) : null,
         ];
         return $this->getResource();
     }
