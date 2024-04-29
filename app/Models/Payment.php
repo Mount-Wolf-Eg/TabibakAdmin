@@ -18,7 +18,7 @@ class Payment extends Model
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['payer_id', 'beneficiary_id', 'payable_id', 'payable_type', 'transaction_id',
         'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
-    protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'user',
+    protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'payer',
         'fromCreationDate', 'toCreationDate'];
     protected array $searchable = ['transaction_id', 'currency.name'];
     protected array $dates = [];
@@ -32,9 +32,14 @@ class Payment extends Model
     ];
 
     //---------------------relations-------------------------------------
-    public function user(): BelongsTo
+    public function payer(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'payer_id');
+    }
+
+    public function beneficiary(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'beneficiary_id');
     }
 
     public function currency(): BelongsTo
@@ -50,9 +55,9 @@ class Payment extends Model
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
-    public function scopeOfUser($query, $user_id)
+    public function scopeOfPayer($query, $payer_id)
     {
-        return $query->where('user_id', $user_id);
+        return $query->where('payer_id', $payer_id);
     }
 
     public function scopeCreationDate($query, $date)

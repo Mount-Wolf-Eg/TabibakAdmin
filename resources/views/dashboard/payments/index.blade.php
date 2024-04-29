@@ -17,8 +17,8 @@
         </div>
         <div class="col-lg-2 py-1">
             {{ Form::label('patients', __('messages.patients'), ['class' => 'form-label']) }}
-            {!! Form::select('user' , $patients->pluck('user.name', 'user.id')->prepend(__('messages.select'), ''),
-                request('user'),  ['class' => 'form-control select2']) !!}
+            {!! Form::select('payer' , $patients->pluck('user.name', 'user.id')->prepend(__('messages.select'), ''),
+                request('payer'),  ['class' => 'form-control select2']) !!}
         </div>
         <div class="col-lg-2 py-1">
             {{ Form::label('statuses', __('messages.status'), ['class' => 'form-label']) }}
@@ -56,7 +56,7 @@
                         <td><a href="{{route('consultations.show', $resource->payable->id)}}">#{{$resource->payable->id}}</a></td>
                         <td>{{$resource->created_at->format('Y-m-d h:i A')}}</td>
                         <td>{{$resource->payable->doctor?->user->name}}</td>
-                        <td>{{$resource->user->name}}</td>
+                        <td>{{$resource->beneficiary->name}}</td>
                         <td>{{$resource->transaction_id}}</td>
                         <td>{{$resource->amount . ' ' . $resource->currency->symbol}}</td>
                         <td>{{$resource->payment_method->label()}}</td>
