@@ -2,30 +2,26 @@
 <div class="about-area pt-90 pb-60">
     <div class="container">
         <div class="area-title text-center">
-            <h2>{{__('messages.welcomeTo')}} <span>{{__('messages.tabibak')}}</span></h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi tempora veritatis nemo aut ea iusto
-                eos est expedita, quas ab adipisci.</p>
+            <h2>{{__('messages.sections.welcome_to_title')}} <span>{{__('messages.tabibak')}}</span></h2>
+            <p class="front-main-font">{{__('messages.sections.welcome_to_message')}}</p>
         </div>
         <div class="row">
             <div class="col-md-4 mb-30">
                 <div class="features-box border-box text-center">
-                    <i class="fa fa-ambulance" aria-hidden="true"></i>
-                    <h3>easy appointments</h3>
-                    <span>Behind the word mountains, far from the countries Vokalia and Consonantia.</span>
+                    <img src="{{ asset('assets/images/svg/messages.svg') }}" style="height: 50px">
+                    <p class="pt-3 front-main-font">{{__('messages.sections.social_messages_message')}}</p>
                 </div>
             </div>
             <div class="col-md-4 mb-30">
                 <div class="features-box border-box text-center">
-                    <i class="fa fa-stethoscope" aria-hidden="true"></i>
-                    <h3>Best Doctor</h3>
-                    <span>Behind the word mountains, far from the countries Vokalia and Consonantia.</span>
+                    <img src="{{ asset('assets/images/svg/phone.svg') }}" style="height: 50px">
+                    <p class="pt-3 front-main-font">{{__('messages.sections.social_phone_message')}}</p>
                 </div>
             </div>
             <div class="col-md-4 mb-30">
                 <div class="features-box border-box text-center">
-                    <i class="fa fa-medkit" aria-hidden="true"></i>
-                    <h3>High Quality Service</h3>
-                    <span>Behind the word mountains, far from the countries Vokalia and Consonantia.</span>
+                    <img src="{{ asset('assets/images/svg/video.svg') }}" style="height: 50px">
+                    <p class="pt-3 front-main-font">{{__('messages.sections.social_video_message')}}</p>
                 </div>
             </div>
         </div>

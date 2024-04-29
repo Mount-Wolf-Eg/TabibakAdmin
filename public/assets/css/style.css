@@ -122,6 +122,10 @@ a,
 
 }
 
+.front-main-font {
+    font-size: 18px;
+}
+
 a:focus,
 
 .button:focus {
@@ -488,9 +492,15 @@ label {
 
 .bg-2 {
 
-  background: rgba(0, 0, 0, 0) url("../images/front/bg-2.jpg") repeat scroll 0 0;
+  background: rgba(0, 0, 0, 0) url("../images/front/contactus-header.jpg") repeat scroll 0 0;
 
 }
+
+.bg-3 {
+
+    background: rgba(0, 0, 0, 0) url("../images/front/aboutus-header.jpg") repeat scroll 0 0;
+
+  }
 
 .bg-1, .bg-2, .bg-3, .bg-4, .bg-5, .bg-6, .bg-7, .bg-8, .bg-9, .bg-10 {
 
@@ -511,6 +521,8 @@ label {
   position: relative;
 
   z-index: 0;
+
+  min-height: 500px;
 
 }
 
@@ -1778,11 +1790,11 @@ h2.department-name {
 
 
 
-.team-item:hover .team-item-image:after {
+/*.team-item:hover .team-item-image:after {
 
     background-color: rgba(255, 255, 255, .9)
 
-}
+}*/
 
 .team-item:hover {
 

@@ -13,4 +13,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
 
+@if (app()->getLocale() == 'ar')
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Cairo', sans-serif;
+        }
+    </style>
+@endif
 @stack('styles')
