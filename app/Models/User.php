@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,7 @@ use Spatie\Translatable\HasTranslations;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasTranslations,
-        HasRoles, HasPermissions, ModelTrait, SearchTrait;
+        HasRoles, HasPermissions, ModelTrait, SearchTrait, SoftDeletes;
 
 	protected $fillable = ['name', 'username', 'email', 'password', 'phone', 'gender', 'city_id',
         'date_of_birth', 'address', 'verification_code', 'phone_verified_at', 'is_active'];
