@@ -27,6 +27,8 @@ class ArticleResource extends BaseResource
             'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
         ];
         $this->full = [
+            'title_locales' => $this->getTranslations('title'),
+            'content_locales' => $this->getTranslations('content'),
             'content' => $this->content,
             'views' => $this->views,
             'likes' => $this->likes,
