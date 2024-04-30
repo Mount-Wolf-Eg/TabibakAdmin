@@ -46,6 +46,7 @@ class PatientProfileRequest extends FormRequest
             'national_id' => config('validations.string.null').'|unique:patients,national_id,'.auth()->user()->patient?->id,
             'password' => config('validations.password.null'),
             'social_status' => config('validations.integer.null').'|in:'.implode(',', PatientSocialStatusConstants::values()),
+            'city_id' => sprintf(config('validations.model.req'), 'cities'),
         ];
     }
 
