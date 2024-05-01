@@ -71,6 +71,7 @@ Route::group(['middleware' => 'locale'], static function () {
                 Route::post('/{consultation}/cancel', 'cancel');
             });
             Route::get('payments', [PaymentController::class, 'doctorIndex']);
+            Route::resource('payments', PaymentController::class)->only('destroy');
         });
 
     });

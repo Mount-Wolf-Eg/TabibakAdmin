@@ -21,7 +21,7 @@ class Payment extends Model
         'transaction_id', 'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
     protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'payer',
         'beneficiary', 'fromCreationDate', 'toCreationDate', 'consultationType'];
-    protected array $searchable = ['transaction_id', 'currency.name'];
+    protected array $searchable = ['transaction_id', 'currency.name', 'payer.name', 'beneficiary.name'];
     protected array $dates = [];
     public array $filterModels = [];
     public array $filterCustom = [];

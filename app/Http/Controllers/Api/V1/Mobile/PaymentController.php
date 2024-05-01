@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Http\Controllers\Api\V1\BaseApiController;
 use App\Http\Resources\PaymentResource;
 use App\Models\GeneralSettings;
+use App\Models\Payment;
 use App\Repositories\Contracts\PaymentContract;
+use Exception;
 
 class PaymentController extends BaseApiController
 {
@@ -47,5 +49,15 @@ class PaymentController extends BaseApiController
         $user = auth()->user();
         $this->defaultScopes = ['payer' => $user->id];
         return parent::index(['available_balance' => $user->wallet]);
+    }
+
+    public function destroy(Payment $payment)
+    {
+        try{
+            $this->contract->remove($payment);
+            return $this->respondWithSuccess(__('Deleted Successfully'));
+        }catch(Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
     }
 }
