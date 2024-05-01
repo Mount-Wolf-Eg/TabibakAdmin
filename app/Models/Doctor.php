@@ -119,11 +119,11 @@ class Doctor extends Model
     {
         return $query->where('city_id', (array)$value);
     }
-
     public function scopeOfTopRated($query)
     {
         return $query->withAvg('rates', 'value')->orderBy('rates_avg_value', 'desc');
     }
+
     //---------------------Scopes-------------------------------------
 
     public static function consultationPeriods(): array

@@ -20,13 +20,12 @@ class HospitalResource extends BaseResource
             'name' => $this->name,
         ];
         $this->mini = [
-            'is_active' => $this->is_active,
-            'active_status' => $this->active_status,
-            'active_class' => $this->active_class,
             'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
         ];
         $this->full = [
+            'start_date' => $this->pivot?->start_date,
+            'end_date' => $this->pivot?->end_date,
         ];
         $this->relations = [
         ];
