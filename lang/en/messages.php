@@ -434,4 +434,5 @@ return [
     'from' => 'From',
     'to' => 'To',
     'icon' => 'Icon',
+    'saudi_arabia' => 'Saudi Arabia',
 ];
