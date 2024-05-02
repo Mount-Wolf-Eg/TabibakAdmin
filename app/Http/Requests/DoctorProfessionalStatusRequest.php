@@ -19,7 +19,8 @@ class DoctorProfessionalStatusRequest extends FormRequest
         if (isset($validated['doctor_hospitals']))
         {
             collect($validated['doctor_hospitals'])->each(function ($hospital) use (&$validated){
-                $hospitalModel = resolve(HospitalContract::class)->search(['name' => $hospital['name']])->first();
+                info($hospital);
+                $hospitalModel = resolve(HospitalContract::class)->freshRepo()->search(['name' => $hospital['name']])->first();
                 if (!$hospitalModel) {
                     $hospitalModel = resolve(HospitalContract::class)->create(['name' => $hospital['name']]);
                 }

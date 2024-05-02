@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Requests\PatientRequest;
 use App\Models\Patient;
 use App\Repositories\Contracts\PatientContract;
+use App\Repositories\Contracts\UserContract;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseWebController;
@@ -108,6 +109,7 @@ class PatientController extends BaseWebController
     {
         try {
             $this->contract->remove($patient);
+            resolve(UserContract::class)->remove($patient->user);
             return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
         }catch (Exception $e){
             return $this->redirectBack()->with('error', $e->getMessage());
@@ -122,6 +124,7 @@ class PatientController extends BaseWebController
     public function changeActivation(Patient $patient): RedirectResponse
     {
         $this->contract->toggleField($patient, 'is_active');
+        resolve(UserContract::class)->toggleField($patient->user, 'is_active');
         return $this->redirectBack()->with('success', __('messages.actions_messages.update_success'));
     }
 }

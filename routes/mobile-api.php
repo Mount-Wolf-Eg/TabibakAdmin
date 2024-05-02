@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\Mobile\DoctorScheduleDayController;
 use App\Http\Controllers\Api\V1\Mobile\FileController;
 use App\Http\Controllers\Api\V1\Mobile\PatientProfileController;
 use App\Http\Controllers\Api\V1\Mobile\PatientRelativeController;
+use App\Http\Controllers\Api\V1\Mobile\PaymentController;
 use App\Http\Controllers\Api\V1\Mobile\RateController;
 use App\Http\Controllers\Api\V1\Mobile\VendorController;
 
@@ -49,6 +50,7 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::apiResource('rates', RateController::class)->only('store', 'update', 'destroy');
             Route::apiResource('complaints', ComplaintController::class)->only('store', 'show', 'update', 'destroy');
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('index');
+            Route::get('payments', [PaymentController::class, 'patientIndex']);
         });
 
         Route::post('register-user-as-doctor', [AuthController::class, 'registerUserAsDoctor']);
@@ -68,6 +70,8 @@ Route::group(['middleware' => 'locale'], static function () {
                 Route::post('/{consultation}/accept-urgent-case', 'acceptUrgentCase');
                 Route::post('/{consultation}/cancel', 'cancel');
             });
+            Route::get('payments', [PaymentController::class, 'doctorIndex']);
+            Route::resource('payments', PaymentController::class)->only('destroy');
         });
 
     });

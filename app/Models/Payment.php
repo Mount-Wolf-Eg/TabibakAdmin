@@ -6,6 +6,7 @@ use App\Constants\PaymentMethodConstants;
 use App\Constants\PaymentStatusConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -16,11 +17,11 @@ class Payment extends Model
 {
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['user_id', 'payable_id', 'payable_type', 'transaction_id',
-        'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
-    protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'user',
-        'fromCreationDate', 'toCreationDate'];
-    protected array $searchable = ['transaction_id', 'currency.name'];
+    protected $fillable = ['payer_id', 'beneficiary_id', 'payable_id', 'payable_type', 'coupon_id',
+        'transaction_id', 'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
+    protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'payer',
+        'beneficiary', 'fromCreationDate', 'toCreationDate', 'consultationType'];
+    protected array $searchable = ['transaction_id', 'currency.name', 'payer.name', 'beneficiary.name'];
     protected array $dates = [];
     public array $filterModels = [];
     public array $filterCustom = [];
@@ -32,9 +33,14 @@ class Payment extends Model
     ];
 
     //---------------------relations-------------------------------------
-    public function user(): BelongsTo
+    public function payer(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'payer_id');
+    }
+
+    public function beneficiary(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'beneficiary_id');
     }
 
     public function currency(): BelongsTo
@@ -47,12 +53,22 @@ class Payment extends Model
         return $this->morphTo();
     }
 
+    public function coupon(): BelongsTo
+    {
+        return $this->belongsTo(Coupon::class);
+    }
+
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
-    public function scopeOfUser($query, $user_id)
+    public function scopeOfPayer($query, $payer_id)
     {
-        return $query->where('user_id', $user_id);
+        return $query->where('payer_id', $payer_id);
+    }
+
+    public function scopeOfBeneficiary($query, $beneficiary_id)
+    {
+        return $query->where('beneficiary_id', $beneficiary_id);
     }
 
     public function scopeCreationDate($query, $date)
@@ -79,6 +95,25 @@ class Payment extends Model
     {
         return $query->whereDate('created_at', '<=', $date);
     }
+
+    public function scopeOfConsultationType($query, $type)
+    {
+        return $query->whereHasMorph('payable', [Consultation::class], function ($query) use ($type) {
+            $query->where('type', $type);
+        });
+    }
     //---------------------Scopes-------------------------------------
 
+    //---------------------Attributes-------------------------------------
+    public function appPercentage():Attribute
+    {
+        $appPaymentPercentage = GeneralSettings::getSettingValue('app_payment_percentage');
+        return Attribute::make(fn() => $this->amount * $appPaymentPercentage);
+    }
+
+    public function doctorPercentage():Attribute
+    {
+        return Attribute::make(fn() => $this->amount - $this->app_percentage);
+    }
+    //---------------------Attributes-------------------------------------
 }

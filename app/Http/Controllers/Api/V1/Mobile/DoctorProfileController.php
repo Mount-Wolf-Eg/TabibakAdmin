@@ -42,7 +42,7 @@ class DoctorProfileController extends BaseApiController
     {
         $doctor = auth()->user()->doctor;
         $doctor = $this->contract->update($doctor, $request->validated());
-        $user = $doctor->user->load('doctor.universities.university',
+        $user = $doctor->user->load('doctor.universities.university', 'doctor.hospitals',
             'doctor.universities.academicDegree', 'doctor.universities.certificate');
         return $this->respondWithModel($user);
     }

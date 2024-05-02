@@ -13,7 +13,7 @@ class Hospital extends Model
     use ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['name', 'is_active'];
-    protected array $filters = ['keyword'];
+    protected array $filters = ['keyword', 'name'];
     protected array $searchable = ['name'];
     protected array $dates = [];
     public array $filterModels = [];
@@ -25,7 +25,10 @@ class Hospital extends Model
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
-
+    public function scopeOfName($query, $name)
+    {
+        return $query->where('name', $name);
+    }
     //---------------------Scopes-------------------------------------
 
 }

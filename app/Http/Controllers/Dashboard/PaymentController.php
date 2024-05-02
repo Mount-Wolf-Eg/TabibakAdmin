@@ -33,7 +33,7 @@ class PaymentController extends BaseWebController
      */
     public function index(Request $request): View|Factory|Application
     {
-        $resources = $this->contract->search($request->all(), ['payable.doctor', 'user', 'currency']);
+        $resources = $this->contract->search($request->all(), ['payable.doctor', 'payer', 'beneficiary', 'currency']);
         $patients = resolve(PatientContract::class)->search([], ['user'], ['limit' => 0]);
         $statuses = collect(PaymentStatusConstants::valuesCollection());
         $methods = collect(PaymentMethodConstants::valuesCollection());

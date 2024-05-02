@@ -26,7 +26,7 @@ class Patient extends Model
     protected array $filters = ['keyword','parent', 'active'];
     protected array $searchable = ['user.name'];
     protected array $dates = [];
-    public array $filterModels = ['Disease'];
+    public array $filterModels = ['Disease', 'City'];
     public array $filterCustom = ['socialStatuses', 'bloodTypes', 'genders'];
     public array $translatable = [];
     protected $with = ['user'];

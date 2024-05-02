@@ -21,7 +21,7 @@ class Doctor extends Model
 {
     use ModelTrait, SearchTrait, SoftDeletes, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['user_id', 'academic_degree_id', 'national_id', 'city_id', 'university', 'bio',
+    protected $fillable = ['user_id', 'academic_degree_id', 'national_id', 'university', 'bio',
         'urgent_consultation_enabled', 'with_appointment_consultation_enabled', 'experience_years', 'consultation_period',
         'reminder_before_consultation'. 'urgent_consultation_price', 'with_appointment_consultation_price',
         'request_status', 'medical_id', 'is_active'];
@@ -119,11 +119,11 @@ class Doctor extends Model
     {
         return $query->where('city_id', (array)$value);
     }
-
     public function scopeOfTopRated($query)
     {
         return $query->withAvg('rates', 'value')->orderBy('rates_avg_value', 'desc');
     }
+
     //---------------------Scopes-------------------------------------
 
     public static function consultationPeriods(): array

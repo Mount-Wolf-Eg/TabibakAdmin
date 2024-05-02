@@ -43,7 +43,7 @@ class AuthController extends BaseApiController
     public function login(LoginRequest $request)
     {
         $loginUser = $this->contract->findByFields(['and' => ['phone' => $request->phone, 'verification_code' => $request->verification_code]]);
-        if ($loginUser) {
+        if ($loginUser && $loginUser->is_active) {
             Auth::login($loginUser);
             $this->userAuthService->verifyUser($loginUser);
             $loginUser->api_token = $this->userAuthService->createToken($loginUser, $request->validated());

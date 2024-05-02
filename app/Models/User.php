@@ -9,8 +9,10 @@ use App\Traits\SearchTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -22,16 +24,17 @@ use Spatie\Translatable\HasTranslations;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasTranslations,
-        HasRoles, HasPermissions, ModelTrait, SearchTrait;
+        HasRoles, HasPermissions, ModelTrait, SearchTrait, SoftDeletes;
 
 	protected $fillable = ['name', 'username', 'email', 'password', 'phone', 'gender',
-        'date_of_birth', 'address', 'verification_code', 'phone_verified_at', 'is_active'];
+        'city_id', 'date_of_birth', 'address','wallet', 'verification_code',
+        'phone_verified_at', 'is_active'];
     protected array $filters = ['keyword', 'role', 'roleName', 'email', 'active'];
     public array $filterModels = ['Role'];
     public array $filterCustom = [];
     protected array $searchable = ['name', 'email'];
     public array $translatable = ['name'];
-    protected $with = ['avatar'];
+    protected $with = ['avatar', 'city'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -69,6 +72,11 @@ class User extends Authenticatable
     {
         return $this->morphOne(File::class, 'fileable')
             ->where('type', FileConstants::FILE_TYPE_USER_AVATAR)->latest();
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
     //---------------------relations-------------------------------------
     // ----------------------- Scopes -----------------------

@@ -27,6 +27,8 @@ class ArticleResource extends BaseResource
             'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
         ];
         $this->full = [
+            'title_locales' => $this->getTranslations('title'),
+            'content_locales' => $this->getTranslations('content'),
             'content' => $this->content,
             'views' => $this->views,
             'likes' => $this->likes,
@@ -39,6 +41,7 @@ class ArticleResource extends BaseResource
             'author' => $this->relationLoaded('author') ? new UserResource($this->author) : null,
             'likes_count' => $this->relationLoaded('likes') ? $this->likes->count() : 0,
             'auth_like_status' => $this->relationLoaded('likes') ? $this->auth_like_status : false,
+            'medical_speciality' => $this->relationLoaded('medicalSpeciality') ? new MedicalSpecialityResource($this->medicalSpeciality) : null,
         ];
         return $this->getResource();
     }

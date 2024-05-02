@@ -1,6 +1,7 @@
 <?php
 
 use App\Constants\PaymentStatusConstants;
+use App\Models\Coupon;
 use App\Models\Currency;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -16,7 +17,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class, 'payer_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignIdFor(User::class, 'beneficiary_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignIdFor(Coupon::class)->nullable()->constrained()->cascadeOnDelete();
             $table->morphs('payable');
             $table->foreignIdFor(Currency::class)->constrained()->cascadeOnDelete();
             $table->string('transaction_id')->unique();
