@@ -16,7 +16,7 @@
                                     <p>{{__('messages.email')}}: <a href="mailto:info@tabebak.com">info@tabebak.com</a></p>
                                 </li>
                                 <li>
-                                    <p>{{__('messages.phone')}}: <a href="tel:+9665500000">9665500000+</a></p>
+                                    <p>{{__('messages.phone')}}: <a href="tel:+9665500000">+9665500000</a></p>
                                 </li>
                             </ul>
                         </div>
