@@ -8,7 +8,7 @@
 	@include('front.partials.__team')
 	@include('front.pages.home.partials.__video')
     @include('front.pages.home.partials.__counter')
-	@include('front.pages.home.partials.__suggestions')
-	{{-- @include('front.pages.home.partials.__news') --}}
+	{{-- @include('front.pages.home.partials.__suggestions')
+	@include('front.pages.home.partials.__news') --}}
 	@include('front.partials.__clients')
 @endsection

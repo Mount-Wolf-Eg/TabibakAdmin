@@ -6,16 +6,6 @@
                 <div class="doctor-img w-img">
                     <img src="{{ asset('assets/images/front/doctor-single.jpg') }}" class="img-responsive" alt="">
                 </div>
-                <div class="doctor-contact">
-                    <ul class="contact-list">
-                        <li>
-                            <i class="fa fa-phone"></i> +1800-567-1234
-                        </li>
-                        <li>
-                            <i class="fa fa-envelope"></i> Medifine@example.com
-                        </li>
-                    </ul>
-                </div>
             </div>
             <div class="col-sm-7">
                 <div class="doctor-details">
