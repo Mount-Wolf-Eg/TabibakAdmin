@@ -32,14 +32,36 @@ class Coupon extends Model
         return $this->belongsToMany(MedicalSpeciality::class, 'coupon_medical_speciality');
     }
 
-    public function consultations(): HasMany
+    public function payments(): HasMany
     {
-        return $this->hasMany(Consultation::class, 'coupon_id');
+        return $this->hasMany(Payment::class);
     }
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
 
     //---------------------Scopes-------------------------------------
+
+    public function isValid(): bool
+    {
+        return $this->is_active
+            && $this->valid_from->isPast() && $this->valid_to->isFuture()
+            && $this->payments->count() < $this->total_limit;
+    }
+
+    public function isValidForUser($userId, $specialityId = null): bool
+    {
+        return $this->isValid()
+            && $this->payments->where('payer_id', $userId)->count() < $this->user_limit
+            && $this->medicalSpecialities->contains($specialityId);
+    }
+
+    public function applyDiscount($amount): float
+    {
+        if ($this->discount_type == CouponTypeConstants::PERCENTAGE->value) {
+            return $amount - ($amount * $this->discount_amount / 100);
+        }
+        return $amount < $this->discount_amount ? 0 : $amount - $this->discount_amount;
+    }
 
 }

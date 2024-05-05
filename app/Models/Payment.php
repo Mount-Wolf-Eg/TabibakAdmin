@@ -20,7 +20,7 @@ class Payment extends Model
     protected $fillable = ['payer_id', 'beneficiary_id', 'payable_id', 'payable_type', 'coupon_id',
         'transaction_id', 'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
     protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'payer',
-        'beneficiary', 'fromCreationDate', 'toCreationDate', 'consultationType'];
+        'beneficiary', 'fromCreationDate', 'toCreationDate', 'consultationType', 'coupon'];
     protected array $searchable = ['transaction_id', 'currency.name', 'payer.name', 'beneficiary.name'];
     protected array $dates = [];
     public array $filterModels = [];
@@ -101,6 +101,11 @@ class Payment extends Model
         return $query->whereHasMorph('payable', [Consultation::class], function ($query) use ($type) {
             $query->where('type', $type);
         });
+    }
+
+    public function scopeOfCoupon($query, $coupon_id)
+    {
+        return $query->where('coupon_id', $coupon_id);
     }
     //---------------------Scopes-------------------------------------
 
