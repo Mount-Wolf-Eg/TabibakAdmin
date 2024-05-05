@@ -16,8 +16,8 @@ class ValidCouponRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $coupon = resolve(CouponContract::class)->find($value);
-        if (!$coupon->isValidForUser(auth()->id(), request('medical_speciality_id'))) {
+        $coupon = resolve(CouponContract::class)->findBy('code', $value, false);
+        if (!$coupon?->isValidForUser(auth()->id(), request('medical_speciality_id'))) {
             $fail(__('messages.invalid_coupon'));
         }
     }

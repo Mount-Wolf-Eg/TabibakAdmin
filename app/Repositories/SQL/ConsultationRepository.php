@@ -41,9 +41,9 @@ class ConsultationRepository extends BaseRepository implements ConsultationContr
                 'currency_id' => 1,
                 'payment_method' => PaymentMethodConstants::CREDIT_CARD->value,
             ];
-            if (!empty($relations['coupon_id'])){
-                $coupon = resolve(CouponContract::class)->find($relations['coupon_id']);
-                if ($coupon->isValidForUser($model->patient->user_id, $model->medical_speciality_id))
+            if (!empty($relations['coupon_code'])){
+                $coupon = resolve(CouponContract::class)->findBy('code', $relations['coupon_code'], false);
+                if ($coupon?->isValidForUser($model->patient->user_id, $model->medical_speciality_id))
                 {
                     $paymentData['coupon_id'] = $coupon->id;
                     $paymentData['amount'] = $coupon->applyDiscount($model->amount);

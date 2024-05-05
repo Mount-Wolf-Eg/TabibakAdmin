@@ -67,7 +67,7 @@ class ConsultationRequest extends FormRequest
                 config('validations.integer.null').'|in:'. implode(',', ReminderConstants::values()),
             'payment_type' => config('validations.integer.req').'|in:'. implode(',', ConsultationPaymentTypeConstants::values()),
             'medical_speciality_id' => sprintf(config('validations.model.active_null'), 'medical_specialities'),
-            'coupon_id' => ['nullable', 'exists:coupons,id', new ValidCouponRule()]
+            'coupon_code' => ['nullable', 'exists:coupons,code', new ValidCouponRule()]
         ];
     }
 
