@@ -33,7 +33,7 @@ class Consultation extends Model
         'patient_description', 'doctor_description', 'medical_review', 'prescription', 'type',
         'doctor_schedule_day_shift_id', 'contact_type', 'reminder_at', 'transfer_reason',
         'transfer_notes', 'transfer_case_rate', 'payment_type', 'amount',
-        'coupon_id', 'is_active'];
+        'is_active'];
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
         'myVendorStatus', 'creationDate', 'status', 'completed', 'urgentWithNoDoctor',
@@ -78,11 +78,6 @@ class Consultation extends Model
     public function doctorScheduleDayShift(): BelongsTo
     {
         return $this->belongsTo(DoctorScheduleDayShift::class);
-    }
-
-    public function coupon(): BelongsTo
-    {
-        return $this->belongsTo(Coupon::class);
     }
 
     public function vendors(): BelongsToMany
