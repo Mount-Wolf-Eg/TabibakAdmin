@@ -436,4 +436,6 @@ return [
     'icon' => 'Icon',
     'saudi_arabia' => 'Saudi Arabia',
     'invalid_coupon' => 'Invalid Coupon',
+    'valid' => 'Valid',
+    'expired' => 'Expired',
 ];

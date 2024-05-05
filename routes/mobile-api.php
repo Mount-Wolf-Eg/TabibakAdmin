@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\FilterController;
 use App\Http\Controllers\Api\V1\Mobile\ArticleController;
 use App\Http\Controllers\Api\V1\Mobile\AuthController;
 use App\Http\Controllers\Api\V1\Mobile\ComplaintController;
+use App\Http\Controllers\Api\V1\Mobile\CouponController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorConsultationController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorProfileController;
 use App\Http\Controllers\Api\V1\Mobile\FaqController;
@@ -51,6 +52,7 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::apiResource('complaints', ComplaintController::class)->only('store', 'show', 'update', 'destroy');
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('index');
             Route::get('payments', [PaymentController::class, 'patientIndex']);
+            Route::resource('coupons', CouponController::class)->only('index');
         });
 
         Route::post('register-user-as-doctor', [AuthController::class, 'registerUserAsDoctor']);
