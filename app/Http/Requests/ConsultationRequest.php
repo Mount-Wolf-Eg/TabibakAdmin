@@ -8,6 +8,7 @@ use App\Constants\ConsultationTypeConstants;
 use App\Constants\ReminderConstants;
 use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\DoctorScheduleDayShiftContract;
+use App\Rules\ValidCouponRule;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\JsonValidationTrait;
@@ -64,7 +65,9 @@ class ConsultationRequest extends FormRequest
                 .'|in:'. implode(',', ConsultationContactTypeConstants::values()),
             'reminder_before' => 'required_if:type,==,'.ConsultationTypeConstants::WITH_APPOINTMENT->value.'|'.
                 config('validations.integer.null').'|in:'. implode(',', ReminderConstants::values()),
-            'payment_type' => config('validations.integer.req').'|in:'. implode(',', ConsultationPaymentTypeConstants::values())
+            'payment_type' => config('validations.integer.req').'|in:'. implode(',', ConsultationPaymentTypeConstants::values()),
+            'medical_speciality_id' => sprintf(config('validations.model.active_null'), 'medical_specialities'),
+            'coupon_code' => ['nullable', 'exists:coupons,code', new ValidCouponRule()]
         ];
     }
 
