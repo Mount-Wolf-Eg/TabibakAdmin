@@ -124,6 +124,14 @@ class Doctor extends Model
         return $query->withAvg('rates', 'value')->orderBy('rates_avg_value', 'desc');
     }
 
+    public function scopeOfCanAcceptUrgentCases($query, $myUserId)
+    {
+        return $query->where('urgent_consultation_enabled', true)
+            ->where('user_id', '!=', $myUserId)
+            ->ofActive()
+            ->ofRequestStatus(DoctorRequestStatusConstants::APPROVED);
+    }
+
     //---------------------Scopes-------------------------------------
 
     public static function consultationPeriods(): array

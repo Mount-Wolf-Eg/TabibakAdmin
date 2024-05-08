@@ -437,4 +437,12 @@ return [
     'invalid_coupon' => 'القسيمة غير صالحة',
     'valid' => 'صالح',
     'expired' => 'منتهي',
+    'notifications' => 'الإشعارات',
+    'notification' => 'الإشعار',
+    'notification_messages' => [
+        'new_consultation' => [
+            'title' => 'استشارة جديدة',
+            'body' => 'تم استقبال استشارة جديدة'
+        ]
+    ]
 ];

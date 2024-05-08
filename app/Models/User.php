@@ -132,4 +132,14 @@ class User extends Authenticatable
         });
     }
 
+    public function routeNotificationForFcm(): array|string
+    {
+        return $this->getDeviceTokens();
+    }
+
+    public function getDeviceTokens(): array
+    {
+        return $this->tokens->whereNotNull('fcm_token')->unique('fcm_token')->pluck('fcm_token')->toArray();
+    }
+
 }
