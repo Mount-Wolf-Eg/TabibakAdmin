@@ -14,7 +14,7 @@
             <div class="card p-2">
                 <div class="card-body">
                     <h5 class="card-title py-2">{{ucfirst($article->title)}}</h5>
-                    <p class="card-text">{{__('messages.joined')}}: {{date_format($article->created_at, 'd-m-Y')}}</p>
+                    <p class="card-text">{{__('messages.joined')}}: {{$article->created_at?->format('Y-m-d')}}</p>
                     <h5 class="card-title py-2">{{__('messages.details')}}</h5>
                     <div class="row py-2">
                         <div class="col-6">{{__('messages.author')}}</div>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="row py-2">
                         <div class="col-6">{{__('messages.publish_date')}}</div>
-                        <div class="col-6">{{$article->publish_date ? date_format($article->publish_date, 'd-m-Y') : __('messages.not_published')}}</div>
+                        <div class="col-6">{{$article->publish_date ? $article->publish_date?->format('Y-m-d') : __('messages.not_published')}}</div>
                     </div>
                     <div class="row py-2">
                         <div class="col-6">{{__('messages.published_by')}}</div>

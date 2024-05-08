@@ -194,7 +194,7 @@ h6 {
 
   font-weight: 400;
 
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 
   text-transform: normal;
 
@@ -400,7 +400,7 @@ label {
 
   font-weight: 600;
 
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 
   line-height: 1.42857;
 
@@ -661,7 +661,7 @@ label {
 
   font-size: 12px;
 
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 
   text-transform: uppercase;
 
@@ -1206,7 +1206,7 @@ nav.nav-menu-show {
 
   font-weight: 600;
 
-  letter-spacing: 2px;
+  /*letter-spacing: 2px;*/;
 
   margin-bottom: 20px;
 
@@ -1328,7 +1328,7 @@ nav.nav-menu-show {
 
   font-weight: 400;
 
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 
   margin: 0 0 10px;
 
@@ -1850,7 +1850,7 @@ h2.department-name {
 
   font-weight: 500;
 
-  letter-spacing: 2px;
+  /*letter-spacing: 2px;*/;
 
   line-height: 24px;
 
@@ -1878,7 +1878,7 @@ h2.department-name {
 
     font-size: 13px;
 
-    letter-spacing: 1px;
+    /*letter-spacing: 1px;*/
 
     color: #858899
 
@@ -2303,7 +2303,7 @@ color: #ffffff;
 
   font-weight: 500;
 
-  letter-spacing: 3px;
+  /*letter-spacing: 3px;*/
 
   margin-bottom: 0;
 
@@ -2944,7 +2944,7 @@ margin: 0;}
 
   font-weight: 700;
 
-  letter-spacing: 6px;
+  /*letter-spacing: 6px;*/
 
   text-transform: uppercase;
 
@@ -3017,7 +3017,7 @@ content: "/\00a0";
 
   font-weight: 500;
 
-  letter-spacing: 2px;
+  /*letter-spacing: 2px;*/;
 
   margin-bottom: 15px;
 
@@ -3083,7 +3083,7 @@ content: "/\00a0";
 
   font-size: 30px;
 
-  letter-spacing: -0.25px;
+  /*letter-spacing: -0.25px;*/
 
   text-transform: capitalize;
 
@@ -3107,7 +3107,7 @@ content: "/\00a0";
 
   font-weight: 500;
 
-  letter-spacing: 2px;
+  /*letter-spacing: 2px;*/;
 
   padding: 0 40px 0 0;
 
@@ -3249,7 +3249,7 @@ content: "/\00a0";
 
   font-weight: 400;
 
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 
 }
 
@@ -3339,7 +3339,7 @@ content: "/\00a0";
 
   font-weight: 500;
 
-  letter-spacing: 2px;
+  /*letter-spacing: 2px;*/;
 
   margin: 15px 0;
 
@@ -3491,7 +3491,7 @@ content: "/\00a0";
 
   font-weight: 700;
 
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 
   margin: 0;
 
@@ -3525,7 +3525,7 @@ content: "/\00a0";
 
     vertical-align: top;
 
-    letter-spacing: 2px;
+    /*letter-spacing: 2px;*/;
 
     line-height: 3.5;
 
@@ -3713,7 +3713,7 @@ ul.list-default > li::before {
 
     text-transform: uppercase;
 
-    letter-spacing: 1px;
+    /*letter-spacing: 1px;*/
 
     font-weight: 700;
 
@@ -4579,7 +4579,7 @@ blockquote.single-blockquote p {
 
   font-weight: 700;
 
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 
   margin: 0 0 40px;
 
@@ -5188,7 +5188,7 @@ ul.tag li a:hover{background:#7F5587;border-color:#7F5587;color:#fff}
 
   font-weight: 700;
 
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 
   padding: 15px 20px;
 
@@ -5272,7 +5272,7 @@ ul.tag li a:hover{background:#7F5587;border-color:#7F5587;color:#fff}
   display: block;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
   padding: 15px 20px;
   position: relative;
   text-transform: uppercase;

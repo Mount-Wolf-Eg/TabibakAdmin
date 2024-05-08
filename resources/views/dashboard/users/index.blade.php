@@ -17,12 +17,12 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{__('translate.name')}}</th>
-                    <th scope="col">{{__('translate.email')}}</th>
-                    <th scope="col">{{__('translate.phone')}}</th>
-                    <th scope="col">{{__('translate.role')}}</th>
-                    <th scope="col">{{__('translate.activation')}}</th>
-                    <th scope="col">{{__('translate.actions')}}</th>
+                    <th scope="col">{{__('messages.name')}}</th>
+                    <th scope="col">{{__('messages.email')}}</th>
+                    <th scope="col">{{__('messages.phone')}}</th>
+                    <th scope="col">{{__('messages.role')}}</th>
+                    <th scope="col">{{__('messages.activation')}}</th>
+                    <th scope="col">{{__('messages.actions')}}</th>
                 </tr>
                 </thead>
                 <tbody>

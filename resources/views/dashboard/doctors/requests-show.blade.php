@@ -30,7 +30,7 @@
                         </div>
                         <div class="row py-2">
                             <div class="col-6">{{__('messages.created')}}</div>
-                            <div class="col-6">{{date_format($resource->created_at, 'd-m-Y')}}</div>
+                            <div class="col-6">{{$resource->created_at?->format('Y-m-d')}}</div>
                         </div>
                     </div>
                 </div>

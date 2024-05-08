@@ -35,7 +35,7 @@
                         </th>
                         <td>{{$resource->title}}</td>
                         <td>{{$resource->author->name}}</td>
-                        <td>{{$resource->publish_date ? date_format($resource->publish_date, 'd/m/Y') : __('messages.not_published')}}</td>
+                        <td>{{$resource->publish_date ? $resource->publish_date?->format('Y-m-d') : __('messages.not_published')}}</td>
                         <td>{{count($resource->likes)}}</td>
                         <td>{{$resource->views}}</td>
                         <td>{{$resource->reports}}</td>

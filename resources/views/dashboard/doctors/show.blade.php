@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="py-2">
                         <h5 class="card-title py-2">{{ucfirst($doctor->user->name)}}</h5>
-                        <p class="card-text">{{__('messages.joined')}}: {{date_format($doctor->user->created_at, 'd-m-Y')}}</p>
+                        <p class="card-text">{{__('messages.joined')}}: {{$doctor->user?->created_at->format('Y-m-d')}}</p>
                     </div>
                     <div class="py-2">
                         <h5 class="card-title py-2">{{__('messages.bio')}}</h5>

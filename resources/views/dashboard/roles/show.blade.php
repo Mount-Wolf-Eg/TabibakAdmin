@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="py-2">
                         <h5 class="card-title">{{ucfirst($role->name)}}</h5>
-                        <p class="card-text">{{__('messages.created')}}: {{date_format($role->created_at, 'd-m-Y')}}</p>
+                        <p class="card-text">{{__('messages.created')}}: {{$role->created_at?->format('Y-m-d')}}</p>
                     </div>
                     <div class="py-2">
                         <h5 class="card-title">{{__('messages.permissions')}}</h5>
