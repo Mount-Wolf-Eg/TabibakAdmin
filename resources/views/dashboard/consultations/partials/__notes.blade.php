@@ -29,7 +29,7 @@
                                 <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
                             </th>
                             <td>{{$note->text}}</td>
-                            <td>{{$note->user->name}}</td>
+                            <td>{{$note->user?->name}}</td>
                             <td>{{$note->created_at->format('Y-m-d h:i A')}}</td>
                         </tr>
                     @endforeach

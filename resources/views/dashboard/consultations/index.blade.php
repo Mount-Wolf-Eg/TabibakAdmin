@@ -57,9 +57,9 @@
                         </th>
                         <td><a href="{{route('consultations.show', $resource->id)}}">#{{$resource->id}}</a></td>
                         <td>{{$resource->created_at->format('Y-m-d h:i A')}}</td>
-                        <td>{{$resource->patient->user->name}}</td>
-                        <td>{{$resource->doctor?->user->name}}</td>
-                        <td>{{$resource->doctor?->user->phone}}</td>
+                        <td>{{$resource->patient->user?->name}}</td>
+                        <td>{{$resource->doctor->user?->name}}</td>
+                        <td>{{$resource->doctor->user?->phone}}</td>
                         <td>{{$resource->type?->label()}}</td>
                         <td>{{$resource->transfer_reason}}</td>
                         @include('dashboard.partials.__table-actions', ['resource' => $resource, 'disableEdit' => true,

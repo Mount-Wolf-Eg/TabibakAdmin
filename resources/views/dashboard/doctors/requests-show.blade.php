@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row py-2">
                             <div class="col-6">{{__('messages.name')}}</div>
-                            <div class="col-6">{{$resource->user->name}}</div>
+                            <div class="col-6">{{$resource->user?->name}}</div>
                         </div>
                         <div class="row py-2">
                             <div class="col-6">{{__('messages.speciality')}}</div>
@@ -26,7 +26,7 @@
                         </div>
                         <div class="row py-2">
                             <div class="col-6">{{__('messages.phone')}}</div>
-                            <div class="col-6">{{$resource->user->phone}}</div>
+                            <div class="col-6">{{$resource->user?->phone}}</div>
                         </div>
                         <div class="row py-2">
                             <div class="col-6">{{__('messages.created')}}</div>

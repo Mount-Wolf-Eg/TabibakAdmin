@@ -26,7 +26,7 @@
                                     {{$attachment->name}}
                                 </a>
                             </td>
-                            <td>{{$attachment->user->name}}</td>
+                            <td>{{$attachment->user?->name}}</td>
                             <td>{{$attachment->created_at->format('Y-m-d h:i A')}}</td>
                         </tr>
                     @endforeach
