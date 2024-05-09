@@ -20,7 +20,7 @@
                 <p><strong>{{__('messages.age')}}</strong></p>
             </div>
             <div class="col-lg-8">
-                <p>{{$consultation->doctor?->user?->patient->age}}</p>
+                <p>{{$consultation->doctor?->user?->patient?->age}}</p>
             </div>
         </div>
         <div class="row">
