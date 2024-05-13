@@ -447,4 +447,5 @@ return [
     'invalid_coupon' => 'Invalid Coupon',
     'valid' => 'Valid',
     'expired' => 'Expired',
+    'not_active_account' => 'Your account is not active',
 ];
