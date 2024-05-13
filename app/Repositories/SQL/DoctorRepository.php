@@ -49,10 +49,11 @@ class DoctorRepository extends BaseRepository implements DoctorContract
             $model->user->assignRole($attributes['role']);
         }
         if (isset($attributes['universities'])) {
+            $model->universities()->delete();
             foreach ($attributes['universities'] as $university) {
                 $data = collect($university)->except(['certificate'])->toArray();
                 $universityModel = $model->universities()->updateOrCreate($data);
-                if (isset($university['certificate'])) {
+                if (!empty($university['certificate'])) {
                     $file = resolve(FileContract::class)->find($university['certificate']);
                     $universityModel->certificate()->save($file);
                 }
