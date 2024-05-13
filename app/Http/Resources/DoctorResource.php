@@ -37,7 +37,9 @@ class DoctorResource extends BaseResource
             'urgent_consultation_enabled' => $this->urgent_consultation_enabled,
             'with_appointment_consultation_enabled' => $this->with_appointment_consultation_enabled,
             'experience_years' => $this->experience_years,
-            'price' => $this->urgent_consultation_price
+            'price' => $this->with_appointment_consultation_price,
+            'reminder_before_consultation' => $this->reminder_before_consultation,
+            'consultation_period' => $this->consultation_period,
         ];
         $this->relations = [
             'user' => $this->relationLoaded('user') ? new UserResource($this->user) : null,
@@ -48,6 +50,8 @@ class DoctorResource extends BaseResource
             'rates_avg' => $this->relationLoaded('rates') ? $this->rates->avg('value') : 0,
             'universities' => $this->relationLoaded('universities') ? DoctorUniversityResource::collection($this->universities) : [],
             'schedule_days' => $this->relationLoaded('scheduleDays') ? DoctorScheduleDayResource::collection($this->scheduleDays) : [],
+            'first_schedule_day' => $this->relationLoaded('scheduleDays') ? new DoctorScheduleDayResource($this->scheduleDays->first()) : null,
+            'last_schedule_day' => $this->relationLoaded('scheduleDays') ? new DoctorScheduleDayResource($this->scheduleDays->last()) : null,
             'hospitals' => $this->relationLoaded('hospitals') ? HospitalResource::collection($this->hospitals) : [],
             'last_hospital' => $this->relationLoaded('hospitals') ? new HospitalResource($this->hospitals->last()) : null,
         ];
