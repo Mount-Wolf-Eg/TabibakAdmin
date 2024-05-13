@@ -32,9 +32,9 @@
                         <th scope="row">
                             <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
                         </th>
-                        <td>{{$resource->user->name}}</td>
+                        <td>{{$resource->user?->name}}</td>
                         <td>{{$resource->national_id}}</td>
-                        <td>{{$resource->user->phone}}</td>
+                        <td>{{$resource->user?->phone}}</td>
                         @include('dashboard.partials.__table-actions', ['resource' => $resource, 'route' => 'patients', 'showModel' => false])
                     </tr>
                 @endforeach

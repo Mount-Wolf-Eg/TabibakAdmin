@@ -7,15 +7,15 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card">
-                <img src="{{$doctor->user->avatar->asset_url ?? asset('assets/images/users/user-dummy-img.jpg')}}" class="card-img-top img-fluid mx-auto d-block float-md-left mr-md-4" @style(['max-height:400px'])>
+                <img src="{{$doctor->user?->avatar->asset_url ?? asset('assets/images/users/user-dummy-img.jpg')}}" class="card-img-top img-fluid mx-auto d-block float-md-left mr-md-4" @style(['max-height:400px'])>
             </div>
         </div>
         <div class="col-md-8">
             <div class="card p-2">
                 <div class="card-body">
                     <div class="py-2">
-                        <h5 class="card-title py-2">{{ucfirst($doctor->user->name)}}</h5>
-                        <p class="card-text">{{__('messages.joined')}}: {{date_format($doctor->user->created_at, 'd-m-Y')}}</p>
+                        <h5 class="card-title py-2">{{ucfirst($doctor->user?->name)}}</h5>
+                        <p class="card-text">{{__('messages.joined')}}: {{$doctor->user?->created_at->format('Y-m-d')}}</p>
                     </div>
                     <div class="py-2">
                         <h5 class="card-title py-2">{{__('messages.bio')}}</h5>
@@ -29,11 +29,11 @@
                         </div>
                         <div class="row py-2">
                             <div class="col-6">{{__('messages.email')}}</div>
-                            <div class="col-6">{{$doctor->user->email}}</div>
+                            <div class="col-6">{{$doctor->user?->email}}</div>
                         </div>
                         <div class="row pt-2">
                             <div class="col-6">{{__('messages.phone')}}</div>
-                            <div class="col-6">{{$doctor->user->phone}}</div>
+                            <div class="col-6">{{$doctor->user?->phone}}</div>
                         </div>
                     </div>
                     <div class="py-2">

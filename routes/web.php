@@ -28,6 +28,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Dashboard\MedicalSpecialityController;
 use App\Http\Controllers\Auth\Passwords\ResetPasswordController;
 use App\Http\Controllers\Auth\Passwords\ForgetPasswordController;
+use App\Http\Controllers\Dashboard\FeaturedListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,8 @@ Route::group([
         Route::put('vendors/{vendor}/change-activation', [VendorController::class, 'changeActivation'])->name('vendors.active');
         Route::resource('coupons', CouponController::class);
         Route::put('coupons/{coupon}/change-activation', [CouponController::class, 'changeActivation'])->name('coupons.active');
+        Route::resource('featured-lists', FeaturedListController::class);
+        Route::put('featured-lists/{featuredList}/change-activation', [FeaturedListController::class, 'changeActivation'])->name('featured-lists.active');
         Route::resource('consultations', ConsultationController::class)->only(['index', 'show', 'destroy']);
         Route::put('consultations/{consultation}/vendor-accept', [ConsultationController::class, 'vendorAccept'])
             ->name('consultations.vendor-accept');

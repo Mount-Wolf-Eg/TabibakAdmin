@@ -10,12 +10,12 @@
                 <div class="card p-2">
                     <div class="card-body">
                         <div class="row py-2">
-                            <div class="col-6">{{__('messages.name')}}</div>
-                            <div class="col-6">{{$resource->name}}</div>
+                            <div class="col-6">{{__('messages.title')}}</div>
+                            <div class="col-6">{{$resource->title}}</div>
                         </div>
                         <div class="row py-2">
-                            <div class="col-6">{{__('messages.description')}}</div>
-                            <div class="col-6">{{$resource->description ?  : __('messages.no_description')}}</div>
+                            <div class="col-6">{{__('messages.text')}}</div>
+                            <div class="col-6">{{$resource->text ?  : __('messages.no_text')}}</div>
                         </div>
                         <div class="row py-2">
                             <div class="col-6">{{__('messages.created')}}</div>

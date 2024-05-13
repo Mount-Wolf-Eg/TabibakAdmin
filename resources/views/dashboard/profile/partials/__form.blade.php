@@ -34,7 +34,7 @@
                             {{Form::label('services', __('messages.services'), ['class' => 'form-label'])}}
                             <span class="text-danger fw-bold">*</span>
                             {!! Form::select('services[]' ,$services->pluck('name', 'id'),
-                                $user->vendor->vendorServices->pluck('id'),
+                                $user->vendor?->vendorServices->pluck('id'),
                                 ['class' => 'form-select', 'multiple' => true]) !!}
                             @error("services")
                             <span class="text-danger">{{$message}}</span>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-lg-6">
                             {{Form::label('address', __('messages.address'), ['class' => 'form-label'])}}
-                            {!! Form::text('address' , $user->vendor->address ?? '', ['class' => 'form-control']) !!}
+                            {!! Form::text('address' , $user->vendor?->address ?? '', ['class' => 'form-control']) !!}
                             @error("address")
                             <span class="text-danger">{{$message}}</span>
                             @enderror

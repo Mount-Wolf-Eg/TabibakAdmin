@@ -32,7 +32,7 @@
                         </th>
                         <td>{{$resource->faqSubject->name}}</td>
                         <td>{{$resource->question}}</td>
-                        <td>{{date_format($resource->created_at, 'd/m/Y')}}</td>
+                        <td>{{$resource->created_at?->format('Y-m-d')}}</td>
                         @include('dashboard.partials.__table-actions', ['resource' => $resource, 'route' => 'faqs', 'showModel' => true])
                         @include('dashboard.faqs.show', ['resource' => $resource])
                     </tr>

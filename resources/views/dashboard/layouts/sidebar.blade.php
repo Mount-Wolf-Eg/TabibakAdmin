@@ -2,7 +2,7 @@
 <div class="app-menu navbar-menu">
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="{{route('front.home')}}" class="logo logo-dark">
+        <a href="{{route('dashboard')}}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="26">
             </span>
@@ -10,7 +10,7 @@
                 <img src="{{ URL::asset('assets/images/logo-dark.png') }}" alt="" height="26">
             </span>
         </a>
-        <a href="{{route('front.home')}}" class="logo logo-light">
+        <a href="{{route('dashboard')}}" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="24">
             </span>
@@ -173,6 +173,17 @@
                      'coupons.edit')])>
                             <i class="bi bi-card-text"></i>
                             <span data-key="t-dashboard">{{ __('messages.coupons') }}</span>
+                        </a>
+                    </li>
+                @endif
+
+                @if(auth()->user()->can('read-featured-list') || auth()->user()->can('view-all-featured-list'))
+                    <li class="nav-item">
+                        <a href="{{route('featured-lists.index')}}" @class(['nav-link', 'menu-link',
+                    'active' => request()->routeIs('featured-lists.index', 'featured-lists.show', 'featured-lists.create',
+                     'featured-lists.edit')])>
+                            <i class="bi bi-award"></i>
+                            <span data-key="t-dashboard">{{ __('messages.featured_lists') }}</span>
                         </a>
                     </li>
                 @endif

@@ -11,8 +11,8 @@
                 <p class="my-2"><strong>{{__('messages.name')}}</strong></p>
             </div>
             <div class="col-lg-8">
-                <img src="{{$consultation->patient->user->avatar_asset_default_url}}" alt="avatar" class="img-thumbnail rounded-circle" style="width: 50px; height: 50px;">
-                <p class="d-inline">{{$consultation->patient->user->name}}</p>
+                <img src="{{$consultation->patient?->user?->avatar_asset_default_url}}" alt="avatar" class="img-thumbnail rounded-circle" style="width: 50px; height: 50px;">
+                <p class="d-inline">{{$consultation->patient?->user?->name}}</p>
             </div>
         </div>
         <div class="row">
@@ -20,7 +20,7 @@
                 <p><strong>{{__('messages.speciality')}}</strong></p>
             </div>
             <div class="col-lg-8">
-                <p>{{$consultation->medicalSpeciality->name}}</p>
+                <p>{{$consultation->medicalSpeciality?->name}}</p>
             </div>
         </div>
         <div class="row">
@@ -28,7 +28,7 @@
                 <p><strong>{{__('messages.phone')}}</strong></p>
             </div>
             <div class="col-lg-8">
-                <p>{{$consultation->patient->user->phone}}</p>
+                <p>{{$consultation->patient?->user?->phone}}</p>
             </div>
         </div>
         <div class="row">

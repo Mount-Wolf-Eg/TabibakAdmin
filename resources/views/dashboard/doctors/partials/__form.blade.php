@@ -7,7 +7,7 @@
                     <div class="col-lg-6">
                         {{Form::label('name', __('messages.name'), ['class' => 'form-label'])}}
                         <span class="text-danger fw-bold">*</span>
-                        {!! Form::text('name' , $doctor->user->name ?? '', ['class' => 'form-control']) !!}
+                        {!! Form::text('name' , $doctor->user?->name ?? '', ['class' => 'form-control']) !!}
                         @error("name")
                         <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -66,7 +66,7 @@
                     </div>
                     <div class="col-lg-6">
                         {{Form::label('email', __('messages.email'), ['class' => 'form-label'])}}
-                        {!! Form::email('email' , $doctor->user->email ?? '', ['class' => 'form-control']) !!}
+                        {!! Form::email('email' , $doctor->user?->email ?? '', ['class' => 'form-control']) !!}
                         @error("email")
                         <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -74,7 +74,7 @@
                     <div class="col-lg-6">
                         {{Form::label('phone', __('messages.phone'), ['class' => 'form-label'])}}
                         <span class="text-danger fw-bold">*</span>
-                        {!! Form::number('phone' , $doctor->user->phone ?? '', ['class' => 'form-control', 'pattern' => '[0-9]', 'onkeypress' => 'return isNumberKey(event)']) !!}
+                        {!! Form::number('phone' , $doctor->user?->phone ?? '', ['class' => 'form-control', 'pattern' => '[0-9]', 'onkeypress' => 'return isNumberKey(event)']) !!}
                         @error("phone")
                         <span class="text-danger">{{$message}}</span>
                         @enderror

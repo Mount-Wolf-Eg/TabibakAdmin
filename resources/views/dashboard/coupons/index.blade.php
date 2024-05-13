@@ -39,8 +39,8 @@
                             {{ucfirst(strtolower($resource->discount_type->name))}}
                         </td>
                         <td>{{$resource->discount_amount}}</td>
-                        <td>{{date_format($resource->valid_from, 'd-m-Y')}}</td>
-                        <td>{{date_format($resource->valid_to, 'd-m-Y')}}</td>
+                        <td>{{$resource->valid_from?->format('Y-m-d')}}</td>
+                        <td>{{$resource->valid_to?->format('Y-m-d')}}</td>
                         @include('dashboard.partials.__table-actions', ['resource' => $resource, 'route' => 'coupons', 'showModel' => true])
                         @include('dashboard.coupons.show', ['resource' => $resource])
                     </tr>

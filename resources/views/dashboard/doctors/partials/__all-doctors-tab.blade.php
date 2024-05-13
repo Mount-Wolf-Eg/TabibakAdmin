@@ -20,7 +20,7 @@
                     <th scope="row">
                         <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
                     </th>
-                    <td>{{$resource->user->name}}</td>
+                    <td>{{$resource->user?->name}}</td>
                     <td>
                         @foreach($resource->medicalSpecialities as $speciality)
                            - {{$speciality->name}} <br>
@@ -28,7 +28,7 @@
                     </td>
                     <td>{{$resource->medical_id}}</td>
                     <td>{{$resource->national_id}}</td>
-                    <td>{{$resource->user->phone}}</td>
+                    <td>{{$resource->user?->phone}}</td>
                     @include('dashboard.partials.__table-actions', ['resource' => $resource, 'route' => 'doctors', 'showModel' => false])
                 </tr>
             @endforeach
