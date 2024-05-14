@@ -15,7 +15,7 @@ class DoctorUniversity extends Model
 {
     use ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['doctor_id', 'university_id', 'academic_degree_id'];
+    protected $fillable = ['doctor_id', 'university_id', 'academic_degree_id', 'medical_speciality_id'];
     protected array $filters = ['keyword'];
     protected array $searchable = [];
     protected array $dates = [];
@@ -37,6 +37,11 @@ class DoctorUniversity extends Model
     public function academicDegree(): BelongsTo
     {
         return $this->belongsTo(AcademicDegree::class);
+    }
+
+    public function medicalSpeciality(): BelongsTo
+    {
+        return $this->belongsTo(MedicalSpeciality::class);
     }
 
     public function certificate(): MorphOne

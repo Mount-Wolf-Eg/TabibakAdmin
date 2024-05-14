@@ -39,6 +39,7 @@ class DoctorProfessionalStatusRequest extends FormRequest
                 $validated['universities'][] = [
                     'university_id' => $university['id'],
                     'academic_degree_id' => $university['academic_degree_id'],
+                    'medical_speciality_id' => $university['medical_speciality_id'],
                     'certificate' => $university['certificate']
                 ];
             })->toArray();
@@ -54,6 +55,7 @@ class DoctorProfessionalStatusRequest extends FormRequest
             'doctor_universities' => config('validations.array.null'),
             'doctor_universities.*.id' => sprintf(config('validations.model.active_req'), 'universities'),
             'doctor_universities.*.academic_degree_id' => sprintf(config('validations.model.active_req'), 'academic_degrees'),
+            'doctor_universities.*.medical_speciality_id' => sprintf(config('validations.model.active_req'), 'medical_specialities'),
             'doctor_universities.*.certificate' => sprintf(config('validations.model.req'), 'files'),
             'experience_years' => config('validations.tiny_int.req'),
             'doctor_hospitals' => config('validations.array.null'),
