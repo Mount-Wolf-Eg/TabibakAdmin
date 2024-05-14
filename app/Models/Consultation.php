@@ -94,7 +94,7 @@ class Consultation extends Model
     public function replies(): BelongsToMany
     {
         return $this->belongsToMany(Doctor::class, 'consultation_doctor_replies')
-            ->withPivot('doctor_set_consultation_at', 'amount', 'status')->withTimestamps();
+            ->withPivot('doctor_set_consultation_at', 'amount', 'status', 'reason')->withTimestamps();
     }
 
     public function payment(): MorphOne

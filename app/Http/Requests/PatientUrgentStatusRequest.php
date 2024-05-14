@@ -32,7 +32,8 @@ class PatientUrgentStatusRequest extends FormRequest
         $data['amount'] = $this->route('consultation')->replies->where('id', $data['doctor_id'])->first()->pivot->amount;
         $data['replies'] = [
             $data['doctor_id'] => [
-                'status' => $this->status
+                'status' => $this->status,
+                'reason' => $data['reason'] ?? null,
             ],
         ];
         return $data;
@@ -43,6 +44,7 @@ class PatientUrgentStatusRequest extends FormRequest
         $doctorIds = $consultation->replies?->pluck('pivot.doctor_id')->toArray();
         return [
             'doctor_id' => 'required|in:' . implode(',', $doctorIds),
+            'reason' => config('validations.text.null')
         ];
     }
 }
