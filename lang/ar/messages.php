@@ -443,9 +443,7 @@ return [
     'invalid_coupon' => 'القسيمة غير صالحة',
     'valid' => 'صالح',
     'expired' => 'منتهي',
-<<<<<<< HEAD
     'settings' => 'الإعدادات',
-=======
     'notifications' => 'الإشعارات',
     'notification' => 'الإشعار',
     'notification_messages' => [
@@ -455,5 +453,4 @@ return [
         ]
     ],
     'not_active_account' => 'حسابك غير نشط'
->>>>>>> 0ec9a6e4d43b9c91e54f5ca765504b516e56c40d
 ];
