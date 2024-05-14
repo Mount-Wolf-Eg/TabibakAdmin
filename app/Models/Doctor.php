@@ -95,6 +95,11 @@ class Doctor extends Model
         return $this->belongsToMany(Hospital::class, 'doctor_hospital')
             ->withPivot('start_date', 'end_date')->withTimestamps();
     }
+
+    public function consultations(): HasMany
+    {
+        return $this->hasMany(Consultation::class);
+    }
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------

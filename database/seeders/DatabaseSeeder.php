@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             VendorTypesTableSeeder::class,
             RegionsTableSeeder::class,
             CitiesTableSeeder::class,
+            CurrenciesTableSeeder::class
         ]);
     }
 }
