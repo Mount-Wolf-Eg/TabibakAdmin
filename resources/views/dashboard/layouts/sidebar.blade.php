@@ -179,11 +179,10 @@
 
                 @if(auth()->user()->can('read-featured-list') || auth()->user()->can('view-all-featured-list'))
                     <li class="nav-item">
-                        <a href="{{route('featured-lists.index')}}" @class(['nav-link', 'menu-link',
-                    'active' => request()->routeIs('featured-lists.index', 'featured-lists.show', 'featured-lists.create',
-                     'featured-lists.edit')])>
+                        <a href="{{route('featured-list.edit')}}" @class(['nav-link', 'menu-link',
+                    'active' => request()->routeIs(['featured-list.edit'])])>
                             <i class="bi bi-award"></i>
-                            <span data-key="t-dashboard">{{ __('messages.featured_lists') }}</span>
+                            <span data-key="t-dashboard">{{ __('messages.featured_list') }}</span>
                         </a>
                     </li>
                 @endif

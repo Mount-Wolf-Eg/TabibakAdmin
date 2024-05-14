@@ -98,14 +98,14 @@ Route::group([
         Route::put('vendors/{vendor}/change-activation', [VendorController::class, 'changeActivation'])->name('vendors.active');
         Route::resource('coupons', CouponController::class);
         Route::put('coupons/{coupon}/change-activation', [CouponController::class, 'changeActivation'])->name('coupons.active');
-        Route::resource('featured-lists', FeaturedListController::class);
-        Route::put('featured-lists/{featuredList}/change-activation', [FeaturedListController::class, 'changeActivation'])->name('featured-lists.active');
         Route::resource('consultations', ConsultationController::class)->only(['index', 'show', 'destroy']);
         Route::put('consultations/{consultation}/vendor-accept', [ConsultationController::class, 'vendorAccept'])
             ->name('consultations.vendor-accept');
         Route::put('consultations/{consultation}/vendor-reject', [ConsultationController::class, 'vendorReject'])
             ->name('consultations.vendor-reject');
         Route::resource('payments', PaymentController::class)->only(['index', 'destroy']);
+        Route::get('featured-list', [FeaturedListController::class, 'edit'])->name('featured-list.edit');
+        Route::put('featured-list', [FeaturedListController::class, 'update'])->name('featured-list.update');
 
         Route::prefix('profile')->group(function () {
             Route::get('/', [ProfileController::class, 'profile'])->name('profile');

@@ -133,9 +133,6 @@ return [
     'edit_disease' => 'Edit Disease',
     'other_diseases' => 'Other Disease',
     'featured_list' => 'Featured List',
-    'featured_lists' => 'Featured Lists',
-    'manage_featured_lists' => 'Manage Featured Lists',
-    'add_featured_list' => 'Add New Featured List',
     'edit_featured_list' => 'Edit Featured List',
     'patient' => 'Patient',
     'manage_patients' => 'Manage Patients',
@@ -447,4 +444,5 @@ return [
     'invalid_coupon' => 'Invalid Coupon',
     'valid' => 'Valid',
     'expired' => 'Expired',
+    'settings' => 'Settings',
 ];

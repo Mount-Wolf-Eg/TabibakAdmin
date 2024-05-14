@@ -8,6 +8,8 @@ class GeneralSettings extends Settings
 {
     public string $site_name;
     public float $app_payment_percentage;
+    public array $featured_list_title;
+    public array $featured_list_text;
 
     public static function group(): string
     {
@@ -18,5 +20,4 @@ class GeneralSettings extends Settings
     {
         return app(self::class)->$key;
     }
-
 }
