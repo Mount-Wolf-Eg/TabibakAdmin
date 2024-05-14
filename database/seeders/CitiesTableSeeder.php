@@ -18,10 +18,10 @@ class CitiesTableSeeder extends Seeder
         foreach ($citiesData as $cityData) {
             $city = new City();
             $city->region_id = $cityData['region_id'];
-            $city->name = json_encode([
+            $city->name = [
                 'en' => $cityData['en'],
                 'ar' => $cityData['ar'],
-            ], JSON_UNESCAPED_UNICODE);
+            ];
             $city->save();
         }
     }

@@ -96,4 +96,9 @@ trait ModelTrait
     {
         return str_replace('App\\Models\\', '', get_class($this));
     }
+
+    public function hasColumn($column): bool
+    {
+        return $this->getConnection()->getSchemaBuilder()->hasColumn($this->getTable(), $column);
+    }
 }

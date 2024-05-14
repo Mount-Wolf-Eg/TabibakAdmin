@@ -55,4 +55,11 @@ class DoctorProfileController extends BaseApiController
         return $this->respondWithModel($user);
     }
 
+    public function deactivate()
+    {
+        $doctor = auth()->user()->doctor;
+        $this->contract->toggleField($doctor, 'is_active');
+        return $this->respondWithSuccess(__('messages.actions_messages.update_success'));
+    }
+
 }

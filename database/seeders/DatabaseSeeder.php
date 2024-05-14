@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             RoleTableSeeder::class,
             UsersTableSeeder::class,
             VendorTypesTableSeeder::class,
+            RegionsTableSeeder::class,
+            CitiesTableSeeder::class,
         ]);
     }
 }

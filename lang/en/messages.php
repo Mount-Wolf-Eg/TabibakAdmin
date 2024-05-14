@@ -444,5 +444,9 @@ return [
     'invalid_coupon' => 'Invalid Coupon',
     'valid' => 'Valid',
     'expired' => 'Expired',
+<<<<<<< HEAD
     'settings' => 'Settings',
+=======
+    'not_active_account' => 'Your account is not active',
+>>>>>>> 0ec9a6e4d43b9c91e54f5ca765504b516e56c40d
 ];

@@ -18,6 +18,7 @@ class DoctorProfessionalStatusRequest extends FormRequest
         $validated = parent::validated();
         if (isset($validated['doctor_hospitals']))
         {
+            $validated['hospitals'] = [];
             collect($validated['doctor_hospitals'])->each(function ($hospital) use (&$validated){
                 info($hospital);
                 $hospitalModel = resolve(HospitalContract::class)->freshRepo()->search(['name' => $hospital['name']])->first();
@@ -33,6 +34,7 @@ class DoctorProfessionalStatusRequest extends FormRequest
         }
         if (isset($validated['doctor_universities']))
         {
+            $validated['universities'] = [];
             collect($validated['doctor_universities'])->each(function ($university) use (&$validated) {
                 $validated['universities'][] = [
                     'university_id' => $university['id'],

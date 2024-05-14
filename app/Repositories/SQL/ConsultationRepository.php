@@ -7,7 +7,9 @@ use App\Constants\PaymentStatusConstants;
 use App\Models\Consultation;
 use App\Repositories\Contracts\ConsultationContract;
 use App\Repositories\Contracts\CouponContract;
+use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\FileContract;
+use App\Repositories\Contracts\NotificationContract;
 
 class ConsultationRepository extends BaseRepository implements ConsultationContract
 {
@@ -57,5 +59,19 @@ class ConsultationRepository extends BaseRepository implements ConsultationContr
                 'status' => PaymentStatusConstants::REFUNDED->value
             ]);
         }
+    }
+
+    public function afterCreate($model, $attributes): void
+    {
+        $notifiedUsers = [$model->doctor->user_id] ??
+            resolve(DoctorContract::class)->search(['canAcceptUrgentCases' => auth()->id()])
+                ->pluck('user_id')->toArray();
+        resolve(NotificationContract::class)->create([
+            'title' => __('messages.notification_messages.new_consultation.title'),
+            'body' => __('messages.notification_messages.new_consultation.body'),
+            'redirect_type' => 'Consultation',
+            'redirect_id' => $model->id,
+            'users' => $notifiedUsers
+        ]);
     }
 }
