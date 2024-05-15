@@ -198,6 +198,8 @@ return [
     'valid_to' => 'صالح إلى',
     'user_limit' => 'عدد المستخدمين',
     'total_limit' => 'الاستخدام لكل قسيمة',
+    'main_image' => 'الصورة الرئيسية',
+    'images' => 'الصور',
     'tabby' => 'العتابي',
     'insurance' => 'تأمين',
     'approved' => 'موافق عليه',
@@ -239,6 +241,8 @@ return [
         'yes_remove' => 'إزالة!',
         'yes_change' => 'تغيير!',
         'cancel' => 'إلغاء',
+        'vendor_approve_case' => 'هل تريد الموافقة على هذه الاستشارة؟',
+        'vendor_reject_case' => 'هل تريد رفض هذه الاستشارة؟',
     ],
     'modelSingle' => [
         'city' => 'المدينة',
@@ -358,7 +362,6 @@ return [
     'doctor_description' => 'وصف الطبيب',
     'medical_review' => 'التقرير الطبى',
     'prescription' => 'الروشتة',
-    'images' => 'الصور',
     'image' => 'صورة',
     'not_allowed' => 'غير مسموح',
     'accept' => 'قبول',
@@ -452,5 +455,9 @@ return [
             'body' => 'تم استقبال استشارة جديدة'
         ]
     ],
-    'not_active_account' => 'حسابك غير نشط'
+    'not_active_account' => 'حسابك غير نشط',
+    'weight' => 'الوزن',
+    'height' => 'الطول',
+    'blood_type' => 'نوع الدم',
+    'latest_surgeries' => 'أحدث العمليات الجراحية',
 ];

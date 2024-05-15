@@ -1,4 +1,5 @@
 <?php
+
 return [
     'tabibak' => 'Tabibak',
     'dashboard' => 'Dashboard',
@@ -393,6 +394,7 @@ return [
     'gender' => 'Gender',
     'doctor_notes_recommendations' => 'Doctor Notes & Recommendations',
     'medicines' => 'Medicines',
+    'medicine' => 'Medicine',
     'quantity' => 'Quantity',
     'dosage' => 'Dosage',
     'strength' => 'Strength',
@@ -445,5 +447,17 @@ return [
     'valid' => 'Valid',
     'expired' => 'Expired',
     'settings' => 'Settings',
+    'notifications' => 'Notifications',
+    'notification' => 'Notification',
+    'notification_messages' => [
+        'new_consultation' => [
+            'title' => 'New consultation',
+            'body' => 'A new consultation has been received',
+        ]
+    ],
     'not_active_account' => 'Your account is not active',
+    'weight' => 'Weight',
+    'height' => 'Height',
+    'blood_type' => 'Blood type',
+    'latest_surgeries' => 'Latest surgeries',
 ];
