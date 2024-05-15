@@ -22,4 +22,18 @@ class ConsultationReferralRequest extends FormRequest
             'vendors.*' => sprintf(config('validations.model.active_req'), 'vendors'),
         ];
     }
+
+    /**
+     * Customizing input names displayed for user
+     * @return array
+     */
+    public function attributes() : array
+    {
+        return [
+            'transfer_reason' => __('messages.transfer_reason'),
+            'transfer_notes' => __('messages.transfer_notes'),
+            'transfer_case_rate' => __('messages.transfer_case_rate'),
+            'vendors' => __('messages.vendors'),
+        ];
+    }
 }

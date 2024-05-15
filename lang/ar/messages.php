@@ -460,4 +460,6 @@ return [
     'height' => 'الطول',
     'blood_type' => 'نوع الدم',
     'latest_surgeries' => 'أحدث العمليات الجراحية',
+    'reminder_before' => 'تذكير قبل الموعد',
+    'coupon_code' => 'كود الخصم',
 ];

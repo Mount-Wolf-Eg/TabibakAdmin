@@ -460,4 +460,6 @@ return [
     'height' => 'Height',
     'blood_type' => 'Blood type',
     'latest_surgeries' => 'Latest surgeries',
+    'reminder_before' => 'Reminder Before',
+    'coupon_code' => 'Coupon Code',
 ];

@@ -77,7 +77,19 @@ class ConsultationRequest extends FormRequest
      */
     public function attributes() : array
     {
-        return [];
+        return [
+            'patient_id' => __('messages.patient'),
+            'doctor_id' => __('messages.doctor'),
+            'patient_description' => __('messages.patient_description'),
+            'attachments' => __('messages.attachments'),
+            'type' => __('messages.type'),
+            'doctor_schedule_day_shift_id' => __('messages.doctorScheduleDayShift'),
+            'contact_type' => __('messages.contact_type'),
+            'reminder_before' => __('messages.reminder_before'),
+            'payment_type' => __('messages.payment_type'),
+            'medical_speciality_id' => __('messages.medicalSpeciality'),
+            'coupon_code' => __('messages.coupon_code'),
+        ];
     }
 
     /**

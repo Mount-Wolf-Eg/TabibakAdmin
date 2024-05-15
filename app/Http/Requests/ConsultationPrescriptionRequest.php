@@ -22,4 +22,15 @@ class ConsultationPrescriptionRequest extends FormRequest
             'prescription.*.time' => config('validations.string.req').'|in:after_meal,before_meal',
         ];
     }
+
+    /**
+     * Customizing input names displayed for user
+     * @return array
+     */
+    public function attributes() : array
+    {
+        return [
+            'prescription' => __('messages.prescription'),
+        ];
+    }
 }
