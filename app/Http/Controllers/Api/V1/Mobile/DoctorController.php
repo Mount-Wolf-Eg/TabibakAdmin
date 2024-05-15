@@ -21,7 +21,7 @@ class DoctorController extends BaseApiController
     {
         parent::__construct($contract, DoctorResource::class);
         $this->defaultScopes = ['requestStatus' => DoctorRequestStatusConstants::APPROVED->value, 'active' => true];
-        $this->relations = ['rates', 'medicalSpecialities', 'city', 'attachments', 'academicDegree',
+        $this->relations = ['rates', 'medicalSpecialities', 'city', 'attachments', 'academicDegree', 'consultations',
         'hospitals', 'universities.academicDegree', 'universities.certificate', 'universities.university'];
     }
 
@@ -37,7 +37,6 @@ class DoctorController extends BaseApiController
         {
             return $this->respondWithError('Doctor not found', 404);
         }
-        $doctor->load('medicalSpecialities', 'city', 'attachments', 'academicDegree');
         return $this->respondWithModel($doctor);
     }
 }

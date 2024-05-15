@@ -126,7 +126,7 @@ class PatientConsultationController extends BaseApiController
     {
         try {
             $filters = ['urgentWithNoDoctor' => true, 'medicalSpeciality' => request('medicalSpeciality')];
-            $consultation = $this->contract->findByFilters($filters, ['replies.rates']);
+            $consultation = $this->contract->findByFilters($filters, ['replies.rates', 'patient', 'medicalSpeciality']);
             if (!$consultation)
                 return $this->respondWithSuccess(__('messages.no_data'));
             if (request('orderBy') == 'topRated'){

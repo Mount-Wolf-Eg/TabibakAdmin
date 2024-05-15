@@ -25,7 +25,6 @@ class FilterController extends Controller
         $only = (array) $request->only;
         $except = (array) $request->except;
         $modelFilters = $model->getFilterModels();
-
         if (!empty($only)) {
             $modelFilters = array_intersect($modelFilters, $only);
         } elseif (!empty($except)) {
@@ -33,8 +32,8 @@ class FilterController extends Controller
         }
         $data = [];
         $filters = $request->all();
+        $filters['active'] = true;
         $relations = $request['relations'] ?? [];
-
         foreach ($modelFilters as $modelFilter) {
             $modelRepo = app('App\\Repositories\\Contracts\\' . $modelFilter . 'Contract');
             $key = Str::plural(lcfirst($modelFilter));
@@ -44,13 +43,11 @@ class FilterController extends Controller
             ]);
         }
         $customFilters = $model->getFilterCustom();
-
         if (!empty($only)) {
             $customFilters = array_intersect($customFilters, $only);
         } elseif (!empty($except)) {
             $customFilters = array_diff($customFilters, $except);
         }
-
         if (empty($request['customFilters'])) {
             foreach ($customFilters as $customFilter) {
                 $data = array_merge($data, ["$customFilter" => $model::$customFilter()]);
@@ -62,7 +59,6 @@ class FilterController extends Controller
                 }
             }
         }
-
         return response()->json($data);
     }
 

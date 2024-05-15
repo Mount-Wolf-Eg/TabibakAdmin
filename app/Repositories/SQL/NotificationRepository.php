@@ -15,9 +15,9 @@ class NotificationRepository extends BaseRepository implements NotificationContr
 
     public function afterCreate($model, $attributes)
     {
-        foreach ($model->users as $user) {
-            $user->notify(new FcmNotification($model));
-        }
+//        foreach ($model->users as $user) {
+//            $user->notify(new FcmNotification($model));
+//        }
         return $model;
     }
 

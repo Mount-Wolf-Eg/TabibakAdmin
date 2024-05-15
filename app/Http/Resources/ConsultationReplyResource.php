@@ -25,6 +25,7 @@ class ConsultationReplyResource extends BaseResource
         ];
         $this->mini = [
             'status_can_be_changed' => $status->is(ConsultationPatientStatusConstants::PENDING),
+            'reason' => $this->pivot->reason,
             'created_at' => $this->pivot->created_at?->format('Y-m-d H:i:s'),
             'updated_at' => $this->pivot->updated_at?->format('Y-m-d H:i:s'),
         ];

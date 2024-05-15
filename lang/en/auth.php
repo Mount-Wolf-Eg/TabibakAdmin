@@ -29,4 +29,5 @@ return [
     'click_here' => 'Click Here',
     'sign_in' => 'Sign In',
     'send_reset' => 'Send Reset Link',
+    'not_active' => 'Your account is not active yet, please check your email to activate your account',
 ];

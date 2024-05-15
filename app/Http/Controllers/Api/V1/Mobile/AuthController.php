@@ -17,7 +17,8 @@ class AuthController extends BaseApiController
     private UserAuthService $userAuthService;
     private array $doctorRelations = ['doctor.medicalSpecialities', 'doctor.academicDegree',
         'doctor.attachments', 'doctor.city', 'doctor.scheduleDays.shifts.availableSlots', 'doctor.hospitals',
-        'doctor.universities.academicDegree', 'doctor.universities.certificate', 'doctor.universities.university'];
+        'doctor.universities.academicDegree', 'doctor.universities.certificate',
+        'doctor.universities.university', 'doctor.universities.medicalSpeciality'];
     private array $patientRelations = ['patient.diseases'];
 
     public function __construct(UserContract $userContract, UserAuthService $userAuthService)
@@ -50,6 +51,8 @@ class AuthController extends BaseApiController
             $loginUser->load('patient','doctor');
             return $this->respondWithModel($loginUser);
         }else{
+            if ($loginUser && !$loginUser->is_active)
+                return $this->respondWithError(__('auth.not_active'), 401);
             return $this->respondWithError(__('auth.failed'), 401);
         }
     }
