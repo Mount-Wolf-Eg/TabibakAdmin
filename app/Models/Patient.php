@@ -25,7 +25,7 @@ class Patient extends Model
         'social_status', 'is_active'];
     protected array $filters = ['keyword','parent', 'active'];
     protected array $searchable = ['user.name'];
-    protected array $dates = ['date_of_birth'];
+    protected array $dates = [];
     public array $filterModels = ['Disease', 'City'];
     public array $filterCustom = ['socialStatuses', 'bloodTypes', 'genders'];
     public array $translatable = [];

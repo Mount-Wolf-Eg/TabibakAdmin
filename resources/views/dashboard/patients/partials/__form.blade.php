@@ -15,7 +15,7 @@
                     <div class="col-lg-6">
                         {{Form::label('date', __('messages.date_of_birth'), ['class' => 'form-label'])}}
                         <span class="text-danger fw-bold">*</span>
-                        {!! Form::date('date_of_birth' , $patient->date_of_birth ? $patient->date_of_birth->format('Y-m-d') : '', ['class' => 'form-control']) !!}
+                        {!! Form::date('date_of_birth' , $patient->user?->date_of_birth ?? '', ['class' => 'form-control']) !!}
                         @error("date_of_birth")
                         <span class="text-danger">{{$message}}</span>
                         @enderror

@@ -33,6 +33,7 @@ class User extends Authenticatable
     public array $filterModels = ['Role'];
     public array $filterCustom = [];
     protected array $searchable = ['name', 'email'];
+    protected array $dates = ['date_of_birth'];
     public array $translatable = ['name'];
     protected $with = ['avatar', 'city'];
     /**
