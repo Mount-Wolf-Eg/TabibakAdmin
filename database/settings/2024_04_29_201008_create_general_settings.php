@@ -8,7 +8,5 @@ return new class extends SettingsMigration
     {
         $this->migrator->add('general.site_name', 'Tabibak');
         $this->migrator->add('general.app_payment_percentage', .05);
-        $this->migrator->add('general.featured_list_title', '{"en":"","ar":""}');
-        $this->migrator->add('general.featured_list_text', '{"en":"","ar":""}');
     }
 };
