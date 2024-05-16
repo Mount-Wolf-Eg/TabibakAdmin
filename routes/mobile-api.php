@@ -60,6 +60,9 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::put('update-main-info', [DoctorProfileController::class, 'updateMainInfo']);
             Route::put('update-professional-status', [DoctorProfileController::class, 'updateProfessionalStatus']);
             Route::put('update-schedule', [DoctorProfileController::class, 'updateSchedule']);
+            Route::post('universities', [DoctorProfileController::class, 'addUniversity']);
+            Route::put('universities/{university}', [DoctorProfileController::class, 'updateUniversity']);
+            Route::delete('universities/{university}', [DoctorProfileController::class, 'deleteUniversity']);
             Route::put('deactivate', [DoctorProfileController::class, 'deactivate']);
             Route::apiResource('articles', ArticleController::class)->only('store', 'update', 'destroy');
             Route::put('articles/{article}/change-activation', [ArticleController::class, 'changeActivation'])->name('articles.active');
