@@ -32,6 +32,19 @@ class DoctorProfessionalStatusRequest extends FormRequest
             })->toArray();
             unset($validated['doctor_hospitals']);
         }
+        if (isset($validated['doctor_universities']))
+        {
+            $validated['universities'] = [];
+            collect($validated['doctor_universities'])->each(function ($university) use (&$validated) {
+                $validated['universities'][] = [
+                    'university_id' => $university['id'],
+                    'academic_degree_id' => $university['academic_degree_id'],
+                    'medical_speciality_id' => $university['medical_speciality_id'],
+                    'certificate' => $university['certificate']
+                ];
+            })->toArray();
+            unset($validated['doctor_universities']);
+        }
         return array_merge($validated, DoctorUniversityRequest::getValidated($validated));
     }
 
@@ -44,6 +57,11 @@ class DoctorProfessionalStatusRequest extends FormRequest
             'doctor_hospitals.*.name' => config('validations.string.req'),
             'doctor_hospitals.*.start_date' => config('validations.date.req').'|before_or_equal:today',
             'doctor_hospitals.*.end_date' => config('validations.date.null').'|after_or_equal:doctor_hospitals.*.start_date',
+            'doctor_universities' => config('validations.array.null'),
+            'doctor_universities.*.id' => sprintf(config('validations.model.active_req'), 'universities'),
+            'doctor_universities.*.academic_degree_id' => sprintf(config('validations.model.active_req'), 'academic_degrees'),
+            'doctor_universities.*.medical_speciality_id' => sprintf(config('validations.model.active_req'), 'medical_specialities'),
+            'doctor_universities.*.certificate' => sprintf(config('validations.model.req'), 'files'),
         ];
         return array_merge($rules, (new DoctorUniversityRequest())->rules());
     }
