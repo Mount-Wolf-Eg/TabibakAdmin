@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Hospital;
 use App\Repositories\Contracts\HospitalContract;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -45,12 +44,12 @@ class DoctorProfessionalStatusRequest extends FormRequest
             })->toArray();
             unset($validated['doctor_universities']);
         }
-        return array_merge($validated, DoctorUniversityRequest::getValidated($validated));
+        return $validated;
     }
 
     public function rules(): array
     {
-        $rules =  [
+        return [
             'bio' => config('validations.long_text.req'),
             'experience_years' => config('validations.tiny_int.req'),
             'doctor_hospitals' => config('validations.array.null'),
@@ -63,6 +62,5 @@ class DoctorProfessionalStatusRequest extends FormRequest
             'doctor_universities.*.medical_speciality_id' => sprintf(config('validations.model.active_req'), 'medical_specialities'),
             'doctor_universities.*.certificate' => sprintf(config('validations.model.req'), 'files'),
         ];
-        return array_merge($rules, (new DoctorUniversityRequest())->rules());
     }
 }

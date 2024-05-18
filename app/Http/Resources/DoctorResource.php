@@ -51,7 +51,7 @@ class DoctorResource extends BaseResource
             'universities' => $this->relationLoaded('universities') ? DoctorUniversityResource::collection($this->universities) : [],
             'schedule_days' => $this->relationLoaded('scheduleDays') ? DoctorScheduleDayResource::collection($this->scheduleDays) : [],
             'first_schedule_day' => $this->relationLoaded('scheduleDays') ? new DoctorScheduleDayResource($this->scheduleDays->first()) : null,
-            'last_schedule_day' => $this->relationLoaded('scheduleDays') ? new DoctorScheduleDayResource($this->scheduleDays->last()) : null,
+            'last_schedule_day' => $this->relationLoaded('scheduleDays') ? new DoctorScheduleDayResource($this->scheduleDays->sortByDesc('date')->last()) : null,
             'hospitals' => $this->relationLoaded('hospitals') ? HospitalResource::collection($this->hospitals) : [],
             'last_hospital' => $this->relationLoaded('hospitals') ? new HospitalResource($this->hospitals->last()) : null,
             'consultations_count' => $this->relationLoaded('consultations') ? $this->consultations->count() : 0,
