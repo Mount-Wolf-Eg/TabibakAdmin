@@ -59,14 +59,20 @@ class Article extends Model
         return $this->morphMany(File::class, 'fileable')->where('type', FileConstants::FILE_TYPE_ARTICLE_IMAGES);
     }
 
-    public function scopeOfMostLiked($query)
+    public function complaints(): MorphMany
     {
-        return $query->withCount('likes')->orderBy('likes_count', 'desc');
+        return $this->morphMany(Complaint::class, 'complaintable');
     }
 
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
+
+    public function scopeOfMostLiked($query)
+    {
+        return $query->withCount('likes')->orderBy('likes_count', 'desc');
+    }
+
     public function scopeOfMedicalSpeciality($query, $medicalSpecialityId)
     {
         return $query->whereIn('medical_speciality_id', (array)$medicalSpecialityId);

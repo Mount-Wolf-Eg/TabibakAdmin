@@ -42,7 +42,7 @@
                     </div>
                     <div class="row py-2">
                         <div class="col-6">{{__('messages.reports')}}</div>
-                        <div class="col-6">{{$article->reports}}</div>
+                        <div class="col-6">{{$article->complaints->count()}}</div>
                     </div>
                     <div class="row py-2">
                         <div class="col-6">{{__('messages.content')}}</div>

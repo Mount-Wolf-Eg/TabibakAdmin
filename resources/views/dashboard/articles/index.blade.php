@@ -38,7 +38,7 @@
                         <td>{{$resource->publish_date ? $resource->publish_date?->format('Y-m-d') : __('messages.not_published')}}</td>
                         <td>{{count($resource->likes)}}</td>
                         <td>{{$resource->views}}</td>
-                        <td>{{$resource->reports}}</td>
+                        <td>{{$resource->complaints->count()}}</td>
                         <td>
                             <div class="form-check form-switch d-inline">
                                 <input class="form-check-input publish-resource" type="checkbox" data-id="{{$resource->id}}" data-activation="{{$resource->publish_date ? 1 : 0}}" data-publish="{{$resource->publish_date}}"

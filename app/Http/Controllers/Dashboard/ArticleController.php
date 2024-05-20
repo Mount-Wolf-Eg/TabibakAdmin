@@ -21,6 +21,7 @@ class ArticleController extends BaseWebController
     /**
      * ArticleController constructor.
      * @param ArticleContract $contract
+     * @param MedicalSpecialityContract $medicalSpecialityContract
      */
     public function __construct(ArticleContract $contract, MedicalSpecialityContract $medicalSpecialityContract)
     {
@@ -36,7 +37,7 @@ class ArticleController extends BaseWebController
      */
     public function index(Request $request): View|Factory|Application
     {
-        $resources = $this->contract->search($request->all(), ['author', 'likes']);
+        $resources = $this->contract->search($request->all(), ['author', 'likes', 'complaints']);
         return $this->indexBlade(['resources' => $resources]);
     }
 
@@ -73,6 +74,7 @@ class ArticleController extends BaseWebController
      */
     public function show(Article $article): View|Factory|Application
     {
+        $article->load('complaints', 'likes', 'author', 'publisher', 'medicalSpeciality', 'images', 'mainImage');
         return $this->showBlade(['article' => $article]);
     }
 
