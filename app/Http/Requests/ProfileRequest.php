@@ -24,21 +24,11 @@ class ProfileRequest extends FormRequest
     public function validated($key = null, $default = null): array
     {
         $validated = parent::validated();
-        $validated['user']['name'] = $this['name'];
-        $validated['user']['email'] = $this['email'];
-        $validated['user']['phone'] = $this['phone'];
-        $validated['user']['image'] = $this['image'];
+        $validated['name'] = [
+            'en' => $this['name'],
+            'ar' => $this['name']
+        ];
         return $validated;
-    }
-
-    public function passedValidation(): void
-    {
-        $this->merge([
-            'name' => [
-                'en' => $this['name'],
-                'ar' => $this['name'],
-            ],
-        ]);
     }
 
     /**

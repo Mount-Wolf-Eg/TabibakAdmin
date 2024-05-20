@@ -36,7 +36,7 @@ class ProfileController extends Controller
             $user = User::findOrFail(auth()->id());
             $userRepo = new UserRepository($user);
             $user = $userRepo->syncRelations($user, $request);
-            $user->update($request->validated('user'));
+            $user->update($request->validated());
             if (isset($request['vendor_profile'])) {
                 $user->vendor()->update($request->only('address'));
                 $vendorId = Vendor::where('user_id', auth()->id())->first()->id;
