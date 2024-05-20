@@ -13,7 +13,10 @@ trait ConsultationScopesTrait
 
     public function scopeOfMineAsPatient($query)
     {
-        return $query->where('patient_id', auth()->user()->patient?->id)->whereNotNull('patient_id');
+        $relatives = auth()->user()->patient?->relatives->pluck('id');
+        $all = $relatives->push(auth()->user()->patient?->id);
+        return $query->whereIn('patient_id', $all)
+            ->whereNotNull('patient_id');
     }
 
     public function scopeOfDoctorsList($query)
