@@ -20,8 +20,8 @@ class FeaturedListController extends Controller
      */
     public function edit(): View|Factory|Application
     {
-        $featuredListTitle = GeneralSettings::getSettingValue('featured_list_title');
-        $featuredListText = GeneralSettings::getSettingValue('featured_list_text');
+        $featuredListTitle = json_decode(GeneralSettings::getSettingValue('featured_list_title'));
+        $featuredListText = json_decode(GeneralSettings::getSettingValue('featured_list_text'));
         return view('dashboard.featured-list.edit', compact(['featuredListTitle', 'featuredListText']));
     }
 
