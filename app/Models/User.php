@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Constants\FileConstants;
+use App\Constants\RoleNameConstants;
 use App\Constants\UserGenderConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
@@ -29,7 +30,7 @@ class User extends Authenticatable
 	protected $fillable = ['name', 'username', 'email', 'password', 'phone', 'gender',
         'city_id', 'date_of_birth', 'address','wallet', 'verification_code',
         'phone_verified_at', 'is_active'];
-    protected array $filters = ['keyword', 'role', 'roleName', 'email', 'active'];
+    protected array $filters = ['keyword', 'role', 'roleName', 'email', 'active', 'onlyUsersRoles'];
     public array $filterModels = ['Role'];
     public array $filterCustom = [];
     protected array $searchable = ['name', 'email'];
@@ -91,6 +92,15 @@ class User extends Authenticatable
     {
         return $query->whereHas('roles', function ($query) use ($value) {
             $query->where('id', $value);
+        });
+    }
+
+    public function scopeOfOnlyUsersRoles($query)
+    {
+        $roles = [RoleNameConstants::DOCTOR->value, RoleNameConstants::PATIENT->value,
+            RoleNameConstants::VENDOR->value];
+        return $query->whereHas('roles', function ($query) use ($roles) {
+            $query->whereNotIn('name', $roles);
         });
     }
 

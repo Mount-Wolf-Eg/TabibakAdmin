@@ -21,6 +21,7 @@ class UserController extends BaseWebController
     /**
      * UserController constructor.
      * @param UserContract $contract
+     * @param RoleContract $roleContract
      */
     public function __construct(UserContract $contract, RoleContract $roleContract)
     {
@@ -36,7 +37,9 @@ class UserController extends BaseWebController
      */
     public function index(Request $request): View|Factory|Application
     {
-        $resources = $this->contract->search($request->all(), ['roles']);
+        $filters = $request->all();
+        $filters['onlyUsersRoles'] = true;
+        $resources = $this->contract->search($filters, ['roles']);
         return $this->indexBlade(['resources' => $resources]);
     }
 
