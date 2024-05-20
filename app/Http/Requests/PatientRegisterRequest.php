@@ -4,11 +4,13 @@ namespace App\Http\Requests;
 
 use App\Constants\RoleNameConstants;
 use App\Constants\UserGenderConstants;
+use App\Traits\JsonValidationTrait;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PatientRegisterRequest extends FormRequest
 {
+    use JsonValidationTrait;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -38,6 +40,19 @@ class PatientRegisterRequest extends FormRequest
             'phone' => config('validations.phone.req').'|unique:users,phone',
             'city_id' => sprintf(config('validations.model.req'), 'cities'),
             'image' => sprintf(config('validations.model.null'), 'files')
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => __('attributes.name'),
+            'gender' => __('attributes.gender'),
+            'national_id' => __('attributes.national_id'),
+            'date_of_birth' => __('attributes.date_of_birth'),
+            'phone' => __('attributes.phone'),
+            'city_id' => __('attributes.city_id'),
+            'image' => __('attributes.image')
         ];
     }
 }

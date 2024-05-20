@@ -16,7 +16,7 @@ trait JsonValidationTrait
             $errors = $validator->errors();
             throw new HttpResponseException(response()->json([
                 'status' => 422,
-                'message' => __('The given data was invalid'),
+                'message' => __('validation.failed'),
                 'errors' => $errors,
             ], ResponseAlias::HTTP_UNPROCESSABLE_ENTITY));
         }

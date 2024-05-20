@@ -12,7 +12,7 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-
+    'failed' => 'هناك خطأ في البيانات المدخلة.',
     'accepted' => 'يجب قبول :attribute.',
     'accepted_if' => 'يجب قبول :attribute عندما تكون :other هي :value.',
     'active_url' => 'الرابط :attribute ليس عنوان URL صالحًا.',
