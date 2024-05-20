@@ -294,7 +294,15 @@ return [
         'file' => 'Files',
         'like' => 'Likes',
         'medicalSpeciality' => 'Medical Specialities',
-        'note' => 'Notes'
+        'note' => 'Notes',
+        'doctorUniversity' => 'Doctor Universities',
+        'generalSettings' => 'General Settings',
+        'hospital' => 'Hospitals',
+        'notification' => 'Notifications',
+        'payment' => 'Payments',
+        'university' => 'Universities',
+        'currency' => 'Currencies',
+        'featuredList' => 'Featured Lists',
     ],
     'role_permissions' => [
         'create' => 'Create',

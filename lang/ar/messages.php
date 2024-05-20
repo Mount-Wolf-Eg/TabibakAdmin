@@ -294,7 +294,15 @@ return [
         'file' => 'الملفات',
         'like' => 'الإعجابات',
         'medicalSpeciality' => 'التخصصات الطبية',
-        'note' => 'الملاحظات'
+        'note' => 'الملاحظات',
+        'doctorUniversity' => 'الجامعات',
+        'generalSettings' => 'الإعدادات العامة',
+        'hospital' => 'المستشفيات',
+        'notification' => 'الإشعارات',
+        'payment' => 'الدفع',
+        'university' => 'الجامعات',
+        'currency' => 'العملات',
+        'featuredList' => 'قائمة المميزون',
     ],
     'role_permissions' => [
         'create' => 'إنشاء',
