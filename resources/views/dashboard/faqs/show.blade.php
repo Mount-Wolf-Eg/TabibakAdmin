@@ -13,12 +13,20 @@
                             <div class="col-6">{{$resource->faqSubject->name}}</div>
                         </div>
                         <div class="row py-2">
-                            <div class="col-6">{{__('messages.question')}}</div>
-                            <div class="col-6">{{$resource->question}}</div>
+                            <div class="col-6">{{__('messages.question_en')}}</div>
+                            <div class="col-6">{{$resource->getTranslation('question', 'en')}}</div>
                         </div>
                         <div class="row py-2">
-                            <div class="col-6">{{__('messages.answer')}}</div>
-                            <div class="col-6">{{$resource->answer}}</div>
+                            <div class="col-6">{{__('messages.question_ar')}}</div>
+                            <div class="col-6">{{$resource->getTranslation('question', 'ar')}}</div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="col-6">{{__('messages.answer_en')}}</div>
+                            <div class="col-6">{{$resource->getTranslation('answer', 'en')}}</div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="col-6">{{__('messages.answer_ar')}}</div>
+                            <div class="col-6">{{$resource->getTranslation('answer', 'ar')}}</div>
                         </div>
                         <div class="row py-2">
                             <div class="col-6">{{__('messages.created')}}</div>

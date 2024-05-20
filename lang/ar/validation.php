@@ -146,7 +146,7 @@ return [
     'starts_with' => 'يجب أن يبدأ :attribute بأحد القيم التالية: :values.',
     'string' => 'يجب أن يكون :attribute سلسلة نصية.',
     'timezone' => 'يجب أن يكون :attribute منطقة زمنية صالحة.',
-    'unique' => 'تم اختيار :attribute بالفعل.',
+    'unique' => 'تم استخدام :attribute من قبل بالفعل.',
     'uploaded' => 'فشل تحميل :attribute.',
     'uppercase' => 'يجب أن يكون :attribute حالة كبيرة.',
     'url' => 'يجب أن يكون :attribute رابطًا صالحًا.',
