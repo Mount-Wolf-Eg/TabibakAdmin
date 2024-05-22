@@ -13,7 +13,9 @@ class DoctorUniversityRequest extends FormRequest
     public function validated($key = null, $default = null)
     {
         $validated = parent::validated($key, $default);
-        return self::getValidated($validated);
+        $validated =  self::getValidated($validated);
+        $validated['universities'][0]['doctor_university_id'] = $this->university?->id;
+        return $validated;
     }
 
     public static function getValidated($validated): array
