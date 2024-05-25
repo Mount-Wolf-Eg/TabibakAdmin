@@ -25,7 +25,7 @@ class DoctorConsultationController extends BaseApiController
     {
         $this->middleware('role:doctor');
         $this->defaultScopes = ['doctorsList' => true];
-        $this->relations = ['patient', 'doctorScheduleDayShift', 'doctor.rates'];
+        $this->relations = ['patient.parent', 'doctorScheduleDayShift', 'doctor.rates'];
         parent::__construct($contract, ConsultationResource::class);
     }
 

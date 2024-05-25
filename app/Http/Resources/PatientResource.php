@@ -41,8 +41,9 @@ class PatientResource extends BaseResource
             'latest_surgeries' => $this->latest_surgeries
         ];
         $this->relations = [
-            'user' => $this->relationLoaded('user') ? new UserResource($this->user) : '',
-            'diseases' => $this->relationLoaded('diseases') ? DiseaseResource::collection($this->diseases) : '',
+            'user' => $this->relationLoaded('user') ? new UserResource($this->user) : null,
+            'diseases' => $this->relationLoaded('diseases') ? DiseaseResource::collection($this->diseases) : null,
+            'parent' => $this->relationLoaded('parent') ? new PatientResource($this->parent) : null,
         ];
         return $this->getResource();
     }

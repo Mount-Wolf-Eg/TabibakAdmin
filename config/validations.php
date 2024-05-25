@@ -60,8 +60,8 @@ return [
         'null' => 'nullable|date',
     ],
     'datetime' => [
-        'req' => 'required|date_format:Y-m-d h:i A',
-        'null' => 'nullable|date_format:Y-m-d h:i A',
+        'req' => 'required|date_format:Y-m-d H:i',
+        'null' => 'nullable|date_format:Y-m-d H:i',
     ],
     'day' => [
         'req' => 'required|in:saturday,sunday,monday,tuesday,wednesday,thursday,friday',
