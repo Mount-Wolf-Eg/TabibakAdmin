@@ -85,7 +85,13 @@ class DoctorRepository extends BaseRepository implements DoctorContract
     {
         foreach ($attributes['universities'] as $university) {
             $data = collect($university)->except(['certificate'])->toArray();
-            $universityModel = $model->universities()->updateOrCreate($data);
+            if (!empty($data['doctor_university_id'])){
+                $universityData = \Arr::except($data, 'doctor_university_id');
+                $universityModel = $model->universities()->where('id', $data['doctor_university_id'])->first();
+                $universityModel->update($universityData);
+            }else{
+                $universityModel = $model->universities()->updateOrCreate($data);
+            }
             if (!empty($university['certificate'])) {
                 $file = resolve(FileContract::class)->find($university['certificate']);
                 $universityModel->certificate()->save($file);
