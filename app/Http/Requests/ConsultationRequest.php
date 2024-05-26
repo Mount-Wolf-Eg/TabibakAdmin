@@ -10,6 +10,7 @@ use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\DoctorScheduleDayShiftContract;
 use App\Rules\ValidCouponRule;
 use Carbon\Carbon;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\JsonValidationTrait;
 
@@ -35,11 +36,15 @@ class ConsultationRequest extends FormRequest
             $validated['amount'] = resolve(DoctorContract::class)->find($validated['doctor_id'])->with_appointment_consultation_price;
             $scheduleSlot = resolve(DoctorScheduleDayShiftContract::class)
                 ->find($validated['doctor_schedule_day_shift_id']);
-            $scheduleDay = $scheduleSlot->day;
-            $scheduleTime = $scheduleDay->date->format('Y-m-d') . ' ' . $scheduleSlot->from_time->format('H:i:s');
-            $scheduleTime = Carbon::parse($scheduleTime);
-            $validated['reminder_at'] = $scheduleTime->subMinutes($validated['reminder_before']);
-            unset($validated['reminder_before']);
+            if ($scheduleSlot?->from_time->isPast()) {
+                throw new ValidationException(__('messages.schedule_slot_expired'));
+            }else{
+                $scheduleDay = $scheduleSlot->day;
+                $scheduleTime = $scheduleDay->date->format('Y-m-d') . ' ' . $scheduleSlot->from_time->format('H:i:s');
+                $scheduleTime = Carbon::parse($scheduleTime);
+                $validated['reminder_at'] = $scheduleTime->subMinutes($validated['reminder_before']);
+                unset($validated['reminder_before']);
+            }
         }
         return $validated;
     }

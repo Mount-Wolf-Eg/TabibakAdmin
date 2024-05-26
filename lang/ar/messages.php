@@ -470,4 +470,5 @@ return [
     'latest_surgeries' => 'أحدث العمليات الجراحية',
     'reminder_before' => 'تذكير قبل الموعد',
     'coupon_code' => 'كود الخصم',
+    "schedule_slot_expired" => "انتهت صلاحية الموعد",
 ];

@@ -16,7 +16,7 @@ class DoctorScheduleDay extends Model
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['doctor_id', 'date', 'is_active'];
-    protected array $filters = ['keyword', 'active', 'doctor'];
+    protected array $filters = ['keyword', 'active', 'doctor', 'afterNowDateTime'];
     protected array $searchable = [];
     protected array $dates = ['date'];
     public array $filterModels = [];
@@ -62,6 +62,14 @@ class DoctorScheduleDay extends Model
     public function scopeOfMine($query)
     {
         return $query->ofDoctor(auth()->user()->doctor?->id);
+    }
+
+    public function scopeOfAfterNowDateTime($query)
+    {
+        return $query->whereDate('date', '>=', now())
+            ->whereHas('availableSlots', function ($query) {
+                $query->whereTime('from_time', '>=', now());
+            });
     }
     //---------------------Scopes-------------------------------------
 
