@@ -147,7 +147,11 @@ class Consultation extends Model
     //---------------------methods-------------------------------------
     public function isMineAsPatient(): bool
     {
-        return $this->patient_id == auth()->user()->patient?->id;
+        $validPatientIds = array_merge(
+            auth()->user()->patient?->relatives->pluck('id')->toArray() ?? [],
+            [auth()->user()->patient?->id]
+        );
+        return in_array($this->patient_id, $validPatientIds);
     }
 
     public function isMineAsDoctor(): bool
