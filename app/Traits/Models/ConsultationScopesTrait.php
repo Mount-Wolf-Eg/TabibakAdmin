@@ -95,7 +95,8 @@ trait ConsultationScopesTrait
                 ConsultationStatusConstants::DOCTOR_CANCELLED->value,
                 ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
         }
-        return $query->ofStatus(ConsultationStatusConstants::PENDING->value);
+        return $query->ofStatus(ConsultationStatusConstants::PENDING->value)
+            ->ofType(ConsultationTypeConstants::WITH_APPOINTMENT);
     }
 
     public function scopeOfUrgentWithNoDoctor($query)
