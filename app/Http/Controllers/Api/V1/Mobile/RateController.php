@@ -18,7 +18,7 @@ class RateController extends BaseApiController
      */
     public function __construct(RateContract $contract)
     {
-        parent::__construct($contract, RateResource::class, 'Rate');
+        parent::__construct($contract, RateResource::class);
     }
     /**
      * Store a newly created resource in storage.
