@@ -36,7 +36,7 @@ class ConsultationRepository extends BaseRepository implements ConsultationContr
         // this is temporary, till payment gateway is implemented
         if ($model->amount && !$model->payment){
             $paymentData = [
-                'payer_id' => auth()->id(),
+                'payer_id' => $model->patient->user_id,
                 'beneficiary_id' => $model->doctor?->user_id,
                 'amount' => $model->amount,
                 'transaction_id' => rand(1000000000, 9999999999),
