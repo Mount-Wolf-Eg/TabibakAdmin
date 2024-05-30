@@ -3,6 +3,7 @@
 namespace App\Services\Repositories;
 
 use App\Models\Consultation;
+use App\Models\Doctor;
 use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\NotificationContract;
 
@@ -29,9 +30,12 @@ class ConsultationNotificationService
     */
     public function newConsultation(Consultation $consultation): void
     {
-        $this->notifiedUsers = [$consultation->doctor?->user_id] ??
-            resolve(DoctorContract::class)->search(['canAcceptUrgentCases' => auth()->id()])
-                ->pluck('user_id')->toArray();
+        if ($consultation->doctor?->user_id) {
+            $this->notifiedUsers = [$consultation->doctor->user_id];
+        } else {
+            $this->notifiedUsers = resolve(DoctorContract::class)->search(['canAcceptUrgentCases' => auth()->id()])
+                ->pluck('user_id')->values()->unique()->toArray();
+        }
         if (count($this->notifiedUsers) == 0) return;
         $this->notificationData['title'] = __(sprintf($this->notificationData['title'], 'new'));
         $this->notificationData['body'] = __(sprintf($this->notificationData['body'], 'new'));
