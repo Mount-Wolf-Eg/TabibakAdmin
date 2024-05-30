@@ -84,7 +84,7 @@ class ConsultationNotificationService
         $this->patientNotify($consultation, 'doctor_cancel');
     }
 
-    public function patientNotify($consultation, $message): void
+    private function patientNotify($consultation, $message): void
     {
         $this->notifiedUsers = [$consultation->patient->user_id];
         $this->notificationData['title'] = __(sprintf($this->notificationData['title'], $message));
