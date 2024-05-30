@@ -32,6 +32,7 @@ class ConsultationNotificationService
         $this->notifiedUsers = [$consultation->doctor?->user_id] ??
             resolve(DoctorContract::class)->search(['canAcceptUrgentCases' => auth()->id()])
                 ->pluck('user_id')->toArray();
+        if (count($this->notifiedUsers) == 0) return;
         $this->notificationData['title'] = __(sprintf($this->notificationData['title'], 'new'));
         $this->notificationData['body'] = __(sprintf($this->notificationData['body'], 'new'));
         $this->notificationData['redirect_id'] = $consultation->id;
@@ -45,6 +46,7 @@ class ConsultationNotificationService
     public function vendorReferral(Consultation $consultation): void
     {
         $this->notifiedUsers = $consultation->vendors->pluck('user_id')->toArray();
+        if (count($this->notifiedUsers) == 0) return;
         $this->notificationData['title'] = __(sprintf($this->notificationData['title'], 'vendor_referral'));
         $this->notificationData['body'] = __(sprintf($this->notificationData['body'], 'vendor_referral'));
         $this->notificationData['redirect_id'] = $consultation->id;
@@ -87,6 +89,7 @@ class ConsultationNotificationService
     private function patientNotify($consultation, $message): void
     {
         $this->notifiedUsers = [$consultation->patient->user_id];
+        if (count($this->notifiedUsers) == 0) return;
         $this->notificationData['title'] = __(sprintf($this->notificationData['title'], $message));
         $this->notificationData['body'] = __(sprintf($this->notificationData['body'], $message));
         $this->notificationData['redirect_id'] = $consultation->id;
