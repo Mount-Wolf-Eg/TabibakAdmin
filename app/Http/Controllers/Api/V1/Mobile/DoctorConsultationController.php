@@ -11,22 +11,27 @@ use App\Http\Requests\DoctorAcceptUrgentConsultationRequest;
 use App\Http\Resources\ConsultationResource;
 use App\Models\Consultation;
 use App\Repositories\Contracts\ConsultationContract;
+use App\Services\Repositories\ConsultationNotificationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
 class DoctorConsultationController extends BaseApiController
 {
 
+    private ConsultationNotificationService $notificationService;
+
     /**
      * PatientConsultationController constructor.
      * @param ConsultationContract $contract
+     * @param ConsultationNotificationService $notificationService
      */
-    public function __construct(ConsultationContract $contract)
+    public function __construct(ConsultationContract $contract, ConsultationNotificationService $notificationService)
     {
         $this->middleware('role:doctor');
         $this->defaultScopes = ['doctorsList' => true];
         $this->relations = ['patient.parent', 'doctorScheduleDayShift', 'doctor.rates'];
         parent::__construct($contract, ConsultationResource::class);
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -58,6 +63,7 @@ class DoctorConsultationController extends BaseApiController
             if (!$consultation->doctorCanDoReferral())
                 abort(403, __('messages.not_allowed'));
             $consultation = $this->contract->update($consultation, $request->validated());
+            $this->notificationService->vendorReferral($consultation);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
@@ -76,6 +82,7 @@ class DoctorConsultationController extends BaseApiController
             if (!$consultation->doctorCanWritePrescription())
                 abort(403, __('messages.not_allowed'));
             $consultation = $this->contract->update($consultation, $request->validated());
+            $this->notificationService->prescription($consultation);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
@@ -93,6 +100,7 @@ class DoctorConsultationController extends BaseApiController
             if (!$consultation->doctorCanApproveMedicalReport())
                 abort(403, __('messages.not_allowed'));
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
+            $this->notificationService->doctorApprovedMedicalReport($consultation);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
@@ -112,6 +120,7 @@ class DoctorConsultationController extends BaseApiController
                 abort(403, __('messages.not_allowed'));
             $this->contract->sync($consultation, 'replies', $request->validated());
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES->value]);
+            $this->notificationService->doctorApprovedUrgentCase($consultation);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
@@ -129,6 +138,7 @@ class DoctorConsultationController extends BaseApiController
             if (!$consultation->doctorCanCancel())
                 abort(403, __('messages.not_allowed'));
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_CANCELLED->value]);
+            $this->notificationService->doctorCancel($consultation);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());

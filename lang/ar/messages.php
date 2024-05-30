@@ -458,10 +458,32 @@ return [
     'notifications' => 'الإشعارات',
     'notification' => 'الإشعار',
     'notification_messages' => [
-        'new_consultation' => [
-            'title' => 'استشارة جديدة',
-            'body' => 'تم استقبال استشارة جديدة'
-        ]
+        'consultation' => [
+            'new' => [
+                'title' => 'استشارة جديدة',
+                'body' => 'تم استقبال استشارة جديدة'
+            ],
+            'vendor_referral' => [
+                'title' => 'إحالة جديدة',
+                'body' => 'تم استقبال إحالة جديدة'
+            ],
+            'prescription' => [
+                'title' => 'روشتة',
+                'body' => 'قام الطبيب بإضافة روشتة لحالتك'
+            ],
+            'doctor_approved_medical_report' => [
+                'title' => 'تقرير طبي معتمد',
+                'body' => 'تم اعتماد التقرير الطبي'
+            ],
+            'doctor_approved_urgent_case' => [
+                'title' => 'حالة طارئة مقبولة',
+                'body' => 'تم قبول الحالة الطارئة'
+            ],
+            'doctor_cancel' => [
+                'title' => 'الغاد الاستشاره',
+                'body' => 'تم الغاد الاستشاره من قبل الطبيب'
+            ]
+        ],
     ],
     'not_active_account' => 'حسابك غير نشط',
     'weight' => 'الوزن',

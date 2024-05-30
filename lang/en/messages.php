@@ -458,9 +458,31 @@ return [
     'notifications' => 'Notifications',
     'notification' => 'Notification',
     'notification_messages' => [
-        'new_consultation' => [
-            'title' => 'New consultation',
-            'body' => 'A new consultation has been received',
+        'consultation' => [
+            'new' => [
+                'title' => 'New consultation',
+                'body' => 'A new consultation has been received',
+            ],
+            'vendor_referral' => [
+                'title' => 'Vendor referral',
+                'body' => 'A new vendor referral has been received',
+            ],
+            'prescription' => [
+                'title' => 'Prescription',
+                'body' => 'A new prescription has been received',
+            ],
+            'doctor_approved_medical_report' => [
+                'title' => 'Doctor approved medical report',
+                'body' => 'The doctor has approved the medical report',
+            ],
+            'doctor_approved_urgent_case' => [
+                'title' => 'Doctor approved urgent case',
+                'body' => 'The doctor has approved the urgent case',
+            ],
+            'doctor_cancel' => [
+                'title' => 'Consultation Cancelled',
+                'body' => 'Doctor cancelled the consultation'
+            ]
         ]
     ],
     'not_active_account' => 'Your account is not active',

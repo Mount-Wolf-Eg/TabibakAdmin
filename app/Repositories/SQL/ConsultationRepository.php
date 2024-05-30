@@ -10,16 +10,21 @@ use App\Repositories\Contracts\CouponContract;
 use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\FileContract;
 use App\Repositories\Contracts\NotificationContract;
+use App\Services\Repositories\ConsultationNotificationService;
 
 class ConsultationRepository extends BaseRepository implements ConsultationContract
 {
+    private ConsultationNotificationService $notificationService;
+
     /**
      * ConsultationRepository constructor.
      * @param Consultation $model
+     * @param ConsultationNotificationService $notificationService
      */
-    public function __construct(Consultation $model)
+    public function __construct(Consultation $model, ConsultationNotificationService $notificationService)
     {
         parent::__construct($model);
+        $this->notificationService = $notificationService;
     }
 
     public function syncRelations($model, $relations): void
@@ -63,15 +68,6 @@ class ConsultationRepository extends BaseRepository implements ConsultationContr
 
     public function afterCreate($model, $attributes): void
     {
-        $notifiedUsers = [$model->doctor->user_id] ??
-            resolve(DoctorContract::class)->search(['canAcceptUrgentCases' => auth()->id()])
-                ->pluck('user_id')->toArray();
-        resolve(NotificationContract::class)->create([
-            'title' => __('messages.notification_messages.new_consultation.title'),
-            'body' => __('messages.notification_messages.new_consultation.body'),
-            'redirect_type' => 'Consultation',
-            'redirect_id' => $model->id,
-            'users' => $notifiedUsers
-        ]);
+        $this->notificationService->newConsultation($model);
     }
 }
