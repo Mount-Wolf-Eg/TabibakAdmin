@@ -29,7 +29,7 @@ class ConsultationNotificationService
     */
     public function newConsultation(Consultation $consultation): void
     {
-        $this->notifiedUsers = [$consultation->doctor->user_id] ??
+        $this->notifiedUsers = [$consultation->doctor?->user_id] ??
             resolve(DoctorContract::class)->search(['canAcceptUrgentCases' => auth()->id()])
                 ->pluck('user_id')->toArray();
         $this->notificationData['title'] = __(sprintf($this->notificationData['title'], 'new'));
