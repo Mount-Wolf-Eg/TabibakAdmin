@@ -110,6 +110,11 @@ trait ConsultationScopesTrait
     {
         return $query->where('medical_speciality_id', $medicalSpeciality);
     }
+
+    public function scopeOfPatient($query, $patientId)
+    {
+        return $query->where('patient_id', $patientId);
+    }
     //---------------------Scopes-------------------------------------
 
 }

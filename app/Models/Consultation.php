@@ -37,7 +37,7 @@ class Consultation extends Model
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
         'myVendorStatus', 'creationDate', 'status', 'completed', 'urgentWithNoDoctor',
-        'doctorsList', 'medicalSpeciality', 'doctor'];
+        'doctorsList', 'medicalSpeciality', 'doctor', 'patient'];
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];

@@ -125,8 +125,8 @@ class PatientConsultationController extends BaseApiController
     public function replies(): JsonResponse
     {
         try {
-            $filters = ['urgentWithNoDoctor' => true, 'medicalSpeciality' => request('medicalSpeciality')];
-            $consultation = $this->contract->findByFilters($filters, ['replies.rates', 'patient', 'medicalSpeciality']);
+            $filters = ['urgentWithNoDoctor' => true, 'medicalSpeciality' => request('medicalSpeciality'), 'patient' => request('patient')];
+            $consultation = $this->contract->findByFilters($filters, ['replies.rates', 'patient', 'medicalSpeciality'], false);
             if (!$consultation)
                 return $this->respondWithSuccess(__('messages.no_data'));
             if (request('orderBy') == 'topRated'){
