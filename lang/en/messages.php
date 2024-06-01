@@ -493,4 +493,5 @@ return [
     'reminder_before' => 'Reminder Before',
     'coupon_code' => 'Coupon Code',
     "schedule_slot_expired" => "The schedule slot has expired",
+    'new_urgent_consultation_validation' => "you can't create new urgent consultation on the same medical speciality"
 ];

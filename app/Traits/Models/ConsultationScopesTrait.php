@@ -113,7 +113,12 @@ trait ConsultationScopesTrait
 
     public function scopeOfPatient($query, $patientId)
     {
-        return $query->where('patient_id', $patientId);
+        return $query->whereIn('patient_id', (array) $patientId);
+    }
+
+    public function scopeOfCreatedBeforeHour($query)
+    {
+
     }
     //---------------------Scopes-------------------------------------
 
