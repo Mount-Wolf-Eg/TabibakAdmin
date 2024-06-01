@@ -2,6 +2,7 @@
 
 namespace App\Services\Repositories;
 
+use App\Constants\NotificationTypeConstants;
 use App\Models\Consultation;
 use App\Models\Doctor;
 use App\Repositories\Contracts\DoctorContract;
@@ -19,6 +20,7 @@ class ConsultationNotificationService
         $this->notificationData = [
             'title' => 'messages.notification_messages.consultation.%s.title',
             'body' => 'messages.notification_messages.consultation.%s.body',
+            'type' => '',
             'redirect_type' => 'Consultation',
             'redirect_id' => '',
             'users' => $this->notifiedUsers
@@ -34,12 +36,7 @@ class ConsultationNotificationService
             $this->notifiedUsers = resolve(DoctorContract::class)->search(['canAcceptUrgentCases' => auth()->id()])
                 ->pluck('user_id')->values()->unique()->toArray();
         }
-        if (count($this->notifiedUsers) == 0) return;
-        $this->notificationData['title'] = __(sprintf($this->notificationData['title'], 'new'));
-        $this->notificationData['body'] = __(sprintf($this->notificationData['body'], 'new'));
-        $this->notificationData['redirect_id'] = $consultation->id;
-        $this->notificationData['users'] = $this->notifiedUsers;
-        $this->notificationContract->create($this->notificationData);
+        $this->doctorNotify($consultation, 'new');
     }
 
     public function vendorReferral(Consultation $consultation): void
@@ -48,6 +45,7 @@ class ConsultationNotificationService
         if (count($this->notifiedUsers) == 0) return;
         $this->notificationData['title'] = __(sprintf($this->notificationData['title'], 'vendor_referral'));
         $this->notificationData['body'] = __(sprintf($this->notificationData['body'], 'vendor_referral'));
+        $this->notificationData['type'] = NotificationTypeConstants::VENDOR->value;
         $this->notificationData['redirect_id'] = $consultation->id;
         $this->notificationData['users'] = $this->notifiedUsers;
         $this->notificationContract->create($this->notificationData);
@@ -75,31 +73,33 @@ class ConsultationNotificationService
 
     public function patientCancel(Consultation $consultation): void
     {
+        $this->notifiedUsers = [$consultation->doctor->user_id];
         $this->doctorNotify($consultation, 'patient_cancel');
     }
 
     public function patientAcceptDoctorOffer(Consultation $consultation): void
     {
+        $this->notifiedUsers = [$consultation->doctor->user_id];
         $this->doctorNotify($consultation, 'patient_accept_doctor_offer');
     }
 
     public function patientRejectDoctorOffer(Consultation $consultation): void
     {
+        $this->notifiedUsers = [$consultation->doctor->user_id];
         $this->doctorNotify($consultation, 'patient_reject_doctor_offer');
     }
 
     private function patientNotify($consultation, $message): void
     {
         $this->notifiedUsers = [$consultation->patient->user_id];
+        $this->notificationData['type'] = NotificationTypeConstants::PATIENT->value;
         $this->userNotify($consultation, $message);
     }
 
     private function doctorNotify($consultation, $message): void
     {
-        if ($consultation->doctor) {
-            $this->notifiedUsers = [$consultation->doctor->user_id];
-            $this->userNotify($consultation, $message);
-        }
+        $this->notificationData['type'] = NotificationTypeConstants::DOCTOR->value;
+        $this->userNotify($consultation, $message);
     }
 
     private function userNotify($consultation, $message): void

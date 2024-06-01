@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\NotificationTypeConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -14,15 +15,16 @@ class Notification extends Model
 {
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['title', 'body', 'redirect_type', 'redirect_id', 'data'];
-    protected array $filters = ['keyword'];
+    protected $fillable = ['title', 'body', 'type', 'redirect_type', 'redirect_id', 'data'];
+    protected array $filters = ['keyword', 'type'];
     protected array $searchable = [];
     protected array $dates = [];
     public array $filterModels = [];
     public array $filterCustom = [];
     public array $translatable = [];
     protected $casts = [
-        'data' => 'array'
+        'data' => 'array',
+        'type' => NotificationTypeConstants::class
     ];
 
     //---------------------relations-------------------------------------
@@ -38,7 +40,10 @@ class Notification extends Model
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
-
+    public function scopeOfType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
     //---------------------Scopes-------------------------------------
 
 }
