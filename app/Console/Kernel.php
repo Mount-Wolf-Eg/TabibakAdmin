@@ -13,12 +13,11 @@ class Kernel extends ConsoleKernel
      * @param Schedule $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
-        //delete files that has no relation
         $schedule->command('untracked_files:delete')->daily();
-        //telescope entries delete
         $schedule->command('telescope:clear')->daily();
+        $schedule->command('consultations:cancel-urgent')->hourly();
     }
 
     /**

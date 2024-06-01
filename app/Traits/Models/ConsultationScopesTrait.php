@@ -118,7 +118,7 @@ trait ConsultationScopesTrait
 
     public function scopeOfCreatedBeforeHour($query)
     {
-
+        return $query->whereTime('created_at', '<', now()->subHour());
     }
     //---------------------Scopes-------------------------------------
 
