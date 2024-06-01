@@ -16,7 +16,7 @@ class Notification extends Model
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['title', 'body', 'type', 'redirect_type', 'redirect_id', 'data'];
-    protected array $filters = ['keyword', 'type'];
+    protected array $filters = ['keyword', 'type', 'user'];
     protected array $searchable = [];
     protected array $dates = [];
     public array $filterModels = [];
@@ -43,6 +43,13 @@ class Notification extends Model
     public function scopeOfType($query, $type)
     {
         return $query->where('type', $type);
+    }
+
+    public function scopeOfUser($query, $userId)
+    {
+        return $query->whereHas('users', function ($query) use ($userId){
+            $query->where('users.id', $userId);
+        });
     }
     //---------------------Scopes-------------------------------------
 
