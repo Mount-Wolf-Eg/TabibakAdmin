@@ -414,7 +414,7 @@ return [
     'doctor_accepted_urgent_case' => 'تم قبول الحالة الطارئة',
     'patient_accepted_doctor_offer' => 'تم قبول عرض الطبيب',
     'urgent_has_doctors_replies' => 'الحالة الطارئة لديها ردود من الأطباء',
-    'urgent_patient_approve_doctor_offer' => 'الحالة الطارئة تحتاج موافقة المريض على عرض الطبيب',
+    'urgent_patient_approve_doctor_offer' => 'تمت الموافقه علي عرض الطبيب من قبل المريض',
     'male' => 'ذكر',
     'female' => 'أنثى',
     'home' => 'الرئيسية',
@@ -493,5 +493,6 @@ return [
     'reminder_before' => 'تذكير قبل الموعد',
     'coupon_code' => 'كود الخصم',
     "schedule_slot_expired" => "انتهت صلاحية الموعد",
-    'new_urgent_consultation_validation' => 'لايمكن انشاء استشاره عاجله جديده لديك استشاره بالفعل علي نفس التخصص'
+    'new_urgent_consultation_validation' => 'لايمكن انشاء استشاره عاجله جديده لديك استشاره بالفعل علي نفس التخصص',
+    "patient_change_consultation_reply_status_validation" => "لايمكن تغييد حالة رد الدكتور بسبب حالة الاستشاره (:status) وحالة رد الدكتور (:reply)"
 ];
