@@ -494,5 +494,9 @@ return [
     'coupon_code' => 'كود الخصم',
     "schedule_slot_expired" => "انتهت صلاحية الموعد",
     'new_urgent_consultation_validation' => 'لايمكن انشاء استشاره عاجله جديده لديك استشاره بالفعل علي نفس التخصص',
-    "patient_change_consultation_reply_status_validation" => "لايمكن تغييد حالة رد الدكتور بسبب حالة الاستشاره (:status) وحالة رد الدكتور (:reply)"
+    "patient_change_consultation_reply_status_validation" => "لايمكن تغييد حالة رد الدكتور بسبب حالة الاستشاره (:status) وحالة رد الدكتور (:reply)",
+    "doctor_referral_validation" => " لايمكن عمل تحويل لهذه الاستشاره لان حالة الاستشاره هي (:status)",
+    "doctor_prescription_validation" => " لايمكن كتابة روشته  لهذه الاستشاره لان حالة الاستشاره هي (:status)",
+    "doctor_approve_medical_report_validation" => " لايمكن اعتماد التقرير الطبي لهذه الاستشاره لان حالة الاستشاره هي (:status)",
+    "doctor_cancel_validation" => " لايمكن الغاء هذه الاستشاره لان حالة الاستشاره هي (:status)",
 ];
