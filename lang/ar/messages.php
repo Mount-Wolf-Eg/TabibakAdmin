@@ -482,7 +482,19 @@ return [
             'doctor_cancel' => [
                 'title' => 'الغاد الاستشاره',
                 'body' => 'تم الغاء الاستشاره من قبل الطبيب'
-            ]
+            ],
+            'patient_cancel' => [
+                'title' => 'الغاد الاستشاره',
+                "body" => 'تم الغاء الاستشاره من قبل المريض'
+            ],
+            "patient_accept_doctor_offer" => [
+                "title" => "قبول العرض",
+                "body" => "تم قبول عرضك من قبل المريض"
+            ],
+            "patient_reject_doctor_offer" => [
+                "title" => "رفض العرض",
+                "body" => "تم رفض عرضك من قبل المريض"
+            ],
         ],
     ],
     'not_active_account' => 'حسابك غير نشط',

@@ -482,7 +482,19 @@ return [
             'doctor_cancel' => [
                 'title' => 'Consultation Cancelled',
                 'body' => 'Doctor cancelled the consultation'
-            ]
+            ],
+            'patient_cancel' => [
+                'title' => 'Consultation Cancelled',
+                'body' => 'Patient cancelled the consultation'
+            ],
+            "patient_accept_doctor_offer" => [
+                "title" => "Offer Accepted",
+                "body" => "patient accept doctor offer"
+            ],
+            "patient_reject_doctor_offer" => [
+                "title" => "Offer Rejected",
+                "body" => "patient rejected doctor offer"
+            ],
         ]
     ],
     'not_active_account' => 'Your account is not active',

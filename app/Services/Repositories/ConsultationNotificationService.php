@@ -25,9 +25,7 @@ class ConsultationNotificationService
         ];
     }
 
-   /*
-    * Consultation $consultation
-    */
+
     public function newConsultation(Consultation $consultation): void
     {
         if ($consultation->doctor?->user_id) {
@@ -44,9 +42,6 @@ class ConsultationNotificationService
         $this->notificationContract->create($this->notificationData);
     }
 
-    /*
-     * Consultation $consultation
-     */
     public function vendorReferral(Consultation $consultation): void
     {
         $this->notifiedUsers = $consultation->vendors->pluck('user_id')->toArray();
@@ -58,41 +53,57 @@ class ConsultationNotificationService
         $this->notificationContract->create($this->notificationData);
     }
 
-    /*
-    * Consultation $consultation
-    */
     public function prescription(Consultation $consultation): void
     {
         $this->patientNotify($consultation, 'prescription');
     }
 
-    /*
-   * Consultation $consultation
-   */
     public function doctorApprovedMedicalReport(Consultation $consultation): void
     {
         $this->patientNotify($consultation, 'doctor_approved_medical_report');
     }
 
-    /*
-   * Consultation $consultation
-   */
     public function doctorApprovedUrgentCase(Consultation $consultation): void
     {
         $this->patientNotify($consultation, 'doctor_approved_urgent_case');
     }
 
-    /*
-  * Consultation $consultation
-  */
     public function doctorCancel(Consultation $consultation): void
     {
         $this->patientNotify($consultation, 'doctor_cancel');
     }
 
+    public function patientCancel(Consultation $consultation): void
+    {
+        $this->doctorNotify($consultation, 'patient_cancel');
+    }
+
+    public function patientAcceptDoctorOffer(Consultation $consultation): void
+    {
+        $this->doctorNotify($consultation, 'patient_accept_doctor_offer');
+    }
+
+    public function patientRejectDoctorOffer(Consultation $consultation): void
+    {
+        $this->doctorNotify($consultation, 'patient_reject_doctor_offer');
+    }
+
     private function patientNotify($consultation, $message): void
     {
         $this->notifiedUsers = [$consultation->patient->user_id];
+        $this->userNotify($consultation, $message);
+    }
+
+    private function doctorNotify($consultation, $message): void
+    {
+        if ($consultation->doctor) {
+            $this->notifiedUsers = [$consultation->doctor->user_id];
+            $this->userNotify($consultation, $message);
+        }
+    }
+
+    private function userNotify($consultation, $message): void
+    {
         if (count($this->notifiedUsers) == 0) return;
         $this->notificationData['title'] = __(sprintf($this->notificationData['title'], $message));
         $this->notificationData['body'] = __(sprintf($this->notificationData['body'], $message));
@@ -100,7 +111,5 @@ class ConsultationNotificationService
         $this->notificationData['users'] = $this->notifiedUsers;
         $this->notificationContract->create($this->notificationData);
     }
-
-
 
 }

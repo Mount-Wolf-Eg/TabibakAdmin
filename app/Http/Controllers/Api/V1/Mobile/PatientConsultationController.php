@@ -10,20 +10,25 @@ use App\Http\Requests\PatientUrgentRejectRequest;
 use App\Http\Resources\ConsultationResource;
 use App\Models\Consultation;
 use App\Repositories\Contracts\ConsultationContract;
+use App\Services\Repositories\ConsultationNotificationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
 class PatientConsultationController extends BaseApiController
 {
+    private ConsultationNotificationService $notificationService;
+
     /**
      * PatientConsultationController constructor.
      * @param ConsultationContract $contract
+     * @param ConsultationNotificationService $notificationService
      */
-    public function __construct(ConsultationContract $contract)
+    public function __construct(ConsultationContract $contract, ConsultationNotificationService $notificationService)
     {
         $this->defaultScopes = ['mineAsPatient' => true];
         $this->relations = ['patient', 'doctorScheduleDayShift', 'doctor.rates'];
         parent::__construct($contract, ConsultationResource::class);
+        $this->notificationService = $notificationService;
     }
     /**
      * Store a newly created resource in storage.
@@ -111,6 +116,7 @@ class PatientConsultationController extends BaseApiController
     {
         try {
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::PATIENT_CANCELLED->value]);
+            $this->notificationService->patientCancel($consultation);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
@@ -158,6 +164,7 @@ class PatientConsultationController extends BaseApiController
             $consultation = $this->contract->update($consultation, ['doctor_id' => $data['doctor_id'],
                 'amount' => $data['amount'], 'status' => ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value]);
             $this->contract->sync($consultation, 'replies', $data['replies']);
+            $this->notificationService->patientAcceptDoctorOffer($consultation);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
@@ -175,6 +182,7 @@ class PatientConsultationController extends BaseApiController
         try {
             $data = $request->validated();
             $this->contract->sync($consultation, 'replies', $data['replies']);
+            $this->notificationService->patientRejectDoctorOffer($consultation);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
