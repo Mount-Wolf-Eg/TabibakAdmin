@@ -482,7 +482,19 @@ return [
             'doctor_cancel' => [
                 'title' => 'Consultation Cancelled',
                 'body' => 'Doctor cancelled the consultation'
-            ]
+            ],
+            'patient_cancel' => [
+                'title' => 'Consultation Cancelled',
+                'body' => 'Patient cancelled the consultation'
+            ],
+            "patient_accept_doctor_offer" => [
+                "title" => "Offer Accepted",
+                "body" => "patient accept doctor offer"
+            ],
+            "patient_reject_doctor_offer" => [
+                "title" => "Offer Rejected",
+                "body" => "patient rejected doctor offer"
+            ],
         ]
     ],
     'not_active_account' => 'Your account is not active',
@@ -493,4 +505,11 @@ return [
     'reminder_before' => 'Reminder Before',
     'coupon_code' => 'Coupon Code',
     "schedule_slot_expired" => "The schedule slot has expired",
+    'new_urgent_consultation_validation' => "you can't create new urgent consultation on the same medical speciality",
+    "patient_change_consultation_reply_status_validation" => "you can't reply to doctor offer because consultation status is :status & doctor reply status is :reply",
+    "doctor_referral_validation" => "you can't do referral because consultation status is (:status)",
+    "doctor_prescription_validation" => "you can't write prescription because consultation status is (:status)",
+    "doctor_approve_medical_report_validation" => "you can't approve medical report because consultation status is (:status)",
+    "doctor_approve_urgent_case_validation" => "you can't approve medical report because consultation status is (:status)",
+    "doctor_cancel_validation" => "you can't cancel because consultation status is (:status)",
 ];

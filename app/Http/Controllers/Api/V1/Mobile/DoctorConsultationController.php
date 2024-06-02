@@ -42,8 +42,6 @@ class DoctorConsultationController extends BaseApiController
     public function show(Consultation $consultation): JsonResponse
     {
         try {
-            if (!$consultation->isMineAsDoctor())
-                abort(403, __('messages.not_allowed'));
             $this->relations = array_merge($this->relations, ['attachments', 'medicalSpeciality', 'vendors', 'patient.diseases']);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
@@ -61,7 +59,7 @@ class DoctorConsultationController extends BaseApiController
     {
         try {
             if (!$consultation->doctorCanDoReferral())
-                abort(403, __('messages.not_allowed'));
+                abort(403, __('messages.doctor_referral_validation'));
             $consultation = $this->contract->update($consultation, $request->validated());
             $this->notificationService->vendorReferral($consultation);
             return $this->respondWithModel($consultation);
@@ -80,7 +78,7 @@ class DoctorConsultationController extends BaseApiController
     {
         try {
             if (!$consultation->doctorCanWritePrescription())
-                abort(403, __('messages.not_allowed'));
+                abort(403, __('messages.doctor_prescription_validation'));
             $consultation = $this->contract->update($consultation, $request->validated());
             $this->notificationService->prescription($consultation);
             return $this->respondWithModel($consultation);
@@ -98,7 +96,7 @@ class DoctorConsultationController extends BaseApiController
     {
         try {
             if (!$consultation->doctorCanApproveMedicalReport())
-                abort(403, __('messages.not_allowed'));
+                abort(403, __('messages.doctor_approve_medical_report_validation'));
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
             $this->notificationService->doctorApprovedMedicalReport($consultation);
             return $this->respondWithModel($consultation);
@@ -136,7 +134,7 @@ class DoctorConsultationController extends BaseApiController
     {
         try {
             if (!$consultation->doctorCanCancel())
-                abort(403, __('messages.not_allowed'));
+                abort(403, __('messages.doctor_cancel_validation'));
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_CANCELLED->value]);
             $this->notificationService->doctorCancel($consultation);
             return $this->respondWithModel($consultation);

@@ -414,7 +414,7 @@ return [
     'doctor_accepted_urgent_case' => 'تم قبول الحالة الطارئة',
     'patient_accepted_doctor_offer' => 'تم قبول عرض الطبيب',
     'urgent_has_doctors_replies' => 'الحالة الطارئة لديها ردود من الأطباء',
-    'urgent_patient_approve_doctor_offer' => 'الحالة الطارئة تحتاج موافقة المريض على عرض الطبيب',
+    'urgent_patient_approve_doctor_offer' => 'تمت الموافقه علي عرض الطبيب من قبل المريض',
     'male' => 'ذكر',
     'female' => 'أنثى',
     'home' => 'الرئيسية',
@@ -481,8 +481,20 @@ return [
             ],
             'doctor_cancel' => [
                 'title' => 'الغاد الاستشاره',
-                'body' => 'تم الغاد الاستشاره من قبل الطبيب'
-            ]
+                'body' => 'تم الغاء الاستشاره من قبل الطبيب'
+            ],
+            'patient_cancel' => [
+                'title' => 'الغاد الاستشاره',
+                "body" => 'تم الغاء الاستشاره من قبل المريض'
+            ],
+            "patient_accept_doctor_offer" => [
+                "title" => "قبول العرض",
+                "body" => "تم قبول عرضك من قبل المريض"
+            ],
+            "patient_reject_doctor_offer" => [
+                "title" => "رفض العرض",
+                "body" => "تم رفض عرضك من قبل المريض"
+            ],
         ],
     ],
     'not_active_account' => 'حسابك غير نشط',
@@ -493,4 +505,10 @@ return [
     'reminder_before' => 'تذكير قبل الموعد',
     'coupon_code' => 'كود الخصم',
     "schedule_slot_expired" => "انتهت صلاحية الموعد",
+    'new_urgent_consultation_validation' => 'لايمكن انشاء استشاره عاجله جديده لديك استشاره بالفعل علي نفس التخصص',
+    "patient_change_consultation_reply_status_validation" => "لايمكن تغييد حالة رد الدكتور بسبب حالة الاستشاره (:status) وحالة رد الدكتور (:reply)",
+    "doctor_referral_validation" => " لايمكن عمل تحويل لهذه الاستشاره لان حالة الاستشاره هي (:status)",
+    "doctor_prescription_validation" => " لايمكن كتابة روشته  لهذه الاستشاره لان حالة الاستشاره هي (:status)",
+    "doctor_approve_medical_report_validation" => " لايمكن اعتماد التقرير الطبي لهذه الاستشاره لان حالة الاستشاره هي (:status)",
+    "doctor_cancel_validation" => " لايمكن الغاء هذه الاستشاره لان حالة الاستشاره هي (:status)",
 ];

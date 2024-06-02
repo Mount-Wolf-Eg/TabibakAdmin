@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\Mobile\CouponController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorConsultationController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorProfileController;
 use App\Http\Controllers\Api\V1\Mobile\FaqController;
+use App\Http\Controllers\Api\V1\Mobile\NotificationController;
 use App\Http\Controllers\Api\V1\Mobile\PatientConsultationController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorScheduleDayController;
@@ -36,6 +37,7 @@ Route::group(['middleware' => 'locale'], static function () {
         Route::get('profile', [AuthController::class, 'profile']);
 
         Route::post('articles/{article}/toggle-like', [ArticleController::class, 'toggleLike']);
+        Route::apiResource('notifications', NotificationController::class)->only('index');
 
         Route::group(['prefix' => 'patient'], static function () {
             Route::put('update-main-info', [PatientProfileController::class, 'updateMainInfo']);

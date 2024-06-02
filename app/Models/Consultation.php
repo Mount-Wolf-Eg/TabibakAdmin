@@ -37,7 +37,7 @@ class Consultation extends Model
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
         'myVendorStatus', 'creationDate', 'status', 'completed', 'urgentWithNoDoctor',
-        'doctorsList', 'medicalSpeciality', 'doctor', 'patient'];
+        'doctorsList', 'medicalSpeciality', 'doctor', 'patient', 'createdBeforeHour'];
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];
@@ -159,12 +159,12 @@ class Consultation extends Model
         return $this->doctor_id == auth()->user()->doctor?->id;
     }
 
-    public function isMineAsVendor()
+    public function isMineAsVendor(): bool
     {
         return $this->vendors->contains('id', auth()->user()->vendor?->id);
     }
 
-    public function isPendingVendor($vendorId)
+    public function isPendingVendor($vendorId): bool
     {
         return $this->vendors->where('id', $vendorId)
             ->where('pivot.status', ConsultationVendorStatusConstants::PENDING->value)->isNotEmpty();
