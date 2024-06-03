@@ -27,6 +27,7 @@ trait ConsultationScopesTrait
                 $q->where('type', ConsultationTypeConstants::URGENT)
                     ->whereIn('status', [ConsultationStatusConstants::PENDING,
                         ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES])
+                    ->whereIn('medical_speciality_id', auth()->user()->doctor?->medicalSpecialities->pluck('id'))
                     ->whereNull('doctor_id');
             });
         });
