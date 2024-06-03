@@ -13,6 +13,7 @@ enum ConsultationStatusConstants : int
     case DOCTOR_APPROVED_MEDICAL_REPORT = 4;
     case PATIENT_CANCELLED = 5;
     case DOCTOR_CANCELLED = 6;
+    case REFERRED_TO_ANOTHER_DOCTOR  = 7;
 
     public static function getLabels($value): string
     {
@@ -21,7 +22,8 @@ enum ConsultationStatusConstants : int
             self::URGENT_HAS_DOCTORS_REPLIES => __('messages.urgent_has_doctors_replies'),
             self::URGENT_PATIENT_APPROVE_DOCTOR_OFFER => __('messages.urgent_patient_approve_doctor_offer'),
             self::DOCTOR_APPROVED_MEDICAL_REPORT => __('messages.doctor_approved_medical_report'),
-            self::PATIENT_CANCELLED, self::DOCTOR_CANCELLED => __('messages.cancelled')
+            self::PATIENT_CANCELLED, self::DOCTOR_CANCELLED => __('messages.cancelled'),
+            self::REFERRED_TO_ANOTHER_DOCTOR => __('messages.referred_to_another_doctor'),
         };
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Repositories\ConsultationDoctorReferralService;
 use App\Services\Repositories\UserAuthService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -27,6 +28,11 @@ class RepositoryServiceProvider extends ServiceProvider
                 $app->make('App\Repositories\Contracts\UserContract'),
                 $app->make('App\Repositories\Contracts\PatientContract'),
                 $app->make('App\Repositories\Contracts\DoctorContract'),
+            );
+        });
+        $this->app->bind('App\Services\Repositories\ConsultationDoctorReferralService', function ($app) {
+            return new ConsultationDoctorReferralService(
+                $app->make('App\Repositories\Contracts\ConsultationContract'),
             );
         });
     }

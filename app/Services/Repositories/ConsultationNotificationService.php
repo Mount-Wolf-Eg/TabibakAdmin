@@ -89,6 +89,11 @@ class ConsultationNotificationService
         $this->doctorNotify($consultation, 'patient_reject_doctor_offer');
     }
 
+    public function doctorReferral(Consultation $consultation): void
+    {
+        $this->doctorNotify($consultation, 'doctor_referral');
+    }
+
     private function patientNotify($consultation, $message): void
     {
         $this->notifiedUsers = [$consultation->patient->user_id];

@@ -72,7 +72,8 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('/consultations/statistics', [DoctorConsultationController::class, 'statistics']);
             Route::apiResource('consultations', DoctorConsultationController::class)->only('index', 'show');
             Route::controller(DoctorConsultationController::class)->prefix('consultations')->group(static function () {
-                Route::post('/{consultation}/referral','referral');
+                Route::post('/{consultation}/vendor-referral','vendorReferral');
+                Route::post('/{consultation}/doctor-referral','doctorReferral');
                 Route::post('/{consultation}/prescription', 'prescription');
                 Route::post('/{consultation}/approve-medical-report', 'approveMedicalReport');
                 Route::post('/{consultation}/accept-urgent-case', 'acceptUrgentCase');

@@ -495,6 +495,10 @@ return [
                 "title" => "Offer Rejected",
                 "body" => "patient rejected doctor offer"
             ],
+            "doctor_referral" => [
+                "title" => "Doctor Referral",
+                "body" => "Doctor referred the consultation"
+            ],
         ]
     ],
     'not_active_account' => 'Your account is not active',
@@ -512,4 +516,7 @@ return [
     "doctor_approve_medical_report_validation" => "you can't approve medical report because consultation status is (:status)",
     "doctor_approve_urgent_case_validation" => "you can't approve medical report because consultation status is (:status)",
     "doctor_cancel_validation" => "you can't cancel because consultation status is (:status)",
+    "doctor_schedule_day_shift_id" => "Doctor Schedule Day Shift",
+    "schedule_slot_not_related_to_doctor" => "The schedule slot is not related to this doctor",
+    "referred_to_another_doctor" => "Referred to another doctor"
 ];
