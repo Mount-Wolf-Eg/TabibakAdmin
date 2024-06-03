@@ -131,7 +131,11 @@ class PatientConsultationController extends BaseApiController
     public function replies(): JsonResponse
     {
         try {
-            $filters = ['urgentWithNoDoctor' => true, 'medicalSpeciality' => request('medicalSpeciality'), 'patient' => request('patient')];
+            $filters = [
+                'urgentWithNoDoctor' => true,
+                'medicalSpeciality' => request('medicalSpeciality'),
+                'patient' => request('patient') ?? auth()->user()->patient?->id
+            ];
             $consultation = $this->contract->findByFilters($filters, ['replies.rates', 'patient', 'medicalSpeciality'], false);
             if (!$consultation)
                 return $this->respondWithSuccess(__('messages.no_data'));
