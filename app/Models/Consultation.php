@@ -247,6 +247,18 @@ class Consultation extends Model
         return $this->status->is(ConsultationStatusConstants::PATIENT_CANCELLED)
             || $this->status->is(ConsultationStatusConstants::DOCTOR_CANCELLED);
     }
+
+    public function patientCanCancel(): bool
+    {
+        return $this->status->is(ConsultationStatusConstants::PENDING)
+            || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES)
+            || $this->status->is(ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR);
+    }
+
+    public function patientCanConfirmReferral(): bool
+    {
+        return $this->status->is(ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR);
+    }
     //---------------------methods-------------------------------------
 
     //---------------------attributes-------------------------------------

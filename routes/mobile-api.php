@@ -47,6 +47,7 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::apiResource('consultations', PatientConsultationController::class);
             Route::controller(PatientConsultationController::class)->prefix('consultations')->group(static function () {
                 Route::put('/{consultation}/cancel',  'cancel');
+                Route::put('/{consultation}/confirm-referral',  'confirmReferral');
                 Route::post('/{consultation}/approve-urgent-doctor-offer', 'approveUrgentDoctorOffer');
                 Route::post('/{consultation}/reject-urgent-doctor-offer',  'rejectUrgentDoctorOffer');
             });

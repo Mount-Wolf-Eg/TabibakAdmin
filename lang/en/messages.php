@@ -518,5 +518,8 @@ return [
     "doctor_cancel_validation" => "you can't cancel because consultation status is (:status)",
     "doctor_schedule_day_shift_id" => "Doctor Schedule Day Shift",
     "schedule_slot_not_related_to_doctor" => "The schedule slot is not related to this doctor",
-    "referred_to_another_doctor" => "Referred to another doctor"
+    "referred_to_another_doctor" => "Referred to another doctor",
+    "patient_can_not_confirm_referral" => "Patient can't confirm referral",
+    "patient_can_not_cancel" => "Patient can't cancel Consultation",
+    "patient_confirm_referral" => "Patient Confirm Referral"
 ];

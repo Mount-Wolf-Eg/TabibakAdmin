@@ -518,4 +518,7 @@ return [
     "doctor_schedule_day_shift_id" => "وردية العمل",
     "schedule_slot_not_related_to_doctor" => "الموعد لا ينتمي لهذا الطبيب",
     "referred_to_another_doctor" => "تم تحويل الاستشارة لطبيب آخر",
+    "patient_can_not_confirm_referral" => "لا يمكن للمريض تأكيد الإحالة",
+    "patient_can_not_cancel_referral" => "لا يمكن للمريض إلغاء الاستشاره",
+    "patient_confirm_referral" => "تم تأكيد الإحالة"
 ];
