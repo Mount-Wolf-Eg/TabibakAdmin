@@ -101,6 +101,11 @@ class Consultation extends Model
     {
         return $this->morphOne(Payment::class, 'payable');
     }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
     //---------------------relations-------------------------------------
     //---------------------constants-------------------------------------
     public static function types(): array
