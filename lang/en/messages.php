@@ -500,7 +500,7 @@ return [
                 "body" => "Doctor referred the consultation"
             ],
             "doctor_need_reschedule" => [
-                "title" => "Doctor Need Reschedule",
+                "title" => "Need Reschedule",
                 "body" => "Doctor need reschedule the consultation"
             ],
         ]
