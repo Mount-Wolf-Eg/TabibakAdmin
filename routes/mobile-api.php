@@ -79,10 +79,10 @@ Route::group(['middleware' => 'locale'], static function () {
                 Route::post('/{consultation}/approve-medical-report', 'approveMedicalReport');
                 Route::post('/{consultation}/accept-urgent-case', 'acceptUrgentCase');
                 Route::post('/{consultation}/cancel', 'cancel');
+                Route::post('/{consultation}/reschedule', 'reschedule');
             });
             Route::get('payments', [PaymentController::class, 'doctorIndex']);
             Route::resource('payments', PaymentController::class)->only('destroy');
         });
-
     });
 });

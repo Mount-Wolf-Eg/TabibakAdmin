@@ -499,6 +499,10 @@ return [
                 "title" => "Doctor Referral",
                 "body" => "Doctor referred the consultation"
             ],
+            "doctor_need_reschedule" => [
+                "title" => "Doctor Need Reschedule",
+                "body" => "Doctor need reschedule the consultation"
+            ],
         ]
     ],
     'not_active_account' => 'Your account is not active',
@@ -521,5 +525,7 @@ return [
     "referred_to_another_doctor" => "Referred to another doctor",
     "patient_can_not_confirm_referral" => "Patient can't confirm referral",
     "patient_can_not_cancel" => "Patient can't cancel Consultation",
-    "patient_confirm_referral" => "Patient Confirm Referral"
+    "patient_confirm_referral" => "Patient Confirm Referral",
+    "doctor_can_reschedule_validation" => "you can't reschedule because consultation status is (:status)",
+    "needs_reschedule" => "Needs Reschedule"
 ];

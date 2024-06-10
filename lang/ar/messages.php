@@ -498,6 +498,10 @@ return [
             'doctor_referral' => [
                 'title' => 'تحويل الاستشاره',
                 'body' => 'تم تحويل الاستشاره الي طبيب اخر'
+            ],
+            "doctor_need_reschedule" => [
+                "title" => "تحتاج إلى إعادة جدولة",
+                "body" => "تحتاج إلى إعادة جدولة"
             ]
         ],
     ],
@@ -520,5 +524,7 @@ return [
     "referred_to_another_doctor" => "تم تحويل الاستشارة لطبيب آخر",
     "patient_can_not_confirm_referral" => "لا يمكن للمريض تأكيد الإحالة",
     "patient_can_not_cancel_referral" => "لا يمكن للمريض إلغاء الاستشاره",
-    "patient_confirm_referral" => "تم تأكيد الإحالة"
+    "patient_confirm_referral" => "تم تأكيد الإحالة",
+    "doctor_can_reschedule_validation" => "لا يمكن للطبيب إعادة جدولة هذا الموعد لأن حالة الاستشارة هي (:status)",
+    "needs_reschedule" => "يحتاج إلى إعادة جدولة"
 ];

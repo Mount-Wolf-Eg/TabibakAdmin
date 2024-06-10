@@ -170,6 +170,24 @@ class DoctorConsultationController extends BaseApiController
     }
 
     /**
+     * Reschedule the consultation.
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
+    public function reschedule(Consultation $consultation)
+    {
+        try {
+            if (!$consultation->doctorCanReschedule())
+                abort(403, __('messages.doctor_cancel_validation', ['status' => $consultation->status->label()]));
+            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::NEEDS_RESCHEDULE->value]);
+            $this->notificationService->doctorReschedule($consultation);
+            return $this->respondWithModel($consultation);
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
      * Doctor statistics.
      * @return JsonResponse
      */

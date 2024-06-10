@@ -264,6 +264,12 @@ class Consultation extends Model
     {
         return $this->status->is(ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR);
     }
+
+    public function doctorCanReschedule(): bool
+    {
+        return $this->type->is(ConsultationTypeConstants::WITH_APPOINTMENT)
+            && $this->status->is(ConsultationStatusConstants::PENDING);
+    }
     //---------------------methods-------------------------------------
 
     //---------------------attributes-------------------------------------
