@@ -66,10 +66,7 @@ class DoctorScheduleDay extends Model
 
     public function scopeOfAfterNowDateTime($query)
     {
-        return $query->whereDate('date', '>=', now())
-            ->whereHas('availableSlots', function ($query) {
-                $query->whereTime('from_time', '>=', now());
-            });
+        return $query->whereDate('date', '>=', now());
     }
     //---------------------Scopes-------------------------------------
 
