@@ -71,6 +71,11 @@ class ConsultationNotificationService
         $this->patientNotify($consultation, 'doctor_cancel');
     }
 
+    public function doctorReschedule(Consultation $consultation): void
+    {
+        $this->patientNotify($consultation, 'doctor_need_reschedule', ['action' => 'reschedule']);
+    }
+
     public function patientCancel(Consultation $consultation): void
     {
         $this->notifiedUsers = [$consultation->doctor->user_id];
@@ -89,11 +94,17 @@ class ConsultationNotificationService
         $this->doctorNotify($consultation, 'patient_reject_doctor_offer');
     }
 
-    private function patientNotify($consultation, $message): void
+    public function doctorReferral(Consultation $consultation): void
+    {
+        $this->doctorNotify($consultation, 'doctor_referral');
+    }
+
+    private function patientNotify($consultation, $message, $data = []): void
     {
         $this->notifiedUsers = [$consultation->patient->user_id];
         $this->notificationData['type'] = NotificationTypeConstants::PATIENT->value;
-        $this->userNotify($consultation, $message);
+        $this->notificationData['data'] = $data;
+        $this->userNotify($consultation, $message, $data);
     }
 
     private function doctorNotify($consultation, $message): void
@@ -102,13 +113,14 @@ class ConsultationNotificationService
         $this->userNotify($consultation, $message);
     }
 
-    private function userNotify($consultation, $message): void
+    private function userNotify($consultation, $message, $data = []): void
     {
         if (count($this->notifiedUsers) == 0) return;
         $this->notificationData['title'] = __(sprintf($this->notificationData['title'], $message));
         $this->notificationData['body'] = __(sprintf($this->notificationData['body'], $message));
         $this->notificationData['redirect_id'] = $consultation->id;
         $this->notificationData['users'] = $this->notifiedUsers;
+        $this->notificationData['data'] = $data;
         $this->notificationContract->create($this->notificationData);
     }
 

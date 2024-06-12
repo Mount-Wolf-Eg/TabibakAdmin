@@ -9,12 +9,14 @@ enum ConsultationTypeConstants : int
 
     case URGENT = 1;
     case WITH_APPOINTMENT = 2;
+    case REFERRAL = 3;
 
     public static function getLabels($value): string
     {
         return match ($value) {
             self::URGENT => __('messages.urgent'),
-            self::WITH_APPOINTMENT => __('messages.with_appointment')
+            self::WITH_APPOINTMENT => __('messages.with_appointment'),
+            self::REFERRAL => __('messages.referral'),
         };
     }
 

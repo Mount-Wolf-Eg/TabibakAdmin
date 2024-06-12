@@ -24,7 +24,8 @@ class NotificationResource extends BaseResource
                 'label' => $this->type?->label(),
             ],
             'redirect_module' => $this->redirect_type,
-            'redirect_id' => $this->redirect_id
+            'redirect_id' => $this->redirect_id,
+            'data' => $this->data,
         ];
         $this->relations = [
         ];

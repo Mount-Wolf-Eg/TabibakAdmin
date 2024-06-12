@@ -29,7 +29,7 @@ class Consultation extends Model
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations, ConsultationScopesTrait;
 
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['doctor_id', 'patient_id', 'status', 'medical_speciality_id',
+    protected $fillable = ['parent_id', 'doctor_id', 'patient_id', 'status', 'medical_speciality_id',
         'patient_description', 'doctor_description', 'medical_review', 'prescription', 'type',
         'doctor_schedule_day_shift_id', 'contact_type', 'reminder_at', 'transfer_reason',
         'transfer_notes', 'transfer_case_rate', 'payment_type', 'amount',
@@ -100,6 +100,11 @@ class Consultation extends Model
     public function payment(): MorphOne
     {
         return $this->morphOne(Payment::class, 'payable');
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_id');
     }
     //---------------------relations-------------------------------------
     //---------------------constants-------------------------------------
@@ -175,7 +180,15 @@ class Consultation extends Model
         return $this->isMineAsDoctor() && $this->status->is(ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER);
     }
 
-    public function doctorCanDoReferral(): bool
+    public function doctorCanDoVendorReferral(): bool
+    {
+        if ($this->isMineAsDoctor()) {
+            return !$this->status->is(ConsultationStatusConstants::REFERRED_TO_ANOTHER_DOCTOR);
+        }
+        return false;
+    }
+
+    public function doctorCanDoDoctorReferral(): bool
     {
         if ($this->isMineAsDoctor()) {
             if ($this->type->is(ConsultationTypeConstants::URGENT)) {
@@ -188,12 +201,12 @@ class Consultation extends Model
 
     public function doctorCanWritePrescription(): bool
     {
-        return $this->doctorCanDoReferral();
+        return $this->doctorCanDoVendorReferral();
     }
 
     public function doctorCanApproveMedicalReport(): bool
     {
-        return $this->doctorCanDoReferral();
+        return $this->doctorCanDoVendorReferral();
     }
 
     public function doctorCanAcceptUrgentCase(): bool
@@ -238,6 +251,24 @@ class Consultation extends Model
     {
         return $this->status->is(ConsultationStatusConstants::PATIENT_CANCELLED)
             || $this->status->is(ConsultationStatusConstants::DOCTOR_CANCELLED);
+    }
+
+    public function patientCanCancel(): bool
+    {
+        return $this->status->is(ConsultationStatusConstants::PENDING)
+            || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES)
+            || $this->status->is(ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR);
+    }
+
+    public function patientCanConfirmReferral(): bool
+    {
+        return $this->status->is(ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR);
+    }
+
+    public function doctorCanReschedule(): bool
+    {
+        return $this->type->is(ConsultationTypeConstants::WITH_APPOINTMENT)
+            && $this->status->is(ConsultationStatusConstants::PENDING);
     }
     //---------------------methods-------------------------------------
 

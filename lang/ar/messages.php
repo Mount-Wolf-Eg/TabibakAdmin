@@ -495,6 +495,14 @@ return [
                 "title" => "رفض العرض",
                 "body" => "تم رفض عرضك من قبل المريض"
             ],
+            'doctor_referral' => [
+                'title' => 'تحويل الاستشاره',
+                'body' => 'تم تحويل الاستشاره الي طبيب اخر'
+            ],
+            "doctor_need_reschedule" => [
+                "title" => "إعادة جدولة",
+                "body" => "الاستشاره تحتاج إلى إعادة جدولة"
+            ]
         ],
     ],
     'not_active_account' => 'حسابك غير نشط',
@@ -511,4 +519,12 @@ return [
     "doctor_prescription_validation" => " لايمكن كتابة روشته  لهذه الاستشاره لان حالة الاستشاره هي (:status)",
     "doctor_approve_medical_report_validation" => " لايمكن اعتماد التقرير الطبي لهذه الاستشاره لان حالة الاستشاره هي (:status)",
     "doctor_cancel_validation" => " لايمكن الغاء هذه الاستشاره لان حالة الاستشاره هي (:status)",
+    "doctor_schedule_day_shift_id" => "وردية العمل",
+    "schedule_slot_not_related_to_doctor" => "الموعد لا ينتمي لهذا الطبيب",
+    "referred_to_another_doctor" => "تم تحويل الاستشارة لطبيب آخر",
+    "patient_can_not_confirm_referral" => "لا يمكن للمريض تأكيد الإحالة",
+    "patient_can_not_cancel_referral" => "لا يمكن للمريض إلغاء الاستشاره",
+    "patient_confirm_referral" => "تم تأكيد الإحالة",
+    "doctor_can_reschedule_validation" => "لا يمكن للطبيب إعادة جدولة هذا الموعد لأن حالة الاستشارة هي (:status)",
+    "needs_reschedule" => "يحتاج إلى إعادة جدولة"
 ];

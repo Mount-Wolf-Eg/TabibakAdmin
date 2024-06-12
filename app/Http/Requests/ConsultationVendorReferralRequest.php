@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Constants\ConsultationTransferCaseRateConstants;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ConsultationReferralRequest extends FormRequest
+class ConsultationVendorReferralRequest extends FormRequest
 {
     public function authorize(): bool
     {

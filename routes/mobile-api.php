@@ -47,6 +47,7 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::apiResource('consultations', PatientConsultationController::class);
             Route::controller(PatientConsultationController::class)->prefix('consultations')->group(static function () {
                 Route::put('/{consultation}/cancel',  'cancel');
+                Route::put('/{consultation}/confirm-referral',  'confirmReferral');
                 Route::post('/{consultation}/approve-urgent-doctor-offer', 'approveUrgentDoctorOffer');
                 Route::post('/{consultation}/reject-urgent-doctor-offer',  'rejectUrgentDoctorOffer');
             });
@@ -72,15 +73,16 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('/consultations/statistics', [DoctorConsultationController::class, 'statistics']);
             Route::apiResource('consultations', DoctorConsultationController::class)->only('index', 'show');
             Route::controller(DoctorConsultationController::class)->prefix('consultations')->group(static function () {
-                Route::post('/{consultation}/referral','referral');
+                Route::post('/{consultation}/vendor-referral','vendorReferral');
+                Route::post('/{consultation}/doctor-referral','doctorReferral');
                 Route::post('/{consultation}/prescription', 'prescription');
                 Route::post('/{consultation}/approve-medical-report', 'approveMedicalReport');
                 Route::post('/{consultation}/accept-urgent-case', 'acceptUrgentCase');
                 Route::post('/{consultation}/cancel', 'cancel');
+                Route::post('/{consultation}/reschedule', 'reschedule');
             });
             Route::get('payments', [PaymentController::class, 'doctorIndex']);
             Route::resource('payments', PaymentController::class)->only('destroy');
         });
-
     });
 });

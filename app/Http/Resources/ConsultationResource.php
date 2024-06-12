@@ -56,7 +56,8 @@ class ConsultationResource extends BaseResource
             'transfer_notes' => $this->transfer_notes,
             'is_mine_as_patient' => $this->isMineAsPatient(),
             'is_mine_as_doctor' => $this->isMineAsDoctor(),
-            'doctor_can_do_referral' => $this->doctorCanDoReferral(),
+            'doctor_can_do_vendor_referral' => $this->doctorCanDoVendorReferral(),
+            'doctor_can_do_doctor_referral' => $this->doctorCanDoDoctorReferral(),
             'doctor_can_write_prescription' => $this->doctorCanWritePrescription(),
             'doctor_can_approve_medical_report' => $this->doctorCanApproveMedicalReport(),
             'doctor_can_cancel' => $this->doctorCanCancel(),
@@ -70,6 +71,7 @@ class ConsultationResource extends BaseResource
             'medicalSpeciality' => $this->relationLoaded('medicalSpeciality') ? new MedicalSpecialityResource($this->medicalSpeciality) : null,
             'doctorScheduleDayShift' => $this->relationLoaded('doctorScheduleDayShift') ? new DoctorScheduleDayShiftResource($this->doctorScheduleDayShift) : null,
             'replies' => $this->relationLoaded('replies') ? ConsultationReplyResource::collection($this->replies) : [],
+            'parent' => $this->relationLoaded('parent') ? new self($this->parent) : null,
         ];
         return $this->getResource();
     }

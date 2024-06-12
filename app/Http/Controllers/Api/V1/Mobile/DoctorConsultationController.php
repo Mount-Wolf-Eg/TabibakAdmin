@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Constants\ConsultationStatusConstants;
 use App\Constants\ConsultationTypeConstants;
 use App\Http\Controllers\Api\V1\BaseApiController;
+use App\Http\Requests\ConsultationDoctorReferralRequest;
 use App\Http\Requests\ConsultationPrescriptionRequest;
-use App\Http\Requests\ConsultationReferralRequest;
+use App\Http\Requests\ConsultationVendorReferralRequest;
 use App\Http\Requests\DoctorAcceptUrgentConsultationRequest;
 use App\Http\Resources\ConsultationResource;
 use App\Models\Consultation;
 use App\Repositories\Contracts\ConsultationContract;
+use App\Services\Repositories\ConsultationDoctorReferralService;
 use App\Services\Repositories\ConsultationNotificationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -19,19 +21,24 @@ class DoctorConsultationController extends BaseApiController
 {
 
     private ConsultationNotificationService $notificationService;
+    private ConsultationDoctorReferralService $doctorReferralService;
 
     /**
      * PatientConsultationController constructor.
      * @param ConsultationContract $contract
      * @param ConsultationNotificationService $notificationService
+     * @param ConsultationDoctorReferralService $doctorReferralService
      */
-    public function __construct(ConsultationContract $contract, ConsultationNotificationService $notificationService)
+    public function __construct(ConsultationContract              $contract,
+                                ConsultationNotificationService   $notificationService,
+                                ConsultationDoctorReferralService $doctorReferralService)
     {
         $this->middleware('role:doctor');
         $this->defaultScopes = ['doctorsList' => true];
         $this->relations = ['patient.parent', 'doctorScheduleDayShift', 'doctor.rates'];
         parent::__construct($contract, ConsultationResource::class);
         $this->notificationService = $notificationService;
+        $this->doctorReferralService = $doctorReferralService;
     }
 
     /**
@@ -44,26 +51,45 @@ class DoctorConsultationController extends BaseApiController
         try {
             $this->relations = array_merge($this->relations, ['attachments', 'medicalSpeciality', 'vendors', 'patient.diseases']);
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
 
     /**
      * Update referral vendors for the consultation.
-     * @param ConsultationReferralRequest $request
+     * @param ConsultationVendorReferralRequest $request
      * @param Consultation $consultation
      * @return JsonResponse
      */
-    public function referral(ConsultationReferralRequest $request, Consultation $consultation)
+    public function vendorReferral(ConsultationVendorReferralRequest $request, Consultation $consultation)
     {
         try {
-            if (!$consultation->doctorCanDoReferral())
-                abort(403, __('messages.doctor_referral_validation'));
+            if (!$consultation->doctorCanDoVendorReferral())
+                abort(403, __('messages.doctor_referral_validation', ['status' => $consultation->status->label()]));
             $consultation = $this->contract->update($consultation, $request->validated());
             $this->notificationService->vendorReferral($consultation);
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Update referral vendors for the consultation.
+     * @param ConsultationDoctorReferralRequest $request
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
+    public function doctorReferral(ConsultationDoctorReferralRequest $request,Consultation $consultation)
+    {
+        try {
+            if (!$consultation->doctorCanDoDoctorReferral())
+                abort(403, __('messages.doctor_referral_validation', ['status' => $consultation->status->label()]));
+            $consultation = $this->doctorReferralService->save($consultation, $request->validated());
+            $this->notificationService->doctorReferral($consultation);
+            return $this->respondWithModel($consultation);
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -74,15 +100,15 @@ class DoctorConsultationController extends BaseApiController
      * @param Consultation $consultation
      * @return JsonResponse
      */
-    public function prescription(ConsultationPrescriptionRequest $request,Consultation $consultation)
+    public function prescription(ConsultationPrescriptionRequest $request, Consultation $consultation)
     {
         try {
             if (!$consultation->doctorCanWritePrescription())
-                abort(403, __('messages.doctor_prescription_validation'));
+                abort(403, __('messages.doctor_prescription_validation', ['status' => $consultation->status->label()]));
             $consultation = $this->contract->update($consultation, $request->validated());
             $this->notificationService->prescription($consultation);
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -96,11 +122,11 @@ class DoctorConsultationController extends BaseApiController
     {
         try {
             if (!$consultation->doctorCanApproveMedicalReport())
-                abort(403, __('messages.doctor_approve_medical_report_validation'));
+                abort(403, __('messages.doctor_approve_medical_report_validation', ['status' => $consultation->status->label()]));
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
             $this->notificationService->doctorApprovedMedicalReport($consultation);
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -120,7 +146,7 @@ class DoctorConsultationController extends BaseApiController
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES->value]);
             $this->notificationService->doctorApprovedUrgentCase($consultation);
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -134,11 +160,29 @@ class DoctorConsultationController extends BaseApiController
     {
         try {
             if (!$consultation->doctorCanCancel())
-                abort(403, __('messages.doctor_cancel_validation'));
+                abort(403, __('messages.doctor_cancel_validation', ['status' => $consultation->status->label()]));
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_CANCELLED->value]);
             $this->notificationService->doctorCancel($consultation);
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Reschedule the consultation.
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
+    public function reschedule(Consultation $consultation)
+    {
+        try {
+            if (!$consultation->doctorCanReschedule())
+                abort(403, __('messages.doctor_cancel_validation', ['status' => $consultation->status->label()]));
+            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::NEEDS_RESCHEDULE->value]);
+            $this->notificationService->doctorReschedule($consultation);
+            return $this->respondWithModel($consultation);
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -157,8 +201,9 @@ class DoctorConsultationController extends BaseApiController
                 'urgent_cases' => $urgentCases,
                 'total_cases' => $calendarCases + $urgentCases,
             ]);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
+
 }

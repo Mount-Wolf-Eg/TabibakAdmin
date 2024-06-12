@@ -495,6 +495,14 @@ return [
                 "title" => "Offer Rejected",
                 "body" => "patient rejected doctor offer"
             ],
+            "doctor_referral" => [
+                "title" => "Doctor Referral",
+                "body" => "Doctor referred the consultation"
+            ],
+            "doctor_need_reschedule" => [
+                "title" => "Need Reschedule",
+                "body" => "Doctor need reschedule the consultation"
+            ],
         ]
     ],
     'not_active_account' => 'Your account is not active',
@@ -512,4 +520,12 @@ return [
     "doctor_approve_medical_report_validation" => "you can't approve medical report because consultation status is (:status)",
     "doctor_approve_urgent_case_validation" => "you can't approve medical report because consultation status is (:status)",
     "doctor_cancel_validation" => "you can't cancel because consultation status is (:status)",
+    "doctor_schedule_day_shift_id" => "Doctor Schedule Day Shift",
+    "schedule_slot_not_related_to_doctor" => "The schedule slot is not related to this doctor",
+    "referred_to_another_doctor" => "Referred to another doctor",
+    "patient_can_not_confirm_referral" => "Patient can't confirm referral",
+    "patient_can_not_cancel" => "Patient can't cancel Consultation",
+    "patient_confirm_referral" => "Patient Confirm Referral",
+    "doctor_can_reschedule_validation" => "you can't reschedule because consultation status is (:status)",
+    "needs_reschedule" => "Needs Reschedule"
 ];

@@ -114,8 +114,28 @@ class PatientConsultationController extends BaseApiController
      */
     public function cancel(Consultation $consultation): JsonResponse
     {
+        if (!$consultation->patientCanCancel())
+            abort(403, __('messages.patient_can_not_cancel'));
         try {
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::PATIENT_CANCELLED->value]);
+            $this->notificationService->patientCancel($consultation);
+            return $this->respondWithModel($consultation);
+        }catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Confirm referral
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
+    public function confirmReferral(Consultation $consultation): JsonResponse
+    {
+        if (!$consultation->patientCanConfirmReferral())
+            abort(403, __('messages.patient_can_not_confirm_referral'));
+        try {
+            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::PATIENT_CONFIRM_REFERRAL->value]);
             $this->notificationService->patientCancel($consultation);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
@@ -131,7 +151,11 @@ class PatientConsultationController extends BaseApiController
     public function replies(): JsonResponse
     {
         try {
-            $filters = ['urgentWithNoDoctor' => true, 'medicalSpeciality' => request('medicalSpeciality'), 'patient' => request('patient')];
+            $filters = [
+                'urgentWithNoDoctor' => true,
+                'medicalSpeciality' => request('medicalSpeciality'),
+                'patient' => request('patient') ?? auth()->user()->patient?->id
+            ];
             $consultation = $this->contract->findByFilters($filters, ['replies.rates', 'patient', 'medicalSpeciality'], false);
             if (!$consultation)
                 return $this->respondWithSuccess(__('messages.no_data'));
