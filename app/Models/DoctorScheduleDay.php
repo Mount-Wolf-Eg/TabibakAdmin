@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
@@ -15,7 +17,7 @@ class DoctorScheduleDay extends Model
 {
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['doctor_id', 'date', 'is_active'];
+    protected $fillable = ['doctor_id', 'date', 'has', 'is_active'];
     protected array $filters = ['keyword', 'active', 'doctor', 'afterNowDateTime'];
     protected array $searchable = [];
     protected array $dates = ['date'];
@@ -46,10 +48,13 @@ class DoctorScheduleDay extends Model
 
     public function availableSlots(): HasMany
     {
-        return $this->hasMany(DoctorScheduleDayShift::class)
-            ->whereNotNull('parent_id')->whereDoesntHave('consultation');
+        return $this->hasMany(DoctorScheduleDayShift::class)->ofAvailableSlots();
     }
 
+    public function nearestAvailableSlot(): HasOne
+    {
+        return $this->hasOne(DoctorScheduleDayShift::class)->ofAvailableSlots();
+    }
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
@@ -66,7 +71,15 @@ class DoctorScheduleDay extends Model
 
     public function scopeOfAfterNowDateTime($query)
     {
-        return $query->whereDate('date', '>=', now());
+        return $query->where(function ($q) {
+            $q->whereDate('date', '>', now()->toDateString())
+                ->orWhere(function ($q) {
+                    $q->whereDate('date', now()->toDateString())
+                        ->whereHas('availableSlots', function ($q) {
+                            $q->where('from_time', '>', now()->toTimeString());
+                        });
+                });
+        });
     }
     //---------------------Scopes-------------------------------------
 

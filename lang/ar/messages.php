@@ -526,5 +526,6 @@ return [
     "patient_can_not_cancel_referral" => "لا يمكن للمريض إلغاء الاستشاره",
     "patient_confirm_referral" => "تم تأكيد الإحالة",
     "doctor_can_reschedule_validation" => "لا يمكن للطبيب إعادة جدولة هذا الموعد لأن حالة الاستشارة هي (:status)",
-    "needs_reschedule" => "يحتاج إلى إعادة جدولة"
+    "needs_reschedule" => "يحتاج إلى إعادة جدولة",
+    "no_slots_available" => "لا توجد مواعيد متاحه لدي الطبيب",
 ];

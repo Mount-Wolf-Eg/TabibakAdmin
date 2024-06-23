@@ -17,7 +17,7 @@ class DoctorScheduleDayShift extends Model
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['doctor_schedule_day_id', 'parent_id', 'from_time', 'to_time', 'notes', 'is_active'];
-    protected array $filters = ['keyword', 'active'];
+    protected array $filters = ['keyword', 'availableSlots', 'active'];
     protected array $searchable = [];
     protected array $dates = ['from_time', 'to_time'];
     public array $filterModels = [];
@@ -52,7 +52,18 @@ class DoctorScheduleDayShift extends Model
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
-
+    public function scopeOfAvailableSlots(Builder $query): Builder
+    {
+        return $query->whereDoesntHave('consultation')
+            ->whereNotNull('parent_id')
+            ->whereHas('day', static function (Builder $query) {
+                $query->whereDate('date', '>', now()->toDateString())
+                    ->orWhere(function ($q) {
+                        $q->whereDate('date', now()->toDateString());
+                        $q->whereTime('from_time', '>', now()->toTimeString());
+                    });
+            });
+    }
     //---------------------Scopes-------------------------------------
 
 }
