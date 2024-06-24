@@ -18,7 +18,7 @@ class ComplaintController extends BaseApiController
      */
     public function __construct(ComplaintContract $contract)
     {
-        parent::__construct($contract, ComplaintResource::class, 'Complaint');
+        parent::__construct($contract, ComplaintResource::class);
     }
     /**
      * Store a newly created resource in storage.
