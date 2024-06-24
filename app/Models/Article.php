@@ -78,7 +78,7 @@ class Article extends Model
         return $query->whereIn('medical_speciality_id', (array)$medicalSpecialityId);
     }
 
-    public function scopeIsPublished($query)
+    public function scopeOfIsPublished($query)
     {
         return $query->whereNotNull('publish_date');
     }
