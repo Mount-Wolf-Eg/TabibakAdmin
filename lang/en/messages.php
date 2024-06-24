@@ -529,4 +529,5 @@ return [
     "doctor_can_reschedule_validation" => "you can't reschedule because consultation status is (:status)",
     "needs_reschedule" => "Needs Reschedule",
     "no_slots_available" => "No schedule available fot this doctor",
+    "date_already_exists" => "Date Already Existed"
 ];

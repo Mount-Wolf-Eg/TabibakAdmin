@@ -37,12 +37,12 @@ Route::group(['middleware' => 'locale'], static function () {
         Route::get('profile', [AuthController::class, 'profile']);
 
         Route::post('articles/{article}/toggle-like', [ArticleController::class, 'toggleLike']);
-        Route::apiResource('notifications', NotificationController::class)->only('index');
+//        Route::apiResource('notifications', NotificationController::class)->only('index');
 
         Route::group(['prefix' => 'patient'], static function () {
             Route::put('update-main-info', [PatientProfileController::class, 'updateMainInfo']);
             Route::put('update-medical-records', [PatientProfileController::class, 'updateMedicalRecords']);
-            Route::apiResource('relatives', PatientRelativeController::class);
+//            Route::apiResource('relatives', PatientRelativeController::class);
             Route::get('consultations/replies', [PatientConsultationController::class, 'replies']);
             Route::apiResource('consultations', PatientConsultationController::class);
             Route::controller(PatientConsultationController::class)->prefix('consultations')->group(static function () {
@@ -83,6 +83,7 @@ Route::group(['middleware' => 'locale'], static function () {
             });
             Route::get('payments', [PaymentController::class, 'doctorIndex']);
             Route::resource('payments', PaymentController::class)->only('destroy');
+            Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('store', 'update', 'destroy');
             Route::get('nearest-doctor-schedule-day/{doctor}', [DoctorScheduleDayController::class, 'nearestAvailableDay']);
         });
     });
