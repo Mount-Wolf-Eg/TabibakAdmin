@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Repositories\Contracts\DoctorScheduleDayContract;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\JsonValidationTrait;
 
@@ -16,7 +18,32 @@ class DoctorScheduleDayRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return (bool) auth()->user()->doctor;
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        $validated = parent::validated($key, $default);
+        $validated['doctor_id'] = auth()->user()->doctor->id;
+        return $validated;
+    }
+
+    public function prepareForValidation(): void
+    {
+        $doctor = auth()->user()->doctor;
+        if ($this->method() === 'POST' && request('date')){
+            $day = resolve(DoctorScheduleDayContract::class)->findByFilters(
+                ['date' => Carbon::parse(request('date')), 'doctor' => $doctor->id]);
+            if ($day){
+                abort(422, __('messages.date_already_exists'));
+            }
+        }
+        if ($this->method() === 'PUT'){
+            $day = $this->route('doctor_schedule_day');
+            if ($day->doctor_id !== $doctor->id){
+                abort(403, __('messages.not_allowed'));
+            }
+        }
     }
 
     /**
@@ -26,7 +53,12 @@ class DoctorScheduleDayRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'date' => config('validations.date.req')."|after:today",
+            'shifts' => config('validations.array.req'),
+            'shifts.*.from_time' => config('validations.time.req'),
+            'shifts.*.to_time' => config('validations.time.req')
+        ];
     }
 
     /**

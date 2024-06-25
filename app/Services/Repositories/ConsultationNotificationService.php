@@ -88,9 +88,9 @@ class ConsultationNotificationService
         $this->doctorNotify($consultation, 'patient_accept_doctor_offer');
     }
 
-    public function patientRejectDoctorOffer(Consultation $consultation): void
+    public function patientRejectDoctorOffer(Consultation $consultation, Doctor $doctor): void
     {
-        $this->notifiedUsers = [$consultation->doctor->user_id];
+        $this->notifiedUsers = [$doctor->user_id];
         $this->doctorNotify($consultation, 'patient_reject_doctor_offer');
     }
 

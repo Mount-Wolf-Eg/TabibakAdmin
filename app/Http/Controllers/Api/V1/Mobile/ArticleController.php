@@ -27,7 +27,7 @@ class ArticleController extends BaseApiController
         $this->likeContract = $likeContract;
         $this->relations = ['mainImage', 'author', 'likes', 'images', 'medicalSpeciality', 'publisher',
             'author.doctor.medicalSpecialities'];
-        $this->defaultScopes = ['isPublished', 'active'];
+        $this->defaultScopes = ['isPublished' => true];
         $this->middleware('permission:create-article')->only(['store']);
         $this->middleware('permission:update-article')->only(['update']);
         $this->middleware('permission:delete-article')->only(['destroy']);

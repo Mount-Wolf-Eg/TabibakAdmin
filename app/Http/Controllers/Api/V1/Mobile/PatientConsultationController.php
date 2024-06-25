@@ -206,7 +206,7 @@ class PatientConsultationController extends BaseApiController
         try {
             $data = $request->validated();
             $this->contract->sync($consultation, 'replies', $data['replies']);
-            $this->notificationService->patientRejectDoctorOffer($consultation);
+            $this->notificationService->patientRejectDoctorOffer($consultation, auth()->user()->doctor);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
