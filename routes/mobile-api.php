@@ -39,9 +39,10 @@ Route::group(['middleware' => 'locale'], static function () {
         Route::post('articles/{article}/toggle-like', [ArticleController::class, 'toggleLike']);
         Route::apiResource('notifications', NotificationController::class)->only('index');
 
-        Route::group(['prefix' => 'patient'], static function () {
+        Route::group(['prefix' => 'patient', 'middleware' => 'active_patient'], static function () {
             Route::put('update-main-info', [PatientProfileController::class, 'updateMainInfo']);
             Route::put('update-medical-records', [PatientProfileController::class, 'updateMedicalRecords']);
+            Route::put('deactivate', [PatientProfileController::class, 'deactivate']);
             Route::apiResource('relatives', PatientRelativeController::class);
             Route::get('consultations/replies', [PatientConsultationController::class, 'replies']);
             Route::apiResource('consultations', PatientConsultationController::class);
@@ -56,9 +57,10 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('index');
             Route::get('payments', [PaymentController::class, 'patientIndex']);
             Route::resource('coupons', CouponController::class)->only('index');
+
+            Route::post('register-user-as-doctor', [AuthController::class, 'registerUserAsDoctor']);
         });
 
-        Route::post('register-user-as-doctor', [AuthController::class, 'registerUserAsDoctor']);
         Route::group(['prefix' => 'doctor', 'middleware' => 'active_doctor'], static function () {
             Route::put('update-main-info', [DoctorProfileController::class, 'updateMainInfo']);
             Route::put('update-professional-status', [DoctorProfileController::class, 'updateProfessionalStatus']);

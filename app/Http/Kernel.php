@@ -83,5 +83,6 @@ class Kernel extends HttpKernel
         'locale'                => \App\Http\Middleware\Localization::class,
 
         'active_doctor' => \App\Http\Middleware\DoctorActiveMiddleware::class,
+        'active_patient' => \App\Http\Middleware\PatientActiveMiddleware::class,
     ];
 }
