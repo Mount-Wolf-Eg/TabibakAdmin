@@ -528,5 +528,6 @@ return [
     "doctor_can_reschedule_validation" => "لا يمكن للطبيب إعادة جدولة هذا الموعد لأن حالة الاستشارة هي (:status)",
     "needs_reschedule" => "يحتاج إلى إعادة جدولة",
     "no_slots_available" => "لا توجد مواعيد متاحه لدي الطبيب",
-    "date_already_exists" => "هذا التاريخ موجود بالفعل"
+    "date_already_exists" => "هذا التاريخ موجود بالفعل",
+    "shift_time_conflict" => "تعارض في وقت الوردية",
 ];
