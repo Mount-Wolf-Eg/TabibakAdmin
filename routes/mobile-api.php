@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\Mobile\ComplaintController;
 use App\Http\Controllers\Api\V1\Mobile\CouponController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorConsultationController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorProfileController;
+use App\Http\Controllers\Api\V1\Mobile\DoctorScheduleDayShiftController;
 use App\Http\Controllers\Api\V1\Mobile\FaqController;
 use App\Http\Controllers\Api\V1\Mobile\NotificationController;
 use App\Http\Controllers\Api\V1\Mobile\PatientConsultationController;
@@ -86,6 +87,7 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('payments', [PaymentController::class, 'doctorIndex']);
             Route::resource('payments', PaymentController::class)->only('destroy');
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('store', 'update', 'destroy');
+            Route::apiResource('doctor-schedule-day-shifts', DoctorScheduleDayShiftController::class)->only( 'update', 'destroy');
             Route::get('nearest-doctor-schedule-day/{doctor}', [DoctorScheduleDayController::class, 'nearestAvailableDay']);
         });
     });

@@ -26,7 +26,10 @@ class DoctorScheduleDayShiftRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'from_time' => config('validations.time.req'),
+            'to_time' => config('validations.time.req'). '|after:from_time',
+        ];
     }
 
     /**

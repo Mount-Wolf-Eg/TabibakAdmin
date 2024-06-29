@@ -4,6 +4,7 @@ namespace App\Repositories\SQL;
 
 use App\Models\DoctorScheduleDay;
 use App\Repositories\Contracts\DoctorScheduleDayContract;
+use App\Repositories\Contracts\DoctorScheduleDayShiftContract;
 
 class DoctorScheduleDayRepository extends BaseRepository implements DoctorScheduleDayContract
 {
@@ -21,19 +22,8 @@ class DoctorScheduleDayRepository extends BaseRepository implements DoctorSchedu
         if (isset($attributes['shifts'])) {
             $model->scheduleDayShifts()->delete();
             foreach ($attributes['shifts'] as $shift) {
-                $parentShift = $model->shifts()->create($shift);
-                $period = $model->doctor->consultation_period;
-                $separator = $parentShift->to_time->diffInMinutes($parentShift->from_time) / $period;
-                $slots = [];
-                for ($i = 0; $i < $separator; $i++) {
-                    $slots[] = [
-                        'from_time' => $parentShift->from_time->addMinutes($period * $i),
-                        'to_time' => $parentShift->from_time->addMinutes($period * ($i + 1)),
-                        'parent_id' => $parentShift->id,
-                        'doctor_schedule_day_id' => $model->id
-                    ];
-                }
-                $parentShift->slots()->createMany($slots);
+                $shift['doctor_schedule_day_id'] = $model->id;
+                resolve(DoctorScheduleDayShiftContract::class)->create($shift);
             }
         }
         return $model;
