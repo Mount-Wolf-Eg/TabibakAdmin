@@ -87,7 +87,7 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('payments', [PaymentController::class, 'doctorIndex']);
             Route::resource('payments', PaymentController::class)->only('destroy');
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('store', 'update', 'destroy');
-            Route::apiResource('doctor-schedule-day-shifts', DoctorScheduleDayShiftController::class)->only( 'update', 'destroy');
+            Route::apiResource('doctor-schedule-day-shifts', DoctorScheduleDayShiftController::class)->only( 'store', 'update', 'destroy');
             Route::get('nearest-doctor-schedule-day/{doctor}', [DoctorScheduleDayController::class, 'nearestAvailableDay']);
         });
     });
