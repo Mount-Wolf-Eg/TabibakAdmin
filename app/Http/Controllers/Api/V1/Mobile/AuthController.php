@@ -35,7 +35,11 @@ class AuthController extends BaseApiController
         $existedUser = $this->contract->findBy('phone', $request->phone);
         if ($existedUser){
             $existedUser = $this->userAuthService->sendVerificationCode($existedUser);
-            return $this->respondWithSuccess('', ['verification_code' => $existedUser->verification_code]);
+            $hasDoctor = $existedUser->doctor()->exists();
+            return $this->respondWithSuccess('', [
+                'verification_code' => $existedUser->verification_code,
+                'has_doctor' => $hasDoctor
+            ]);
         }else{
             return $this->respondWithError(__('auth.failed'), 401);
         }
