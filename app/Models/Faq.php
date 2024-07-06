@@ -14,10 +14,10 @@ class Faq extends Model
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['question', 'answer', 'faq_subject_id', 'is_active'];
-    protected array $filters = ['keyword', 'active', 'activeSubject'];
+    protected array $filters = ['keyword', 'active', 'activeSubject', 'faqSubject'];
     protected array $searchable = ['question', 'answer'];
     protected array $dates = [];
-    public array $filterModels = [];
+    public array $filterModels = ['FaqSubject'];
     public array $filterCustom = [];
     public array $translatable = ['question', 'answer'];
 
@@ -36,6 +36,11 @@ class Faq extends Model
         return $query->whereHas('faqSubject', function ($query) {
             $query->ofActive();
         });
+    }
+
+    public function scopeOfFaqSubject($query, $faqSubjectId)
+    {
+        return $query->where('faq_subject_id', $faqSubjectId);
     }
     //---------------------Scopes-------------------------------------
 

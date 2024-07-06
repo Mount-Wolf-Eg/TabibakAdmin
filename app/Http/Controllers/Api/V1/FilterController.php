@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AcademicDegreeResource;
 use App\Http\Resources\CityResource;
 use App\Http\Resources\DiseaseResource;
+use App\Http\Resources\FaqSubjectResource;
 use App\Http\Resources\HospitalResource;
 use App\Http\Resources\MedicalSpecialityResource;
 use App\Http\Resources\UniversityResource;
@@ -73,6 +74,7 @@ class FilterController extends Controller
             'Disease' => DiseaseResource::collection($data),
             'Hospital' => HospitalResource::collection($data),
             'University' => UniversityResource::collection($data),
+            'FaqSubject' => FaqSubjectResource::collection($data),
             default => $model::collection($data),
         };
     }
