@@ -24,6 +24,7 @@ class DoctorScheduleDayController extends BaseApiController
         parent::__construct($contract, DoctorScheduleDayResource::class);
         $this->relations = ['availableSlots'];
         $this->defaultScopes = ['afterNowDateTime' => true];
+        request()->merge(['order' => ['date'=> 'asc']]);
     }
 
     /**
