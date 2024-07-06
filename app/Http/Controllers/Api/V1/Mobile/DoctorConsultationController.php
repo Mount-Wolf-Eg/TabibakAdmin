@@ -142,7 +142,7 @@ class DoctorConsultationController extends BaseApiController
         try {
             if (!$consultation->doctorCanAcceptUrgentCase())
                 abort(403, __('messages.not_allowed'));
-            $this->contract->sync($consultation, 'replies', $request->validated());
+            $this->contract->syncWithoutDetaching($consultation, 'replies', $request->validated());
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES->value]);
             $this->notificationService->doctorApprovedUrgentCase($consultation);
             return $this->respondWithModel($consultation);

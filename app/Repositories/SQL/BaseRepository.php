@@ -155,6 +155,21 @@ abstract class BaseRepository implements BaseContract
     }
 
     /**
+     * @param Model $model
+     * @param string $relation
+     * @param array $attributes
+     *
+     * @return mixed
+     */
+    public function syncWithoutDetaching(Model $model, string $relation, array $attributes = []): mixed
+    {
+        if (!empty($attributes)) {
+            return $model->{$relation}()->syncWithoutDetaching($attributes);
+        }
+        return false;
+    }
+
+    /**
      * @param array $attributes
      *
      * @return mixed
