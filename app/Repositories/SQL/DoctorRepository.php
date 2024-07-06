@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\FileContract;
 use App\Repositories\Contracts\UserContract;
+use Illuminate\Support\Arr;
 use function Laravel\Prompts\select;
 
 class DoctorRepository extends BaseRepository implements DoctorContract
@@ -85,10 +86,15 @@ class DoctorRepository extends BaseRepository implements DoctorContract
     {
         foreach ($attributes['universities'] as $university) {
             $data = collect($university)->except(['certificate'])->toArray();
-            if (!empty($data['doctor_university_id'])){
-                $universityData = \Arr::except($data, 'doctor_university_id');
-                $universityModel = $model->universities()->where('id', $data['doctor_university_id'])->first();
-                $universityModel->update($universityData);
+            if (!empty($data['university_id'])){
+                $universityData = Arr::except($data, 'university_id');
+                $universityModel = $model->universities()->where('university_id', $data['university_id'])->first();
+                if ($universityModel)
+                {
+                    $universityModel->update($universityData);
+                }else{
+                    $universityModel = $model->universities()->create($data);
+                }
             }else{
                 $universityModel = $model->universities()->updateOrCreate($data);
             }
