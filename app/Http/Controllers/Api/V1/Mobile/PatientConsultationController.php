@@ -10,6 +10,7 @@ use App\Http\Requests\PatientUrgentRejectRequest;
 use App\Http\Resources\ConsultationResource;
 use App\Models\Consultation;
 use App\Repositories\Contracts\ConsultationContract;
+use App\Repositories\Contracts\DoctorContract;
 use App\Services\Repositories\ConsultationNotificationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -206,7 +207,8 @@ class PatientConsultationController extends BaseApiController
         try {
             $data = $request->validated();
             $this->contract->sync($consultation, 'replies', $data['replies']);
-            $this->notificationService->patientRejectDoctorOffer($consultation, auth()->user()->doctor);
+            $doctor = resolve(DoctorContract::class)->find($data['doctor_id']);
+            $this->notificationService->patientRejectDoctorOffer($consultation, $doctor);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
