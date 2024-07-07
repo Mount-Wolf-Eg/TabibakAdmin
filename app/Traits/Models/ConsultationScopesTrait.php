@@ -91,13 +91,16 @@ trait ConsultationScopesTrait
     public function scopeOfCompleted($query, $value = "true")
     {
         $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        $completedStatuses = [
+            ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value,
+            ConsultationStatusConstants::PATIENT_CANCELLED->value,
+            ConsultationStatusConstants::DOCTOR_CANCELLED->value,
+            ConsultationStatusConstants::REFERRED_TO_ANOTHER_DOCTOR->value
+        ];
         if ($value) {
-            return $query->ofStatus([ConsultationStatusConstants::PATIENT_CANCELLED->value,
-                ConsultationStatusConstants::DOCTOR_CANCELLED->value,
-                ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
+            return $query->ofStatus($completedStatuses);
         }
-        return $query->ofStatus(ConsultationStatusConstants::PENDING->value)
-            ->ofType(ConsultationTypeConstants::WITH_APPOINTMENT);
+        return $query->whereNotIn('status', $completedStatuses);
     }
 
     public function scopeOfUrgentWithNoDoctor($query)
@@ -114,7 +117,7 @@ trait ConsultationScopesTrait
 
     public function scopeOfPatient($query, $patientId)
     {
-        return $query->whereIn('patient_id', (array) $patientId);
+        return $query->whereIn('patient_id', (array)$patientId);
     }
 
     public function scopeOfCreatedBeforeHour($query)
