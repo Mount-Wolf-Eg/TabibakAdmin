@@ -452,6 +452,7 @@ return [
     'icon' => 'Icon',
     'saudi_arabia' => 'Saudi Arabia',
     'invalid_coupon' => 'Invalid Coupon',
+    "valid_coupon" => "Valid Coupon",
     'valid' => 'Valid',
     'expired' => 'Expired',
     'settings' => 'Settings',

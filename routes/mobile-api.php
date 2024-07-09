@@ -61,6 +61,7 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('index');
             Route::get('payments', [PaymentController::class, 'patientIndex']);
             Route::resource('coupons', CouponController::class)->only('index');
+            Route::get('coupons/{coupon:code}/apply', [CouponController::class, 'applyCoupon']);
 
             Route::post('register-user-as-doctor', [AuthController::class, 'registerUserAsDoctor']);
         });

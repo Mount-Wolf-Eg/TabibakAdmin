@@ -452,6 +452,7 @@ return [
     'icon' => 'الأيقونة',
     'saudi_arabia' => 'المملكة العربية السعودية',
     'invalid_coupon' => 'القسيمة غير صالحة',
+    "valid_coupon" => "القسيمة صالحة",
     'valid' => 'صالح',
     'expired' => 'منتهي',
     'settings' => 'الإعدادات',

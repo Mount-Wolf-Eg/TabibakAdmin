@@ -108,7 +108,7 @@ class Coupon extends Model
 
     public function applyDiscount($amount): float
     {
-        if ($this->discount_type == CouponTypeConstants::PERCENTAGE->value) {
+        if ($this->discount_type == CouponTypeConstants::PERCENTAGE) {
             return $amount - ($amount * $this->discount_amount / 100);
         }
         return $amount < $this->discount_amount ? 0 : $amount - $this->discount_amount;
