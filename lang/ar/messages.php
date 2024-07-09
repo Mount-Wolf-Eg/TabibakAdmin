@@ -530,5 +530,6 @@ return [
     "no_slots_available" => "لا توجد مواعيد متاحه لدي الطبيب",
     "date_already_exists" => "هذا التاريخ موجود بالفعل",
     "shift_time_conflict" => "تعارض في وقت الوردية",
-    "contacts" => "الرسائل"
+    "contacts" => "الرسائل",
+    "manage_contacts" => "إدارة الرسائل",
 ];
