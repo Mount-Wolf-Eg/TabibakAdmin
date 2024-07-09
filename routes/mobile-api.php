@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\FilterController;
 use App\Http\Controllers\Api\V1\Mobile\ArticleController;
 use App\Http\Controllers\Api\V1\Mobile\AuthController;
 use App\Http\Controllers\Api\V1\Mobile\ComplaintController;
+use App\Http\Controllers\Api\V1\Mobile\ContactController;
 use App\Http\Controllers\Api\V1\Mobile\CouponController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorConsultationController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorProfileController;
@@ -36,6 +37,8 @@ Route::group(['middleware' => 'locale'], static function () {
 
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('profile', [AuthController::class, 'profile']);
+
+        Route::apiResource('contact', ContactController::class)->only('store');
 
         Route::post('articles/{article}/toggle-like', [ArticleController::class, 'toggleLike']);
         Route::apiResource('notifications', NotificationController::class)->only('index');

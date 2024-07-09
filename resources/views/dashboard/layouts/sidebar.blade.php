@@ -206,6 +206,14 @@
                         </a>
                     </li>
                 @endif
+
+                <li class="nav-item">
+                    <a href="{{route('contacts.index')}}" @class(['nav-link', 'menu-link',
+                    'active' => request()->routeIs('contacts.index')])>
+                        <i class="bi bi-telephone"></i>
+                        <span data-key="t-dashboard">{{ __('messages.contacts') }}</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

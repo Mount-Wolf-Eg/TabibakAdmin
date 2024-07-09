@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\AboutController;
 use App\Http\Controllers\Dashboard\FaqController;
-use App\Http\Controllers\Front\ContactController;
+use App\Http\Controllers\Front\ContactController as ContactUsController;
 use App\Http\Controllers\Front\DoctorsController;
 use App\Http\Controllers\Dashboard\FileController;
 use App\Http\Controllers\Dashboard\NoteController;
@@ -49,7 +50,7 @@ Route::group([
     Route::get('about-us', [AboutController::class, 'index'])->name('front.about');
     Route::get('doctors', [DoctorsController::class, 'index'])->name('front.doctors');
     Route::get('doctor-details', [DoctorsController::class, 'view'])->name('front.doctorDetails');
-    Route::get('contact-us', [ContactController::class, 'index'])->name('front.contact');
+    Route::get('contact-us', [ContactUsController::class, 'index'])->name('front.contact');
     Route::middleware(['guest'])->group(function () {
         // Login
         Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -106,6 +107,7 @@ Route::group([
         Route::resource('payments', PaymentController::class)->only(['index', 'destroy']);
         Route::get('featured-list', [FeaturedListController::class, 'edit'])->name('featured-list.edit');
         Route::put('featured-list', [FeaturedListController::class, 'update'])->name('featured-list.update');
+        Route::resource('contacts', ContactController::class)->only(['index']);
 
         Route::prefix('profile')->group(function () {
             Route::get('/', [ProfileController::class, 'profile'])->name('profile');

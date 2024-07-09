@@ -531,4 +531,6 @@ return [
     "no_slots_available" => "No schedule available fot this doctor",
     "date_already_exists" => "Date Already Existed",
     "shift_time_conflict" => "Shift Time Conflict",
+    "contacts" => "Contacts",
+    "manage_contacts" => "Manage Contacts",
 ];
