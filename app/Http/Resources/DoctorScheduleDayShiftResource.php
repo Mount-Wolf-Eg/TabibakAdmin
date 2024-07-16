@@ -28,7 +28,8 @@ class DoctorScheduleDayShiftResource extends BaseResource
         $this->full = [
         ];
         $this->relations = [
-            'available_slots' => $this->relationLoaded('availableSlots') ? DoctorScheduleDayShiftResource::collection($this->availableSlots) : null
+            'available_slots' => $this->relationLoaded('availableSlots') ? DoctorScheduleDayShiftResource::collection($this->availableSlots) : null,
+            'day' => $this->relationLoaded('day') ? new DoctorScheduleDayResource($this->day) : null,
         ];
         return $this->getResource();
     }
