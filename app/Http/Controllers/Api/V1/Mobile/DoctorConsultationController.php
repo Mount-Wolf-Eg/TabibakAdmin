@@ -35,7 +35,7 @@ class DoctorConsultationController extends BaseApiController
     {
         $this->middleware('role:doctor');
         $this->defaultScopes = ['doctorsList' => true];
-        $this->relations = ['patient.parent', 'patient.diseases', 'doctorScheduleDayShift', 'doctor.rates'];
+        $this->relations = ['patient.parent', 'patient.diseases', 'doctorScheduleDayShift', 'doctor.rates', 'attachments'];
         parent::__construct($contract, ConsultationResource::class);
         $this->notificationService = $notificationService;
         $this->doctorReferralService = $doctorReferralService;
@@ -49,7 +49,7 @@ class DoctorConsultationController extends BaseApiController
     public function show(Consultation $consultation): JsonResponse
     {
         try {
-            $this->relations = array_merge($this->relations, ['attachments', 'medicalSpeciality', 'vendors', 'patient.diseases']);
+            $this->relations = array_merge($this->relations, ['medicalSpeciality', 'vendors', 'patient.diseases']);
             return $this->respondWithModel($consultation);
         } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
