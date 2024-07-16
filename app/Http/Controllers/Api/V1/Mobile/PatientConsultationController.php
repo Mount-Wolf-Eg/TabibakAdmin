@@ -27,7 +27,7 @@ class PatientConsultationController extends BaseApiController
     public function __construct(ConsultationContract $contract, ConsultationNotificationService $notificationService)
     {
         $this->defaultScopes = ['mineAsPatient' => true];
-        $this->relations = ['patient', 'doctorScheduleDayShift', 'doctor.rates'];
+        $this->relations = ['patient', 'doctorScheduleDayShift', 'doctor.rates', 'medicalSpeciality'];
         parent::__construct($contract, ConsultationResource::class);
         $this->notificationService = $notificationService;
     }
@@ -56,7 +56,7 @@ class PatientConsultationController extends BaseApiController
        try {
            if (!$consultation->isMineAsPatient())
                abort(403, __('messages.not_allowed'));
-           $this->relations = array_merge($this->relations, ['attachments', 'medicalSpeciality', 'vendors', 'patient.diseases']);
+           $this->relations = array_merge($this->relations, ['attachments', 'vendors', 'patient.diseases']);
            return $this->respondWithModel($consultation);
        }catch (Exception $e) {
            return $this->respondWithError($e->getMessage());
