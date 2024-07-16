@@ -16,6 +16,7 @@ use App\Services\Repositories\ConsultationDoctorReferralService;
 use App\Services\Repositories\ConsultationNotificationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class DoctorConsultationController extends BaseApiController
 {
@@ -81,7 +82,7 @@ class DoctorConsultationController extends BaseApiController
      * @param Consultation $consultation
      * @return JsonResponse
      */
-    public function doctorReferral(ConsultationDoctorReferralRequest $request,Consultation $consultation)
+    public function doctorReferral(ConsultationDoctorReferralRequest $request, Consultation $consultation)
     {
         try {
             if (!$consultation->doctorCanDoDoctorReferral())
@@ -116,14 +117,21 @@ class DoctorConsultationController extends BaseApiController
     /**
      * Approve medical report for the consultation.
      * @param Consultation $consultation
+     * @param Request $request
      * @return JsonResponse
      */
-    public function approveMedicalReport(Consultation $consultation)
+    public function approveMedicalReport(Consultation $consultation, Request $request)
     {
         try {
+            $request->validate([
+                'doctor_description' => config('validations.text.req')
+            ]);
             if (!$consultation->doctorCanApproveMedicalReport())
                 abort(403, __('messages.doctor_approve_medical_report_validation', ['status' => $consultation->status->label()]));
-            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value]);
+            $consultation = $this->contract->update($consultation, [
+                'status' => ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value,
+                'doctor_description' => $request->input('doctor_description')
+            ]);
             $this->notificationService->doctorApprovedMedicalReport($consultation);
             return $this->respondWithModel($consultation);
         } catch (Exception $e) {

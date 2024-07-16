@@ -206,7 +206,7 @@ class Consultation extends Model
 
     public function doctorCanApproveMedicalReport(): bool
     {
-        return $this->doctorCanDoVendorReferral();
+        return $this->doctorCanDoVendorReferral() && !$this->status->is(ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT);
     }
 
     public function doctorCanAcceptUrgentCase(): bool
