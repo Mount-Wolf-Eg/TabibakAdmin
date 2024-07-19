@@ -188,7 +188,7 @@ class PatientConsultationController extends BaseApiController
             $data = $request->validated();
             $consultation = $this->contract->update($consultation, ['doctor_id' => $data['doctor_id'],
                 'amount' => $data['amount'], 'status' => ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value]);
-            $this->contract->sync($consultation, 'replies', $data['replies']);
+            $this->contract->syncWithoutDetaching($consultation, 'replies', $data['replies']);
             $this->notificationService->patientAcceptDoctorOffer($consultation);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {
@@ -207,7 +207,7 @@ class PatientConsultationController extends BaseApiController
         try {
             $data = $request->validated();
             $doctor = resolve(DoctorContract::class)->find($data['doctor_id']);
-            $this->contract->sync($consultation, 'replies', $data['replies']);
+            $this->contract->syncWithoutDetaching($consultation, 'replies', $data['replies']);
             $this->notificationService->patientRejectDoctorOffer($consultation, $doctor);
             return $this->respondWithModel($consultation);
         }catch (Exception $e) {

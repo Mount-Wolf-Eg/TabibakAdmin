@@ -16,7 +16,7 @@ enum DoctorConsultationPeriodConstants : int
     public function getLabels($value):string
     {
         return match ($value) {
-            self::FIFTEEN_MINUTES => __('messages.10_minutes'),
+            self::FIFTEEN_MINUTES => __('messages.15_minutes'),
             self::THIRTY_MINUTES => __('messages.30_minutes'),
             self::FORTY_FIVE_MINUTES => __('messages.45_minutes'),
             self::ONE_HOUR => __('messages.1_hour'),

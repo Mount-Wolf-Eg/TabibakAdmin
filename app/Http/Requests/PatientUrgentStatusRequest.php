@@ -26,7 +26,15 @@ class PatientUrgentStatusRequest extends FormRequest
         $doctorId = request('doctor_id');
         if (!$consultation->patientCanChangeDoctorStatusOffer($doctorId))
         {
-            $reply = $consultation->replies->where('id', $doctorId)->first()->pivot;
+            $reply = $consultation->replies->where('id', $doctorId)->first()?->pivot;
+            if (!$reply) {
+                abort(403, __('messages.patient_change_consultation_reply_status_validation',
+                    [
+                        'status' => $consultation->status->label(),
+                        'reply' => ''
+                    ]
+                ));
+            }
             $replyStatus = ConsultationPatientStatusConstants::tryFrom($reply->status);
             abort(403, __('messages.patient_change_consultation_reply_status_validation',
                 [
