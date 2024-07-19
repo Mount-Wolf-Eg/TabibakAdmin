@@ -33,7 +33,7 @@ class ConsultationNotificationService
         if ($consultation->doctor?->user_id) {
             $this->notifiedUsers = [$consultation->doctor->user_id];
         } else {
-            $this->notifiedUsers = resolve(DoctorContract::class)->search(['canAcceptUrgentCases' => auth()->id()])
+            $this->notifiedUsers = resolve(DoctorContract::class)->search(['canAcceptUrgentCases' => auth()->id(), 'medicalSpeciality' => $consultation->medical_speciality_id])
                 ->pluck('user_id')->values()->unique()->toArray();
         }
         $this->doctorNotify($consultation, 'new');
