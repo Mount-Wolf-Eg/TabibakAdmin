@@ -35,9 +35,12 @@ class ConsultationRequest extends FormRequest
         $validated = parent::validated($key, $default);
         $validated['patient_id'] = $validated['patient_id'] ?? $this->user()->patient?->id;
         if ($validated['type'] == ConsultationTypeConstants::WITH_APPOINTMENT->value) {
+            $shiftTaken = resolve(ConsultationContract::class)->findBy('doctor_schedule_day_shift_id', $validated['doctor_schedule_day_shift_id'], false);
+            if ($shiftTaken) {
+                throw new ValidationException(__('messages.schedule_slot_expired'));
+            }
             $validated['amount'] = resolve(DoctorContract::class)->find($validated['doctor_id'])->with_appointment_consultation_price;
-            $scheduleSlot = resolve(DoctorScheduleDayShiftContract::class)
-                ->find($validated['doctor_schedule_day_shift_id']);
+            $scheduleSlot = resolve(DoctorScheduleDayShiftContract::class)->find($validated['doctor_schedule_day_shift_id']);
             $actualTime = Carbon::parse($scheduleSlot->day->date->format('Y-m-d') . ' ' . $scheduleSlot->from_time->format('H:i:s'));
             if ($actualTime->isPast()) {
                 throw new ValidationException(__('messages.schedule_slot_expired'));

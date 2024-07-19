@@ -124,6 +124,11 @@ trait ConsultationScopesTrait
     {
         return $query->whereTime('created_at', '<', now()->subHour());
     }
+
+    public function scopeOfDayShift($query, $dayShiftId)
+    {
+        return $query->where('doctor_schedule_day_shift_id', $dayShiftId);
+    }
     //---------------------Scopes-------------------------------------
 
 }
