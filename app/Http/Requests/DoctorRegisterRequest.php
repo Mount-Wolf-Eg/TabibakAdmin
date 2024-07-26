@@ -27,6 +27,7 @@ class DoctorRegisterRequest extends FormRequest
         $validated = parent::validated();
         $validated['user_id'] = auth()->id();
         $validated['role'] = resolve(RoleContract::class)->findBy('name', RoleNameConstants::DOCTOR->value);
+        $validated['is_active'] = false;
         return array_merge($validated, DoctorScheduleRequest::afterValidation($validated));
     }
 
