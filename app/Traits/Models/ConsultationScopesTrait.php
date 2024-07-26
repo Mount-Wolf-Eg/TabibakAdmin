@@ -67,7 +67,7 @@ trait ConsultationScopesTrait
 
     public function scopeOfType($query, $type)
     {
-        return $query->where('type', $type);
+        return $query->whereIn('type', (array)$type);
     }
 
     public function scopeOfCreationDate($query, $date)
