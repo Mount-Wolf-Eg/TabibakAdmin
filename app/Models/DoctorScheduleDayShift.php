@@ -57,7 +57,7 @@ class DoctorScheduleDayShift extends Model
         return $query->whereDoesntHave('consultation')
             ->whereNotNull('parent_id')
             ->whereHas('day', static function (Builder $query) {
-                $query->whereDate('date', '>', now()->toDateString())
+                $query->whereDate('date', '>=', now()->toDateString())
                     ->orWhere(function ($q) {
                         $q->whereDate('date', now()->toDateString());
                         $q->whereTime('from_time', '>', now()->toTimeString());
