@@ -27,7 +27,7 @@ class PatientConsultationController extends BaseApiController
     public function __construct(ConsultationContract $contract, ConsultationNotificationService $notificationService)
     {
         $this->defaultScopes = ['mineAsPatient' => true];
-        $this->relations = ['patient', 'doctorScheduleDayShift', 'doctor.rates', 'medicalSpeciality'];
+        $this->relations = ['patient', 'doctorScheduleDayShift.day', 'doctor.rates', 'medicalSpeciality'];
         parent::__construct($contract, ConsultationResource::class);
         $this->notificationService = $notificationService;
     }
