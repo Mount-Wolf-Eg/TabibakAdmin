@@ -16,6 +16,7 @@ use App\Constants\ConsultationPatientStatusConstants;
 use App\Traits\Models\ConsultationScopesTrait;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -275,5 +276,12 @@ class Consultation extends Model
     //---------------------methods-------------------------------------
 
     //---------------------attributes-------------------------------------
+
+    public function selectedReply(): Attribute
+    {
+        return Attribute::make(function () {
+            return $this->replies->where('pivot.status', ConsultationPatientStatusConstants::APPROVED->value)->first();
+        });
+    }
     //---------------------attributes-------------------------------------
 }
