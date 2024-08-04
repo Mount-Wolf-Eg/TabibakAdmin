@@ -180,7 +180,10 @@ class Consultation extends Model
 
     public function doctorCanCancel(): bool
     {
-        return $this->isMineAsDoctor() && $this->status->is(ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER);
+        return $this->isMineAsDoctor() &&
+            (($this->status->is(ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER)
+                    &&  $this->type->is(ConsultationTypeConstants::URGENT))
+                || $this->status->is(ConsultationStatusConstants::PENDING));
     }
 
     public function doctorCanDoVendorReferral(): bool
