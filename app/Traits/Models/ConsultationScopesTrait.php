@@ -95,7 +95,8 @@ trait ConsultationScopesTrait
             ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value,
             ConsultationStatusConstants::PATIENT_CANCELLED->value,
             ConsultationStatusConstants::DOCTOR_CANCELLED->value,
-            ConsultationStatusConstants::REFERRED_TO_ANOTHER_DOCTOR->value
+            ConsultationStatusConstants::REFERRED_TO_ANOTHER_DOCTOR->value,
+            ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR->value
         ];
         if ($value) {
             return $query->ofStatus($completedStatuses);
@@ -129,6 +130,12 @@ trait ConsultationScopesTrait
     {
         return $query->where('doctor_schedule_day_shift_id', $dayShiftId);
     }
+
+    public function scopeOfOnlyApprovedReferral($query)
+    {
+        return $query->where('status', '!=',  ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR->value);
+    }
+
     //---------------------Scopes-------------------------------------
 
 }
