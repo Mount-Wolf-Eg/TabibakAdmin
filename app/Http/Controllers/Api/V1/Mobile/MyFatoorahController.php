@@ -76,7 +76,7 @@ class MyFatoorahController extends Controller
      */
     private function getPayLoadData($orderId) {
         $callbackURL = route('payment.callback');
-        $order       = Consultation::withoutGlobalScope('isActive')->where(['patient_id' => auth()->id()])->findOrFail($orderId);
+        $order       = Consultation::withoutGlobalScope('isActive')->where(['patient_id' => auth()->user()->patient?->id])->findOrFail($orderId);
 
         return [
             'CustomerName'      => auth()->user()->name,
@@ -108,8 +108,8 @@ class MyFatoorahController extends Controller
             if ($status)
             {
                 $order = Consultation::where('id', $data->CustomerReference)->first();
-                $order->update(['is_active' => true]);
-                $order->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
+                $order?->update(['is_active' => true]);
+                $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
             }
         } catch (Exception $ex) {
             $exMessage = __('myfatoorah.' . $ex->getMessage());
