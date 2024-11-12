@@ -58,7 +58,7 @@ class Consultation extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope('active', function ($builder) {
+        static::addGlobalScope('isActive', function ($builder) {
             $builder->where('is_active', true);
         });
     }

@@ -51,6 +51,8 @@ class ConsultationRequest extends FormRequest
                 $validated['reminder_at'] = $scheduleTime->subMinutes($validated['reminder_before']);
                 unset($validated['reminder_before']);
             }
+
+            $validated['is_active'] = false;
         }
         return $validated;
     }
