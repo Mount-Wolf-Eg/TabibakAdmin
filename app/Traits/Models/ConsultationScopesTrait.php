@@ -136,6 +136,11 @@ trait ConsultationScopesTrait
         return $query->where('status', '!=',  ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR->value);
     }
 
+    public function scopeOfِActive($query)
+    {
+        return $query->whereIn('is_active', true);
+    }
+
     //---------------------Scopes-------------------------------------
 
 }

@@ -31,6 +31,7 @@ class PatientConsultationController extends BaseApiController
         parent::__construct($contract, ConsultationResource::class);
         $this->notificationService = $notificationService;
     }
+    
     /**
      * Store a newly created resource in storage.
      * @param ConsultationRequest $request
