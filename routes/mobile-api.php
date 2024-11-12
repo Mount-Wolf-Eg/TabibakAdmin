@@ -68,7 +68,7 @@ Route::group(['middleware' => 'locale'], static function () {
 
             Route::controller(MyFatoorahController::class)->prefix('payment')->group(function () {
                 Route::post('/', 'index');
-                Route::get('/callback', 'callback')->name('payment.callback');
+                Route::get('/callback', 'callback')->name('payment.callback')->withoutMiddleware(['auth:sanctum', 'active_patient']);
             });
         });
 
