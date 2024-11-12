@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Constants\PaymentStatusConstants;
 use App\Models\Consultation;
