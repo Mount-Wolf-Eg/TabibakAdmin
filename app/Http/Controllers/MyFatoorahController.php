@@ -74,7 +74,7 @@ class MyFatoorahController extends Controller
      * @return array
      */
     private function getPayLoadData($orderId) {
-        $callbackURL = route('myfatoorah.callback');
+        $callbackURL = route('payment.callback');
         $order       = Consultation::where(['patient_id' => auth()->id()])->findOrFail($orderId);
 
         return [
