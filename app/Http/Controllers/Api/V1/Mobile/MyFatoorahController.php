@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Constants\PaymentStatusConstants;
+use App\Http\Controllers\Controller;
 use App\Models\Consultation;
 use App\Traits\BaseApiResponseTrait;
 use Illuminate\Http\Request;
