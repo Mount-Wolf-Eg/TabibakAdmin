@@ -110,6 +110,8 @@ class MyFatoorahController extends Controller
                 $order = Consultation::where('id', $data->CustomerReference)->first();
                 $order?->update(['is_active' => true]);
                 $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
+            } else {
+                info(json_encode($data));
             }
         } catch (Exception $ex) {
             $exMessage = __('myfatoorah.' . $ex->getMessage());
