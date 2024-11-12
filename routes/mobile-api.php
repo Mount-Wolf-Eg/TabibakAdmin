@@ -15,12 +15,12 @@ use App\Http\Controllers\Api\V1\Mobile\PatientConsultationController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorScheduleDayController;
 use App\Http\Controllers\Api\V1\Mobile\FileController;
+use App\Http\Controllers\Api\V1\Mobile\MyFatoorahController;
 use App\Http\Controllers\Api\V1\Mobile\PatientProfileController;
 use App\Http\Controllers\Api\V1\Mobile\PatientRelativeController;
 use App\Http\Controllers\Api\V1\Mobile\PaymentController;
 use App\Http\Controllers\Api\V1\Mobile\RateController;
 use App\Http\Controllers\Api\V1\Mobile\VendorController;
-use App\Http\Controllers\MyFatoorahController;
 
 Route::group(['middleware' => 'locale'], static function () {
     Route::post('register-user-as-patient', [AuthController::class, 'registerUserAsPatient']);
