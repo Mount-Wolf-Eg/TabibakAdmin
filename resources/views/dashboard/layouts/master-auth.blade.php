@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <title>@yield('title') | {{config('app.name')}} {{__('messages.dashboard')}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Tell Doc Information Technology" name="description">
+    <meta content="Mount Wolf Information Technology" name="description">
     <meta content="{{config('app.name')}}" name="author">
     <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
     @include('dashboard.layouts.styles')

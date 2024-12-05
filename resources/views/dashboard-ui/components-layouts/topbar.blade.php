@@ -18,7 +18,7 @@
                             <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ URL::asset('assets/images/logo-light.png') }}" alt="" height="25">
+                            <img src="{{ URL::asset('assets/images/jj.png') }}" alt="" height="25">
                         </span>
                     </a>
                 </div>
