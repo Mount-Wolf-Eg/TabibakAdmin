@@ -6,7 +6,7 @@
                 <div class="navbar-brand-box horizontal-logo">
                     <a href="index" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="22">
+                            <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
                             <img src="{{ URL::asset('assets/images/logo-dark.png') }}" alt="" height="25">
@@ -15,10 +15,10 @@
 
                     <a href="index" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="22">
+                            <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ URL::asset('assets/images/jj.png') }}" alt="" height="25">
+                            <img src="{{ URL::asset('assets/images/logo-light.png') }}" alt="" height="25">
                         </span>
                     </a>
                 </div>

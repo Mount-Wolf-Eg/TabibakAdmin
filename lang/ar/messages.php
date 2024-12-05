@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'tabibak' => 'طبيبك',
+    'jj2.png' => 'طبيبك',
     'dashboard' => 'لوحة القيادة',
     'overview' => 'ملخص',
     'roles' => 'الأدوار',

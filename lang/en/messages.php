@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'tabibak' => 'Tabibak',
+    'jj2.png' => 'jj2.png',
     'dashboard' => 'Dashboard',
     'overview' => 'Overview',
     'roles' => 'Roles',

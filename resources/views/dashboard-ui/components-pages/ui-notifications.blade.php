@@ -26,7 +26,7 @@
                                 <div class="toast fade show" role="alert" aria-live="assertive" data-bs-autohide="false"
                                     aria-atomic="true">
                                     <div class="toast-header">
-                                        <img src="{{ URL::asset('assets/images/logo-sm.png') }}" class="rounded me-2" alt="..."
+                                        <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" class="rounded me-2" alt="..."
                                             height="20">
                                         <span class="fw-semibold me-auto">Toner</span>
                                         <small>06 mins ago</small>
@@ -47,7 +47,7 @@
                                         <div class="toast fade show" role="alert" aria-live="assertive"
                                             data-bs-autohide="false" aria-atomic="true">
                                             <div class="toast-header">
-                                                <img src="{{ URL::asset('assets/images/logo-sm.png') }}" class="rounded me-2" alt="..."
+                                                <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" class="rounded me-2" alt="..."
                                                     height="20">
                                                 <span class="fw-semibold me-auto">Toner</span>
                                                 <small>11 mins ago</small>
@@ -74,7 +74,7 @@
                                         <div class="toast fade show" role="alert" aria-live="assertive"
                                             data-bs-autohide="false" aria-atomic="true">
                                             <div class="toast-header">
-                                                <img src="{{ URL::asset('assets/images/logo-sm.png') }}" class="rounded me-2" alt="..."
+                                                <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" class="rounded me-2" alt="..."
                                                     height="20">
                                                 <span class="fw-semibold me-auto">Toner</span>
                                                 <small>Just now</small>
@@ -89,7 +89,7 @@
                                         <div class="toast fade show" role="alert" aria-live="assertive"
                                             data-bs-autohide="false" aria-atomic="true">
                                             <div class="toast-header">
-                                                <img src="{{ URL::asset('assets/images/logo-sm.png') }}" class="rounded me-2" alt="..."
+                                                <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" class="rounded me-2" alt="..."
                                                     height="20">
                                                 <span class="fw-semibold me-auto">Toner</span>
                                                 <small>2 seconds ago</small>
@@ -127,7 +127,7 @@
                                                 aria-atomic="true" data-bs-toggle="toast"
                                                 style="position: absolute; top: 16px; right: 16px;">
                                                 <div class="toast-header">
-                                                    <img src="{{ URL::asset('assets/images/logo-sm.png') }}" class="rounded me-2"
+                                                    <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" class="rounded me-2"
                                                         alt="..." height="20">
                                                     <span class="fw-semibold me-auto">Toner</span>
                                                     <small>06 mins ago</small>
@@ -155,7 +155,7 @@
                                             <div class="toast fade show" role="alert" aria-live="assertive"
                                                 data-bs-autohide="false" aria-atomic="true">
                                                 <div class="toast-header">
-                                                    <img src="{{ URL::asset('assets/images/logo-sm.png') }}" class="rounded me-2"
+                                                    <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" class="rounded me-2"
                                                         alt="..." height="20">
                                                     <span class="fw-semibold me-auto">Toner</span>
                                                     <small>11 mins ago</small>
@@ -183,7 +183,7 @@
 &lt;div class=&quot;toast fade show&quot; role=&quot;alert&quot; aria-live=&quot;assertive&quot;
     data-bs-autohide=&quot;false&quot; aria-atomic=&quot;true&quot;&gt;
     &lt;div class=&quot;toast-header&quot;&gt;
-        &lt;img src=&quot;assets/images/logo-sm.png&quot; class=&quot;rounded me-2&quot;
+        &lt;img src=&quot;assets/images/jj3-logo-sm.png&quot; class=&quot;rounded me-2&quot;
             alt=&quot;...&quot; height=&quot;20&quot;&gt;
         &lt;span class=&quot;fw-semibold me-auto&quot;&gt;Toner&lt;/span&gt;
         &lt;small&gt;06 mins ago&lt;/small&gt;
@@ -200,7 +200,7 @@
     &lt;div class=&quot;toast fade show&quot; role=&quot;alert&quot; aria-live=&quot;assertive&quot;
         data-bs-autohide=&quot;false&quot; aria-atomic=&quot;true&quot;&gt;
         &lt;div class=&quot;toast-header&quot;&gt;
-            &lt;img src=&quot;assets/images/logo-sm.png&quot; class=&quot;rounded me-2&quot;
+            &lt;img src=&quot;assets/images/jj3-logo-sm.png&quot; class=&quot;rounded me-2&quot;
                 alt=&quot;...&quot; height=&quot;20&quot;&gt;
             &lt;span class=&quot;fw-semibold me-auto&quot;&gt;Toner&lt;/span&gt;
             &lt;small&gt;11 mins ago&lt;/small&gt;
@@ -217,7 +217,7 @@
 &lt;div class=&quot;toast fade show&quot; role=&quot;alert&quot; aria-live=&quot;assertive&quot;
     data-bs-autohide=&quot;false&quot; aria-atomic=&quot;true&quot;&gt;
     &lt;div class=&quot;toast-header&quot;&gt;
-        &lt;img src=&quot;assets/images/logo-sm.png&quot; class=&quot;rounded me-2&quot;
+        &lt;img src=&quot;assets/images/jj3-logo-sm.png&quot; class=&quot;rounded me-2&quot;
             alt=&quot;...&quot; height=&quot;20&quot;&gt;
         &lt;span class=&quot;fw-semibold me-auto&quot;&gt;Toner&lt;/span&gt;
         &lt;small&gt;Just now&lt;/small&gt;
@@ -236,7 +236,7 @@
         aria-atomic=&quot;true&quot; data-bs-toggle=&quot;toast&quot;
         style=&quot;position: absolute; top: 16px; right: 16px;&quot;&gt;
         &lt;div class=&quot;toast-header&quot;&gt;
-            &lt;img src=&quot;assets/images/logo-sm.png&quot;
+            &lt;img src=&quot;assets/images/jj3-logo-sm.png&quot;
                 class=&quot;rounded me-2&quot; alt=&quot;...&quot; height=&quot;20&quot;&gt;
             &lt;span class=&quot;fw-semibold me-auto&quot;&gt;Toner&lt;/span&gt;
             &lt;small&gt;06 mins ago&lt;/small&gt;
@@ -256,7 +256,7 @@
     &lt;div class=&quot;toast fade show&quot; role=&quot;alert&quot; aria-live=&quot;assertive&quot;
         data-bs-autohide=&quot;false&quot; aria-atomic=&quot;true&quot;&gt;
         &lt;div class=&quot;toast-header&quot;&gt;
-            &lt;img src=&quot;assets/images/logo-sm.png&quot;
+            &lt;img src=&quot;assets/images/jj3-logo-sm.png&quot;
                 class=&quot;rounded me-2&quot; alt=&quot;...&quot; height=&quot;20&quot;&gt;
             &lt;span class=&quot;fw-semibold me-auto&quot;&gt;Toner&lt;/span&gt;
             &lt;small&gt;11 mins ago&lt;/small&gt;
@@ -307,7 +307,7 @@
                             <div class="toast-container position-absolute p-3" id="toastPlacement">
                                 <div class="toast">
                                     <div class="toast-header">
-                                        <img src="{{ URL::asset('assets/images/logo-sm.png') }}" class="rounded me-2" alt="..."
+                                        <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" class="rounded me-2" alt="..."
                                             height="20">
                                         <strong class="me-auto">Toner</strong>
                                         <small>11 mins ago</small>
@@ -348,7 +348,7 @@
     &lt;div class=&quot;toast-container position-absolute p-3&quot; id=&quot;toastPlacement&quot;&gt;
         &lt;div class=&quot;toast&quot;&gt;
             &lt;div class=&quot;toast-header&quot;&gt;
-                &lt;img src=&quot;assets/images/logo-sm.png&quot; class=&quot;rounded me-2&quot;
+                &lt;img src=&quot;assets/images/jj3-logo-sm.png&quot; class=&quot;rounded me-2&quot;
                     alt=&quot;...&quot; height=&quot;20&quot;&gt;
                 &lt;strong class=&quot;me-auto&quot;&gt;Toner&lt;/strong&gt;
                 &lt;small&gt;11 mins ago&lt;/small&gt;

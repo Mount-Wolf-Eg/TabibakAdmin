@@ -18,7 +18,7 @@
                         <li class="chat-list left">
                             <div class="conversation-list">
                                 <div class="chat-avatar">
-                                    <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="">
+                                    <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" alt="">
                                 </div>
                                 <div class="user-chat-content">
                                     <div class="ctext-wrap">
@@ -69,7 +69,7 @@
                         <li class="chat-list left">
                             <div class="conversation-list">
                                 <div class="chat-avatar">
-                                    <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="">
+                                    <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" alt="">
                                 </div>
                                 <div class="user-chat-content">
                                     <div class="ctext-wrap">

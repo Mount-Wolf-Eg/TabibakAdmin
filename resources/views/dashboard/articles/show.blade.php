@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card">
-                <img src="{{ $article->mainImage->asset_url ?? asset('assets/images/logo-sm.png') }}" class="card-img-top img-fluid mx-auto d-block float-md-left mr-md-4" @style(['max-height:400px'])>
+                <img src="{{ $article->mainImage->asset_url ?? asset('assets/images/jj3-logo-sm.png') }}" class="card-img-top img-fluid mx-auto d-block float-md-left mr-md-4" @style(['max-height:400px'])>
             </div>
         </div>
         <div class="col-md-8">

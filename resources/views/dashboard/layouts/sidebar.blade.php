@@ -4,7 +4,7 @@
     <div class="navbar-brand-box">
         <a href="{{route('dashboard')}}" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="26">
+                <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" alt="" height="26">
             </span>
             <span class="logo-lg">
                 <img src="{{ URL::asset('assets/images/logo-dark.png') }}" alt="" height="26">
@@ -12,10 +12,10 @@
         </a>
         <a href="{{route('dashboard')}}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="24">
+                <img src="{{ URL::asset('assets/images/jj3-logo-sm.png') }}" alt="" height="24">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('assets/images/jj.png') }}" alt="" height="24">
+                <img src="{{ URL::asset('assets/images/logo-light.png') }}" alt="" height="24">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item {{app()->getLocale() == 'ar' ? 'float-start' : 'float-end'}} btn-vertical-sm-hover"
