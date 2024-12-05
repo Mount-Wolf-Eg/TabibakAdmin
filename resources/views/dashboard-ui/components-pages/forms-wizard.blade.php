@@ -163,7 +163,7 @@
                         <div class="text-center pt-3 pb-4 mb-1">
                             <img src="{{ URL::asset('assets/images/logo-dark.png') }}" class="card-logo-dark" alt=""
                                 height="26">
-                            <img src="{{ URL::asset('assets/images/logo-light.png') }}" class="card-logo-light" alt=""
+                            <img src="{{ URL::asset('assets/images/jj.png') }}" class="card-logo-light" alt=""
                                 height="26">
                         </div>
                         <div class="step-arrow-nav mb-4">

@@ -17,7 +17,7 @@
                                 <div class="flex-grow-1">
                                     <img src="{{ URL::asset('assets/images/logo-dark.png') }}" class="card-logo card-logo-dark"
                                         alt="" height="26">
-                                    <img src="{{ URL::asset('assets/images/logo-light.png') }}" class="card-logo card-logo-light"
+                                    <img src="{{ URL::asset('assets/images/jj.png') }}" class="card-logo card-logo-light"
                                         alt="" height="26">
                                     <div class="mt-sm-5 mt-4">
                                         <h6 class="text-muted text-uppercase fw-semibold fs-14">Address</h6>

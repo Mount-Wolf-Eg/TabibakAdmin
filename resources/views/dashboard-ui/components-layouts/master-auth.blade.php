@@ -25,7 +25,7 @@
                         <a class="navbar-brand mb-2 mb-sm-0" href="index">
                             <img src="{{ URL::asset('assets/images/logo-dark.png') }}" class="card-logo card-logo-dark"
                                 alt="logo dark" height="22">
-                            <img src="{{ URL::asset('assets/images/logo-light.png') }}"
+                            <img src="{{ URL::asset('assets/images/jj.png') }}"
                                 class="card-logo card-logo-light" alt="logo light" height="22">
                         </a>
                     </div>

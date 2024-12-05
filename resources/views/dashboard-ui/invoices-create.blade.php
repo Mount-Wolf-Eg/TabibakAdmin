@@ -28,7 +28,7 @@
                                             <img src="{{ URL::asset('assets/images/logo-dark.png') }}"
                                                 class="card-logo card-logo-dark user-profile-image img-fluid"
                                                 alt="logo dark">
-                                            <img src="{{ URL::asset('assets/images/logo-light.png') }}"
+                                            <img src="{{ URL::asset('assets/images/jj.png') }}"
                                                 class="card-logo card-logo-light user-profile-image img-fluid"
                                                 alt="logo light">
                                         </span>

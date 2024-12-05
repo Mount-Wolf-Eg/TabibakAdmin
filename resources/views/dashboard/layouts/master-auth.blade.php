@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <title>@yield('title') | {{config('app.name')}} {{__('messages.dashboard')}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Mount Wolf Information Technology" name="description">
+    <meta content="Tell Doc Information Technology" name="description">
     <meta content="{{config('app.name')}}" name="author">
     <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
     @include('dashboard.layouts.styles')
@@ -26,7 +26,7 @@
                     <a class="navbar-brand mb-2 mb-sm-0" href="{{route('front.home')}}">
                         <img src="{{ URL::asset('assets/images/logo-dark.png') }}" class="card-logo card-logo-dark"
                              alt="logo dark" height="22">
-                        <img src="{{ URL::asset('assets/images/logo-light.png') }}"
+                        <img src="{{ URL::asset('assets/images/jj.png') }}"
                              class="card-logo card-logo-light" alt="" height="22">
                     </a>
                 </div>

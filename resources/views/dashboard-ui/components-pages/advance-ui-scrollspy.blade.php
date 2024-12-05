@@ -26,7 +26,7 @@
                             <a class="navbar-brand mb-2 mb-sm-0" href="#">
                                 <img src="{{ URL::asset('assets/images/logo-dark.png') }}" class="card-logo card-logo-dark" alt="logo dark"
                                     height="22">
-                                <img src="{{ URL::asset('assets/images/logo-light.png') }}" class="card-logo card-logo-light" alt="logo light"
+                                <img src="{{ URL::asset('assets/images/jj.png') }}" class="card-logo card-logo-light" alt="logo light"
                                     height="22">
                             </a>
                             <ul class="nav nav-pills">
@@ -160,7 +160,7 @@
                                     <a class="navbar-brand mb-2" href="#">
                                         <img src="{{ URL::asset('assets/images/logo-dark.png') }}" class="card-logo card-logo-dark"
                                             alt="logo dark" height="22">
-                                        <img src="{{ URL::asset('assets/images/logo-light.png') }}" class="card-logo card-logo-light"
+                                        <img src="{{ URL::asset('assets/images/jj.png') }}" class="card-logo card-logo-light"
                                             alt="logo light" height="22">
                                     </a>
                                     <nav class="nav nav-pills flex-column p-3 w-100">

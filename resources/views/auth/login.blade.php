@@ -106,7 +106,7 @@
                             <p class="mb-0 text-muted">©
                                 <script>
                                     document.write(new Date().getFullYear())
-                                </script> Mount Wolf <i class="mdi mdi-heart text-danger"></i>
+                                </script> Tell Doc <i class="mdi mdi-heart text-danger"></i>
                             </p>
                         </div>
                     </div>

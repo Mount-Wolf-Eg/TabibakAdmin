@@ -64,7 +64,7 @@
     </div>
     <div class="copyright-area theme-bg">
         <div class="container">
-            <p class="copyright text-center">Copyright <script>document.write(new Date().getFullYear())</script> © MountWolf. All right reserved.</p>
+            <p class="copyright text-center">Copyright <script>document.write(new Date().getFullYear())</script> © . All right reserved.</p>
         </div>
     </div>
 </footer>

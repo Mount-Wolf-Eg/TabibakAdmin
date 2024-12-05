@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Mount Wolf Dashboard'),
+    'name' => env('APP_NAME', 'Tell Doc Dashboard'),
 
     /*
     |--------------------------------------------------------------------------
