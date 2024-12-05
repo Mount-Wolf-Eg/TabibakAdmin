@@ -3,7 +3,7 @@
     {{__('messages.profile')}}
 @endsection
 @section('content')
-    <x-breadcrumb title="{{__('messages.profile')}}" pagetitle="{{__('messages.jj2.png')}}" route="{{route('dashboard')}}"/>
+    <x-breadcrumb title="{{__('messages.profile')}}" pagetitle="{{__('messages.Tell Doc')}}" route="{{route('dashboard')}}"/>
     <div class="row">
         <div class="col-md-12">
             @include('dashboard.profile.partials.__form', ['action' => ['profile.update'], 'method' => 'POST'])

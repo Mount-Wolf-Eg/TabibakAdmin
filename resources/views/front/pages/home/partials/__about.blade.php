@@ -2,7 +2,7 @@
 <div class="about-area pt-90 pb-60">
     <div class="container">
         <div class="area-title text-center">
-            <h2>{{__('messages.sections.welcome_to_title')}} <span>{{__('messages.jj2.png')}}</span></h2>
+            <h2>{{__('messages.sections.welcome_to_title')}} <span>{{__('messages.Tell Doc')}}</span></h2>
             <p class="front-main-font">{{__('messages.sections.welcome_to_message')}}</p>
         </div>
         <div class="row">

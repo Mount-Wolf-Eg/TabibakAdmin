@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'jj2.png' => 'jj2.png',
+    'Tell Doc' => 'Tell Doc',
     'dashboard' => 'Dashboard',
     'overview' => 'Overview',
     'roles' => 'Roles',

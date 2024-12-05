@@ -3,7 +3,7 @@
     {{__('messages.overview')}}
 @endsection
 @section('content')
-    <x-breadcrumb title="{{__('messages.overview')}}" pagetitle="{{__('messages.jj2.png')}}" route="{{route('overview')}}"/>
+    <x-breadcrumb title="{{__('messages.overview')}}" pagetitle="{{__('messages.Tell Doc')}}" route="{{route('overview')}}"/>
     <div class="col-xxl-12 col-lg-6 order-first">
         <div class="row row-cols-xxl-4 row-cols-1">
             <x-overview-card title="{{__('messages.patients')}}" icon="bi bi-person-badge" color="warning" count="{{$patientsCount}}" />
