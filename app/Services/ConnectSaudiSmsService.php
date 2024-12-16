@@ -54,8 +54,8 @@ class ConnectSaudiSmsService
             // Parse the response
             $status = $response->getStatusCode();
             $body   = $response->getBody()->getContents();
-            // info($status);
-            // info($body);
+            info($status);
+            info($body);
         } catch (Exception $e) {
             info($e);
             throw new Exception($e->getMessage());
