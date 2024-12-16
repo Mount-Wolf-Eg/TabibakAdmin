@@ -54,16 +54,22 @@ class DoctorScheduleDayShift extends Model
     //---------------------Scopes-------------------------------------
     public function scopeOfAvailableSlots(Builder $query): Builder
     {
-        return $query->whereDoesntHave('consultation')
+        return $query->where(function ($query) {
+            $query->whereDoesntHave('consultation')
+                ->orWhereHas('consultation', function ($q) {
+                    $q->where('is_active', false);
+                });
+        })
             ->whereNotNull('parent_id')
-            ->whereHas('day', static function (Builder $query) {
+            ->whereHas('day', function (Builder $query) {
                 $query->whereDate('date', '>=', now()->toDateString())
                     ->orWhere(function ($q) {
-                        $q->whereDate('date', now()->toDateString());
-                        $q->whereTime('from_time', '>', now()->toTimeString());
+                        $q->whereDate('date', now()->toDateString())
+                            ->whereTime('from_time', '>', now()->toTimeString());
                     });
             });
     }
+
     //---------------------Scopes-------------------------------------
 
 }

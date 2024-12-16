@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\V1\Mobile\PatientConsultationController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorController;
 use App\Http\Controllers\Api\V1\Mobile\DoctorScheduleDayController;
 use App\Http\Controllers\Api\V1\Mobile\FileController;
+use App\Http\Controllers\Api\V1\Mobile\MyFatoorahController;
 use App\Http\Controllers\Api\V1\Mobile\PatientProfileController;
 use App\Http\Controllers\Api\V1\Mobile\PatientRelativeController;
 use App\Http\Controllers\Api\V1\Mobile\PaymentController;
@@ -64,6 +65,11 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('coupons/{coupon:code}/apply', [CouponController::class, 'applyCoupon']);
 
             Route::post('register-user-as-doctor', [AuthController::class, 'registerUserAsDoctor']);
+
+            Route::controller(MyFatoorahController::class)->prefix('payment')->group(function () {
+                Route::post('/', 'index');
+                Route::get('/callback', 'callback')->name('payment.callback')->withoutMiddleware(['auth:sanctum', 'active_patient']);
+            });
         });
 
         Route::group(['prefix' => 'doctor', 'middleware' => 'active_doctor'], static function () {

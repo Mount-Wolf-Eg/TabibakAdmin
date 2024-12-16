@@ -31,6 +31,7 @@ class PatientConsultationController extends BaseApiController
         parent::__construct($contract, ConsultationResource::class);
         $this->notificationService = $notificationService;
     }
+
     /**
      * Store a newly created resource in storage.
      * @param ConsultationRequest $request
@@ -187,7 +188,7 @@ class PatientConsultationController extends BaseApiController
         try {
             $data = $request->validated();
             $consultation = $this->contract->update($consultation, ['doctor_id' => $data['doctor_id'],
-                'amount' => $data['amount'], 'status' => ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value]);
+                'amount' => $data['amount'], 'status' => ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value, 'is_active' => false]);
             $this->contract->syncWithoutDetaching($consultation, 'replies', $data['replies']);
             $this->notificationService->patientAcceptDoctorOffer($consultation);
             return $this->respondWithModel($consultation);

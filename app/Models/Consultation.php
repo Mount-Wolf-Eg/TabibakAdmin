@@ -56,6 +56,13 @@ class Consultation extends Model
         'prescription' => 'array'
     ];
 
+    protected static function booted()
+    {
+        static::addGlobalScope('isActive', function ($builder) {
+            $builder->where('is_active', true);
+        });
+    }
+
     //---------------------relations-------------------------------------
     public function doctor(): BelongsTo
     {
