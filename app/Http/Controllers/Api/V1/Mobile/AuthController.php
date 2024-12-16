@@ -15,10 +15,18 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends BaseApiController
 {
     private UserAuthService $userAuthService;
-    private array $doctorRelations = ['doctor.medicalSpecialities', 'doctor.academicDegree',
-        'doctor.attachments', 'doctor.city', 'doctor.scheduleDays.shifts.availableSlots', 'doctor.hospitals',
-        'doctor.universities.academicDegree', 'doctor.universities.certificate',
-        'doctor.universities.university', 'doctor.universities.medicalSpeciality'];
+    private array $doctorRelations = [
+        'doctor.medicalSpecialities',
+        'doctor.academicDegree',
+        'doctor.attachments',
+        'doctor.city',
+        'doctor.scheduleDays.shifts.availableSlots',
+        'doctor.hospitals',
+        'doctor.universities.academicDegree',
+        'doctor.universities.certificate',
+        'doctor.universities.university',
+        'doctor.universities.medicalSpeciality'
+    ];
     private array $patientRelations = ['patient.diseases'];
 
     public function __construct(UserContract $userContract, UserAuthService $userAuthService)
@@ -33,14 +41,14 @@ class AuthController extends BaseApiController
             'phone' => config('validations.phone.req')
         ]);
         $existedUser = $this->contract->findBy('phone', $request->phone);
-        if ($existedUser){
+        if ($existedUser) {
             $existedUser = $this->userAuthService->sendVerificationCode($existedUser);
             $hasDoctor = $existedUser->doctor()->exists();
             return $this->respondWithSuccess('', [
                 'verification_code' => $existedUser->verification_code,
                 'has_doctor' => $hasDoctor
             ]);
-        }else{
+        } else {
             return $this->respondWithError(__('auth.failed'), 401);
         }
     }
@@ -52,9 +60,9 @@ class AuthController extends BaseApiController
             Auth::login($loginUser);
             $this->userAuthService->verifyUser($loginUser);
             $loginUser->api_token = $this->userAuthService->createToken($loginUser, $request->validated());
-            $loginUser->load('patient','doctor');
+            $loginUser->load('patient', 'doctor');
             return $this->respondWithModel($loginUser);
-        }else{
+        } else {
             if ($loginUser && !$loginUser->is_active)
                 return $this->respondWithError(__('auth.not_active'), 401);
             return $this->respondWithError(__('auth.failed'), 401);

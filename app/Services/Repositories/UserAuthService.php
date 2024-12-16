@@ -3,6 +3,7 @@
 namespace App\Services\Repositories;
 
 use App\Jobs\SendVerificationCodeToUser;
+use App\Notifications\VerificationCodeNotification;
 use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\PatientContract;
 use App\Repositories\Contracts\UserContract;
@@ -22,18 +23,19 @@ class UserAuthService
 
     public function sendVerificationCode($user, $to = 'phone')
     {
-        //$code = rand(1000, 9999);
+        // $code = rand(1000, 9999);
         $code = 1234; // for testing
         $user = $this->contract->update($user, ['verification_code' => $code]);
-        SendVerificationCodeToUser::dispatch($user, $to);
+        // SendVerificationCodeToUser::dispatch($user, $to);
+        $user?->notify(new VerificationCodeNotification($code));
         return $user;
     }
 
     public function verifyUser($user, $type = 'phone')
     {
-        if ($type == 'phone'){
+        if ($type == 'phone') {
             return $this->contract->update($user, ['phone_verified_at' => Carbon::now()]);
-        }else{
+        } else {
             return $this->contract->update($user, ['email_verified_at' => Carbon::now()]);
         }
     }
@@ -68,5 +70,4 @@ class UserAuthService
     {
         return $this->doctorContract->create($data);
     }
-
 }
