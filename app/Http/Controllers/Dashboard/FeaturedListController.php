@@ -30,16 +30,22 @@ class FeaturedListController extends Controller
         $featuredListTitle = GeneralSettings::getSettingValue('featured_list_title');
         $featuredListText = GeneralSettings::getSettingValue('featured_list_text');
 
-        if (!is_array($featuredListTitle)) {
-            $featuredListTitle = json_decode($featuredListTitle, true);
+        // Decode and convert to object if not already
+        if (is_array($featuredListTitle)) {
+            $featuredListTitle = (object) $featuredListTitle; // Convert array to object
+        } elseif (!is_object($featuredListTitle)) {
+            $featuredListTitle = json_decode($featuredListTitle); // Decode JSON as an object
         }
 
-        if (!is_array($featuredListText)) {
-            $featuredListText = json_decode($featuredListText, true);
+        if (is_array($featuredListText)) {
+            $featuredListText = (object) $featuredListText; // Convert array to object
+        } elseif (!is_object($featuredListText)) {
+            $featuredListText = json_decode($featuredListText); // Decode JSON as an object
         }
 
         return view('dashboard.featured-list.edit', compact(['featuredListTitle', 'featuredListText']));
     }
+
 
     /**
      * Update the specified resource in storage.
