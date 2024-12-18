@@ -18,10 +18,26 @@ class FeaturedListController extends Controller
      *
      * @return View|Factory|Application
      */
+    // public function edit(): View|Factory|Application
+    // {
+    //     $featuredListTitle = json_decode(GeneralSettings::getSettingValue('featured_list_title'));
+    //     $featuredListText = json_decode(GeneralSettings::getSettingValue('featured_list_text'));
+    //     return view('dashboard.featured-list.edit', compact(['featuredListTitle', 'featuredListText']));
+    // }
+
     public function edit(): View|Factory|Application
     {
-        $featuredListTitle = json_decode(GeneralSettings::getSettingValue('featured_list_title'));
-        $featuredListText = json_decode(GeneralSettings::getSettingValue('featured_list_text'));
+        $featuredListTitle = GeneralSettings::getSettingValue('featured_list_title');
+        $featuredListText = GeneralSettings::getSettingValue('featured_list_text');
+
+        if (!is_array($featuredListTitle)) {
+            $featuredListTitle = json_decode($featuredListTitle, true);
+        }
+
+        if (!is_array($featuredListText)) {
+            $featuredListText = json_decode($featuredListText, true);
+        }
+
         return view('dashboard.featured-list.edit', compact(['featuredListTitle', 'featuredListText']));
     }
 
