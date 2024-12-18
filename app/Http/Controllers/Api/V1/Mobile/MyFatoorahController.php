@@ -86,13 +86,13 @@ class MyFatoorahController extends Controller
         $order       = Consultation::withoutGlobalScope('isActive')->findOrFail($orderId); // ->where(['patient_id' => auth()->user()->patient?->id])
 
         return [
-            'CustomerName'      => auth()->user()->name,
+            'CustomerName'      => $order->patient?->user?->name,
             'InvoiceValue'      => $order->amount,
             'CallBackUrl'       => $callbackURL,
             'ErrorUrl'          => $callbackURL,
             'Language'          => 'ar',
             'MobileCountryCode' => '+966',
-            'CustomerMobile'    => auth()->user()->phone,
+            'CustomerMobile'    => $order->patient?->user?->phone,
             'CustomerReference' => $orderId,
         ];
     }
