@@ -68,6 +68,6 @@ class ConsultationRepository extends BaseRepository implements ConsultationContr
 
     public function afterCreate($model, $attributes): void
     {
-        $this->notificationService->newConsultation($model);
+        // $this->notificationService->newConsultation($model);
     }
 }
