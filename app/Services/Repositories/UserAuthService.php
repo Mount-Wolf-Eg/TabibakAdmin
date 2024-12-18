@@ -23,8 +23,8 @@ class UserAuthService
 
     public function sendVerificationCode($user, $to = 'phone')
     {
-        // $code = rand(1000, 9999);
-        $code = 1234; // for testing
+        $code = rand(1000, 9999);
+        // $code = 1234; // for testing
         $user = $this->contract->update($user, ['verification_code' => $code]);
         // SendVerificationCodeToUser::dispatch($user, $to);
         $user?->notify(new VerificationCodeNotification($code));
