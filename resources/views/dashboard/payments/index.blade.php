@@ -53,7 +53,8 @@
                         <th scope="row">
                             <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
                         </th>
-                        <td><a href="{{route('consultations.show', $resource->payable?->id)}}">#{{$resource->payable?->id}}</a></td>
+                        {{-- <td><a href="{{route('consultations.show', $resource->payable?->id)}}">#{{$resource->payable?->id}}</a></td> --}}
+                        <td><a href="{{ $resource->payable ? route('consultations.show', $resource->payable->id) : '#' }}">#{{ $resource->payable?->id ?? 'N/A' }}</a></td>                        
                         <td>{{$resource->created_at->format('Y-m-d h:i A')}}</td>
                         <td>{{$resource->payable?->doctor?->user?->name}}</td>
                         <td>{{$resource->payer?->name}}</td>
