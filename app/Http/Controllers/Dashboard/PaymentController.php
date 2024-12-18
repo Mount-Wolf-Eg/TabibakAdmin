@@ -37,8 +37,12 @@ class PaymentController extends BaseWebController
         $patients = resolve(PatientContract::class)->search([], ['user'], ['limit' => 0]);
         $statuses = collect(PaymentStatusConstants::valuesCollection());
         $methods = collect(PaymentMethodConstants::valuesCollection());
-        return $this->indexBlade(['resources' => $resources, 'patients' => $patients,
-            'statuses' => $statuses, 'methods' => $methods]);
+        return $this->indexBlade([
+            'resources' => $resources,
+            'patients' => $patients,
+            'statuses' => $statuses,
+            'methods' => $methods
+        ]);
     }
 
     /**
@@ -50,7 +54,7 @@ class PaymentController extends BaseWebController
      */
     public function destroy(Payment $payment): RedirectResponse
     {
-       $this->contract->remove($payment);
-       return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
+        $this->contract->remove($payment);
+        return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
     }
 }
