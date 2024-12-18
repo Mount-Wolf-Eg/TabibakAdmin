@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Mobile;
 use App\Constants\PaymentStatusConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Consultation;
+use App\Services\Repositories\ConsultationNotificationService;
 use App\Traits\BaseApiResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,6 +19,9 @@ use Exception;
 class MyFatoorahController extends Controller
 {
     use BaseApiResponseTrait;
+
+
+    private ConsultationNotificationService $notificationService;
     
     /**
      * @var array
@@ -27,12 +31,15 @@ class MyFatoorahController extends Controller
     /**
      * Initiate MyFatoorah Configuration
      */
-    public function __construct() {
+    public function __construct(ConsultationNotificationService $notificationService) {
         $this->mfConfig = [
             'apiKey'      => config('myfatoorah.api_key'),
             'isTest'      => config('myfatoorah.test_mode'),
             'countryCode' => config('myfatoorah.country_iso'),
         ];
+
+
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -76,7 +83,7 @@ class MyFatoorahController extends Controller
      */
     private function getPayLoadData($orderId) {
         $callbackURL = route('payment.callback');
-        $order       = Consultation::withoutGlobalScope('isActive')->where(['patient_id' => auth()->user()->patient?->id])->findOrFail($orderId);
+        $order       = Consultation::withoutGlobalScope('isActive')->findOrFail($orderId); // ->where(['patient_id' => auth()->user()->patient?->id])
 
         return [
             'CustomerName'      => auth()->user()->name,
@@ -110,6 +117,8 @@ class MyFatoorahController extends Controller
                 $order = Consultation::withoutGlobalScope('isActive')->where('id', $data->CustomerReference)->first();
                 $order?->update(['is_active' => true]);
                 $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
+
+                $this->notificationService->newConsultation($order);
             } else {
                 info(json_encode($data));
             }
