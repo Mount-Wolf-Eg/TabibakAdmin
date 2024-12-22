@@ -22,7 +22,7 @@ class SmsChannel
             $taqnyat->send($message, $notifiable->phone);
         } elseif ($provider === 'connectsaudi') {
             $connect_saudi = new ConnectSaudiSmsService();
-            $connect_saudi->send($message, '966' . $notifiable->phone);
+            $connect_saudi->send($message, $notifiable->phone);
         }
     }
 }
