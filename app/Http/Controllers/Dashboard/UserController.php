@@ -122,7 +122,7 @@ class UserController extends BaseWebController
             $this->contract->remove($user);
             return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
         }
-        return $this->redirectBack()->with('error', __('messages.actions_messages.cannot_do_action'));
+        return $this->redirectBack()->with('error', __('messages.actions_messages.cannot_delete_yourself'));
     }
 
     /**

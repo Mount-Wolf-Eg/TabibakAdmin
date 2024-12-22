@@ -79,6 +79,7 @@ return [
         'old_pass_not_correct' => 'كلمة المرور القديمة غير صحيحة',
         'old_new_passwords_match' => 'كلمة المرور الجديدة والقديمة متطابقتين!',
         'upload_success' => 'تم التحميل بنجاح',
+        'cannot_delete_yourself' => 'لا يمكنك حذف نفسك',
     ],
     'academic_degrees' => 'الدرجات العلمية',
     'manage_academic_degrees' => 'إدارة الدرجات العلمية',

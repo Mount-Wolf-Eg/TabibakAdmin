@@ -79,6 +79,7 @@ return [
         'old_pass_not_correct' => 'Old password is not correct',
         'old_new_passwords_match' => 'The new and old password are identical!',
         'upload_success' => 'uploaded successfully',
+        'cannot_delete_yourself' => 'You cannot delete yourself.',
     ],
     'academic_degrees' => 'Academic Degrees',
     'manage_academic_degrees' => 'Manage Academic Degrees',
