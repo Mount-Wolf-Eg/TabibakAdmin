@@ -177,7 +177,7 @@
                     </li>
                 @endif
 
-                @if(auth()->user()->can('read-featured-list') || auth()->user()->can('view-all-featured-list'))
+                <!-- @if(auth()->user()->can('read-featured-list') || auth()->user()->can('view-all-featured-list'))
                     <li class="nav-item">
                         <a href="{{route('featured-list.edit')}}" @class(['nav-link', 'menu-link',
                     'active' => request()->routeIs(['featured-list.edit'])])>
@@ -185,7 +185,7 @@
                             <span data-key="t-dashboard">{{ __('messages.featured_list') }}</span>
                         </a>
                     </li>
-                @endif
+                @endif -->
 
                 @if(auth()->user()->can('read-consultation') || auth()->user()->can('view-all-consultation'))
                     <li class="nav-item">

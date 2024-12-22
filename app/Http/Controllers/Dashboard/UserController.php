@@ -43,7 +43,7 @@ class UserController extends BaseWebController
         return $this->indexBlade(['resources' => $resources]);
     }
 
-     /**
+    /**
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
@@ -118,8 +118,11 @@ class UserController extends BaseWebController
      */
     public function destroy(User $user): RedirectResponse
     {
-       $this->contract->remove($user);
-       return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
+        if ($user->id != auth()->id()) {
+            $this->contract->remove($user);
+            return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
+        }
+        return $this->redirectBack()->with('error', __('messages.actions_messages.cannot_do_action'));
     }
 
     /**
