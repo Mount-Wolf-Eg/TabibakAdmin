@@ -15,7 +15,7 @@ class MedicalSpeciality extends Model
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['name', 'description', 'percentage', 'is_active'];
-    protected array $filters = ['keyword', 'active'];
+    protected array $filters = ['keyword', 'active', 'doctorsCanAcceptUrgentCases'];
     protected array $searchable = ['name', 'description'];
     protected array $dates = [];
     public array $filterModels = [];
@@ -48,7 +48,12 @@ class MedicalSpeciality extends Model
     //---------------------relations-------------------------------------
 
     //---------------------Scopes-------------------------------------
-
+    public function scopeOfDoctorsCanAcceptUrgentCases($query, $value)
+    {
+        return $query->whereHas('doctors', function ($query) use ($value) {
+            $query->ofCanAcceptUrgentCases();
+        });
+    }
     //---------------------Scopes-------------------------------------
 
 }

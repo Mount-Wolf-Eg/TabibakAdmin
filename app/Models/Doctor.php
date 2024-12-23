@@ -26,7 +26,7 @@ class Doctor extends Model
         'consultation_period', 'reminder_before_consultation', 'urgent_consultation_price',
         'with_appointment_consultation_price', 'request_status', 'medical_id', 'is_active'];
     protected array $filters = ['keyword', 'requestStatus', 'medicalSpeciality', 'academicDegree',
-        'city', 'topRated', 'active'];
+        'city', 'topRated', 'active', 'canAcceptUrgentCases'];
     protected array $searchable = ['user.name'];
     protected array $dates = [];
     public array $filterModels = ['City', 'MedicalSpeciality', 'AcademicDegree', 'University', 'Hospital'];
@@ -129,10 +129,12 @@ class Doctor extends Model
         return $query->withAvg('rates', 'value')->orderBy('rates_avg_value', 'desc');
     }
 
-    public function scopeOfCanAcceptUrgentCases($query, $myUserId)
+    public function scopeOfCanAcceptUrgentCases($query, $myUserId = null)
     {
         return $query->where('urgent_consultation_enabled', true)
-            ->where('user_id', '!=', $myUserId)
+            ->when($myUserId, function ($query) use($myUserId) {
+                $query->where('user_id', '!=', $myUserId);
+            })
             ->ofActive()
             ->ofRequestStatus(DoctorRequestStatusConstants::APPROVED);
     }
