@@ -21,8 +21,18 @@ class DoctorScheduleRequest extends FormRequest
 
     protected function prepareForValidation()
     {
+        $scheduleDays = $this->input('schedule_days', []);
+
+        // Convert each 'day' key to lowercase within the array
+        $normalizedScheduleDays = array_map(function ($scheduleDay) {
+            if (isset($scheduleDay['day'])) {
+                $scheduleDay['day'] = strtolower($scheduleDay['day']);
+            }
+            return $scheduleDay;
+        }, $scheduleDays);
+
         $this->merge([
-            'day' => strtolower($this->input('day')),
+            'schedule_days' => $normalizedScheduleDays,
         ]);
     }
 
