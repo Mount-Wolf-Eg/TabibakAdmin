@@ -19,6 +19,13 @@ class DoctorScheduleRequest extends FormRequest
         return self::afterValidation($validated);
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'day' => strtolower($this->input('day')),
+        ]);
+    }
+
     public static function afterValidation($validated)
     {
         if (!empty($validated['schedule_days'])) {
@@ -42,14 +49,14 @@ class DoctorScheduleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'consultation_period' => config('validations.integer.null'). '|min:5|max:300',
+            'consultation_period' => config('validations.integer.null') . '|min:5|max:300',
             'schedule_days' => config('validations.array.null'),
             'schedule_days.*.day' => config('validations.day.req'),
             'schedule_days.*.shifts' => config('validations.array.req'),
             'schedule_days.*.shifts.*.from_time' => config('validations.time.req'),
             'schedule_days.*.shifts.*.to_time' => config('validations.time.req'),
-            'schedule_repeat_from' => config('validations.date.null').'|after_or_equal:today',
-            'schedule_repeat_to' => config('validations.date.null').'|after:schedule_repeat_from',
+            'schedule_repeat_from' => config('validations.date.null') . '|after_or_equal:today',
+            'schedule_repeat_to' => config('validations.date.null') . '|after:schedule_repeat_from',
             'reminder_before_consultation' => config('validations.integer.req'),
             'price' => config('validations.integer.req')
         ];
