@@ -135,7 +135,7 @@ class DoctorConsultationController extends BaseApiController
             $this->notificationService->doctorApprovedMedicalReport($consultation);
             return $this->respondWithModel($consultation);
         } catch (Exception $e) {
-            return $this->respondWithError($e->getMessage());
+            return $this->respondWithError($e->getMessage(), 422);
         }
     }
 
