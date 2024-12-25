@@ -93,7 +93,7 @@ class DoctorScheduleDay extends Model
     public function dayName(): Attribute
     {
         return Attribute::make(function ($value) {
-            return $this->date->format('l');
+            return $this->date->translatedFormat('l');
         });
     }
 
