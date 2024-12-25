@@ -33,7 +33,7 @@ class PatientRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => config('validations.string.req'),
+            'name' => 'required|string|min:3|max:250|regex:/^(\b[\pL\pM]+\b\s+){2}\b[\pL\pM]+\b$/u',
             'gender' => config('validations.integer.req').'|in:'. implode(',', UserGenderConstants::values()),
             'national_id' => config('validations.integer.req').'|unique:patients,national_id',
             'date_of_birth' => config('validations.date.req'),
@@ -53,6 +53,14 @@ class PatientRegisterRequest extends FormRequest
             'phone' => __('attributes.phone'),
             'city_id' => __('attributes.city_id'),
             'image' => __('attributes.image')
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'The name field is required.',
+            'name.regex' => 'The name must consist of exactly three words.',
         ];
     }
 }
