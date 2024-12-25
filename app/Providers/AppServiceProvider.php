@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\Repositories\ConsultationVendorService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Schema;
@@ -28,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $locale = app()->getLocale();
+
+        // Set the Carbon locale globally
+        Carbon::setLocale($locale ?? 'en');
+        
         Schema::defaultStringLength(191);
         $modelFiles = Storage::disk('app')->files('Models');
         foreach ($modelFiles as $modelFile) {
