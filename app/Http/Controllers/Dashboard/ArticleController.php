@@ -9,6 +9,7 @@ use App\Repositories\Contracts\ArticleContract;
 use App\Repositories\Contracts\MedicalSpecialityContract;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseWebController;
+use App\Services\Repositories\ArticleNotificationService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,16 +18,18 @@ use Illuminate\Http\RedirectResponse;
 class ArticleController extends BaseWebController
 {
     protected MedicalSpecialityContract $medicalSpecialityContract;
+    protected ArticleNotificationService $articleNotificationService;
 
     /**
      * ArticleController constructor.
      * @param ArticleContract $contract
      * @param MedicalSpecialityContract $medicalSpecialityContract
      */
-    public function __construct(ArticleContract $contract, MedicalSpecialityContract $medicalSpecialityContract)
+    public function __construct(ArticleContract $contract, MedicalSpecialityContract $medicalSpecialityContract, ArticleNotificationService $articleNotificationService)
     {
         parent::__construct($contract, 'dashboard');
         $this->medicalSpecialityContract = $medicalSpecialityContract;
+        $this->articleNotificationService = $articleNotificationService;
     }
 
     /**
@@ -141,6 +144,7 @@ class ArticleController extends BaseWebController
         }
         $article->save();
 
+        $this->articleNotificationService->newArticle($article);
         return $this->redirectBack()->with('success', __('messages.actions_messages.update_success'));
     }
 }

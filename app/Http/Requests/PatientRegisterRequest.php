@@ -59,8 +59,8 @@ class PatientRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The name field is required.',
-            'name.regex' => 'The name must consist of exactly three words.',
+            'name.required' => trans('The name field is required'),
+            'name.regex' => trans('The name must consist of exactly three words'),
         ];
     }
 }

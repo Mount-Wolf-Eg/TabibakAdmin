@@ -1,4 +1,6 @@
 {
+    "The name field is required": "The name field is required.",
+    "The name must consist of exactly three words": "The name must consist of exactly three words.",
     "t-menu":"Menu",
     "t-hot":"Hot",
     "t-dashboard":"Dashboard",

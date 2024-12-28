@@ -460,6 +460,12 @@ return [
     'notifications' => 'الإشعارات',
     'notification' => 'الإشعار',
     'notification_messages' => [
+        'article' => [
+            'new' => [
+                'title' => 'مقال جديد',
+                'body' => 'تم إضافة مقال جديد'
+            ],
+        ],
         'consultation' => [
             'new' => [
                 'title' => 'استشارة جديدة',

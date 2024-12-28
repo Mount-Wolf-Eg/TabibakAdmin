@@ -460,6 +460,12 @@ return [
     'notifications' => 'Notifications',
     'notification' => 'Notification',
     'notification_messages' => [
+        'article' => [
+            'new' => [
+                'title' => 'New Article',
+                'body' => 'A new article has been published',
+            ]
+        ],
         'consultation' => [
             'new' => [
                 'title' => 'New consultation',
