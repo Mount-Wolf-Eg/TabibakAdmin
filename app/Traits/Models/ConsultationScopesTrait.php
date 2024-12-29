@@ -141,6 +141,11 @@ trait ConsultationScopesTrait
         return $query->whereIn('is_active', true);
     }
 
+    public function scopeOfDoctorNoConsultationPatient($query)
+    {
+        return $query->where('patient_id', '!=', auth()->user()->patient?->id);
+    }
+
     //---------------------Scopes-------------------------------------
 
 }
