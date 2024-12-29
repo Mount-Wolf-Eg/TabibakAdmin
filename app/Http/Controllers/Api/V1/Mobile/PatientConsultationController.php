@@ -152,6 +152,7 @@ class PatientConsultationController extends BaseApiController
      */
     public function replies(): JsonResponse
     {
+        request()->merge(['scope' => 'full']);
         try {
             $filters = [
                 'urgentWithNoDoctor' => true,
