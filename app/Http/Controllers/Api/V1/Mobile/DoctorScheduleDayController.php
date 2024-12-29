@@ -79,7 +79,7 @@ class DoctorScheduleDayController extends BaseApiController
         $this->relations = ['nearestAvailableSlot'];
         $day = $this->contract->findByFilters($scopes);
         if (!$day) {
-            return $this->respondWithError(__('messages.no_slots_available'), Response::HTTP_NOT_FOUND);
+            return $this->respondWithError(__('messages.no_slots_available'), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         return $this->respondWithModel($day);
     }
