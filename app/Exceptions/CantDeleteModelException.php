@@ -19,10 +19,10 @@ class CantDeleteModelException extends Exception
     {
         if ($request->expectsJson()) {
             return response()->json([
-                'status' => 400,
+                'status' => 422,
                 'error' => $this->getMessage(),
                 'message' => $this->getMessage(),
-            ], 400);
+            ], 422);
         }
         return redirect()->back()->withInput(
             $request->input()
