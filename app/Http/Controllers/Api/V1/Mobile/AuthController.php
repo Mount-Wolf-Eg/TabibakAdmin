@@ -56,8 +56,8 @@ class AuthController extends BaseApiController
     public function login(LoginRequest $request)
     {
         $loginUser = $this->contract->findByFields(['and' => ['phone' => $request->phone, 'verification_code' => $request->verification_code]]);
-        if (env('APP_ENV') == 'local' && !$loginUser) {
-            $loginUser = $this->contract->findByFields(['and' => ['phone' => $request->phone, 'verification_code' => 1234]]); // for testing remove this line in production
+        if (env('APP_ENV') == 'local' && $request->verification_code == '1234' && !$loginUser) {
+            $loginUser = $this->contract->findByFields(['and' => ['phone' => $request->phone]]); // for testing remove this line in production
         }
         if ($loginUser && $loginUser->is_active) {
             Auth::login($loginUser);
