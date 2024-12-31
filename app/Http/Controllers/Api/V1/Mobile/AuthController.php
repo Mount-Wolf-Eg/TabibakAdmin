@@ -67,8 +67,8 @@ class AuthController extends BaseApiController
             return $this->respondWithModel($loginUser);
         } else {
             if ($loginUser && !$loginUser->is_active)
-                return $this->respondWithError(__('auth.not_active'), 401);
-            return $this->respondWithError(__('auth.failed'), 401);
+                return $this->respondWithError(__('auth.not_active'), 422);
+            return $this->respondWithError(__('auth.failed'), 422);
         }
     }
 
