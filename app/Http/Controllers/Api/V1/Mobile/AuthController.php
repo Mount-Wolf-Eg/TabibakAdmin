@@ -10,6 +10,7 @@ use App\Http\Resources\UserResource;
 use App\Repositories\Contracts\UserContract;
 use App\Services\Repositories\UserAuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends BaseApiController
@@ -57,7 +58,9 @@ class AuthController extends BaseApiController
     {
         $loginUser = $this->contract->findByFields(['and' => ['phone' => $request->phone, 'verification_code' => $request->verification_code]]);
         if (env('APP_ENV') == 'local' && $request->verification_code == 1234 && !$loginUser) {
-            $loginUser = $this->contract->findByFields(['and' => ['phone' => $request->phone, 'is_active' => true]]); // for testing remove this line in production
+            // $loginUser = $this->contract->findByFields(['and' => ['phone' => $request->phone, 'is_active' => true]]); // for testing remove this line in production
+            $loginUser = \App\Models\User::where('phone', $request->phone)->first();
+
             info($request->verification_code);
             info($request->phone);
             info($loginUser);
