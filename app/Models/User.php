@@ -88,7 +88,7 @@ class User extends Authenticatable
         return $role ? $role->id : null;
     }
 
-    public function getDoctorIsActiveAttribute()
+    public function getDoctorIsActivesAttribute()
     {
         return $this->is_active && $this->doctor?->is_active && $this->doctor?->request_status->value == 2 ? 1 : 0;
     }
