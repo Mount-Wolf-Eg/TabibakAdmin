@@ -18,6 +18,7 @@ class UserResource extends BaseResource
         $this->micro = [
             'id' => $this->id,
             'name' => $this->name,
+            'doctor_is_active' => $this->doctor_is_active
         ];
         $this->mini = [
             'phone' => $this->phone,

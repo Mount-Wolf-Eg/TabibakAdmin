@@ -48,7 +48,7 @@ class AuthController extends BaseApiController
             return $this->respondWithSuccess('', [
                 'verification_code' => $existedUser->verification_code,
                 'has_doctor' => $hasDoctor,
-                'doctor_is_active' => $existedUser->is_active && $existedUser->doctor?->is_active && $existedUser->doctor?->request_status == 2 ? 1 : 0,
+                'doctor_is_active' => $existedUser->doctor_is_active// $existedUser->is_active && $existedUser->doctor?->is_active && $existedUser->doctor?->request_status == 2 ? 1 : 0,
             ]);
         } else {
             return $this->respondWithError(__('auth.failed'), 401);
