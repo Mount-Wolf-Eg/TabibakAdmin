@@ -90,6 +90,7 @@ class User extends Authenticatable
 
     public function getDoctorIsActiveAttribute()
     {
+        info('ddddd');
         return $this->is_active && $this->doctor?->is_active && $this->doctor?->request_status == 2 ? 1 : 0;
     }
 
