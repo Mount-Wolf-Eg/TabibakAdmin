@@ -95,7 +95,7 @@ class ConsultationRequest extends FormRequest
             'patient_id' => sprintf(config('validations.model.active_null'), 'patients'),
             'doctor_id' => sprintf(config('validations.model.active_null'), 'doctors')
                 . '|required_if:type,==,' . ConsultationTypeConstants::WITH_APPOINTMENT->value,
-            'patient_description' => config('validations.text.req'),
+            'patient_description' => config('validations.text.null'),
             'attachments' => config('validations.array.null'),
             'attachments.*' => sprintf(config('validations.model.req'), 'files'),
             'type' => config('validations.integer.req') . '|in:' . implode(',', ConsultationTypeConstants::values()),
