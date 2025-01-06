@@ -36,7 +36,8 @@ class PatientRegisterRequest extends FormRequest
             'name' => 'required|string|min:3|max:250|regex:/^(\b[\pL\pM]+\b\s+){2}\b[\pL\pM]+\b$/u',
             'gender' => config('validations.integer.req').'|in:'. implode(',', UserGenderConstants::values()),
             'national_id' => config('validations.integer.req').'|unique:patients,national_id',
-            'date_of_birth' => config('validations.date.req'),
+            // 'date_of_birth' => config('validations.date.req'),
+            'date_of_birth' => sprintf(config('validations.date.req_after'), '1989-12-31'),
             'phone' => config('validations.phone.req').'|unique:users,phone',
             'city_id' => sprintf(config('validations.model.req'), 'cities'),
             'image' => sprintf(config('validations.model.null'), 'files')

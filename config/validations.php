@@ -57,6 +57,7 @@ return [
     ],
     'date' => [
         'req' => 'required|date',
+        'req_after' => 'required|date|after:%s',
         'null' => 'nullable|date',
     ],
     'datetime' => [

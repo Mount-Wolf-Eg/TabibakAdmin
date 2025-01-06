@@ -30,23 +30,23 @@ class ComplaintController extends BaseApiController
         try {
             $complaint = $this->contract->create($request->validated());
             return $this->respondWithModel($complaint->load($this->relations));
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
-   /**
-    * Display the specified resource.
-    * @param Complaint $complaint
-    * @return JsonResponse
-    */
-   public function show(Complaint $complaint): JsonResponse
-   {
-       try {
-           return $this->respondWithModel($complaint->load($this->relations));
-       }catch (Exception $e) {
-           return $this->respondWithError($e->getMessage());
-       }
-   }
+    /**
+     * Display the specified resource.
+     * @param Complaint $complaint
+     * @return JsonResponse
+     */
+    public function show(Complaint $complaint): JsonResponse
+    {
+        try {
+            return $this->respondWithModel($complaint->load($this->relations));
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -54,12 +54,12 @@ class ComplaintController extends BaseApiController
      * @param Complaint $complaint
      * @return JsonResponse
      */
-    public function update(ComplaintRequest $request, Complaint $complaint) : JsonResponse
+    public function update(ComplaintRequest $request, Complaint $complaint): JsonResponse
     {
         try {
             $complaint = $this->contract->update($complaint, $request->validated());
             return $this->respondWithModel($complaint->load($this->relations));
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -73,7 +73,7 @@ class ComplaintController extends BaseApiController
         try {
             $this->contract->remove($complaint);
             return $this->respondWithSuccess(__('messages.deleted'));
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
