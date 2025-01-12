@@ -75,6 +75,8 @@ return [
     'integer' => [
         'req' => 'required|integer|min:0|max:1000000000',
         'null' => 'nullable|integer|min:0|max:1000000000',
+        'req_max' => 'required|integer|min:0|max:%s',
+        'null_max' => 'nullable|integer|min:0|max:%s',
     ],
     'tiny_int' => [
         'req' => 'required|integer|min:0|max:50',

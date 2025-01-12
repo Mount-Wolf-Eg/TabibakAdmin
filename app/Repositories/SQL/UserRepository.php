@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\Contracts\FileContract;
 use App\Repositories\Contracts\RoleContract;
 use App\Repositories\Contracts\UserContract;
+use Illuminate\Database\Eloquent\Model;
 
 class UserRepository extends BaseRepository implements UserContract
 {
@@ -53,5 +54,11 @@ class UserRepository extends BaseRepository implements UserContract
             $attributes['user_id'] = $user->id;
         }
         return $attributes;
+    }
+
+    public function remove(Model $model): mixed
+    {
+        $model->update(['email' => null, 'old_email' => $model->email, 'phone' => null, 'old_phone' => $model->phone]);
+        return parent::remove($model);
     }
 }

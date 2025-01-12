@@ -37,7 +37,7 @@ class PatientRelativeRequest extends FormRequest
         return [
             'name' => config('validations.string.req'),
             'gender' => config('validations.integer.null').'|in:'. implode(',', UserGenderConstants::values()),
-            'national_id' => config('validations.integer.null'),
+            'national_id' => sprintf(config('validations.integer.null_max'), 10),
             'date_of_birth' => config('validations.date.null'),
             'phone' => config('validations.phone.null').'|unique:users,phone',
             'weight' => 'nullable|numeric|min:1|max:300',

@@ -5,6 +5,7 @@ namespace App\Repositories\SQL;
 use App\Models\Patient;
 use App\Repositories\Contracts\PatientContract;
 use App\Repositories\Contracts\UserContract;
+use Illuminate\Database\Eloquent\Model;
 
 class PatientRepository extends BaseRepository implements PatientContract
 {
@@ -34,4 +35,9 @@ class PatientRepository extends BaseRepository implements PatientContract
         }
     }
 
+    public function remove(Model $model): mixed
+    {
+        $model->update(['national_id' => null, 'old_national_id' => $model->national_id]);
+        return parent::remove($model);
+    }
 }
