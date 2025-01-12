@@ -29,7 +29,7 @@ class User extends Authenticatable
 
 	protected $fillable = ['name', 'username', 'email', 'password', 'phone', 'gender',
         'city_id', 'date_of_birth', 'address','wallet', 'verification_code',
-        'phone_verified_at', 'is_active'];
+        'phone_verified_at', 'is_active', 'old_email', 'old_phone'];
     protected array $filters = ['keyword', 'role', 'roleName', 'email', 'active', 'onlyUsersRoles'];
     public array $filterModels = ['Role'];
     public array $filterCustom = [];

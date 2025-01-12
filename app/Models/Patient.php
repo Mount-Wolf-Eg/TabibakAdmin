@@ -22,7 +22,7 @@ class Patient extends Model
     public const ADDITIONAL_PERMISSIONS = [];
     protected $fillable = ['user_id', 'parent_id', 'national_id',
         'other_diseases', 'latest_surgeries', 'weight', 'height', 'blood_type',
-        'social_status', 'is_active'];
+        'social_status', 'is_active', 'old_national_id'];
     protected array $filters = ['keyword','parent', 'active'];
     protected array $searchable = ['user.name'];
     protected array $dates = [];
