@@ -40,7 +40,7 @@ class PatientRequest extends FormRequest
             'name' => config('validations.string.req'),
             'date_of_birth' => config('validations.date.req').'|before_or_equal:today',
             'phone' => config('validations.phone.req').'|unique:users,phone,'.$this->route('patient')?->user_id,
-            'national_id' => config('validations.string.null').'|unique:patients,national_id,'.$this->route('patient')?->id,
+            'national_id' => sprintf(config('validations.integer.null_max'), 10).'|unique:patients,national_id,'.$this->route('patient')?->id . '|regex:/^[1-4]/',
         ];
         if ($this->getMethod() === 'POST' && !auth()->user()->patient) {
             $rules['password'] = config('validations.password.req');
@@ -70,6 +70,8 @@ class PatientRequest extends FormRequest
      */
     public function messages() : array
     {
-        return [];
+        return [
+            'national_id.regex' => trans('The national ID must start with 1, 2, 3, or 4'),
+        ];
     }
 }

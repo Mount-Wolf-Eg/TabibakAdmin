@@ -199,5 +199,6 @@
     "t-Posts": "المقالات",
     "t-Pages": "الصفحات",
     "t-Sliders": "السلايدرات",
-    "t-dashboard-admins": "مديرين لوحة التحكم"
+    "t-dashboard-admins": "مديرين لوحة التحكم",
+    "The national ID must start with 1, 2, 3, or 4": "يجب أن يبدأ الرقم القومي بـ 1 أو 2 أو 3 أو 4"
 }

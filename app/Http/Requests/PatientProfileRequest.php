@@ -43,7 +43,7 @@ class PatientProfileRequest extends FormRequest
             'gender' => config('validations.integer.null').'|in:'. implode(',', UserGenderConstants::values()),
             'date_of_birth' => config('validations.date.req'),
             'phone' => config('validations.phone.req').'|unique:users,phone,'.auth()->id(),
-            'national_id' => config('validations.string.null').'|unique:patients,national_id,'.auth()->user()->patient?->id,
+            'national_id' => sprintf(config('validations.integer.null_max'), 10).'|unique:patients,national_id,'.auth()->user()->patient?->id. '|regex:/^[1-4]/',
             'password' => config('validations.password.null'),
             'social_status' => config('validations.integer.null').'|in:'.implode(',', PatientSocialStatusConstants::values()),
             'city_id' => sprintf(config('validations.model.req'), 'cities'),
@@ -70,6 +70,8 @@ class PatientProfileRequest extends FormRequest
      */
     public function messages() : array
     {
-        return [];
+        return [
+            'national_id.regex' => trans('The national ID must start with 1, 2, 3, or 4'),
+        ];
     }
 }

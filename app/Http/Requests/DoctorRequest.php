@@ -48,7 +48,7 @@ class DoctorRequest extends FormRequest
             'university' => config('validations.string.null'),
             'name' => config('validations.string.req'),
             'phone' => config('validations.phone.req').'|unique:users,phone,'.$this->route('doctor')?->user_id,
-            'national_id' => config('validations.string.null').'|unique:doctors,national_id,'.$this->route('doctor')?->id,
+            'national_id' => sprintf(config('validations.integer.null_max'), 10).'|unique:doctors,national_id,'.$this->route('doctor')?->id . '|regex:/^[1-4]/',
             'medical_id' => config('validations.string.null').'|unique:doctors,medical_id,'.$this->route('doctor')?->id,
             'urgent_consultation_enabled' => 'nullable|in:on',
             'with_appointment_consultation_enabled' => 'nullable|in:on'
@@ -88,6 +88,8 @@ class DoctorRequest extends FormRequest
      */
     public function messages() : array
     {
-        return [];
+        return [
+            'national_id.regex' => trans('The national ID must start with 1, 2, 3, or 4'),
+        ];
     }
 }

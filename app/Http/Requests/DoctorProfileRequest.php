@@ -24,10 +24,17 @@ class DoctorProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'national_id' => config('validations.string.req'),
+            'national_id' => sprintf(config('validations.integer.req_max'), 10) . '|regex:/^[1-4]/',
             'medical_id' => config('validations.string.req'),
             'date_of_birth' => config('validations.date.req'),
             'phone' => config('validations.phone.req'),
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'national_id.regex' => trans('The national ID must start with 1, 2, 3, or 4'),
         ];
     }
 }

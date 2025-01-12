@@ -37,7 +37,7 @@ class PatientRelativeRequest extends FormRequest
         return [
             'name' => config('validations.string.req'),
             'gender' => config('validations.integer.null').'|in:'. implode(',', UserGenderConstants::values()),
-            'national_id' => sprintf(config('validations.integer.null_max'), 10),
+            'national_id' => sprintf(config('validations.integer.null_max'), 10) . '|regex:/^[1-4]/',
             'date_of_birth' => config('validations.date.null'),
             'phone' => config('validations.phone.null').'|unique:users,phone',
             'weight' => 'nullable|numeric|min:1|max:300',
@@ -48,6 +48,16 @@ class PatientRelativeRequest extends FormRequest
             'latest_surgeries' => config('validations.text.null'),
             'other_diseases' => config('validations.text.null'),
             'image' => sprintf(config('validations.model.null'), 'files'),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function messages() : array
+    {
+        return [
+            'national_id.regex' => trans('The national ID must start with 1, 2, 3, or 4'),
         ];
     }
 }

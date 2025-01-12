@@ -37,7 +37,7 @@ class DoctorRegisterRequest extends FormRequest
             'specialities' => config('validations.array.req'),
             'specialities.*' => sprintf(config('validations.model.active_req'), 'medical_specialities'),
             'academic_degree_id' => sprintf(config('validations.model.active_req'), 'academic_degrees'),
-            'national_id' => config('validations.string.req'),
+            'national_id' => sprintf(config('validations.integer.req_max'), 10) . '|regex:/^[1-4]/',
             'medical_id' => config('validations.string.req'),
             'city_id' => sprintf(config('validations.model.active_req'), 'cities'),
             'experience_years' => config('validations.integer.req'),
@@ -50,4 +50,10 @@ class DoctorRegisterRequest extends FormRequest
         return array_merge($rules, (new DoctorScheduleRequest())->rules());
     }
 
+    public function messages()
+    {
+        return [
+            'national_id.regex' => trans('The national ID must start with 1, 2, 3, or 4'),
+        ];
+    }
 }

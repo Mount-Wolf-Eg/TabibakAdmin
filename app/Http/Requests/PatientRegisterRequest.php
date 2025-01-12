@@ -35,7 +35,7 @@ class PatientRegisterRequest extends FormRequest
         return [
             'name' => 'required|string|min:3|max:250|regex:/^(\b[\pL\pM]+\b\s+){2}\b[\pL\pM]+\b$/u',
             'gender' => config('validations.integer.req').'|in:'. implode(',', UserGenderConstants::values()),
-            'national_id' => config('validations.integer.req').'|unique:patients,national_id',
+            'national_id' => sprintf(config('validations.integer.req_max'), 10).'|unique:patients,national_id' . '|regex:/^[1-4]/',
             // 'date_of_birth' => config('validations.date.req'),
             'date_of_birth' => sprintf(config('validations.date.req_after'), '1989-12-31'),
             'phone' => config('validations.phone.req').'|unique:users,phone',
@@ -62,6 +62,7 @@ class PatientRegisterRequest extends FormRequest
         return [
             'name.required' => trans('The name field is required'),
             'name.regex' => trans('The name must consist of exactly three words'),
+            'national_id.regex' => trans('The national ID must start with 1, 2, 3, or 4'),
         ];
     }
 }
