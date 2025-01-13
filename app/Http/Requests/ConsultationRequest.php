@@ -52,7 +52,7 @@ class ConsultationRequest extends FormRequest
                 unset($validated['reminder_before']);
             }
 
-            $validated['is_active'] = false;
+            if (! $this->consultation) $validated['is_active'] = false;
         }
         return $validated;
     }

@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'Africa/Cairo',
+    'timezone' => 'Asia/Riyadh', // 'Africa/Cairo',
 
     /*
     |--------------------------------------------------------------------------
