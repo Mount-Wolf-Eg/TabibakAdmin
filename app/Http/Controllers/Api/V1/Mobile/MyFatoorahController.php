@@ -98,8 +98,8 @@ class MyFatoorahController extends Controller
         return [
             'CustomerName'      => $order->patient?->user?->name,
             'InvoiceValue'      => $order->amount,
-            'CallBackUrl'       => $callbackURL,
-            'ErrorUrl'          => $callbackURL,
+            'CallBackUrl'       => $callbackURL . '?status=success',
+            'ErrorUrl'          => $callbackURL . '?status=fail',
             'Language'          => 'ar',
             'MobileCountryCode' => '+966',
             'CustomerMobile'    => $phone,
