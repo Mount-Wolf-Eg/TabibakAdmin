@@ -25,8 +25,10 @@ trait ConsultationScopesTrait
             $q->where('doctor_id', auth()->user()->doctor?->id)->whereNotNull('doctor_id');
             $q->orWhere(function ($q) {
                 $q->where('type', ConsultationTypeConstants::URGENT)
-                    ->whereIn('status', [ConsultationStatusConstants::PENDING,
-                        ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES])
+                    ->whereIn('status', [
+                        ConsultationStatusConstants::PENDING,
+                        ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES
+                    ])
                     ->whereIn('medical_speciality_id', auth()->user()->doctor?->medicalSpecialities->pluck('id'))
                     ->whereNull('doctor_id');
             });
@@ -149,11 +151,15 @@ trait ConsultationScopesTrait
     public function scopeOfNextConsultation($query)
     {
         return $query->whereHas('doctorScheduleDayShift', function ($query) {
-            $query->where('from_time', '>', now()->format('H:i:s'))->whereHas('day', function ($query) {
-                $query->whereDate('date', '>=', now()->format('Y-m-d'));
-            });
+            $query->whereHas('day', function ($dayQuery) {
+                $dayQuery->where('date', '>=', now()->format('Y-m-d'));
+            })
+                ->whereRaw("
+            CONCAT(day.date, ' ', from_time) > ?
+        ", [now()->format('Y-m-d H:i:s')]);
         });
     }
+
     //---------------------Scopes-------------------------------------
 
 }
