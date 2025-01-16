@@ -146,6 +146,14 @@ trait ConsultationScopesTrait
         return $query->where('patient_id', '!=', auth()->user()->patient?->id);
     }
 
+    public function scopeOfNextConsultation($query)
+    {
+        return $query->whereHas('doctorScheduleDayShift', function ($query) {
+            $query->where('from_time', '>', now()->format('H:i:s'))->whereHas('day', function ($query) {
+                $query->whereDate('date', '>=', now()->format('Y-m-d'));
+            });
+        });
+    }
     //---------------------Scopes-------------------------------------
 
 }

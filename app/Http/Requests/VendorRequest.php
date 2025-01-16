@@ -42,7 +42,7 @@ class VendorRequest extends FormRequest
             'name' => config('validations.string.req'),
             'email' => sprintf(config('validations.email.req'), 'users', 'email').','.$this->route('vendor')?->user_id,
             'phone' => config('validations.phone.req').'|unique:users,phone,'.$this->route('vendor')?->user_id,
-            'address' => config('validations.string.null'),
+            'address' => config('validations.string.req'),
             'services' => config('validations.array.req'),
             'services.*' => sprintf(config('validations.model.active_req'), 'vendor_services'),
         ];
