@@ -152,14 +152,13 @@ trait ConsultationScopesTrait
     {
         return $query->whereHas('doctorScheduleDayShift', function ($query) {
             $query->whereHas('day', function ($dayQuery) {
-                $dayQuery->where('date', '>=', now()->format('Y-m-d'));
+                $dayQuery->where('date', '>=', now()->format('Y-m-d')); // Ensure date is not in the past
             })
                 ->whereRaw("
-            CONCAT(day.date, ' ', from_time) > ?
+            CONCAT(doctor_schedule_days.date, ' ', doctor_schedule_day_shifts.from_time) > ?
         ", [now()->format('Y-m-d H:i:s')]);
         });
     }
-
     //---------------------Scopes-------------------------------------
 
 }
