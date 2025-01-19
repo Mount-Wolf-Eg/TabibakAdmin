@@ -163,7 +163,7 @@ trait ConsultationScopesTrait
                         ' ', 
                         from_time
                     ) > ?
-                ", [now()->format('Y-m-d H:i:s')]);
+                ", [now()->format('Y-m-d H:i')]);
                 });
             }
         );

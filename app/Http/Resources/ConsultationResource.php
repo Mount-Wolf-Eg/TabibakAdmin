@@ -30,8 +30,8 @@ class ConsultationResource extends BaseResource
             'is_active' => $this->is_active,
             'active_status' => $this->active_status,
             'active_class' => $this->active_class,
-            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i'),
         ];
         $this->full = [
             'patient_description' => $this->patient_description,
@@ -51,7 +51,7 @@ class ConsultationResource extends BaseResource
                 'value' => $this->transfer_case_rate?->value,
                 'label' => $this->transfer_case_rate?->label(),
             ],
-            'reminder_at' => $this->reminder_at?->format('Y-m-d H:i:s'),
+            'reminder_at' => $this->reminder_at?->format('Y-m-d H:i'),
             'transfer_reason' => $this->transfer_reason,
             'transfer_notes' => $this->transfer_notes,
             'is_mine_as_patient' => $this->isMineAsPatient(),

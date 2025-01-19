@@ -28,8 +28,8 @@ class ConsultationReplyResource extends BaseResource
             'status_can_be_changed' => $status->is(ConsultationPatientStatusConstants::PENDING),
             'reason' => $this->pivot->reason,
             'doctor_set_consultation_at' => $this->pivot->doctor_set_consultation_at,
-            'created_at' => $this->pivot->created_at?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->pivot->updated_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->pivot->created_at?->format('Y-m-d H:i'),
+            'updated_at' => $this->pivot->updated_at?->format('Y-m-d H:i'),
         ];
         $this->relations = [
             'doctor' => new DoctorResource($this),

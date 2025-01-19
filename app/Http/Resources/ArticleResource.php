@@ -23,8 +23,8 @@ class ArticleResource extends BaseResource
             'is_active' => $this->is_active,
             'active_status' => $this->active_status,
             'active_class' => $this->active_class,
-            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i'),
         ];
         $this->full = [
             'title_locales' => $this->getTranslations('title'),
@@ -32,7 +32,7 @@ class ArticleResource extends BaseResource
             'content' => $this->content,
             'views' => $this->views,
             'likes' => $this->likes,
-            'published_at' => $this->published_at?->format('Y-m-d H:i:s'),
+            'published_at' => $this->published_at?->format('Y-m-d H:i'),
         ];
         $this->relations = [
             'main_image' => $this->relationLoaded('mainImage') ? new FileResource($this->mainImage) : null,

@@ -70,7 +70,7 @@ abstract class BaseRepository implements BaseContract
                     'data' => [
                         'user' => auth()->user()?->name,
                         'url' => '',
-                        'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                        'created_at' => Carbon::now()->format('Y-m-d H:i')
                     ]]
             );
             if (method_exists($this, 'afterCreate')) {
@@ -259,7 +259,7 @@ abstract class BaseRepository implements BaseContract
                 'data' => [
                     'user' => auth()->user()?->name,
                     'url' => '',
-                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    'created_at' => Carbon::now()->format('Y-m-d H:i')
                 ]]
         );
         return $model->delete();

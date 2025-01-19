@@ -28,8 +28,8 @@ class DoctorResource extends BaseResource
                 'value' => $this->request_status?->value,
                 'label' => $this->request_status?->label(),
             ],
-            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i'),
         ];
         $this->full = [
             'university' => $this->university,

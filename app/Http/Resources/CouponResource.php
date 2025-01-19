@@ -20,13 +20,13 @@ class CouponResource extends BaseResource
             'code' => $this->code,
         ];
         $this->mini = [
-            'valid_from' => $this->valid_from?->format('Y-m-d H:i:s'),
-            'valid_to' => $this->valid_to?->format('Y-m-d H:i:s'),
+            'valid_from' => $this->valid_from?->format('Y-m-d H:i'),
+            'valid_to' => $this->valid_to?->format('Y-m-d H:i'),
             'is_active' => $this->is_active,
             'active_status' => $this->active_status,
             'active_class' => $this->active_class,
-            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i'),
         ];
         $this->full = [
             'description' => $this->description,

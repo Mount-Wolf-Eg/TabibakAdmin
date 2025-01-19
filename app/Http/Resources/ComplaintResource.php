@@ -21,8 +21,8 @@ class ComplaintResource extends BaseResource
             'description' => $this->description,
         ];
         $this->mini = [
-            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i'),
         ];
         $this->full = [
             'type' => [

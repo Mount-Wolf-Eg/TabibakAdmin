@@ -29,8 +29,8 @@ class PaymentResource extends BaseResource
                 'value' => $this->payment_method->value,
                 'label' => $this->payment_method->label(),
             ],
-            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i'),
         ];
         $this->full = [
             'metadata' => $this->metadata,

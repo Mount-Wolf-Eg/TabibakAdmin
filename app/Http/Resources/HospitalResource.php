@@ -20,8 +20,8 @@ class HospitalResource extends BaseResource
             'name' => $this->name,
         ];
         $this->mini = [
-            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i'),
         ];
         $this->full = [
             'start_date' => $this->pivot?->start_date,

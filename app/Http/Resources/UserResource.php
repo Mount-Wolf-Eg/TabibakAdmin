@@ -36,8 +36,8 @@ class UserResource extends BaseResource
             ]),
             'is_active' => $this->is_active,
             'is_verified' => $this->is_verified,
-            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i'),
         ];
         $this->relations = [
             'patient' => $this->relationLoaded('patient') ? new PatientResource($this->patient) : null,

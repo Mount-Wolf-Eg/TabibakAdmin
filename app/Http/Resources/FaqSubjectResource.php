@@ -23,8 +23,8 @@ class FaqSubjectResource extends BaseResource
             'is_active' => $this->is_active,
             'active_status' => $this->active_status,
             'active_class' => $this->active_class,
-            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i'),
         ];
         $this->full = [
         ];

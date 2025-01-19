@@ -22,7 +22,7 @@ class ContactResource extends BaseResource
         $this->mini = [
             'email' => $this->email,
             'message' => $this->message,
-            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at?->format('Y-m-d H:i'),
         ];
         $this->full = [
         ];

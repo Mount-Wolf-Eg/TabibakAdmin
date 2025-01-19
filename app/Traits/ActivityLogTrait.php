@@ -74,7 +74,7 @@ trait ActivityLogTrait{
                     'data' => [
                         'user' => auth()->user()?->name,
                         'url' => '',
-                        'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                        'created_at' => Carbon::now()->format('Y-m-d H:i')
                     ]
                 ]
             );
