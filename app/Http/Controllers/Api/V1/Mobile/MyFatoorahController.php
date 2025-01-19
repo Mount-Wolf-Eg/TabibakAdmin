@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile;
 
+use App\Constants\ConsultationStatusConstants;
 use App\Constants\PaymentStatusConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Consultation;
@@ -45,11 +46,11 @@ class MyFatoorahController extends Controller
 
     /**
      * Redirect to MyFatoorah Invoice URL
-     * Provide the index method with the order id and (payment method id or session id)
+     * Provide the getUrl method with the order id and (payment method id or session id)
      *
      * @return Response
      */
-    public function index()
+    public function getUrl()
     {
         $validatedData = request()->validate([
             'oid' => 'required|exists:consultations,id',
@@ -128,7 +129,12 @@ class MyFatoorahController extends Controller
                 $order?->update(['is_active' => true]);
                 $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
 
-                $this->notificationService->newConsultation($order);
+                if ($order->status == ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value)
+                {
+                    $this->notificationService->patientAcceptDoctorOffer($order);
+                } else {
+                    $this->notificationService->newConsultation($order);
+                }
             } else {
                 info(json_encode($data));
             }
