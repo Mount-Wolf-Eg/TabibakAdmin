@@ -150,27 +150,23 @@ trait ConsultationScopesTrait
 
     public function scopeOfNextConsultation($query)
     {
-        // return $query->when(
-        //     $query->has('doctorScheduleDayShift'), // Check if the relationship exists
-        //     function ($query) {
-                $query->where(function ($query) {
-                    $query->whereHas('doctorScheduleDayShift', function ($query) {
-                        $query->whereHas('day', function ($dayQuery) {
-                            $dayQuery->where('date', '>=', now()->format('Y-m-d')); // Filter by date
-                        })
-                            ->whereRaw("
-                        CONCAT(
-                            (SELECT `date` FROM doctor_schedule_days WHERE id = doctor_schedule_day_shifts.doctor_schedule_day_id), 
-                            ' ', 
-                            from_time
-                        ) > ?
-                    ", [now()->format('Y-m-d H:i')]);
-                    })->orWhereHas('replies', function ($query) {
-                        $query->where('pivot.status', ConsultationPatientStatusConstants::APPROVED->value)->whereDate('doctor_set_consultation_at', now());
-                    });
-                });
-        //     }
-        // );
+        $query->where(function ($query) {
+            $query->whereHas('doctorScheduleDayShift', function ($query) {
+                $query->whereHas('day', function ($dayQuery) {
+                    $dayQuery->where('date', '>=', now()->format('Y-m-d')); // Filter by date
+                })
+                    ->whereRaw("
+                CONCAT(
+                    (SELECT `date` FROM doctor_schedule_days WHERE id = doctor_schedule_day_shifts.doctor_schedule_day_id), 
+                    ' ', 
+                    from_time
+                ) > ?
+            ", [now()->format('Y-m-d H:i')]);
+            })->orWhereHas('replies', function ($query) {
+                $query->where('consultation_doctor_replies.status', ConsultationPatientStatusConstants::APPROVED->value)
+                    ->whereDate('consultation_doctor_replies.doctor_set_consultation_at', now());
+            });
+        });
     }
 
     //---------------------Scopes-------------------------------------
