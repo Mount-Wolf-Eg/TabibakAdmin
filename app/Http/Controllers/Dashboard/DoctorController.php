@@ -145,6 +145,7 @@ class DoctorController extends BaseWebController
         if ($doctor->request_status?->is(DoctorRequestStatusConstants::PENDING))
         {
             $this->contract->update($doctor, ['request_status' => DoctorRequestStatusConstants::APPROVED->value]);
+            $this->contract->toggleField($doctor, 'is_active');
         }else{
             return $this->redirectBack()->with('error', __('messages.errors.doctor_request_pending'));
         }
