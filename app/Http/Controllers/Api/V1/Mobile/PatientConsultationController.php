@@ -56,7 +56,7 @@ class PatientConsultationController extends BaseApiController
     {
         try {
             if (!$consultation->isMineAsPatient())
-                abort(403, __('messages.not_allowed'));
+                abort(422, __('messages.not_allowed'));
             $this->relations = array_merge($this->relations, ['attachments', 'vendors', 'patient.diseases']);
             return $this->respondWithModel($consultation);
         } catch (Exception $e) {

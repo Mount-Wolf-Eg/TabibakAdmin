@@ -79,7 +79,7 @@ class ConsultationRequest extends FormRequest
             }
             if (($patientCount && !request('patient_id')) || $relativesCount)
             {
-                abort(403, __('messages.new_urgent_consultation_validation'));
+                abort(422, __('messages.new_urgent_consultation_validation'));
             }
         }
     }

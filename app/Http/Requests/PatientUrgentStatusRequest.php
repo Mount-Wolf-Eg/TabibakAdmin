@@ -28,7 +28,7 @@ class PatientUrgentStatusRequest extends FormRequest
         {
             $reply = $consultation->replies->where('id', $doctorId)->first()?->pivot;
             if (!$reply) {
-                abort(403, __('messages.patient_change_consultation_reply_status_validation',
+                abort(422, __('messages.patient_change_consultation_reply_status_validation',
                     [
                         'status' => $consultation->status->label(),
                         'reply' => ''
@@ -36,7 +36,7 @@ class PatientUrgentStatusRequest extends FormRequest
                 ));
             }
             $replyStatus = ConsultationPatientStatusConstants::tryFrom($reply->status);
-            abort(403, __('messages.patient_change_consultation_reply_status_validation',
+            abort(422, __('messages.patient_change_consultation_reply_status_validation',
                 [
                     'status' => $consultation->status->label(),
                     'reply' => $replyStatus->label()
