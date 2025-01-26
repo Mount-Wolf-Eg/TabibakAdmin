@@ -119,14 +119,15 @@ class MyFatoorahController extends Controller
         try {
             $paymentId = request('paymentId');
 
-            $mfObj     = new MyFatoorahPaymentStatus($this->mfConfig);
-            $data      = $mfObj->getPaymentStatus($paymentId, 'PaymentId');
+            $mfObj  = new MyFatoorahPaymentStatus($this->mfConfig);
+            $data   = $mfObj->getPaymentStatus($paymentId, 'PaymentId');
 
-            $status    = $this->getStatus($data->InvoiceStatus);
+            $status = $this->getStatus($data->InvoiceStatus);
+
+            $order  = Consultation::withoutGlobalScope('isActive')->where('id', $data->CustomerReference)->first();
+            $order?->update(['is_active' => true]);
 
             if ($status) {
-                $order = Consultation::withoutGlobalScope('isActive')->where('id', $data->CustomerReference)->first();
-                $order?->update(['is_active' => true]);
                 $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::COMPLETED->value]);
 
                 if ($order->status == ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value)
@@ -136,6 +137,7 @@ class MyFatoorahController extends Controller
                     $this->notificationService->newConsultation($order);
                 }
             } else {
+                $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
                 info(json_encode($data));
             }
         } catch (Exception $ex) {
