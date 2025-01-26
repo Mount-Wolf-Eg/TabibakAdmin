@@ -127,7 +127,7 @@ class MyFatoorahController extends Controller
             if ($status) {
                 $order = Consultation::withoutGlobalScope('isActive')->where('id', $data->CustomerReference)->first();
                 $order?->update(['is_active' => true]);
-                $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
+                $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::COMPLETED->value]);
 
                 if ($order->status == ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value)
                 {
