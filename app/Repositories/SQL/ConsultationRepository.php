@@ -43,7 +43,7 @@ class ConsultationRepository extends BaseRepository implements ConsultationContr
             $paymentData = [
                 'payer_id' => $model->patient->user_id,
                 'beneficiary_id' => $model->doctor?->user_id,
-                'amount' => $model->amount,
+                'amount' => $model->amount + 5, // TODO: handle the extra amount
                 'transaction_id' => rand(1000000000, 9999999999),
                 'currency_id' => 1,
                 'payment_method' => PaymentMethodConstants::CREDIT_CARD->value,

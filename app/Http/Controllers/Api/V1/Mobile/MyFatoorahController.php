@@ -98,7 +98,7 @@ class MyFatoorahController extends Controller
 
         return [
             'CustomerName'      => $order->patient?->user?->name,
-            'InvoiceValue'      => $order->amount + 5,
+            'InvoiceValue'      => $order->amount + 5, // TODO: handle the extra amount
             'CallBackUrl'       => $callbackURL . '?status=success',
             'ErrorUrl'          => $callbackURL . '?status=fail',
             'Language'          => 'ar',
