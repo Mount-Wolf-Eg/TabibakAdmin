@@ -72,7 +72,7 @@
             <div class="row row-cols-xxl-4 row-cols-1">
             <x-overview-card title="{{__('messages.doctors')}}" icon="bi bi-journal-plus" color="warning" count="{{$doctorsCount}}" />
             <x-overview-card title="{{__('messages.average_rating_per_doctor')}}" icon="bi bi-star-half" color="info" count="{{$averageRatingPerDoctor}}" />
-            <x-overview-card title="{{__('messages.average_number_of_consultations_per_doctor')}}" icon="bi bi-journal-plus" color="success" count="{{$averageNumberOfConsultationsPerDoctor}}" />
+            <x-overview-card title="{{__('messages.average_number_of_consultations_per_doctor')}}" icon="bi bi-journal-plus" color="success" count="{{ number_format($averageNumberOfConsultationsPerDoctor, 1)}}" />
             <x-overview-card title="{{__('messages.average_consultation_duration_per_doctor')}}" icon="bi bi-journal-plus" color="dark" count="{{$averageConsultationDurationPerDoctor}}" />
                    
              </div>
@@ -92,7 +92,7 @@
                 @foreach($topThreeDoctors as $doctor)
                     <tr>
                         <td>{{ $doctor->user->name }}</td>
-                        <td>{{ $doctor->rates_avg_value }}</td>
+                        <td>{{ number_format($doctor->rates_avg_value, 1) }}</td>
                         <td>{{ $doctor->medicalSpecialities->first()?->name }}</td>
                         <td>{{ $doctor->consultations_count }}</td>
                     </tr>
