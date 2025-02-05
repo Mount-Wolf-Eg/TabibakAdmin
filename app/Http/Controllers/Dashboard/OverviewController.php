@@ -87,6 +87,11 @@ class OverviewController extends Controller
             ->take(3)
             ->get();
 
+        $mostBookedDoctors = Doctor::withCount('consultations')
+            ->orderBy('consultations_count', 'desc')
+            ->take(10) // Limit to top 10 for better visualization
+            ->get();
+
         return view('dashboard.home.admin-overview', compact([
             'patientsCount',
             'doctorsCount',
@@ -111,7 +116,8 @@ class OverviewController extends Controller
             'averageRatingPerDoctor',
             'averageNumberOfConsultationsPerDoctor',
             'averageConsultationDurationPerDoctor',
-            'topThreeDoctors'
+            'topThreeDoctors',
+            'mostBookedDoctors'
         ]));
     }
 
