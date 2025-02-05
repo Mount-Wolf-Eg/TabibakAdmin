@@ -80,13 +80,11 @@ class OverviewController extends Controller
 
         $averageConsultationDurationPerDoctor = 3;
 
-        $topThreeDoctors = Doctor::with(['medicalSpecialities' => function ($query) {
-            $query->take(1);
-        }])
+        $topThreeDoctors = Doctor::with(['medicalSpecialities'])
             ->withAvg('rates', 'value')
             ->withCount('consultations')
             ->orderBy('rates_avg_value', 'desc')
-            ->take(5)
+            ->take(3)
             ->get();
 
         return view('dashboard.home.admin-overview', compact([
