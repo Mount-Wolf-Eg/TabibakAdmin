@@ -239,7 +239,7 @@
                 borderColor: '#f1f1f1',
             },
             xaxis: {
-                categories: @json($topMedicalSpecialty->pluck('user.name')),
+                categories: @json($topMedicalSpecialty->pluck('name')),
                 // title: {
                 //     text: 'Speciality Insights',
                 //     align: 'left',
