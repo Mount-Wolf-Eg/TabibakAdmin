@@ -34,8 +34,7 @@
             <table class="table table-nowrap">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{{__('messages.request_id')}}</th>
+                     <th scope="col">{{__('messages.request_id')}}</th>
                     <th scope="col">{{__('messages.reporting_date')}}</th>
                     <th scope="col">{{__('messages.patient_name')}}</th>
                     <th scope="col">{{__('messages.doctor_name')}}</th>
@@ -52,9 +51,7 @@
                 <tbody>
                 @foreach($resources as $resource)
                     <tr id="role{{$resource->id}}Row">
-                        <th scope="row">
-                            <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
-                        </th>
+                       
                         <td><a href="{{route('consultations.show', $resource->id)}}">#{{$resource->id}}</a></td>
                         <td>{{$resource->created_at->format('Y-m-d h:i A')}}</td>
                         <td>{{$resource->patient?->user?->name}}</td>
