@@ -232,14 +232,14 @@
                 enabled: false
             },
             series: [{
-                data: [380, 430, 450, 475, 550, 584, 780, 1100, 1220, 1365]
+                data: @json($topMedicalSpecialty->pluck('consultations_count'))
             }],
             colors: chartBarColors,
             grid: {
                 borderColor: '#f1f1f1',
             },
             xaxis: {
-                categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan', 'United States', 'China', 'Germany'],
+                categories: @json($topMedicalSpecialty->pluck('user.name')),
                 // title: {
                 //     text: 'Speciality Insights',
                 //     align: 'left',

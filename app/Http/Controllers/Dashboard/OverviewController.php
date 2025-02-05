@@ -9,6 +9,7 @@ use App\Constants\VendorTypeConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Consultation;
 use App\Models\Doctor;
+use App\Models\MedicalSpeciality;
 use App\Models\User;
 use App\Models\Vendor;
 use App\Repositories\Contracts\ConsultationContract;
@@ -87,6 +88,12 @@ class OverviewController extends Controller
             ->take(3)
             ->get();
 
+        $topMedicalSpecialty = MedicalSpeciality::withCount('consultations')
+            ->orderBy('consultations_count', 'desc')
+            ->having('consultations_count', '>', 0)
+            ->take(10) // Limit to top 10 for better visualization
+            ->get()->sortBy('consultations_count');
+
         $mostBookedDoctors = Doctor::withCount('consultations')
             ->orderBy('consultations_count', 'desc')
             ->having('consultations_count', '>', 0)
@@ -118,6 +125,7 @@ class OverviewController extends Controller
             'averageNumberOfConsultationsPerDoctor',
             'averageConsultationDurationPerDoctor',
             'topThreeDoctors',
+            'topMedicalSpecialty',
             'mostBookedDoctors'
         ]));
     }
