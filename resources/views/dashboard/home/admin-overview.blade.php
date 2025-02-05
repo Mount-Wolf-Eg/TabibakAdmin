@@ -89,24 +89,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <td>Moustafa</td>
-                <td>4.69</td>
-                <td>Neurology</td>
-                <td>100</td>
-                </tr>
-                <tr>
-                <td>Ahmed</td>
-                <td>4.7</td>
-                <td>Dentistry</td>
-                <td>99</td>
-                </tr>
-                <tr>
-                <td>Mohamed</td>
-                <td>4.8</td>
-                <td>Cardiology</td>
-                <td>95</td>
-                </tr>
+                @foreach($topThreeDoctors as $doctor)
+                    <tr>
+                        <td>{{ $doctor->user->name }}</td>
+                        <td>{{ $doctor->rates_avg_value }}</td>
+                        <td>{{ $doctor->medicalSpecialities->first()?->name }}</td>
+                        <td>{{ $doctor->consultations_count }}</td>
+                    </tr>
+                @endforeach
             </tbody>
             </table>
         </div>
@@ -127,6 +117,7 @@
     <script src="{{ URL::asset('assets/libs/prismjs/prism.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.js') }}"></script>
 @endsection
+
 @push('scripts')
     <script src="{{ URL::asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <!-- flatpickr.js -->
@@ -197,6 +188,7 @@
             $("#DeleteThisRecord").prop("href", locationURL);
         }
     </script>
+
     <script>
  
         var chartPieBasicColors = getChartColorsArray("simple_pie_chart");

@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Constants\ConsultationContactTypeConstants;
+use App\Constants\ConsultationStatusConstants;
+use App\Constants\ConsultationTypeConstants;
 use App\Constants\VendorTypeConstants;
 use App\Http\Controllers\Controller;
+use App\Models\Consultation;
+use App\Models\Doctor;
 use App\Models\User;
 use App\Models\Vendor;
 use App\Repositories\Contracts\ConsultationContract;
@@ -21,9 +26,9 @@ class OverviewController extends Controller
 
     public function __invoke()
     {
-        if(auth()->user()->vendor){
+        if (auth()->user()->vendor) {
             return $this->vendorOverview();
-        }else{
+        } else {
             return $this->adminOverview();
         }
     }
@@ -33,9 +38,9 @@ class OverviewController extends Controller
         $totalConsultations = $this->consultationContract->freshRepo()
             ->countWithFilters(['mineAsVendor' => true]);
         $totalApprovedConsultations = $this->consultationContract->freshRepo()
-            ->countWithFilters(['mineAsVendor' => true, 'vendorAcceptedStatus'=> true]);
+            ->countWithFilters(['mineAsVendor' => true, 'vendorAcceptedStatus' => true]);
         $totalRejectedConsultations = $this->consultationContract->freshRepo()
-            ->countWithFilters(['mineAsVendor' => true, 'vendorRejectedStatus'=> true]);
+            ->countWithFilters(['mineAsVendor' => true, 'vendorRejectedStatus' => true]);
         return view('dashboard.home.vendor-overview', compact([
             'totalConsultations',
             'totalApprovedConsultations',
@@ -56,21 +61,33 @@ class OverviewController extends Controller
         $totalTransactions = 0;
         $totalRevenues = 0;
 
-        $totalAppointments=0;
-        $totalPendingBookings=0;
-        $totalCompletedBookings=0;
-        $totalCanceledBookings=0;
-        $totalRescheduled=0;
-        $AverageDurationOfConsultation=0;
-        $totalVideoConsultationsCompleted=0;
-        $totalAudioConsultationComplete=0;
-        $totalChatConsultationComplete=0;
-        $totalNewPatients=0;
+        $totalAppointments = Consultation::where('type', ConsultationTypeConstants::WITH_APPOINTMENT)->count();
+        $totalPendingBookings = Consultation::where('status', ConsultationStatusConstants::PENDING)->count();
+        $totalCompletedBookings = Consultation::where('status', ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT)->count();
+        $totalCanceledBookings = Consultation::whereIn('status', [ConsultationStatusConstants::PATIENT_CANCELLED, ConsultationStatusConstants::DOCTOR_CANCELLED])->count();
+        $totalRescheduled = Consultation::whereIn('status', [ConsultationStatusConstants::NEEDS_RESCHEDULE])->count();
 
-        $averageRatingPerDoctor=0;
-        $averageNumberOfConsultationsPerDoctor=0;
-        $averageConsultationDurationPerDoctor=0;
+        $AverageDurationOfConsultation = 3;
 
+        $totalVideoConsultationsCompleted = Consultation::where('status', ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT)->where('contact_type', ConsultationContactTypeConstants::VIDEO)->count();
+        $totalAudioConsultationComplete = Consultation::whereIn('status', [ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT])->where('contact_type', ConsultationContactTypeConstants::AUDIO)->count();
+        $totalChatConsultationComplete = Consultation::whereIn('status', [ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT])->where('contact_type', ConsultationContactTypeConstants::CHAT)->count();
+
+        $totalNewPatients = User::query()->whereHas('patient')->count();
+
+        $averageRatingPerDoctor = Consultation::whereIn('status', [ConsultationStatusConstants::PATIENT_CANCELLED, ConsultationStatusConstants::DOCTOR_CANCELLED])->count();
+        $averageNumberOfConsultationsPerDoctor = Consultation::groupBy('doctor_id')->selectRaw('doctor_id, COUNT(*) as consultation_count')->get()->avg('consultation_count');
+
+        $averageConsultationDurationPerDoctor = 3;
+
+        $topThreeDoctors = Doctor::with(['medicalSpecialities' => function ($query) {
+            $query->take(1);
+        }])
+            ->withAvg('rates', 'value')
+            ->withCount('consultations')
+            ->orderBy('rates_avg_value', 'desc')
+            ->take(5)
+            ->get();
 
         return view('dashboard.home.admin-overview', compact([
             'patientsCount',
@@ -96,6 +113,7 @@ class OverviewController extends Controller
             'averageRatingPerDoctor',
             'averageNumberOfConsultationsPerDoctor',
             'averageConsultationDurationPerDoctor',
+            'topThreeDoctors'
         ]));
     }
 
@@ -106,7 +124,7 @@ class OverviewController extends Controller
         return response()->download($file, $request['file_name'], ['Content-Type' => 'text/plain']);
     }
 
-    private function getVendorCount ($typename)
+    private function getVendorCount($typename)
     {
         return Vendor::query()->whereHas('vendorType', function ($query) use ($typename) {
             $query->where('name->en', $typename);
