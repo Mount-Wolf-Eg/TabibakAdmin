@@ -88,9 +88,9 @@ class OverviewController extends Controller
             ->get();
 
         $mostBookedDoctors = Doctor::withCount('consultations')
-            ->orderBy('consultations_count', 'asc')
+            ->orderBy('consultations_count', 'desc')
             ->take(10) // Limit to top 10 for better visualization
-            ->get();
+            ->get()->sortBy('consultations_count');
 
         return view('dashboard.home.admin-overview', compact([
             'patientsCount',
