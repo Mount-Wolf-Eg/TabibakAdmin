@@ -89,7 +89,7 @@ class OverviewController extends Controller
 
         $mostBookedDoctors = Doctor::withCount('consultations')
             ->orderBy('consultations_count', 'desc')
-            ->where('consultations_count', '>', 0)
+            ->having('consultations_count', '>', 0)
             ->take(10) // Limit to top 10 for better visualization
             ->get()->sortBy('consultations_count');
 
