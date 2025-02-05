@@ -55,6 +55,23 @@ class OverviewController extends Controller
         $labsCount = $this->getVendorCount(VendorTypeConstants::LAB->value);
         $totalTransactions = 0;
         $totalRevenues = 0;
+
+        $totalAppointments=0;
+        $totalPendingBookings=0;
+        $totalCompletedBookings=0;
+        $totalCanceledBookings=0;
+        $totalRescheduled=0;
+        $AverageDurationOfConsultation=0;
+        $totalVideoConsultationsCompleted=0;
+        $totalAudioConsultationComplete=0;
+        $totalChatConsultationComplete=0;
+        $totalNewPatients=0;
+
+        $averageRatingPerDoctor=0;
+        $averageNumberOfConsultationsPerDoctor=0;
+        $averageConsultationDurationPerDoctor=0;
+
+
         return view('dashboard.home.admin-overview', compact([
             'patientsCount',
             'doctorsCount',
@@ -66,6 +83,19 @@ class OverviewController extends Controller
             'labsCount',
             'totalTransactions',
             'totalRevenues',
+            'totalAppointments',
+            'totalPendingBookings',
+            'totalCompletedBookings',
+            'totalCanceledBookings',
+            'totalRescheduled',
+            'AverageDurationOfConsultation',
+            'totalVideoConsultationsCompleted',
+            'totalAudioConsultationComplete',
+            'totalChatConsultationComplete',
+            'totalNewPatients',
+            'averageRatingPerDoctor',
+            'averageNumberOfConsultationsPerDoctor',
+            'averageConsultationDurationPerDoctor',
         ]));
     }
 
