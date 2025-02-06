@@ -102,10 +102,10 @@ class OverviewController extends Controller
             ->take(10) // Limit to top 10 for better visualization
             ->get()->sortBy('consultations_count');
 
-        $topConsultationLocation = City::withCount(['users.doctor.consultations'])
-            ->whereHas('users', function ($query) {
-                $query->whereHas('doctor');
-            })
+        $topConsultationLocation = City::whereHas('users.doctor', function ($query) {
+            $query->withCount('consultations');
+        })
+            ->withCount(['users.doctor.consultations'])
             ->orderBy('consultations_count', 'desc')
             ->where('consultations_count', '>', 0)
             ->take(10)
