@@ -37,7 +37,6 @@
             <x-overview-card title="{{__('messages.total_completed_bookings')}}" icon="bi bi-calendar-plus" color="success" count="{{$totalCompletedBookings}}" />
             <x-overview-card title="{{__('messages.total_canceled_bookings')}}" icon="bi bi-person-x" color="dark" count="{{$totalCanceledBookings}}" />
             <x-overview-card title="{{__('messages.total_rescheduled')}}" icon="bi bi-card-list" color="primary" count="{{$totalRescheduled}}" />
-            <!-- <x-overview-card title="{{__('messages.Average_duration_of_consultation')}}" icon="bi bi-clock-history" color="secondary" count="{{$AverageDurationOfConsultation}}" /> -->
             <x-overview-card title="{{__('messages.total_video_consultations_completed')}}" icon="bi bi-camera-video" color="danger" count="{{$totalVideoConsultationsCompleted}}" />
             <x-overview-card title="{{__('messages.total_audio_consultation_complete')}}" icon="bi bi-soundwave" color="warning" count="{{$totalAudioConsultationComplete}}" />
             <x-overview-card title="{{__('messages.total_chat_consultation_complete')}}" icon="bi bi-chat-left-quote" color="secondary" count="{{$totalChatConsultationComplete}}" />
@@ -73,7 +72,6 @@
             <x-overview-card title="{{__('messages.doctors')}}" icon="bi bi-journal-plus" color="warning" count="{{$doctorsCount}}" />
             <x-overview-card title="{{__('messages.average_rating_per_doctor')}}" icon="bi bi-star-half" color="info" count="{{ number_format($averageRatingPerDoctor, 1) }}" />
             <x-overview-card title="{{__('messages.average_number_of_consultations_per_doctor')}}" icon="bi bi-journal-plus" color="success" count="{{ number_format($averageNumberOfConsultationsPerDoctor, 1)}}" />
-            <!-- <x-overview-card title="{{__('messages.average_consultation_duration_per_doctor')}}" icon="bi bi-journal-plus" color="dark" count="{{$averageConsultationDurationPerDoctor}}" /> -->
 
         </div>
     </div>
