@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Consultation;
 use App\Models\Doctor;
 use App\Models\MedicalSpeciality;
+use App\Models\Rate;
 use App\Models\User;
 use App\Models\Vendor;
 use App\Repositories\Contracts\ConsultationContract;
@@ -76,7 +77,7 @@ class OverviewController extends Controller
 
         $totalNewPatients = User::query()->whereHas('patient')->count();
 
-        $averageRatingPerDoctor = Consultation::whereIn('status', [ConsultationStatusConstants::PATIENT_CANCELLED, ConsultationStatusConstants::DOCTOR_CANCELLED])->count();
+        $averageRatingPerDoctor = Rate::where('rateable_type', 'Doctor')->avg('value');
         $averageNumberOfConsultationsPerDoctor = Consultation::groupBy('doctor_id')->selectRaw('doctor_id, COUNT(*) as consultation_count')->get()->avg('consultation_count');
 
         $averageConsultationDurationPerDoctor = 3;
