@@ -71,7 +71,7 @@
     <div class="col-xxl-12 col-lg-6 order-first">
         <div class="row row-cols-xxl-4 row-cols-1">
             <x-overview-card title="{{__('messages.doctors')}}" icon="bi bi-journal-plus" color="warning" count="{{$doctorsCount}}" />
-            <x-overview-card title="{{__('messages.average_rating_per_doctor')}}" icon="bi bi-star-half" color="info" count="{{$averageRatingPerDoctor}}" />
+            <x-overview-card title="{{__('messages.average_rating_per_doctor')}}" icon="bi bi-star-half" color="info" count="{{ number_format($averageRatingPerDoctor, 1) }}" />
             <x-overview-card title="{{__('messages.average_number_of_consultations_per_doctor')}}" icon="bi bi-journal-plus" color="success" count="{{ number_format($averageNumberOfConsultationsPerDoctor, 1)}}" />
             <x-overview-card title="{{__('messages.average_consultation_duration_per_doctor')}}" icon="bi bi-journal-plus" color="dark" count="{{$averageConsultationDurationPerDoctor}}" />
 
