@@ -70,7 +70,7 @@ class OverviewController extends Controller
         $totalCanceledBookings = Consultation::whereIn('status', [ConsultationStatusConstants::PATIENT_CANCELLED, ConsultationStatusConstants::DOCTOR_CANCELLED])->count();
         $totalRescheduled = Consultation::whereIn('status', [ConsultationStatusConstants::NEEDS_RESCHEDULE])->count();
 
-        $AverageDurationOfConsultation = 3;
+        // $AverageDurationOfConsultation = 3;
 
         $totalVideoConsultationsCompleted = Consultation::where('status', ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT)->where('contact_type', ConsultationContactTypeConstants::VIDEO)->count();
         $totalAudioConsultationComplete = Consultation::whereIn('status', [ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT])->where('contact_type', ConsultationContactTypeConstants::AUDIO)->count();
@@ -81,7 +81,7 @@ class OverviewController extends Controller
         $averageRatingPerDoctor = Rate::where('rateable_type', 'Doctor')->avg('value');
         $averageNumberOfConsultationsPerDoctor = Consultation::groupBy('doctor_id')->selectRaw('doctor_id, COUNT(*) as consultation_count')->get()->avg('consultation_count');
 
-        $averageConsultationDurationPerDoctor = 3;
+        // $averageConsultationDurationPerDoctor = 3;
 
         $topThreeDoctors = Doctor::with(['medicalSpecialities'])
             ->withAvg('rates', 'value')
