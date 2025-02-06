@@ -103,7 +103,7 @@ class OverviewController extends Controller
             ->get()->sortBy('consultations_count');
 
         $topConsultationLocation = City::withCount(['users as consultations_count' => function ($query) {
-            $query->whereHas('doctor', function ($q) {
+            $query->whereHas('patient', function ($q) {
                 $q->withCount('consultations');
             });
         }])
