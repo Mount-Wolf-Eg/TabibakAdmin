@@ -192,12 +192,12 @@
     var chartPieBasicColors = getChartColorsArray("simple_pie_chart");
     if (chartPieBasicColors) {
         var options = {
-            series: [44, 55, 13, 43, 22],
+            series: @json(topConsultationLocation->pluck('consultations_count')),
             chart: {
                 height: 300,
                 type: 'pie',
             },
-            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+            labels: @json(topConsultationLocation->pluck('name')),
             legend: {
                 position: 'bottom'
             },
