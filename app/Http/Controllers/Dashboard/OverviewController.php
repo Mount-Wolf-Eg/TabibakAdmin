@@ -104,8 +104,8 @@ class OverviewController extends Controller
 
         $topConsultationLocation = City::withCount(['users as consultations_count' => function ($query) {
             $query->whereHas('doctor', function ($q) {
-                $q->withCount('consultations');
-            })->withSum('doctor.consultations', 'id'); // Summing consultations for each city
+                $q->withCount('consultations'); // Ensure the 'doctor' relationship is defined in User model
+            });
         }])
             ->having('consultations_count', '>', 0)
             ->orderByDesc('consultations_count')
