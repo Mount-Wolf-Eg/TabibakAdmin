@@ -17,6 +17,7 @@ class Permission extends BasePermission
     protected array $filters = [];
 
     public const PERMISSIONS_NOT_APPLIED = true;
+    
     public static function defaultPermissions(): array
     {
         self::$permissions = [];

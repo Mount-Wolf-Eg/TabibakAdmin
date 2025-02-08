@@ -30,6 +30,7 @@ use App\Http\Controllers\Dashboard\MedicalSpecialityController;
 use App\Http\Controllers\Auth\Passwords\ResetPasswordController;
 use App\Http\Controllers\Auth\Passwords\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\FeaturedListController;
+use App\Http\Controllers\Dashboard\ReferralController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,10 +101,9 @@ Route::group([
         Route::resource('coupons', CouponController::class);
         Route::put('coupons/{coupon}/change-activation', [CouponController::class, 'changeActivation'])->name('coupons.active');
         Route::resource('consultations', ConsultationController::class)->only(['index', 'show', 'destroy']);
-        Route::put('consultations/{consultation}/vendor-accept', [ConsultationController::class, 'vendorAccept'])
-            ->name('consultations.vendor-accept');
-        Route::put('consultations/{consultation}/vendor-reject', [ConsultationController::class, 'vendorReject'])
-            ->name('consultations.vendor-reject');
+        Route::resource('referrals', ReferralController::class)->only(['index', 'show', 'destroy']);
+        Route::put('consultations/{consultation}/vendor-accept', [ConsultationController::class, 'vendorAccept'])->name('consultations.vendor-accept');
+        Route::put('consultations/{consultation}/vendor-reject', [ConsultationController::class, 'vendorReject'])->name('consultations.vendor-reject');
         Route::resource('payments', PaymentController::class)->only(['index', 'destroy']);
         Route::get('featured-list', [FeaturedListController::class, 'edit'])->name('featured-list.edit');
         Route::put('featured-list', [FeaturedListController::class, 'update'])->name('featured-list.update');
