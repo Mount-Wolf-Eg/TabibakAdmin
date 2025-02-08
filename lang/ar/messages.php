@@ -146,6 +146,7 @@ return [
     'top_performing_doctors'=>'أفضل الأطباء أداءً',
     'doctor_name'=>'اسم الطبيب',
     'session_status'=>'حاله الجلسه',
+    'session_type'=>'نوع الجلسه',
     'refer_to_doctor'=>'إحاله إلى طبيب',
     'rating'=>'التقييم',
     'speciaity'=>'التخصص',

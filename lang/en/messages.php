@@ -146,6 +146,7 @@ return [
     'top_performing_doctors'=>'Top Performing Doctors',
     'doctor_name'=>'Doctor Name',
     'session_status'=>'Session Status',
+    'session_type'=>'Session Type',
     'refer_to_doctor'=>'Referred to doctor',
     'rating'=>'Rating',
     'speciaity'=>'Speciaity',

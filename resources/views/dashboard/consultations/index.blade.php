@@ -39,8 +39,9 @@
                     <th scope="col">{{__('messages.patient_name')}}</th>
                     <th scope="col">{{__('messages.doctor_name')}}</th>
                     <th scope="col">{{__('messages.doctor_phone')}}</th>
-                    <th scope="col">{{__('messages.urgency_level')}}</th>
-                    <th scope="col">{{__('messages.referral_reason')}}</th>
+                    <th scope="col">{{__('messages.session_type')}}</th>
+                    <th scope="col">{{__('messages.session_status')}}</th>
+                    <!-- <th scope="col">{{__('messages.referral_reason')}}</th> -->
                     <th scope="col">{{__('messages.actions')}}</th>
                     @if(auth()->user()?->vendor)
                         <th scope="col">{{__('messages.vendor_status')}}</th>
@@ -58,7 +59,8 @@
                         <td>{{$resource->doctor?->user?->name}}</td>
                         <td>{{$resource->doctor?->user?->phone}}</td>
                         <td>{{$resource->type?->label()}}</td>
-                        <td>{{$resource->transfer_reason}}</td>
+                        <td>session status</td>
+                        <!-- <td>{{$resource->transfer_reason}}</td> -->
                         @include('dashboard.partials.__table-actions', ['resource' => $resource, 'disableEdit' => true,
                         'disableDelete' => !auth()->user()->can('delete-consultation'),
                         'route' => 'consultations', 'hideActive' => true, 'showModel' => false])
