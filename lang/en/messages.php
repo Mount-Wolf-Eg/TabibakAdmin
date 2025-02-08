@@ -145,6 +145,8 @@ return [
     'average_consultation_duration_per_doctor'=>'Average Consultation Duration Per Doctor',
     'top_performing_doctors'=>'Top Performing Doctors',
     'doctor_name'=>'Doctor Name',
+    'session_status'=>'Session Status',
+    'refer_to_doctor'=>'Referred to doctor',
     'rating'=>'Rating',
     'speciaity'=>'Speciaity',
     'no_of_sessions'=>'No. of Sessions',

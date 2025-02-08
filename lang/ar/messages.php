@@ -145,6 +145,8 @@ return [
     'average_consultation_duration_per_doctor'=>'متوسط مدة الاستشارة لكل طبيب',
     'top_performing_doctors'=>'أفضل الأطباء أداءً',
     'doctor_name'=>'اسم الطبيب',
+    'session_status'=>'حاله الجلسه',
+    'refer_to_doctor'=>'إحاله إلى طبيب',
     'rating'=>'التقييم',
     'speciaity'=>'التخصص',
     'no_of_sessions'=>'عدد الجلسات',
