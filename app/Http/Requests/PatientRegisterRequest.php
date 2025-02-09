@@ -37,7 +37,7 @@ class PatientRegisterRequest extends FormRequest
             'gender' => config('validations.integer.req').'|in:'. implode(',', UserGenderConstants::values()),
             'national_id' => config('validations.integer.req').'|unique:patients,national_id',
             // 'date_of_birth' => config('validations.date.req'),
-            'date_of_birth' => sprintf(config('validations.date.req_after'), '1989-12-31'),
+            'date_of_birth' => sprintf(config('validations.date.req_after'), '1960-12-31'),
             'phone' => config('validations.phone.req').'|unique:users,phone',
             'city_id' => sprintf(config('validations.model.req'), 'cities'),
             'image' => sprintf(config('validations.model.null'), 'files')
