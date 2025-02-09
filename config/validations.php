@@ -73,8 +73,8 @@ return [
         'null' => 'nullable|date_format:H:i'
     ],
     'integer' => [
-        'req' => 'required|integer|min:0|max:1000000000',
-        'null' => 'nullable|integer|min:0|max:1000000000',
+        'req' => 'required|integer|min:0',
+        'null' => 'nullable|integer|min:0',
     ],
     'tiny_int' => [
         'req' => 'required|integer|min:0|max:50',
