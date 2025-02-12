@@ -539,7 +539,8 @@ return [
             ]
         ],
     ],
-    'not_active_account' => 'حسابك غير نشط',
+    // 'not_active_account' => 'حسابك غير نشط',
+    'not_active_account' => "حسابك تحت المراجعه",
     'weight' => 'الوزن',
     'height' => 'الطول',
     'blood_type' => 'نوع الدم',

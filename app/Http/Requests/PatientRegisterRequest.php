@@ -61,7 +61,7 @@ class PatientRegisterRequest extends FormRequest
     {
         return [
             'name.required' => trans('The name field is required'),
-            'name.regex' => trans('The name must consist of exactly three words'),
+            'name.regex' => trans('The name must consist of three words: first name, middle name, and last name'),
         ];
     }
 }

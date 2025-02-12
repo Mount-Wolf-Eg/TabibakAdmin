@@ -539,7 +539,8 @@ return [
             ],
         ]
     ],
-    'not_active_account' => 'Your account is not active',
+    // 'not_active_account' => 'Your account is not active',
+    'not_active_account' => "Your account is under review",
     'weight' => 'Weight',
     'height' => 'Height',
     'blood_type' => 'Blood type',
