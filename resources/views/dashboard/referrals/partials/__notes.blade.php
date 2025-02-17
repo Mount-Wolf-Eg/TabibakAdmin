@@ -9,7 +9,7 @@
             <i class="bi bi-plus"></i>
             {{__('messages.add_note')}}
         </button>
-        @include('dashboard.consultations.partials.__note-form')
+        @include('dashboard.referrals.partials.__note-form')
     </div>
     <div class="card-body">
         <div class="row">
