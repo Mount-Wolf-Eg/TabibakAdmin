@@ -18,7 +18,7 @@ class ContactController extends BaseWebController
      */
     public function __construct(ContactContract $contract)
     {
-        parent::__construct($contract, 'dashboard', false);
+        parent::__construct($contract, 'dashboard');
     }
 
     /**
