@@ -298,6 +298,8 @@ return [
         'note' => 'الملاحظة'
     ],
     'models' => [
+        'referral' => 'تحويلات',
+        'contact' => 'التواصل',
         'city' => 'المدن',
         'complaint' => 'الشكاوى',
         'rate' => 'التقييم',

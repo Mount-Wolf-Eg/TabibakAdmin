@@ -298,6 +298,8 @@ return [
         'note' => 'Note'
     ],
     'models' => [
+        'referral' => 'Referrals',
+        'contact' => 'Contacts',
         'city' => 'Cities',
         'complaint' => 'Complaints',
         'rate' => 'Rates',

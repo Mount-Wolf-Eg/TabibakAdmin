@@ -27,7 +27,7 @@ class Permission extends BasePermission
 
         self::$abilities->map(function ($ability) use ($guardName) {
             $perm = $ability . Str::lower(implode('-', preg_split('/(?=[A-Z])/', 'Referral')));
-            self::$permissions[] = ['name' => $perm, 'action' => $ability, 'model' => 'Consultation', 'guard_name'=> $guardName];
+            self::$permissions[] = ['name' => $perm, 'action' => $ability, 'model' => 'Referral', 'guard_name'=> $guardName];
         });
 
         $modelFiles = Storage::disk('app')->files('Models');
@@ -36,7 +36,7 @@ class Permission extends BasePermission
             $model      = str_replace('.php', '', $modelFile);
             $model      = str_replace('Models/', '', $model);
             $modelClass = 'App\\Models\\' . str_replace('/', '\\', $model);
-            
+
             self::$abilities->map(function ($ability) use ($guardName, $model, $modelClass) {
                 $perm = $ability . Str::lower(implode('-', preg_split('/(?=[A-Z])/', $model)));
                 if (!defined("$modelClass::PERMISSIONS_NOT_APPLIED") || !$modelClass::PERMISSIONS_NOT_APPLIED) {
