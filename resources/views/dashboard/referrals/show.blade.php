@@ -53,7 +53,7 @@
                         </h5>
                     </div>
                     <div class="card-body">
-                        @include('dashboard.referrals.partials.__vendor-actions' ,['resource' => $consultation])
+                        @include('dashboard.referrals.partials.__vendor-actions', ['resource' => $consultation])
                     </div>
                 </div>
             </div>

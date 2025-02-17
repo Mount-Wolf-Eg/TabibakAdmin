@@ -64,6 +64,7 @@ class ReferralController extends BaseWebController
     public function show(Consultation $consultation): View|Factory|Application
     {
         $consultation->load('attachments.user', 'notes.user', 'vendors');
+        dd($consultation);
         return $this->showBlade(['consultation' => $consultation]);
     }
 
