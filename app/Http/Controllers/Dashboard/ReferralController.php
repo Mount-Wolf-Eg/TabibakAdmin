@@ -25,7 +25,7 @@ class ReferralController extends BaseWebController
      */
     public function __construct(ConsultationContract $contract, ConsultationVendorService $consultationVendorService)
     {
-        parent::__construct($contract, 'dashboard', 'referral', 'consultation');
+        parent::__construct($contract, 'dashboard', 'referral');
         $this->consultationVendorService = $consultationVendorService;
     }
 
@@ -40,7 +40,7 @@ class ReferralController extends BaseWebController
         $filters = $request->all();
         $filters['type'] = 3;
         
-        if (!auth()->user()->can('view-all-consultation'))
+        if (!auth()->user()->can('view-all-referral'))
             $filters['mineAsVendor'] = true;
         $doctors = resolve(DoctorContract::class)->search([], ['user'], ['limit' => 0]);
         $vendorStatuses = collect(ConsultationVendorStatusConstants::valuesCollection());
@@ -64,7 +64,7 @@ class ReferralController extends BaseWebController
     public function show(Consultation $consultation): View|Factory|Application
     {
         $consultation->load('attachments.user', 'notes.user', 'vendors');
-        return $this->showBlade(['consultation' => $consultation]);
+        return $this->showBlade(['referral' => $consultation]);
     }
 
     /**
