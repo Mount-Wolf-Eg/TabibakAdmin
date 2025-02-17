@@ -61,8 +61,9 @@ class ReferralController extends BaseWebController
      *
      * @return View|Factory|Application
      */
-    public function show(Consultation $consultation): View|Factory|Application
+    public function show($id): View|Factory|Application
     {
+        $consultation = Consultation::findOrFail($id);
         $consultation->load('attachments.user', 'notes.user', 'vendors');
         return $this->showBlade(['consultation' => $consultation]);
     }
@@ -74,22 +75,25 @@ class ReferralController extends BaseWebController
      *
      * @return RedirectResponse
      */
-    public function destroy(Consultation $consultation): RedirectResponse
+    public function destroy($id): RedirectResponse
     {
+        $consultation = Consultation::findOrFail($id);
         $this->contract->remove($consultation);
         return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
     }
 
-    public function vendorAccept(Consultation $consultation)
+    public function vendorAccept($id)
     {
+        $consultation = Consultation::findOrFail($id);
         $updateStatus = $this->consultationVendorService->accept($consultation, auth()->user()->vendor);
         if (!$updateStatus)
             return $this->redirectBack()->with('error', __('messages.not_allowed'));
         return $this->redirectBack()->with('success', __('messages.actions_messages.update_success'));
     }
 
-    public function vendorReject(Consultation $consultation)
+    public function vendorReject($id)
     {
+        $consultation = Consultation::findOrFail($id);
         $updateStatus = $this->consultationVendorService->reject($consultation, auth()->user()->vendor);
         if (!$updateStatus)
             return $this->redirectBack()->with('error', __('messages.not_allowed'));
