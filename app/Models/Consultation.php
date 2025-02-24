@@ -35,12 +35,13 @@ class Consultation extends Model
         'doctor_schedule_day_shift_id', 'contact_type', 'reminder_at', 'transfer_reason',
         'transfer_notes', 'transfer_case_rate', 'payment_type', 'amount',
         'is_active'];
+    
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
         'myVendorStatus', 'creationDate', 'status', 'completed', 'urgentWithNoDoctor',
         'doctorsList', 'medicalSpeciality', 'doctor', 'patient', 'createdBeforeHour',
-        'dayShift', 'onlyApprovedReferral'
-    ];
+        'dayShift', 'onlyApprovedReferral', 'allReferrals'];
+    
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];

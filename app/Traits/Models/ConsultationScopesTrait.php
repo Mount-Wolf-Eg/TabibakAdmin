@@ -25,8 +25,10 @@ trait ConsultationScopesTrait
             $q->where('doctor_id', auth()->user()->doctor?->id)->whereNotNull('doctor_id');
             $q->orWhere(function ($q) {
                 $q->where('type', ConsultationTypeConstants::URGENT)
-                    ->whereIn('status', [ConsultationStatusConstants::PENDING,
-                        ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES])
+                    ->whereIn('status', [
+                        ConsultationStatusConstants::PENDING,
+                        ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES
+                    ])
                     ->whereIn('medical_speciality_id', auth()->user()->doctor?->medicalSpecialities->pluck('id'))
                     ->whereNull('doctor_id');
             });
@@ -146,6 +148,13 @@ trait ConsultationScopesTrait
         return $query->where('patient_id', '!=', auth()->user()->patient?->id);
     }
 
+    public function scopeOfAllReferrals($query)
+    {
+        return $query->where(function ($query) {
+            $query->where('type', ConsultationTypeConstants::REFERRAL)
+                ->orWhereHas('vendors');
+        });
+    }
     //---------------------Scopes-------------------------------------
 
 }
