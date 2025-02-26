@@ -22,7 +22,7 @@ use App\Http\Controllers\Api\V1\Mobile\PaymentController;
 use App\Http\Controllers\Api\V1\Mobile\RateController;
 use App\Http\Controllers\Api\V1\Mobile\VendorController;
 use App\Http\Controllers\Api\V1\Mobile\Wallet\WalletController;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'locale'], static function () {
     Route::post('register-user-as-patient', [AuthController::class, 'registerUserAsPatient']);
