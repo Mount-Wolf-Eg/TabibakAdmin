@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'required' => 'مطلوب',
+    'added' => 'تم اﻹضافة',
     'other' => 'آخري',
     'rays' => 'أشعة',
     'test' => 'تحليل',

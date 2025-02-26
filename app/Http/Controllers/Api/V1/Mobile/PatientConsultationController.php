@@ -234,6 +234,7 @@ class PatientConsultationController extends BaseApiController
                     $vendors[] = $this->referralResponse($consultation, $vendor);
                 }
             }
+            
             return response()->json(['status' => 200, 'data' => $vendors]);
         } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
@@ -322,17 +323,45 @@ class PatientConsultationController extends BaseApiController
 
     public function referralResponse($consultation, $vendor)
     {
+        $consultationVendor = \App\Models\ConsultationVendor::with('attachments')->find($vendor->pivot->id);
+
         return [
-            'id'              => $vendor->pivot->id,
-            'type'            => $vendor->pivot->type,
-            'transfer_reason' => $vendor->pivot->transfer_reason,
-            'transfer_notes'  => $vendor->pivot->transfer_notes,
-            'attachments'     => $vendor->pivot->attachments,
+            'id'                 => $vendor->pivot->id,
+            'type'               => [
+                'value' => $vendor->pivot->type,
+                'lable' => \App\Constants\ConsultationVendorTypeConstants::getLabelsByValue($vendor->pivot->type)
+            ],
+
+            'required'           => [
+                'value' => empty($consultationVendor->attachments),
+                'lable' => __('messages.' . (empty($consultationVendor->attachments) ? 'required' : 'added'))
+            ],
+
+            'transfer_reason'    => $vendor->pivot->transfer_reason,
+            'transfer_notes'     => $vendor->pivot->transfer_notes,
+            'transfer_case_rate' => $vendor->pivot->transfer_case_rate ? [
+                'value' => $vendor->pivot->transfer_case_rate?->value,
+                'label' => $vendor->pivot->transfer_case_rate?->label(),
+            ] : null,
+
+            'attachments'  => $consultationVendor->attachments ? FileResource::collection($consultationVendor->attachments) : [],
 
             'consultation' => [
-                'id'              => $consultation->id,
-                'transfer_reason' => $vendor->pivot->transfer_reason,
-                'transfer_notes'  => $vendor->pivot->transfer_notes,
+                'id'                 => $consultation->id,
+
+                'type'               => [
+                    'value' => $consultation->type->value,
+                    'label' => $consultation->type->label(),
+                ],
+
+                'transfer_reason'    => $consultation->transfer_reason,
+                'transfer_notes'     => $consultation->transfer_notes,
+                'transfer_case_rate' => $consultation->transfer_case_rate ? [
+                    'value' => $consultation->transfer_case_rate?->value,
+                    'label' => $consultation->transfer_case_rate?->label(),
+                ] : null,
+                'doctor_set_urgent_at' => $consultation->doctor_set_urgent_at,
+                'ceated_at'            => $consultation->created_at?->format('Y-m-d H:i:s'),
             ],
 
             'vendor' => [
@@ -340,22 +369,25 @@ class PatientConsultationController extends BaseApiController
                 'name'    => $vendor->user->name,
                 'address' => $vendor->user->address,
                 'phone'   => $vendor->user->phone,
-                'avatar'  => new FileResource($vendor->user->avatar) 
+                'avatar'  => $vendor->user->avatar ? new FileResource($vendor->user->avatar) : null
             ],
 
             'doctor' => [
                 'id'                     => $consultation->doctor->id,
                 'name'                   => $consultation->doctor->user->name,
-                'avatar'                 => new FileResource($consultation->doctor->user->avatar),
-                'doctorScheduleDayShift' => new DoctorScheduleDayShiftResource($consultation->doctorScheduleDayShift),
+                'avatar'                 => $consultation->doctor->user->avatar ? new FileResource($consultation->doctor->user->avatar) : null,
+                'doctorScheduleDayShift' => new DoctorScheduleDayShiftResource($consultation->doctorScheduleDayShift->load('day')),
             ],
         ];
     }
 
     public function addFilesToReferral(ConsultationVendorFileRequest $request, $referral_id)
     {
-        $referral = ConsultationVendor::find($referral_id);
-        $referral->attachments()->sync($request->attachments);
-        return $this->respondWithSuccess(__('messages.updated'));
+        $referral = ConsultationVendor::findOrFail($referral_id);
+        foreach ($request->attachments as $attachment){
+            $fileModel = resolve(\App\Repositories\Contracts\FileContract::class)->find($attachment);
+            $referral->attachments()->save($fileModel);
+        }
+        return $this->respondWithSuccess(__('messages.actions_messages.update_success'));
     }
 }

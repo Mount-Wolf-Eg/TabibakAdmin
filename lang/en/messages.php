@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'required' => 'Required',
+    'added' => 'Added',
     'other' => 'Other',
     'rays' => 'Rays',
     'test' => 'Test',

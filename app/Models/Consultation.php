@@ -96,7 +96,7 @@ class Consultation extends Model
     public function vendors(): BelongsToMany
     {
         return $this->belongsToMany(Vendor::class, 'consultation_vendor')
-            ->withPivot(['status', 'transfer_reason', 'transfer_notes', 'transfer_case_rate'])->withTimestamps();
+            ->withPivot(['id', 'type', 'status', 'transfer_reason', 'transfer_notes', 'transfer_case_rate'])->withTimestamps();
     }
 
     public function notes(): MorphMany
