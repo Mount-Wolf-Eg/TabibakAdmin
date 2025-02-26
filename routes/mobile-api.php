@@ -21,6 +21,8 @@ use App\Http\Controllers\Api\V1\Mobile\PatientRelativeController;
 use App\Http\Controllers\Api\V1\Mobile\PaymentController;
 use App\Http\Controllers\Api\V1\Mobile\RateController;
 use App\Http\Controllers\Api\V1\Mobile\VendorController;
+use App\Http\Controllers\Api\V1\Mobile\Wallet\WalletController;
+use Illuminate\Routing\Route;
 
 Route::group(['middleware' => 'locale'], static function () {
     Route::post('register-user-as-patient', [AuthController::class, 'registerUserAsPatient']);
@@ -78,6 +80,12 @@ Route::group(['middleware' => 'locale'], static function () {
                 Route::post('/', 'index');
                 Route::get('/callback', 'callback')->name('payment.callback')->withoutMiddleware(['auth:sanctum', 'active_patient']);
             });
+
+            Route::controller(WalletController::class)->prefix('wallet')->group(function () {
+                Route::get('/', 'wallet');
+                Route::get('/transactions', 'transactions');
+                Route::post('/deposit', 'deposit');
+                Route::post('/transfer', 'transfer');
         });
 
         Route::group(['prefix' => 'doctor', 'middleware' => 'active_doctor'], static function () {
