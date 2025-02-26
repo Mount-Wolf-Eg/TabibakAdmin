@@ -118,3 +118,4 @@ Route::group(['middleware' => 'locale'], static function () {
         });
     });
 });
+});
