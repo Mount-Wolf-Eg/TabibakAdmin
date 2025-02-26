@@ -39,7 +39,7 @@ class Consultation extends Model
     
     protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
-        'myVendorStatus', 'creationDate', 'status', 'completed', 'urgentWithNoDoctor',
+        'myVendorStatus', 'creationDate', 'status', 'completed', 'reported', 'urgentWithNoDoctor',
         'doctorsList', 'medicalSpeciality', 'doctor', 'patient', 'createdBeforeHour',
         'dayShift', 'onlyApprovedReferral', 'allReferrals', 'otherReferrals', 'testReferrals', 'raysReferrals'];
     

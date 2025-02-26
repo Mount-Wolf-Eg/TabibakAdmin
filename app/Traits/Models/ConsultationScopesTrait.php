@@ -108,6 +108,20 @@ trait ConsultationScopesTrait
         return $query->whereNotIn('status', $completedStatuses);
     }
 
+    public function scopeOfReported($query, $value = "true")
+    {
+        $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        $completedStatuses = [
+            ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value,
+            ConsultationStatusConstants::REFERRED_TO_ANOTHER_DOCTOR->value,
+            ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR->value
+        ];
+        if ($value) {
+            return $query->ofStatus($completedStatuses);
+        }
+        return $query->whereNotIn('status', $completedStatuses);
+    }
+
     public function scopeOfUrgentWithNoDoctor($query)
     {
         return $query->where('type', ConsultationTypeConstants::URGENT)
