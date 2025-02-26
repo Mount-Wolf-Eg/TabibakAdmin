@@ -209,7 +209,7 @@ return [
     'divorced' => 'مُطلّق',
     'widowed' => 'أرمل',
     'engaged' => 'مرتبط',
-    'other' => 'آخر',
+    'other' => 'آخري',
     'unknown' => 'مجهول',
     'consultation_types' => 'أنواع الاستشارة',
     'consultation_details' => 'تفاصيل الاستشارة',
