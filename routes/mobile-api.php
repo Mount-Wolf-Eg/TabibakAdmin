@@ -86,6 +86,7 @@ Route::group(['middleware' => 'locale'], static function () {
                 Route::get('/transactions', 'transactions');
                 Route::post('/deposit', 'deposit');
                 Route::post('/transfer', 'transfer');
+            });
         });
 
         Route::group(['prefix' => 'doctor', 'middleware' => 'active_doctor'], static function () {
@@ -117,5 +118,4 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('nearest-doctor-schedule-day/{doctor}', [DoctorScheduleDayController::class, 'nearestAvailableDay']);
         });
     });
-});
 });
