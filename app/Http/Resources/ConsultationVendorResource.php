@@ -48,7 +48,7 @@ class ConsultationVendorResource extends BaseResource
 
         $this->relations = [
             'attachments' => FileResource::collection($this->attachments),
-            'vendor' => VendorResource::collection($this->vendor),
+            'vendor' => VendorResource::make($this->vendor),
         ];
 
         return $this->getResource();
