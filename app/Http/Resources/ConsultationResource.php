@@ -62,6 +62,7 @@ class ConsultationResource extends BaseResource
             'doctor_can_approve_medical_report' => $this->doctorCanApproveMedicalReport(),
             'doctor_can_cancel' => $this->doctorCanCancel(),
             'doctor_can_accept_urgent_case' => $this->doctorCanAcceptUrgentCase(),
+            'referrals' => ConsultationVendorResource::collection($this->referrals),
         ];
         $this->relations = [
             'attachments' => $this->relationLoaded('attachments') ? FileResource::collection($this->attachments) : [],

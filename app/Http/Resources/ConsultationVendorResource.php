@@ -20,6 +20,12 @@ class ConsultationVendorResource extends BaseResource
                 'value' => $this->status->value,
                 'label' => $this->status->label(),
             ],
+
+            'required' => [
+                'value' => empty($this->attachments),
+                'lable' => __('messages.' . (empty($this->attachments) ? 'required' : 'added'))
+            ],
+
             'type' => [
                 'value' => $this->type->value,
                 'label' => $this->type->label(),
@@ -27,9 +33,6 @@ class ConsultationVendorResource extends BaseResource
         ];
 
         $this->mini = [
-            'is_active' => $this->is_active,
-            'active_status' => $this->active_status,
-            'active_class' => $this->active_class,
             'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
         ];
@@ -44,10 +47,8 @@ class ConsultationVendorResource extends BaseResource
         ];
 
         $this->relations = [
-            'attachments' => $this->relationLoaded('attachments') ? FileResource::collection($this->attachments) : [],
-            'patient' => $this->relationLoaded('patient') ? new PatientResource($this->patient) : null,
-            'vendors' => $this->relationLoaded('vendors') ? VendorResource::collection($this->vendors) : [],
-            'consultation' => $this->relationLoaded('consultation') ? new ConsultationResource($this->consultation) : null,
+            'attachments' => FileResource::collection($this->attachments),
+            'vendor' => VendorResource::collection($this->vendor),
         ];
 
         return $this->getResource();

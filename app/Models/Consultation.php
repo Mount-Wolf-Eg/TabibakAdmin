@@ -99,6 +99,11 @@ class Consultation extends Model
             ->withPivot(['id', 'type', 'status', 'transfer_reason', 'transfer_notes', 'transfer_case_rate'])->withTimestamps();
     }
 
+    public function referrals()
+    {
+        return $this->hasMany(ConsultationVendor::class);
+    }
+
     public function notes(): MorphMany
     {
         return $this->morphMany(Note::class, 'notable');
