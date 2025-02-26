@@ -6,6 +6,8 @@ use App\Constants\ConsultationPatientStatusConstants;
 use App\Constants\ConsultationStatusConstants;
 use App\Constants\ConsultationTypeConstants;
 use App\Constants\ConsultationVendorStatusConstants;
+use App\Constants\ConsultationVendorTypeConstants;
+use App\Models\Consultation;
 
 trait ConsultationScopesTrait
 {
@@ -153,6 +155,27 @@ trait ConsultationScopesTrait
         return $query->where(function ($query) {
             $query->where('type', ConsultationTypeConstants::REFERRAL)
                 ->orWhereHas('vendors');
+        });
+    }
+
+    public function scopeOfOtherReferrals($query)
+    {
+        return $query->whereHas('vendors', function ($query) {
+            $query->where('type', ConsultationVendorTypeConstants::OTHER);
+        });
+    }
+
+    public function scopeOfRaysReferrals($query)
+    {
+        return $query->whereHas('vendors', function ($query) {
+            $query->where('type', ConsultationVendorTypeConstants::RAYS);
+        });
+    }
+
+    public function scopeOfTestReferrals($query)
+    {
+        return $query->whereHas('vendors', function ($query) {
+            $query->where('type', ConsultationVendorTypeConstants::TEST);
         });
     }
     //---------------------Scopes-------------------------------------

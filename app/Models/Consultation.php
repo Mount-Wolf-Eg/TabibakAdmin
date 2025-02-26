@@ -30,6 +30,7 @@ class Consultation extends Model
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations, ConsultationScopesTrait;
 
     public const ADDITIONAL_PERMISSIONS = [];
+
     protected $fillable = ['parent_id', 'doctor_id', 'patient_id', 'status', 'medical_speciality_id',
         'patient_description', 'doctor_description', 'medical_review', 'prescription', 'type',
         'doctor_schedule_day_shift_id', 'contact_type', 'reminder_at', 'transfer_reason',
@@ -40,7 +41,7 @@ class Consultation extends Model
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
         'myVendorStatus', 'creationDate', 'status', 'completed', 'urgentWithNoDoctor',
         'doctorsList', 'medicalSpeciality', 'doctor', 'patient', 'createdBeforeHour',
-        'dayShift', 'onlyApprovedReferral', 'allReferrals'];
+        'dayShift', 'onlyApprovedReferral', 'allReferrals', 'otherReferrals', 'testReferrals', 'raysReferrals'];
     
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
@@ -48,6 +49,7 @@ class Consultation extends Model
     public array $filterCustom = ['types', 'paymentMethods', 'reminders', 'transferCaseRates',
         'statuses', 'contactTypes', 'paymentStatuses', 'paymentTypes'];
     public array $translatable = [];
+    
     protected $casts = [
         'status' => ConsultationStatusConstants::class,
         'type' => ConsultationTypeConstants::class,
@@ -94,7 +96,7 @@ class Consultation extends Model
     public function vendors(): BelongsToMany
     {
         return $this->belongsToMany(Vendor::class, 'consultation_vendor')
-            ->withPivot('status')->withTimestamps();
+            ->withPivot(['status', 'transfer_reason', 'transfer_notes', 'transfer_case_rate'])->withTimestamps();
     }
 
     public function notes(): MorphMany

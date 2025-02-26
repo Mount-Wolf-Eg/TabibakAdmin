@@ -57,6 +57,14 @@ Route::group(['middleware' => 'locale'], static function () {
                 Route::post('/{consultation}/approve-urgent-doctor-offer', 'approveUrgentDoctorOffer');
                 Route::post('/{consultation}/reject-urgent-doctor-offer',  'rejectUrgentDoctorOffer');
             });
+
+            Route::get('/referrals/vendors',  [PatientConsultationController::class, 'referralVendors']);
+            Route::get('/referrals/other',  [PatientConsultationController::class, 'otherReferralVendors']);
+            Route::get('/referrals/test',  [PatientConsultationController::class, 'testReferralVendors']);
+            Route::get('/referrals/rays',  [PatientConsultationController::class, 'raysReferralVendors']);
+            Route::get('/referrals',  [PatientConsultationController::class, 'referralsByType']);
+            Route::post('/referrals/{id}',  [PatientConsultationController::class, 'addFilesToReferral']);
+
             Route::apiResource('rates', RateController::class)->only('store', 'update', 'destroy');
             Route::apiResource('complaints', ComplaintController::class)->only('store', 'show', 'update', 'destroy');
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('index');

@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'other' => 'Other',
+    'rays' => 'Rays',
+    'test' => 'Test',
     'tabibak' => 'Tabibak',
     'dashboard' => 'Dashboard',
     'overview' => 'Overview',

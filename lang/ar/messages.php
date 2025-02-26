@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'other' => 'آخري',
+    'rays' => 'أشعة',
+    'test' => 'تحليل',
     'tabibak' => 'طبيبك',
     'dashboard' => 'لوحة القيادة',
     'overview' => 'ملخص',
