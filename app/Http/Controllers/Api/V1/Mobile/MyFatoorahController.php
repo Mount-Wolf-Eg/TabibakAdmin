@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile;
 
+use App\Constants\ConsultationStatusConstants;
 use App\Constants\PaymentStatusConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Consultation;
@@ -39,17 +40,16 @@ class MyFatoorahController extends Controller
             'countryCode' => config('myfatoorah.country_iso'),
         ];
 
-
         $this->notificationService = $notificationService;
     }
 
     /**
      * Redirect to MyFatoorah Invoice URL
-     * Provide the index method with the order id and (payment method id or session id)
+     * Provide the getUrl method with the order id and (payment method id or session id)
      *
      * @return Response
      */
-    public function index()
+    public function getUrl()
     {
         $validatedData = request()->validate([
             'oid' => 'required|exists:consultations,id',
@@ -88,24 +88,23 @@ class MyFatoorahController extends Controller
         $callbackURL = route('payment.callback');
         $order       = Consultation::withoutGlobalScope('isActive')->findOrFail($orderId); // ->where(['patient_id' => auth()->user()->patient?->id])
 
+        $phone = $order->patient?->user?->phone;
+
+        if ($phone && str_starts_with($phone, '966')) {
+            // Remove the '966' prefix
+            $phone = substr($phone, 3);
+        }
+
         return [
             'CustomerName'      => $order->patient?->user?->name,
-            'InvoiceValue'      => $order->amount,
-            'CallBackUrl'       => $callbackURL,
-            'ErrorUrl'          => $callbackURL,
+            'InvoiceValue'      => $order->amount + 5, // TODO: handle the extra amount
+            'CallBackUrl'       => $callbackURL . '?status=success',
+            'ErrorUrl'          => $callbackURL . '?status=fail',
             'Language'          => 'ar',
             'MobileCountryCode' => '+966',
-            'CustomerMobile'    => $this->formatPhoneNumber($order->patient?->user?->phone),
+            'CustomerMobile'    => $phone,
             'CustomerReference' => $orderId,
         ];
-    }
-
-    public function formatPhoneNumber($phone)
-    {
-        if (strlen($phone) > 11) {
-            $phone = preg_replace('/^\+?966/', '', $phone);
-        }
-        return $phone;
     }
 
     /**
@@ -119,18 +118,25 @@ class MyFatoorahController extends Controller
         try {
             $paymentId = request('paymentId');
 
-            $mfObj     = new MyFatoorahPaymentStatus($this->mfConfig);
-            $data      = $mfObj->getPaymentStatus($paymentId, 'PaymentId');
+            $mfObj  = new MyFatoorahPaymentStatus($this->mfConfig);
+            $data   = $mfObj->getPaymentStatus($paymentId, 'PaymentId');
 
-            $status    = $this->getStatus($data->InvoiceStatus);
+            $status = $this->getStatus($data->InvoiceStatus);
+
+            $order  = Consultation::withoutGlobalScope('isActive')->where('id', $data->CustomerReference)->first();
+            $order?->update(['is_active' => true]);
 
             if ($status) {
-                $order = Consultation::withoutGlobalScope('isActive')->where('id', $data->CustomerReference)->first();
-                $order?->update(['is_active' => true]);
-                $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
+                $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::COMPLETED->value]);
 
-                $this->notificationService->newConsultation($order);
+                if ($order->status == ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value)
+                {
+                    $this->notificationService->patientAcceptDoctorOffer($order);
+                } else {
+                    $this->notificationService->newConsultation($order);
+                }
             } else {
+                $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
                 info(json_encode($data));
             }
         } catch (Exception $ex) {

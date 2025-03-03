@@ -41,7 +41,7 @@ class DoctorScheduleDayRequest extends FormRequest
         if ($this->method() === 'PUT'){
             $day = $this->route('doctor_schedule_day');
             if ($day->doctor_id !== $doctor->id){
-                abort(403, __('messages.not_allowed'));
+                abort(422, __('messages.not_allowed'));
             }
         }
     }
