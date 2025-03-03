@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
                 "$model" => "$modelClass"
             ]);
         }
-        Model::preventLazyLoading(!$this->app->isProduction());
+        // Model::preventLazyLoading(!$this->app->isProduction());
         $this->app->bind(ConsultationVendorService::class, function ($app) {
             return new ConsultationVendorService();
         });

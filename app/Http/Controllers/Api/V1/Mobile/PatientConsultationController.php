@@ -291,7 +291,7 @@ class PatientConsultationController extends BaseApiController
             }
             return response()->json(['status' => 200, 'data' => $vendors]);
         } catch (Exception $e) {
-            return $this->respondWithError($e->getMessage());
+            return $this->respondWithError($e);
         }
     }
 
@@ -340,8 +340,8 @@ class PatientConsultationController extends BaseApiController
             'transfer_reason'    => $vendor->pivot->transfer_reason,
             'transfer_notes'     => $vendor->pivot->transfer_notes,
             'transfer_case_rate' => $vendor->pivot->transfer_case_rate ? [
-                'value' => $vendor->pivot->transfer_case_rate?->value,
-                'label' => $vendor->pivot->transfer_case_rate?->label(),
+                'value' => $vendor->pivot->transfer_case_rate, // ?->value,
+                'lable' => \App\Constants\ConsultationTransferCaseRateConstants::getLabelsByValue((int) $vendor->pivot->transfer_case_rate), // ?->label(),
             ] : null,
 
             'attachments'  => $consultationVendor->attachments ? FileResource::collection($consultationVendor->attachments) : [],

@@ -47,6 +47,8 @@ Route::group(['middleware' => 'locale'], static function () {
         Route::apiResource('notifications', NotificationController::class)->only('index');
 
         Route::group(['prefix' => 'patient', 'middleware' => 'active_patient'], static function () {
+            Route::get('consultation-files', [FileController::class, 'consultationFiles']);
+
             Route::put('update-main-info', [PatientProfileController::class, 'updateMainInfo']);
             Route::put('update-medical-records', [PatientProfileController::class, 'updateMedicalRecords']);
             Route::put('deactivate', [PatientProfileController::class, 'deactivate']);
@@ -90,6 +92,8 @@ Route::group(['middleware' => 'locale'], static function () {
         });
 
         Route::group(['prefix' => 'doctor', 'middleware' => 'active_doctor'], static function () {
+            Route::get('consultation-files', [FileController::class, 'consultationFiles']);
+            
             Route::put('update-main-info', [DoctorProfileController::class, 'updateMainInfo']);
             Route::put('update-professional-status', [DoctorProfileController::class, 'updateProfessionalStatus']);
             Route::put('update-schedule', [DoctorProfileController::class, 'updateSchedule']);

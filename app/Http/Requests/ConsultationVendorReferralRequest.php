@@ -15,6 +15,7 @@ class ConsultationVendorReferralRequest extends FormRequest
 
     public function rules(): array
     {
+        info(request()->all());
         return [
             'transfer_reason' => config('validations.text.req'),
             'transfer_notes' => config('validations.text.req'),
