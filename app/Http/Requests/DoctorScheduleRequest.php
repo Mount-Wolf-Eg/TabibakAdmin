@@ -78,6 +78,7 @@ class DoctorScheduleRequest extends FormRequest
         $days = [
             'الأحد'   => 'sunday',
             'الإثنين' => 'monday',
+            'الاثنين' => 'monday',
             'الثلاثاء' => 'tuesday',
             'الأربعاء' => 'wednesday',
             'الخميس'  => 'thursday',
