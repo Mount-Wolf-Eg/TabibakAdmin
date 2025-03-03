@@ -61,7 +61,7 @@ class PatientConsultationController extends BaseApiController
    {
        try {
            if (!$consultation->isMineAsPatient())
-               abort(403, __('messages.not_allowed'));
+               abort(422, __('messages.not_allowed'));
            $this->relations = array_merge($this->relations, ['attachments', 'vendors', 'patient.diseases']);
            return $this->respondWithModel($consultation);
        }catch (Exception $e) {
@@ -122,7 +122,7 @@ class PatientConsultationController extends BaseApiController
     public function cancel(Consultation $consultation): JsonResponse
     {
         if (!$consultation->patientCanCancel())
-            abort(403, __('messages.patient_can_not_cancel'));
+            abort(422, __('messages.patient_can_not_cancel'));
         try {
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::PATIENT_CANCELLED->value]);
             $this->notificationService->patientCancel($consultation);
@@ -140,7 +140,7 @@ class PatientConsultationController extends BaseApiController
     public function confirmReferral(Consultation $consultation): JsonResponse
     {
         if (!$consultation->patientCanConfirmReferral())
-            abort(403, __('messages.patient_can_not_confirm_referral'));
+            abort(422, __('messages.patient_can_not_confirm_referral'));
         try {
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::PATIENT_CONFIRM_REFERRAL->value]);
             $this->notificationService->patientCancel($consultation);

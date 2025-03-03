@@ -17,7 +17,7 @@ class DoctorActiveMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!auth()->user()->doctor?->is_active) {
-            return response()->json(['message' => __('messages.not_active_account')], 403);
+            return response()->json(['message' => __('messages.not_active_account')], 422);
         }
         return $next($request);
     }
