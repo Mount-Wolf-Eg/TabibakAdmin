@@ -33,7 +33,7 @@ class PatientRelativeController extends BaseApiController
     public function update(PatientRelativeRequest $request, Patient $relative)
     {
         if ($relative->parent_id !== auth()->user()->patient?->id)
-            return $this->respondWithError(__('messages.actions_messages.cannot_do_action'), 403);
+            return $this->respondWithError(__('messages.actions_messages.cannot_do_action'), 422);
         $this->contract->update($relative, $request->validated());
         return $this->respondWithModel($relative->load('user'));
     }
@@ -47,7 +47,7 @@ class PatientRelativeController extends BaseApiController
     public function destroy(Patient $relative)
     {
         if ($relative->parent_id !== auth()->user()->patient?->id)
-            return $this->respondWithError(__('messages.actions_messages.cannot_do_action'), 403);
+            return $this->respondWithError(__('messages.actions_messages.cannot_do_action'), 422);
         $this->contract->remove($relative);
         return $this->respondWithSuccess(__('messages.actions_messages.delete_success'));
     }

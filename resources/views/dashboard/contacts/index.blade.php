@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <x-breadcrumb title="{{__('messages.manage_contacts')}}" pagetitle="{{__('messages.contacts')}}"
-                  route="{{route('contacts.index')}}"/>
+                  route="{{route('contact.index')}}"/>
     <x-filter/>
     <div class="row">
         <div class="col-12">

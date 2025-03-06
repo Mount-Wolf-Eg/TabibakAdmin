@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Api\V1\Mobile;
 
 use App\Constants\ConsultationStatusConstants;
+use App\Constants\ConsultationTransferCaseRateConstants;
 use App\Http\Controllers\Api\V1\BaseApiController;
 use App\Http\Requests\ConsultationRequest;
+use App\Http\Requests\ConsultationVendorFileRequest;
 use App\Http\Requests\PatientUrgentApproveRequest;
 use App\Http\Requests\PatientUrgentRejectRequest;
 use App\Http\Resources\ConsultationResource;
+use App\Http\Resources\DoctorScheduleDayShiftResource;
+use App\Http\Resources\FileResource;
 use App\Models\Consultation;
+use App\Models\ConsultationVendor;
 use App\Repositories\Contracts\ConsultationContract;
 use App\Repositories\Contracts\DoctorContract;
 use App\Services\Repositories\ConsultationNotificationService;
@@ -56,7 +61,7 @@ class PatientConsultationController extends BaseApiController
    {
        try {
            if (!$consultation->isMineAsPatient())
-               abort(403, __('messages.not_allowed'));
+               abort(422, __('messages.not_allowed'));
            $this->relations = array_merge($this->relations, ['attachments', 'vendors', 'patient.diseases']);
            return $this->respondWithModel($consultation);
        }catch (Exception $e) {
@@ -117,7 +122,7 @@ class PatientConsultationController extends BaseApiController
     public function cancel(Consultation $consultation): JsonResponse
     {
         if (!$consultation->patientCanCancel())
-            abort(403, __('messages.patient_can_not_cancel'));
+            abort(422, __('messages.patient_can_not_cancel'));
         try {
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::PATIENT_CANCELLED->value]);
             $this->notificationService->patientCancel($consultation);
@@ -135,7 +140,7 @@ class PatientConsultationController extends BaseApiController
     public function confirmReferral(Consultation $consultation): JsonResponse
     {
         if (!$consultation->patientCanConfirmReferral())
-            abort(403, __('messages.patient_can_not_confirm_referral'));
+            abort(422, __('messages.patient_can_not_confirm_referral'));
         try {
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::PATIENT_CONFIRM_REFERRAL->value]);
             $this->notificationService->patientCancel($consultation);
@@ -217,4 +222,140 @@ class PatientConsultationController extends BaseApiController
         }
     }
 
+    public function referralVendors(): JsonResponse
+    {
+        try {
+            $consultations = $this->contract->findAllByFilters(['allReferrals' => true, 'patient' => auth()->user()->patient?->id], ['vendors', 'doctor'], false);
+            
+            $vendors = [];
+
+            foreach ($consultations as $consultation) {
+                foreach ($consultation->vendors as $vendor) {
+                    $vendors[] = $this->referralResponse($consultation, $vendor);
+                }
+            }
+            return response()->json(['status' => 200, 'data' => $vendors]);
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    public function otherReferralVendors(): JsonResponse
+    {
+        try {
+            $consultations = $this->contract->findAllByFilters(['otherReferrals' => true, 'patient' => auth()->user()->patient?->id], ['vendors'], false);
+            
+            $vendors = [];
+
+            foreach ($consultations as $consultation) {
+                foreach ($consultation->vendors as $vendor) {
+                    $vendors[] = $this->referralResponse($consultation, $vendor);
+                }
+            }
+            return response()->json(['status' => 200, 'data' => $vendors]);
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    public function testReferralVendors(): JsonResponse
+    {
+        try {
+            $consultations = $this->contract->findAllByFilters(['testReferrals' => true, 'patient' => auth()->user()->patient?->id], ['vendors', 'doctor'], false);
+            
+            $vendors = [];
+
+            foreach ($consultations as $consultation) {
+                foreach ($consultation->vendors as $vendor) {
+                    $vendors[] = $this->referralResponse($consultation, $vendor);
+                }
+            }
+            return response()->json(['status' => 200, 'data' => $vendors]);
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    public function raysReferralVendors(): JsonResponse
+    {
+        try {
+            $consultations = $this->contract->findAllByFilters(['raysReferrals' => true, 'patient' => auth()->user()->patient?->id], ['vendors', 'doctor'], false);
+            
+            $vendors = [];
+
+            foreach ($consultations as $consultation) {
+                foreach ($consultation->vendors as $vendor) {
+                    $vendors[] = $this->referralResponse($consultation, $vendor);
+                }
+            }
+            return response()->json(['status' => 200, 'data' => $vendors]);
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    public function referralsByType()
+    {
+        try {
+            $filters = ['otherReferrals' => true];
+
+            if (request('type') == 'test') {
+                $filters = ['testReferrals' => true];
+            } elseif (request('type') == 'rays') {
+                $filters = ['raysReferrals' => true];
+            }
+
+            $consultations = $this->contract->findAllByFilters(['patient' => auth()->user()->patient?->id] + $filters, ['vendors', 'doctor'], false);
+            
+            $vendors = [];
+
+            foreach ($consultations as $consultation) {
+                foreach ($consultation->vendors as $vendor) {
+                    $vendors[] = $this->referralResponse($consultation, $vendor);
+                }
+            }
+            return response()->json(['status' => 200, 'data' => $vendors]);
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    public function referralResponse($consultation, $vendor)
+    {
+        return [
+            'id'              => $vendor->pivot->id,
+            'type'            => $vendor->pivot->type,
+            'transfer_reason' => $vendor->pivot->transfer_reason,
+            'transfer_notes'  => $vendor->pivot->transfer_notes,
+            'attachments'     => $vendor->pivot->attachments,
+
+            'consultation' => [
+                'id'              => $consultation->id,
+                'transfer_reason' => $vendor->pivot->transfer_reason,
+                'transfer_notes'  => $vendor->pivot->transfer_notes,
+            ],
+
+            'vendor' => [
+                'id'      => $vendor->id,
+                'name'    => $vendor->user->name,
+                'address' => $vendor->user->address,
+                'phone'   => $vendor->user->phone,
+                'avatar'  => new FileResource($vendor->user->avatar) 
+            ],
+
+            'doctor' => [
+                'id'                     => $consultation->doctor->id,
+                'name'                   => $consultation->doctor->user->name,
+                'avatar'                 => new FileResource($consultation->doctor->user->avatar),
+                'doctorScheduleDayShift' => new DoctorScheduleDayShiftResource($consultation->doctorScheduleDayShift),
+            ],
+        ];
+    }
+
+    public function addFilesToReferral(ConsultationVendorFileRequest $request, $referral_id)
+    {
+        $referral = ConsultationVendor::find($referral_id);
+        $referral->attachments()->sync($request->attachments);
+        return $this->respondWithSuccess(__('messages.updated'));
+    }
 }

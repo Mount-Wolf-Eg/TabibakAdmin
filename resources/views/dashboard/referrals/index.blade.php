@@ -5,7 +5,7 @@
 @section('content')
     <x-breadcrumb title="{{__('messages.manage_referrals')}}"
                   pagetitle="{{__('messages.referrals')}}"
-                  route="{{route('consultations.index')}}"/>
+                  route="{{route('referrals.index')}}"/>
     <x-filter>
         <div class="col-lg-2 py-1">
             {{ Form::label('Date', __('messages.date'), ['class' => 'form-label']) }}
@@ -35,17 +35,14 @@
                 <thead>
                 <tr>
                      <th scope="col">{{__('messages.request_id')}}</th>
-                     <th scope="col">{{__('messages.doctor_name')}}</th>
-                     <th scope="col">{{__('messages.refer_to_doctor')}}</th>
-                     <th scope="col">{{__('messages.referral_reason')}}</th>
-                     <!-- <th scope="col">{{__('messages.doctor_phone')}}</th> -->
                     <th scope="col">{{__('messages.reporting_date')}}</th>
-                    <th scope="col">{{__('messages.actions')}}</th>
+                    <th scope="col">{{__('messages.patient_name')}}</th>
+                    <th scope="col">{{__('messages.doctor_name')}}</th>
+                    <th scope="col">{{__('messages.doctor_phone')}}</th>
+                    <th scope="col">{{__('messages.session_type')}}</th>
                     <th scope="col">{{__('messages.session_status')}}</th>
-
-
-                    <!-- <th scope="col">{{__('messages.patient_name')}}</th> -->
-                    <!-- <th scope="col">{{__('messages.urgency_level')}}</th> -->
+                    <!-- <th scope="col">{{__('messages.referral_reason')}}</th> -->
+                    <th scope="col">{{__('messages.actions')}}</th>
                     @if(auth()->user()?->vendor)
                         <th scope="col">{{__('messages.vendor_status')}}</th>
                         <th scope="col">{{__('messages.request_actions')}}</th>
@@ -56,27 +53,23 @@
                 @foreach($resources as $resource)
                     <tr id="role{{$resource->id}}Row">
                        
-                        <td><a href="{{route('consultations.show', $resource->id)}}">#{{$resource->id}}</a></td>
-                        <td>{{$resource->doctor?->user?->name}}</td>
-                        <td>refer to doctor</td>
-                        <td>{{$resource->transfer_reason}}</td>
-                        <!-- <td>{{$resource->doctor?->user?->phone}}</td> -->
+                        <td><a href="{{route('referrals.show', $resource->id)}}">#{{$resource->id}}</a></td>
                         <td>{{$resource->created_at->format('Y-m-d h:i A')}}</td>
-                        @include('dashboard.partials.__table-actions', ['resource' => $resource, 'disableEdit' => true,
-                        'disableDelete' => !auth()->user()->can('delete-consultation'),
-                        'route' => 'consultations', 'hideActive' => true, 'showModel' => false])
-                    
-                        <td>session status</td>
-                    
-                        
                         <td>{{$resource->patient?->user?->name}}</td>
+                        <td>{{$resource->doctor?->user?->name}}</td>
+                        <td>{{$resource->doctor?->user?->phone}}</td>
                         <td>{{$resource->type?->label()}}</td>
+                        <td>session status</td>
+                        <!-- <td>{{$resource->transfer_reason}}</td> -->
+                        @include('dashboard.partials.__table-actions', ['resource' => $resource, 'disableEdit' => true,
+                        'disableDelete' => !auth()->user()->can('delete-referral'),
+                        'route' => 'referrals', 'hideActive' => true, 'showModel' => false])
                         @if(auth()->user()?->vendor)
                             <td><span
                                     class="text-{{$resource->getVendorStatusColor(auth()->user()->vendor->id)}}">{{$resource->getVendorStatusTxt(auth()->user()->vendor->id)}}
                             </td>
                             <td>
-                                @include('dashboard.consultations.partials.__vendor-actions')
+                                @include('dashboard.referrals.partials.__vendor-actions')
                             </td>
                         @endif
                     </tr>

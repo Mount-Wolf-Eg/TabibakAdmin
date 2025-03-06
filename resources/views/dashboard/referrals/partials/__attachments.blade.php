@@ -34,7 +34,7 @@
                 </table>
             </div>
             <div class="col-md-6">
-                @include('dashboard.consultations.partials.__upload-attachments')
+                @include('dashboard.referrals.partials.__upload-attachments')
             </div>
         </div>
     </div>

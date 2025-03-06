@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'other' => 'آخري',
+    'rays' => 'أشعة',
+    'test' => 'تحليل',
     'tabibak' => 'طبيبك',
     'dashboard' => 'لوحة القيادة',
     'overview' => 'ملخص',
@@ -298,6 +301,8 @@ return [
         'note' => 'الملاحظة'
     ],
     'models' => [
+        'referral' => 'تحويلات',
+        'contact' => 'التواصل',
         'city' => 'المدن',
         'complaint' => 'الشكاوى',
         'rate' => 'التقييم',
@@ -539,7 +544,8 @@ return [
             ]
         ],
     ],
-    'not_active_account' => 'حسابك غير نشط',
+    // 'not_active_account' => 'حسابك غير نشط',
+    'not_active_account' => "حسابك تحت المراجعه",
     'weight' => 'الوزن',
     'height' => 'الطول',
     'blood_type' => 'نوع الدم',

@@ -104,10 +104,12 @@ Route::group([
         Route::resource('referrals', ReferralController::class)->only(['index', 'show', 'destroy']);
         Route::put('consultations/{consultation}/vendor-accept', [ConsultationController::class, 'vendorAccept'])->name('consultations.vendor-accept');
         Route::put('consultations/{consultation}/vendor-reject', [ConsultationController::class, 'vendorReject'])->name('consultations.vendor-reject');
+        Route::put('referrals/{consultation}/vendor-accept', [ReferralController::class, 'vendorAccept'])->name('referrals.vendor-accept');
+        Route::put('referrals/{consultation}/vendor-reject', [ReferralController::class, 'vendorReject'])->name('referrals.vendor-reject');
         Route::resource('payments', PaymentController::class)->only(['index', 'destroy']);
         Route::get('featured-list', [FeaturedListController::class, 'edit'])->name('featured-list.edit');
         Route::put('featured-list', [FeaturedListController::class, 'update'])->name('featured-list.update');
-        Route::resource('contacts', ContactController::class)->only(['index']);
+        Route::resource('contact', ContactController::class)->only(['index']);
 
         Route::prefix('profile')->group(function () {
             Route::get('/', [ProfileController::class, 'profile'])->name('profile');

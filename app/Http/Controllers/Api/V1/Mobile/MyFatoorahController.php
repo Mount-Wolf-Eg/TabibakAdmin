@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Mobile;
 
+use App\Constants\ConsultationStatusConstants;
 use App\Constants\PaymentStatusConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Consultation;
@@ -22,7 +23,7 @@ class MyFatoorahController extends Controller
 
 
     private ConsultationNotificationService $notificationService;
-    
+
     /**
      * @var array
      */
@@ -31,24 +32,25 @@ class MyFatoorahController extends Controller
     /**
      * Initiate MyFatoorah Configuration
      */
-    public function __construct(ConsultationNotificationService $notificationService) {
+    public function __construct(ConsultationNotificationService $notificationService)
+    {
         $this->mfConfig = [
             'apiKey'      => config('myfatoorah.api_key'),
             'isTest'      => config('myfatoorah.test_mode'),
             'countryCode' => config('myfatoorah.country_iso'),
         ];
 
-
         $this->notificationService = $notificationService;
     }
 
     /**
      * Redirect to MyFatoorah Invoice URL
-     * Provide the index method with the order id and (payment method id or session id)
+     * Provide the getUrl method with the order id and (payment method id or session id)
      *
      * @return Response
      */
-    public function index() {
+    public function getUrl()
+    {
         $validatedData = request()->validate([
             'oid' => 'required|exists:consultations,id',
         ]);
@@ -81,18 +83,26 @@ class MyFatoorahController extends Controller
      * 
      * @return array
      */
-    private function getPayLoadData($orderId) {
+    private function getPayLoadData($orderId)
+    {
         $callbackURL = route('payment.callback');
         $order       = Consultation::withoutGlobalScope('isActive')->findOrFail($orderId); // ->where(['patient_id' => auth()->user()->patient?->id])
 
+        $phone = $order->patient?->user?->phone;
+
+        if ($phone && str_starts_with($phone, '966')) {
+            // Remove the '966' prefix
+            $phone = substr($phone, 3);
+        }
+
         return [
             'CustomerName'      => $order->patient?->user?->name,
-            'InvoiceValue'      => $order->amount,
-            'CallBackUrl'       => $callbackURL,
-            'ErrorUrl'          => $callbackURL,
+            'InvoiceValue'      => $order->amount + 5, // TODO: handle the extra amount
+            'CallBackUrl'       => $callbackURL . '?status=success',
+            'ErrorUrl'          => $callbackURL . '?status=fail',
             'Language'          => 'ar',
             'MobileCountryCode' => '+966',
-            'CustomerMobile'    => $order->patient?->user?->phone,
+            'CustomerMobile'    => $phone,
             'CustomerReference' => $orderId,
         ];
     }
@@ -103,23 +113,30 @@ class MyFatoorahController extends Controller
      * 
      * @return Response
      */
-    public function callback() {
+    public function callback()
+    {
         try {
             $paymentId = request('paymentId');
 
-            $mfObj     = new MyFatoorahPaymentStatus($this->mfConfig);
-            $data      = $mfObj->getPaymentStatus($paymentId, 'PaymentId');
+            $mfObj  = new MyFatoorahPaymentStatus($this->mfConfig);
+            $data   = $mfObj->getPaymentStatus($paymentId, 'PaymentId');
 
-            $status    = $this->getStatus($data->InvoiceStatus);
+            $status = $this->getStatus($data->InvoiceStatus);
 
-            if ($status)
-            {
-                $order = Consultation::withoutGlobalScope('isActive')->where('id', $data->CustomerReference)->first();
-                $order?->update(['is_active' => true]);
-                $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
+            $order  = Consultation::withoutGlobalScope('isActive')->where('id', $data->CustomerReference)->first();
+            $order?->update(['is_active' => true]);
 
-                $this->notificationService->newConsultation($order);
+            if ($status) {
+                $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::COMPLETED->value]);
+
+                if ($order->status == ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value)
+                {
+                    $this->notificationService->patientAcceptDoctorOffer($order);
+                } else {
+                    $this->notificationService->newConsultation($order);
+                }
             } else {
+                $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::CANCELLED->value]);
                 info(json_encode($data));
             }
         } catch (Exception $ex) {
@@ -134,7 +151,8 @@ class MyFatoorahController extends Controller
      * 
      * @return View
      */
-    public function checkout() {
+    public function checkout()
+    {
         try {
             //You can get the data using the order object in your system
             $orderId = request('oid') ?: 147;
@@ -174,7 +192,8 @@ class MyFatoorahController extends Controller
     /**
      * Example on how the webhook is working when MyFatoorah try to notify your system about any transaction status update
      */
-    public function webhook(Request $request) {
+    public function webhook(Request $request)
+    {
         try {
             //Validate webhook_secret_key
             $secretKey = config('myfatoorah.webhook_secret_key');
@@ -210,7 +229,8 @@ class MyFatoorahController extends Controller
         }
     }
 
-    private function changeTransactionStatus($inputData) {
+    private function changeTransactionStatus($inputData)
+    {
         //1. Check if orderId is valid on your system.
         $orderId = $inputData['CustomerReference'];
 
@@ -235,14 +255,16 @@ class MyFatoorahController extends Controller
         return ['IsSuccess' => true, 'Message' => $message, 'Data' => $inputData];
     }
 
-    private function getTestOrderData($orderId) {
+    private function getTestOrderData($orderId)
+    {
         return [
             'total'    => 15,
             'currency' => 'KWD'
         ];
     }
 
-    private function getMessage($status, $error) {
+    private function getMessage($status, $error)
+    {
         if ($status == 'Paid') {
             return 'Invoice is paid.';
         } else if ($status == 'Failed') {
@@ -252,7 +274,8 @@ class MyFatoorahController extends Controller
         }
     }
 
-    private function getStatus($status) {
+    private function getStatus($status)
+    {
         if ($status == 'Paid') {
             return true;
         } else {

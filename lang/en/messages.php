@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'other' => 'Other',
+    'rays' => 'Rays',
+    'test' => 'Test',
     'tabibak' => 'Tabibak',
     'dashboard' => 'Dashboard',
     'overview' => 'Overview',
@@ -298,6 +301,8 @@ return [
         'note' => 'Note'
     ],
     'models' => [
+        'referral' => 'Referrals',
+        'contact' => 'Contacts',
         'city' => 'Cities',
         'complaint' => 'Complaints',
         'rate' => 'Rates',
@@ -539,7 +544,8 @@ return [
             ],
         ]
     ],
-    'not_active_account' => 'Your account is not active',
+    // 'not_active_account' => 'Your account is not active',
+    'not_active_account' => "Your account is under review",
     'weight' => 'Weight',
     'height' => 'Height',
     'blood_type' => 'Blood type',

@@ -3,13 +3,13 @@
     {{__('messages.referral')}}
 @endsection
 @section('content')
-    <x-breadcrumb title="{{__('messages.referral_details')}}" pagetitle="{{__('messages.referrals')}}" route="{{route('consultations.index')}}"/>
+    <x-breadcrumb title="{{__('messages.referral_details')}}" pagetitle="{{__('messages.referrals')}}" route="{{route('referrals.index')}}"/>
     <div class="row">
         <div class="col-lg-6">
-            @include('dashboard.consultations.partials.__patient-info')
+            @include('dashboard.referrals.partials.__patient-info')
         </div>
         <div class="col-lg-6 text-right">
-            @include('dashboard.consultations.partials.__doctor-info')
+            @include('dashboard.referrals.partials.__doctor-info')
         </div>
     </div>
     <div class="row">
@@ -29,17 +29,17 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            @include('dashboard.consultations.partials.__medicines')
+            @include('dashboard.referrals.partials.__medicines')
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            @include('dashboard.consultations.partials.__attachments')
+            @include('dashboard.referrals.partials.__attachments')
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            @include('dashboard.consultations.partials.__notes')
+            @include('dashboard.referrals.partials.__notes')
         </div>
     </div>
     @if(auth()->user()?->vendor)
@@ -53,7 +53,7 @@
                         </h5>
                     </div>
                     <div class="card-body">
-                        @include('dashboard.consultations.partials.__vendor-actions' ,['resource' => $consultation])
+                        @include('dashboard.referrals.partials.__vendor-actions', ['resource' => $consultation])
                     </div>
                 </div>
             </div>

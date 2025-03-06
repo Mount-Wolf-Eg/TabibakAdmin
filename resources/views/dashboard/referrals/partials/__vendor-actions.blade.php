@@ -3,7 +3,7 @@
        data-id="{{$resource->id}}">
         {{__('messages.accept')}} <i class="bi bi-check"></i>
     </a>
-    <form action="{{route("consultations.vendor-accept", $resource->id)}}"
+    <form action="{{route("referrals.vendor-accept", $resource->id)}}"
           class="d-inline"
           method="POST" id="acceptResourceForm-{{$resource->id}}">
         @csrf
@@ -13,7 +13,7 @@
        data-id="{{$resource->id}}">
         {{__('messages.reject')}} <i class="bi bi-sign-stop"></i>
     </a>
-    <form action="{{route("consultations.vendor-reject", $resource->id)}}"
+    <form action="{{route("referrals.vendor-reject", $resource->id)}}"
           class="d-inline"
           method="POST" id="rejectResourceForm-{{$resource->id}}">
         @csrf

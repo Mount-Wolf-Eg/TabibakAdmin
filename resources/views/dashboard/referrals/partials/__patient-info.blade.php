@@ -36,7 +36,7 @@
                 <p><strong>{{__('messages.reporting_date')}}</strong></p>
             </div>
             <div class="col-lg-8">
-                <p>{{$consultation->created_at->format('Y-m-d h:i A')}}</p>
+                <p>{{$consultation->created_at?->format('Y-m-d h:i A')}}</p>
             </div>
         </div>
         <div class="row">
