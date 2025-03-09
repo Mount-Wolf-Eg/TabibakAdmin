@@ -15,6 +15,7 @@
                     <th scope="col">{{__('messages.name')}}</th>
                     <th scope="col">{{__('messages.email')}}</th>
                     <th scope="col">{{__('messages.message')}}</th>
+                    <th scope="col">{{__('messages.details')}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,7 @@
                         <td>{{$resource->name}}</td>
                         <td>{{$resource->email}}</td>
                         <td>{{$resource->message}}</td>
+                        <td><a href="{{route('contact.show', $resource->id)}}" class="btn btn-primary">{{__('messages.details')}}</a></td>
                     </tr>
                 @endforeach
                 </tbody>
