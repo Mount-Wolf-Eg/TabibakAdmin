@@ -3,13 +3,15 @@
 {{__('messages.overview')}}
 @endsection
 @section('content')
-<x-breadcrumb title="{{__('messages.overview')}}" pagetitle="{{__('messages.tabibak')}}" route="{{route('overview')}}" />
+<x-breadcrumb title="{{__('messages.overview')}}" pagetitle="{{__('messages.tabibak')}}" route="{{route('dashboard')}}" />
 <div class="d-flex align-items-center justify-content-end gap-5">
     <button type="button" onclick="downloadPDF()" class="my-5" style="background-color: transparent;border:none ;font-size:20px;text-decoration: underline;padding:0 5px;font-weight: 400 ">
-        <svg style="margin: 0 5px" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg style="margin: 0 5px" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="#1E1E1E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        {{__('messages.download_PDF')}}
+        <span style="font-size: 14px">
+            {{__('messages.download_PDF')}}
+        </span>
     </button>
 </div>
 <div id="myBillingArea">
@@ -29,7 +31,7 @@
 
     </div>
     <hr />
-    <h4 class="pt-5 pb-3">{{__('messages.session_insight')}}</h4>
+    <h4 class="pt-5 pb-3" style="font-size: 16px;">{{__('messages.session_insight')}}</h4>
     <div class="col-xxl-12 col-lg-6 order-first">
         <div class="row row-cols-xxl-4 row-cols-1">
             <x-overview-card title="{{__('messages.total_appointments')}}" icon="bi bi-clock" color="warning" count="{{$totalAppointments}}" />
@@ -45,28 +47,28 @@
     </div>
     <div class="row  ">
         <div class="col-xl-6">
-            <div class="card  ">
-                <div class="card-header  ">
+            <div class="card" style="height: 100%;">
+                <div class="card-header">
                     <h4 class="card-title mb-0 text-center">{{__('messages.top_lonsultation_locations')}}</h4>
                 </div>
                 <div class="card-body">
-                    <div id="simple_pie_chart" data-colors='["--tb-primary", "--tb-success", "--tb-warning", "--tb-danger", "--tb-info"]' class="apex-charts" dir="ltr"></div>
+                    <div style="height: 100%" id="simple_pie_chart" data-colors='["#4b93ff9e", "#06d6a080", "#f1be4687", "#ef476f70", "#1ea6d3bd"]' class="apex-charts" dir="ltr"></div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 mt-5">
-            <div class="card  ">
-                <div class="card-header  ">
+        <div class="col-xl-6 mt-5 mt-md-0">
+            <div class="card" style="height: 100%;">
+                <div class="card-header">
                     <h4 class="card-title mb-0 text-center">{{__('messages.speciality_insights')}}</h4>
                 </div>
-                <div class="card-body">
-                    <div id="bar_chart" data-colors='["--tb-primary"]' class="apex-charts" dir="ltr"></div>
+                <div class="card-body b">
+                    <div style="height: 100%" id="bar_chart" data-colors='["#4b93ff9e"]' class="apex-charts" dir="ltr"></div>
                 </div>
             </div>
         </div>
     </div>
     <hr />
-    <h4 class="pt-5 pb-3">{{__('messages.session_insight')}}</h4>
+    <h4 class="pt-5 pb-3" style="font-size: 16px;">{{__('messages.session_insight')}}</h4>
     <div class="col-xxl-12 col-lg-6 order-first">
         <div class="row row-cols-xxl-4 row-cols-1">
             <x-overview-card title="{{__('messages.doctors')}}" icon="bi bi-journal-plus" color="warning" count="{{$doctorsCount}}" />
@@ -76,7 +78,7 @@
         </div>
     </div>
     <div class="doc-table">
-        <h4 class="pt-4 pb-2">{{__('messages.top_performing_doctors')}}</h4>
+        <h4 class="pt-4 pb-2" style="font-size: 16px;">{{__('messages.top_performing_doctors')}}</h4>
         <table class="table border table-striped">
             <thead>
                 <tr>
@@ -103,7 +105,7 @@
             <h4 class="card-title mb-0 text-center">{{__('messages.most_booked_doctors')}}</h4>
         </div>
         <div class="card-body">
-            <div id="doctor_bar_chart" data-colors='["--tb-primary"]' class="apex-charts" dir="ltr"></div>
+            <div id="doctor_bar_chart" data-colors='["#4b93ff9e"]' class="apex-charts" dir="ltr"></div>
         </div>
     </div>
 </div>
