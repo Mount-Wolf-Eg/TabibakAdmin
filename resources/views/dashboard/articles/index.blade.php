@@ -31,7 +31,8 @@
                 @foreach($resources as $resource)
                     <tr id="article{{$resource->id}}Row">
                         <th scope="row">
-                            <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
+                            <a href="{{route('articles.show', $resource->id)}}" class="fw-semibold">#{{$loop->iteration}}</a>
+                            <!-- <a href="#" class="fw-semibold">#{{$loop->iteration}}</a> -->
                         </th>
                         <td>{{$resource->title}}</td>
                         <td>{{$resource->author->name}}</td>

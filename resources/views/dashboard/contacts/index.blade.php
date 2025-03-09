@@ -21,7 +21,9 @@
                 @foreach($resources as $resource)
                     <tr id="contact{{$resource->id}}Row">
                         <th scope="row">
-                            <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
+                        <span class="fw-semibold text-primary cursor-context-menu">#{{$loop->iteration}}</span>
+
+                            <!-- <a href="#" class="fw-semibold">#{{$loop->iteration}}</a> -->
                         </th>
                         <td>{{$resource->name}}</td>
                         <td>{{$resource->email}}</td>

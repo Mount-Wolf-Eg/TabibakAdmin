@@ -19,16 +19,16 @@
     <div class="col-12 order-first">
         <!-- <div class="row row-cols-xxl-4 row-cols-1"> -->
         <div class="row row-cols-xxl-4 row-cols-md-2 row-cols-1">
-            <x-overview-card title="{{__('messages.patients')}}" icon="bi bi-person-badge" color="warning" count="{{$patientsCount}}" />
+            <x-overview-card title="{{__('messages.patients')}}" icon="bi bi-person-badge" color="info" count="{{$patientsCount}}" />
             <x-overview-card title="{{__('messages.doctors')}}" icon="bi bi-journal-plus" color="info" count="{{$doctorsCount}}" />
-            <x-overview-card title="{{__('messages.vendors')}}" icon="bi bi-houses" color="success" count="{{$vendorsCount}}" />
-            <x-overview-card title="{{__('messages.hospitals')}}" icon="bi bi-hospital" color="dark" count="{{$hospitalsCount}}" />
-            <x-overview-card title="{{__('messages.clinics')}}" icon="bi bi-clipboard-pulse" color="primary" count="{{$clinicsCount}}" />
-            <x-overview-card title="{{__('messages.pharmacies')}}" icon="bi bi-prescription2" color="secondary" count="{{$pharmaciesCount}}" />
-            <x-overview-card title="{{__('messages.Home_cares')}}" icon="bi bi-chat-heart" color="danger" count="{{$homeCaresCount}}" />
-            <x-overview-card title="{{__('messages.labs')}}" icon="bi bi-stack" color="warning" count="{{$labsCount}}" />
-            <x-overview-card title="{{__('messages.total_transactions')}}" icon="bi bi-currency-exchange" color="secondary" count="{{$totalTransactions}}" />
-            <x-overview-card title="{{__('messages.total_revenues')}}" icon="bi bi-wallet" color="success" count="{{$totalRevenues}}" />
+            <x-overview-card title="{{__('messages.vendors')}}" icon="bi bi-houses" color="info" count="{{$vendorsCount}}" />
+            <x-overview-card title="{{__('messages.hospitals')}}" icon="bi bi-hospital" color="info" count="{{$hospitalsCount}}" />
+            <x-overview-card title="{{__('messages.clinics')}}" icon="bi bi-clipboard-pulse" color="info" count="{{$clinicsCount}}" />
+            <x-overview-card title="{{__('messages.pharmacies')}}" icon="bi bi-prescription2" color="info" count="{{$pharmaciesCount}}" />
+            <x-overview-card title="{{__('messages.Home_cares')}}" icon="bi bi-chat-heart" color="info" count="{{$homeCaresCount}}" />
+            <x-overview-card title="{{__('messages.labs')}}" icon="bi bi-stack" color="info" count="{{$labsCount}}" />
+            <x-overview-card title="{{__('messages.total_transactions')}}" icon="bi bi-currency-exchange" color="info" count="{{$totalTransactions}}" />
+            <x-overview-card title="{{__('messages.total_revenues')}}" icon="bi bi-wallet" color="info" count="{{$totalRevenues}}" />
         </div>
 
     </div>
@@ -38,15 +38,15 @@
         <div class="row row-cols-xxl-4 row-cols-1"> -->
         <div class="col-12 order-first">
 <div class="row row-cols-xxl-4 row-cols-md-2 row-cols-1">
-            <x-overview-card title="{{__('messages.total_appointments')}}" icon="bi bi-clock" color="warning" count="{{$totalAppointments}}" />
+            <x-overview-card title="{{__('messages.total_appointments')}}" icon="bi bi-clock" color="info" count="{{$totalAppointments}}" />
             <x-overview-card title="{{__('messages.total_pending_bookings')}}" icon="bi bi-stop-circle" color="info" count="{{$totalPendingBookings}}" />
-            <x-overview-card title="{{__('messages.total_completed_bookings')}}" icon="bi bi-calendar-plus" color="success" count="{{$totalCompletedBookings}}" />
-            <x-overview-card title="{{__('messages.total_canceled_bookings')}}" icon="bi bi-person-x" color="dark" count="{{$totalCanceledBookings}}" />
-            <x-overview-card title="{{__('messages.total_rescheduled')}}" icon="bi bi-card-list" color="primary" count="{{$totalRescheduled}}" />
-            <x-overview-card title="{{__('messages.total_video_consultations_completed')}}" icon="bi bi-camera-video" color="danger" count="{{$totalVideoConsultationsCompleted}}" />
-            <x-overview-card title="{{__('messages.total_audio_consultation_complete')}}" icon="bi bi-soundwave" color="warning" count="{{$totalAudioConsultationComplete}}" />
-            <x-overview-card title="{{__('messages.total_chat_consultation_complete')}}" icon="bi bi-chat-left-quote" color="secondary" count="{{$totalChatConsultationComplete}}" />
-            <x-overview-card title="{{__('messages.total_new_patients')}}" icon="bi bi-person-plus" color="success" count="{{$totalNewPatients}}" />
+            <x-overview-card title="{{__('messages.total_completed_bookings')}}" icon="bi bi-calendar-plus" color="info" count="{{$totalCompletedBookings}}" />
+            <x-overview-card title="{{__('messages.total_canceled_bookings')}}" icon="bi bi-person-x" color="info" count="{{$totalCanceledBookings}}" />
+            <x-overview-card title="{{__('messages.total_rescheduled')}}" icon="bi bi-card-list" color="info" count="{{$totalRescheduled}}" />
+            <x-overview-card title="{{__('messages.total_video_consultations_completed')}}" icon="bi bi-camera-video" color="info" count="{{$totalVideoConsultationsCompleted}}" />
+            <x-overview-card title="{{__('messages.total_audio_consultation_complete')}}" icon="bi bi-soundwave" color="info" count="{{$totalAudioConsultationComplete}}" />
+            <x-overview-card title="{{__('messages.total_chat_consultation_complete')}}" icon="bi bi-chat-left-quote" color="info" count="{{$totalChatConsultationComplete}}" />
+            <x-overview-card title="{{__('messages.total_new_patients')}}" icon="bi bi-person-plus" color="info" count="{{$totalNewPatients}}" />
         </div>
     </div>
     <div class="row  ">
@@ -79,9 +79,9 @@
 
 <div class="row row-cols-xxl-4 row-cols-md-2 row-cols-1">
 
-            <x-overview-card title="{{__('messages.doctors')}}" icon="bi bi-journal-plus" color="warning" count="{{$doctorsCount}}" />
+            <x-overview-card title="{{__('messages.doctors')}}" icon="bi bi-journal-plus" color="info" count="{{$doctorsCount}}" />
             <x-overview-card title="{{__('messages.average_rating_per_doctor')}}" icon="bi bi-star-half" color="info" count="{{ number_format($averageRatingPerDoctor, 1) }}" />
-            <x-overview-card title="{{__('messages.average_number_of_consultations_per_doctor')}}" icon="bi bi-journal-plus" color="success" count="{{ number_format($averageNumberOfConsultationsPerDoctor, 1)}}" />
+            <x-overview-card title="{{__('messages.average_number_of_consultations_per_doctor')}}" icon="bi bi-journal-plus" color="info" count="{{ number_format($averageNumberOfConsultationsPerDoctor, 1)}}" />
 
         </div>
     </div>

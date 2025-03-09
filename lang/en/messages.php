@@ -14,6 +14,7 @@ return [
     'roles' => 'Roles',
     'role' => 'Role',
     'users' => 'Users',
+    'admins' => 'Admins',
     'user' => 'User',
     'articles' => 'Articles',
     'article' => 'Article',
