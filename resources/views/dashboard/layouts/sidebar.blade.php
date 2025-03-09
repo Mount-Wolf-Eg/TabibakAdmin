@@ -34,7 +34,7 @@
                     <a href="{{route('dashboard')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('dashboard')])>
                         <i class="bi bi-speedometer2"></i>
                         <span data-key="t-dashboard">{{ __('t-dashboard') }}</span>
-                        <span class="badge badge-pill badge-soft-danger" data-key="t-hot">{{ __('t-hot') }}</span>
+                        <!-- <span class="badge badge-pill badge-soft-danger" data-key="t-hot">{{ __('t-hot') }}</span> -->
                     </a>
                 </li>
 
