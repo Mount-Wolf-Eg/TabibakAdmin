@@ -564,6 +564,14 @@ return [
                 "title" => "Need Reschedule",
                 "body" => "Doctor need reschedule the consultation"
             ],
+            'doctor_reminder' => [
+                'title' => '🩺 Upcoming Consultation Reminder',
+                'body' => 'Dear Dr. :doctor_name, you have an upcoming consultation scheduled at :consultation_time. Please be prepared. 📅'
+            ],
+            'patient_reminder' => [
+                'title' => '📅 Appointment Reminder',
+                'body' => 'Hello :patient_name, this is a reminder for your consultation with Dr. :doctor_name at :consultation_time. Please be on time. 🏥'
+            ]
         ]
     ],
     // 'not_active_account' => 'Your account is not active',
