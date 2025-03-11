@@ -380,6 +380,8 @@ return [
     'lowercase' => 'lowercase',
     'letter' => 'letter',
     '8_chars' => '8 characters',
+    '2_minutes' => '2 Minutes',
+    '5_minutes' => '5 Minutes',
     '10_minutes' => '10 Minutes',
     '15_minutes' => '15 Minutes',
     '30_minutes' => '30 Minutes',
@@ -493,6 +495,24 @@ return [
     'notifications' => 'Notifications',
     'notification' => 'Notification',
     'notification_messages' => [
+        'user' => [
+            'approve' => [
+                'title' => 'User Approved',
+                'body' => 'Your account has been approved',
+            ],
+            'reject' => [
+                'title' => 'User Rejected',
+                'body' => 'Your account has been rejected',
+            ],
+            'deactivate' => [
+                'title' => 'User Deactivated',
+                'body' => 'Your account has been deactivated',
+            ],
+            'activate' => [
+                'title' => 'User Activated',
+                'body' => 'Your account has been activated',
+            ],
+        ],
         'article' => [
             'new' => [
                 'title' => 'New Article',

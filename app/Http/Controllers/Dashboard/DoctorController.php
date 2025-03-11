@@ -10,6 +10,7 @@ use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\MedicalSpecialityContract;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseWebController;
+use App\Services\Repositories\UserNotificationService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,9 +18,9 @@ use Illuminate\Http\RedirectResponse;
 
 class DoctorController extends BaseWebController
 {
-
     protected MedicalSpecialityContract $medicalSpecialityContract;
     protected AcademicDegreeContract $academicDegreeContract;
+    protected UserNotificationService $userNotificationService;
 
     /**
      * DoctorController constructor.
@@ -27,11 +28,13 @@ class DoctorController extends BaseWebController
      * @param MedicalSpecialityContract $medicalSpecialityContract
      * @param AcademicDegreeContract $academicDegreeContract
      */
-    public function __construct(DoctorContract $contract, MedicalSpecialityContract $medicalSpecialityContract, AcademicDegreeContract $academicDegreeContract)
+    public function __construct(DoctorContract $contract, MedicalSpecialityContract $medicalSpecialityContract, 
+    AcademicDegreeContract $academicDegreeContract, UserNotificationService $userNotificationService)
     {
         parent::__construct($contract, 'dashboard');
         $this->medicalSpecialityContract = $medicalSpecialityContract;
         $this->academicDegreeContract = $academicDegreeContract;
+        $this->userNotificationService = $userNotificationService;
     }
 
     /**
@@ -46,7 +49,7 @@ class DoctorController extends BaseWebController
         return $this->indexBlade(['resources' => $resources]);
     }
 
-     /**
+    /**
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
@@ -120,8 +123,8 @@ class DoctorController extends BaseWebController
      */
     public function destroy(Doctor $doctor): RedirectResponse
     {
-       $this->contract->remove($doctor);
-       return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
+        $this->contract->remove($doctor);
+        return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
     }
 
     /**
@@ -142,10 +145,10 @@ class DoctorController extends BaseWebController
      */
     public function approve(Doctor $doctor): RedirectResponse
     {
-        if ($doctor->request_status?->is(DoctorRequestStatusConstants::PENDING))
-        {
+        if ($doctor->request_status?->is(DoctorRequestStatusConstants::PENDING)) {
             $this->contract->update($doctor, ['request_status' => DoctorRequestStatusConstants::APPROVED->value]);
-        }else{
+            $this->userNotificationService->approveDoctor($doctor->user);
+        } else {
             return $this->redirectBack()->with('error', __('messages.errors.doctor_request_pending'));
         }
         return $this->redirectBack()->with('success', __('messages.actions_messages.update_success'));
@@ -158,13 +161,11 @@ class DoctorController extends BaseWebController
      */
     public function reject(Doctor $doctor): RedirectResponse
     {
-        if ($doctor->request_status?->is(DoctorRequestStatusConstants::PENDING))
-        {
+        if ($doctor->request_status?->is(DoctorRequestStatusConstants::PENDING)) {
             $this->contract->update($doctor, ['request_status' => DoctorRequestStatusConstants::REJECTED->value]);
-        }else{
+        } else {
             return $this->redirectBack()->with('error', __('messages.errors.doctor_request_pending'));
         }
         return $this->redirectBack()->with('success', __('messages.actions_messages.update_success'));
     }
-
 }

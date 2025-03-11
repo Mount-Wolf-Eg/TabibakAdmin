@@ -96,4 +96,10 @@ class DoctorProfileController extends BaseApiController
         return $this->respondWithSuccess(__('messages.actions_messages.update_success'));
     }
 
+    public function toggleUrgentConsultationEnabled()
+    {
+        $doctor = auth()->user()->doctor;
+        $this->contract->toggleField($doctor, 'urgent_consultation_enabled');
+        return $this->respondWithModel($doctor);
+    }
 }
