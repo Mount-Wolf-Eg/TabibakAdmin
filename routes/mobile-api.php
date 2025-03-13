@@ -125,6 +125,6 @@ Route::group(['middleware' => 'locale'], static function () {
     });
 
     Route::get('consultations/{consultation}/prescription', [PatientConsultationController::class, 'exportPrescription'])->name('consultations.prescription');
-    Route::get('consultations/{consultation}/prescription-view', [PatientConsultationController::class, 'prescription']);
-    // Route::get('consultations/{consultation}/medical-report', [PatientConsultationController::class, 'exportMedicalReport'])->name('consultations.medical-report');
+    Route::get('consultations/{consultation}/medical-report', [PatientConsultationController::class, 'exportMedicalReport'])->name('consultations.medical_report');
+    Route::get('consultations/{consultation}/report', [PatientConsultationController::class, 'exportReport'])->name('consultations.report');
 });

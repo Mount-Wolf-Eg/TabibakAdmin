@@ -7,8 +7,7 @@
     <title>Medical Report</title>
     <style>
         body {
-            /* font-family: Arial, sans-serif; */
-            font-family: 'DejaVu Sans', Arial, sans-serif;
+            font-family: Arial, sans-serif;
             font-size: 16px;
             margin: 0;
             padding: 0;
@@ -36,9 +35,7 @@
         .card {
             min-height: 100vh;
             width: 100%;
-            max-width: 800px;
-            /* Set max width for better PDF layout */
-            background-image: url('{{ public_path("assets/reports/prescription/prescription Bckground en.png") }}');
+            background-image: url('{{ public_path("assets/reports/report/prescription Bckground en.png") }}');
             margin: 20px auto;
             padding: 20px;
             display: grid;
@@ -68,7 +65,6 @@
         .doctor-info p {
             font-size: 12px;
             color: #000000;
-            padding: 5px 0;
         }
 
         .hotline {
@@ -81,7 +77,7 @@
             grid-column: 1 / 3;
             grid-row: 2;
             text-align: left;
-            font-size: 13px;
+            font-size: 18px;
         }
 
         .report {
@@ -116,48 +112,6 @@
             text-align: center;
             font-size: 14px;
             color: #777;
-        }
-
-        .prescription-header {
-            text-align: center;
-            grid-column: 1 / 3;
-
-        }
-
-        .prescription-header img {
-            width: 50px;
-            margin: auto;
-        }
-
-        .prescription-header h2 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            grid-column: 1 / 3;
-            grid-row: 2;
-        }
-
-        th,
-        td {
-            font-size: 14px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            font-size: 12px;
-            background: #f9f9f9;
-            font-weight: bold;
-        }
-
-        td {
-            font-size: 11px;
         }
 
         @media (max-width:992px) {
@@ -195,10 +149,6 @@
             .footer {
                 grid-column: 1 / 7;
             }
-
-            .prescription-header {
-                grid-column: 1 / 7;
-            }
         }
     </style>
 </head>
@@ -218,38 +168,16 @@
                 <p>Patient Name: {{ $consultation->patient?->user?->name }}</p>
             </div>
 
-            <div class="prescription-header" style="padding-top: 15px;">
-                <!-- <img src="{{ public_path('assets/reports/prescription/cropped-cropped-transparentlogo3000x750px.jpg') }}" alt="Prescription Icon" width="30"> -->
-                <h2 style="font-size: 15px;">Prescription Details</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Medicine Name</th>
-                            <th>Time</th>
-                            <th>Strength</th>
-                            <th>QTY</th>
-                            <th>Dose</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($medications as $medicine)
-                        <tr>
-                            <td>{{ $medicine['name'] }}</td>
-                            <td>{{ trans('messages.' . $medicine['time']) }}</td>
-                            <td>{{ $medicine['strength'] }}</td>
-                            <td>{{ $medicine['quantity'] }}</td>
-                            <td>{{ $medicine['dosage'] }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="report">
+                <h3 style="font-size: 15px;">Report</h3>
+                <p>
+                    {{ $report }}
+                </p>
             </div>
 
-            @if($consultation->doctor_signature)
-            <div class="signature" style="text-align: right; margin-top: 20px;">
-                <img src="{{ storage_path('app/public/signatures/'.$consultation->doctor_signature) }}" alt="Doctor Signature" width="150">
-            </div>
-            @endif
+            <!-- <div class="signature">
+                <img src="Screenshot 2025-03-12 021240.png" alt="Signature" width="150">
+            </div> -->
 
             <div class="qr-code">
                 <img src="data:image/png;base64,{{ $qrCode }}" alt="Prescription QR Code" width="70">
@@ -258,9 +186,12 @@
 
             <div class="footer">
                 <hr>
-                <p style="font-size: 14px;">This notice is an official document and does not require a signature or stamp.</p>
+                <p style="font-size: 14px;">This notice is an official document and does not require a signature or
+                    stamp.</p>
                 <p style="font-size: 14px;">vtmc</p>
             </div>
+        </div>
+
         </div>
     </section>
 </body>

@@ -20,7 +20,7 @@
         }
 
         .section {
-            width: 90%;
+            width: 100%;
             padding: 40px;
             display: grid;
             gap: 20px;
@@ -29,8 +29,8 @@
 
         .card {
             min-height: 100vh;
-            width: 40%;
-            /* background-image: url(prescription\ Bckground\ en.png); */
+            width: 100%;
+            background-image: url('{{ public_path("assets/reports/prescription/prescription Bckground en.png") }}');
             margin: 20px auto;
             padding: 20px;
             display: grid;
@@ -118,15 +118,13 @@
         }
 
         .prescription-header img {
-
-            width: 130px;
+            width: 30px;
         }
 
         .prescription-header h2 {
             margin: 0;
             font-size: 18px;
         }
-
 
         table {
             width: 100%;
@@ -226,64 +224,65 @@
 <body>
     <section class="section">
         <div class="card">
-            <div class="header">
-                <div class="doctor-info">
-                    <p>Date : </h1>
-                    <p>Licensing : </p>
-                    <p>Commercial registration number : </p>
-                </div>
-            </div>
-            <div class="patient-info">
-                <p>Patient name</p>
-                <p><strong>Patient name here</strong></p>
+            <div class="prescription-header">
+                <img style="width: 100px;" src="{{ public_path('assets/reports/medical_report/logo.png') }}" alt="Prescription Icon">
             </div>
 
-            <div class="prescription-header">
-                <img src="logo.png" alt="Prescription Icon">
+            <div class="header">
+                <div class="doctor-info">
+                    <p>Date : {{ $consultation->created_at->format('d/m/Y') }} {{ $consultation->created_at->format('h:i A') }}</h1>
+                    <p>Licensing : </p>
+                    <p>Commercial registration number : 1009062980</p>
+                </div>
             </div>
+            <!-- <div class="patient-info">
+                <p>Patient name</p>
+                <p><strong>{{ $consultation->patient?->user?->name }}</strong></p>
+            </div> -->
 
             <div class="table-header">
                 <h3> Prescription Report </h3>
-                <p>Patient Name :</p>
+                <p>Patient Name: {{ $consultation->patient?->user?->name }}</p>
                 <p>
-                    Doctor :
+                    Doctor: {{ $consultation->doctor?->user?->name }}
                 </p>
                 <table>
-                    <thead>
+                <thead>
                         <tr>
-                            <th>Medicine name</th>
-                            <th>Quantity</th>
-                            <th>Dose</th>
+                            <th>Medicine Name</th>
+                            <th>Time</th>
                             <th>Strength</th>
+                            <th>QTY</th>
+                            <th>Dose</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($medications as $medicine)
                         <tr>
-                            <td>Pills</td>
-                            <td>1000 Grams</td>
-                            <td>12</td>
-                            <td>1 Pill every 8 hrs</td>
+                            <td>{{ $medicine['name'] }}</td>
+                            <td>{{ trans('messages.' . $medicine['time']) }}</td>
+                            <td>{{ $medicine['strength'] }}</td>
+                            <td>{{ $medicine['quantity'] }}</td>
+                            <td>{{ $medicine['dosage'] }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
 
-
-
-            <div class="signature">
+            <!-- <div class="signature">
                 <img src="Screenshot 2025-03-12 021240.png" alt="Signature" width="150">
-            </div>
+            </div> -->
 
             <div class="qr-code">
-                <img src="Screenshot 2025-03-12 021245.png" alt="QR Code" width="100">
-
+                <img src="data:image/png;base64,{{ $qrCode }}" alt="Prescription QR Code" width="70">
+                <p style="font-size: 7px;">Prescription code</p>
             </div>
-
 
             <div class="footer">
                 <hr>
-                <p>This prescription is authorized by CARESA medical care application</p>
-                <p>www.caresa.com.sa</p>
+                <p style="font-size: 14px;">This notice is an official document and does not require a signature or stamp.</p>
+                <p style="font-size: 14px;">vtmc</p>
             </div>
         </div>
 
