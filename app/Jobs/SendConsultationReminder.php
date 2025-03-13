@@ -27,13 +27,15 @@ class SendConsultationReminder implements ShouldQueue
         $consultations = Consultation::whereHas('doctor')
             ->whereHas('patient')
             ->whereHas('doctorScheduleDayShift', function ($query) {
-                $query->whereDate('date', now()->toDateString()) // Check today's shifts
-                      ->whereTime('from_time', '>', now()->toTimeString()); // Only upcoming
+                $query->whereHas('day', function ($query) {
+                    $query->whereDate('date', now()->toDateString()); // Check today's shifts
+                })
+                    ->whereTime('from_time', '>', now()->toTimeString()); // Only upcoming
             })
             ->whereIn('status', [ConsultationStatusConstants::PENDING, ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER])
             ->where(function ($query) {
                 $query->where('patient_reminded', false)
-                      ->orWhere('doctor_reminded', false);
+                    ->orWhere('doctor_reminded', false);
             })
             ->get();
 
