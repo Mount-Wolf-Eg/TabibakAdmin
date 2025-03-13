@@ -19,6 +19,9 @@ use App\Repositories\Contracts\DoctorContract;
 use App\Services\Repositories\ConsultationNotificationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
+use Mpdf\Mpdf;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PatientConsultationController extends BaseApiController
 {
@@ -48,26 +51,26 @@ class PatientConsultationController extends BaseApiController
             $consultation = $this->contract->create($request->validated());
             $this->relations[] = 'attachments';
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
-   /**
-    * Display the specified resource.
-    * @param Consultation $consultation
-    * @return JsonResponse
-    */
-   public function show(Consultation $consultation): JsonResponse
-   {
-       try {
-           if (!$consultation->isMineAsPatient())
-               abort(422, __('messages.not_allowed'));
-           $this->relations = array_merge($this->relations, ['attachments', 'vendors', 'patient.diseases']);
-           return $this->respondWithModel($consultation);
-       }catch (Exception $e) {
-           return $this->respondWithError($e->getMessage());
-       }
-   }
+    /**
+     * Display the specified resource.
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
+    public function show(Consultation $consultation): JsonResponse
+    {
+        try {
+            if (!$consultation->isMineAsPatient())
+                abort(422, __('messages.not_allowed'));
+            $this->relations = array_merge($this->relations, ['attachments', 'vendors', 'patient.diseases']);
+            return $this->respondWithModel($consultation);
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -75,12 +78,12 @@ class PatientConsultationController extends BaseApiController
      * @param Consultation $consultation
      * @return JsonResponse
      */
-    public function update(ConsultationRequest $request, Consultation $consultation) : JsonResponse
+    public function update(ConsultationRequest $request, Consultation $consultation): JsonResponse
     {
         try {
             $consultation = $this->contract->update($consultation, $request->validated());
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -94,7 +97,7 @@ class PatientConsultationController extends BaseApiController
         try {
             $this->contract->remove($consultation);
             return $this->respondWithSuccess(__('messages.deleted'));
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -109,7 +112,7 @@ class PatientConsultationController extends BaseApiController
         try {
             $this->contract->toggleField($consultation, 'is_active');
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -127,7 +130,7 @@ class PatientConsultationController extends BaseApiController
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::PATIENT_CANCELLED->value]);
             $this->notificationService->patientCancel($consultation);
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -145,7 +148,7 @@ class PatientConsultationController extends BaseApiController
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::PATIENT_CONFIRM_REFERRAL->value]);
             $this->notificationService->patientCancel($consultation);
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -167,18 +170,18 @@ class PatientConsultationController extends BaseApiController
             $consultation = $this->contract->findByFilters($filters, ['replies.rates', 'patient', 'medicalSpeciality'], false);
             if (!$consultation)
                 return $this->respondWithSuccess(__('messages.no_data'));
-            if (request('orderBy') == 'topRated'){
+            if (request('orderBy') == 'topRated') {
                 $consultation->replies = $consultation->replies->sortByDesc(function ($reply) {
                     return $reply->rates->avg('value');
                 });
-            }elseif (request('orderBy') == 'highestPrice'){
+            } elseif (request('orderBy') == 'highestPrice') {
                 $consultation->replies = $consultation->replies->sortBy('amount')->reverse();
-            }elseif (request('orderBy') == 'lowestPrice'){
+            } elseif (request('orderBy') == 'lowestPrice') {
                 $consultation->replies = $consultation->replies->sortBy('amount');
             }
             $this->relations = ['replies.rates', 'medicalSpeciality'];
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -193,12 +196,16 @@ class PatientConsultationController extends BaseApiController
     {
         try {
             $data = $request->validated();
-            $consultation = $this->contract->update($consultation, ['doctor_id' => $data['doctor_id'],
-                'amount' => $data['amount'], 'status' => ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value, 'is_active' => false]);
+            $consultation = $this->contract->update($consultation, [
+                'doctor_id' => $data['doctor_id'],
+                'amount' => $data['amount'],
+                'status' => ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value,
+                'is_active' => false
+            ]);
             $this->contract->syncWithoutDetaching($consultation, 'replies', $data['replies']);
             $this->notificationService->patientAcceptDoctorOffer($consultation);
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -217,7 +224,7 @@ class PatientConsultationController extends BaseApiController
             $this->contract->syncWithoutDetaching($consultation, 'replies', $data['replies']);
             $this->notificationService->patientRejectDoctorOffer($consultation, $doctor);
             return $this->respondWithModel($consultation);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -226,7 +233,7 @@ class PatientConsultationController extends BaseApiController
     {
         try {
             $consultations = $this->contract->findAllByFilters(['allReferrals' => true, 'patient' => auth()->user()->patient?->id], ['vendors', 'doctor'], false);
-            
+
             $vendors = [];
 
             foreach ($consultations as $consultation) {
@@ -234,7 +241,7 @@ class PatientConsultationController extends BaseApiController
                     $vendors[] = $this->referralResponse($consultation, $vendor);
                 }
             }
-            
+
             return response()->json(['status' => 200, 'data' => $vendors]);
         } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
@@ -245,7 +252,7 @@ class PatientConsultationController extends BaseApiController
     {
         try {
             $consultations = $this->contract->findAllByFilters(['otherReferrals' => true, 'patient' => auth()->user()->patient?->id], ['vendors'], false);
-            
+
             $vendors = [];
 
             foreach ($consultations as $consultation) {
@@ -263,7 +270,7 @@ class PatientConsultationController extends BaseApiController
     {
         try {
             $consultations = $this->contract->findAllByFilters(['testReferrals' => true, 'patient' => auth()->user()->patient?->id], ['vendors', 'doctor'], false);
-            
+
             $vendors = [];
 
             foreach ($consultations as $consultation) {
@@ -281,7 +288,7 @@ class PatientConsultationController extends BaseApiController
     {
         try {
             $consultations = $this->contract->findAllByFilters(['raysReferrals' => true, 'patient' => auth()->user()->patient?->id], ['vendors', 'doctor'], false);
-            
+
             $vendors = [];
 
             foreach ($consultations as $consultation) {
@@ -307,7 +314,7 @@ class PatientConsultationController extends BaseApiController
             }
 
             $consultations = $this->contract->findAllByFilters(['patient' => auth()->user()->patient?->id] + $filters, ['vendors', 'doctor'], false);
-            
+
             $vendors = [];
 
             foreach ($consultations as $consultation) {
@@ -384,10 +391,56 @@ class PatientConsultationController extends BaseApiController
     public function addFilesToReferral(ConsultationVendorFileRequest $request, $referral_id)
     {
         $referral = ConsultationVendor::findOrFail($referral_id);
-        foreach ($request->attachments as $attachment){
+        foreach ($request->attachments as $attachment) {
             $fileModel = resolve(\App\Repositories\Contracts\FileContract::class)->find($attachment);
             $referral->attachments()->save($fileModel);
         }
         return $this->respondWithSuccess(__('messages.actions_messages.update_success'));
+    }
+
+    public function exportPrescription(Consultation $consultation)
+    {
+        // Decode the prescription JSON
+        $medications = $consultation->prescription;
+
+        // Generate the URL for the prescription
+        $prescriptionUrl = route('consultations.prescription', ['consultation' => $consultation->id]);
+
+        // Generate QR code containing the URL
+        $qrCode = base64_encode(QrCode::format('png')->size(200)->color(109, 160, 180)->backgroundColor(255, 255, 255)->generate($prescriptionUrl));
+
+        // Load the Blade view with data
+        $html = view('reports.prescription.prescription', compact('consultation', 'qrCode', 'medications'))->render();
+
+        // Initialize mPDF and generate the PDF
+        $mpdf = new Mpdf([
+            'default_font' => 'dejavusans',
+        ]);
+        $mpdf->WriteHTML($html);
+
+        return $mpdf->Output('prescription.pdf', 'I');
+    }
+
+    public function exportMedicalReport(Consultation $consultation)
+    {
+        // Decode the medicalReport JSON
+        $medications = $consultation->medicalReport;
+
+        // Generate the URL for the medicalReport
+        $medicalReportUrl = route('consultations.medial_report', ['consultation' => $consultation->id]);
+
+        // Generate QR code containing the URL
+        $qrCode = base64_encode(QrCode::format('png')->size(200)->color(109, 160, 180)->backgroundColor(255, 255, 255)->generate($medicalReportUrl));
+
+        // Load the Blade view with data
+        $html = view('reports.medicalReport.medicalReport', compact('consultation', 'qrCode', 'medications'))->render();
+
+        // Initialize mPDF and generate the PDF
+        $mpdf = new Mpdf([
+            'default_font' => 'dejavusans',
+        ]);
+        $mpdf->WriteHTML($html);
+
+        return $mpdf->Output('medicalReport.pdf', 'I');
     }
 }

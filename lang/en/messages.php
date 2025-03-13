@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'after_meal' => 'After Meal',
+    'before_meal' => 'Before Meal',
     'required' => 'Required',
     'added' => 'Added',
     'other' => 'Other',

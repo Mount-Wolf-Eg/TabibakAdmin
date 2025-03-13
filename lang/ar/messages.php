@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'after_meal' => 'بعد الوجبة',
+    'before_meal' => 'قبل الوجبة',
     'required' => 'مطلوب',
     'added' => 'تم اﻹضافة',
     'other' => 'آخري',

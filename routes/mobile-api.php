@@ -123,4 +123,8 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('nearest-doctor-schedule-day/{doctor}', [DoctorScheduleDayController::class, 'nearestAvailableDay']);
         });
     });
+
+    Route::get('consultations/{consultation}/prescription', [PatientConsultationController::class, 'exportPrescription'])->name('consultations.prescription');
+    Route::get('consultations/{consultation}/prescription-view', [PatientConsultationController::class, 'prescription']);
+    // Route::get('consultations/{consultation}/medical-report', [PatientConsultationController::class, 'exportMedicalReport'])->name('consultations.medical-report');
 });
