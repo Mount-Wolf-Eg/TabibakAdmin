@@ -443,4 +443,27 @@ class PatientConsultationController extends BaseApiController
 
         return $mpdf->Output('medicalReport.pdf', 'I');
     }
+
+    public function exportReport(Consultation $consultation)
+    {
+        // Decode the medicalReport JSON
+        $report = $consultation->doctor_description;
+
+        // Generate the URL for the medicalReport
+        $medicalReportUrl = route('consultations.report', ['consultation' => $consultation->id]);
+
+        // Generate QR code containing the URL
+        $qrCode = base64_encode(QrCode::format('png')->size(200)->color(109, 160, 180)->backgroundColor(255, 255, 255)->generate($medicalReportUrl));
+
+        // Load the Blade view with data
+        $html = view('reports.report.report', compact('consultation', 'qrCode', 'report'))->render();
+
+        // Initialize mPDF and generate the PDF
+        $mpdf = new Mpdf([
+            'default_font' => 'dejavusans',
+        ]);
+        $mpdf->WriteHTML($html);
+
+        return $mpdf->Output('medicalReport.pdf', 'I');
+    }
 }

@@ -46,7 +46,7 @@ class SendConsultationReminder implements ShouldQueue
             if (!$consultation->doctor_reminded) {
                 $reminderTime = $shiftStartTime->copy()->subMinutes($consultation->doctor->reminder_before_consultation);
                 if (now()->greaterThanOrEqualTo($reminderTime)) {
-                    $consultationNotificationService->doctorReminder($consultation);
+                    $consultationNotificationService->reminderDoctor($consultation);
                 }
             }
 
@@ -54,7 +54,7 @@ class SendConsultationReminder implements ShouldQueue
             if (!$consultation->patient_reminded) {
                 $reminderTime = Carbon::parse($consultation->reminder_at);
                 if (now()->greaterThanOrEqualTo($reminderTime)) {
-                    $consultationNotificationService->patientReminder($consultation);
+                    $consultationNotificationService->reminderPatient($consultation);
                 }
             }
         }
