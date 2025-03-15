@@ -19,8 +19,8 @@ class UserNotificationService
             'title'         => 'messages.notification_messages.user.%s.title',
             'body'          => 'messages.notification_messages.user.%s.body',
             'type'          => '',
-            'redirect_type' => '',
-            'redirect_id'   => '',
+            'redirect_type' => null,
+            'redirect_id'   => null,
             'users'         => $this->notifiedUsers
         ];
     }
