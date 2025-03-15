@@ -401,7 +401,7 @@ class PatientConsultationController extends BaseApiController
     public function exportPrescription(Consultation $consultation)
     {
         // Decode the prescription JSON
-        $medications = $consultation->prescription;
+        $medications = $consultation->prescription ?? [];
 
         // Generate the URL for the prescription
         $prescriptionUrl = route('consultations.prescription', ['consultation' => $consultation->id]);
@@ -424,7 +424,7 @@ class PatientConsultationController extends BaseApiController
     public function exportMedicalReport(Consultation $consultation)
     {
         // Decode the medicalReport JSON
-        $medications = $consultation->prescription;
+        $medications = $consultation->prescription ?? [];
 
         // Generate the URL for the medicalReport
         $medicalReportUrl = route('consultations.medical_report', ['consultation' => $consultation->id]);
