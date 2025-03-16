@@ -202,8 +202,8 @@ class DoctorConsultationController extends BaseApiController
     public function statistics()
     {
         try {
-            $calendarCases = $this->contract->freshRepo()->countWithFilters(['mineAsDoctor' => true, 'type' => ConsultationTypeConstants::WITH_APPOINTMENT->value]);
-            $urgentCases = $this->contract->freshRepo()->countWithFilters(['mineAsDoctor' => true, 'type' => ConsultationTypeConstants::URGENT->value]);
+            $calendarCases = $this->contract->freshRepo()->countWithFilters(['mineAsDoctor' => true, 'nextConsultation' => true, 'type' => ConsultationTypeConstants::WITH_APPOINTMENT->value]);
+            $urgentCases = $this->contract->freshRepo()->countWithFilters(['mineAsDoctor' => true, 'nextConsultation' => true, 'type' => ConsultationTypeConstants::URGENT->value]);
             return $this->respondWithArray([
                 'calendar_cases' => $calendarCases,
                 'urgent_cases' => $urgentCases,
