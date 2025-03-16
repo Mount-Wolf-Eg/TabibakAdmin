@@ -41,7 +41,7 @@ class Consultation extends Model
         'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
         'myVendorStatus', 'creationDate', 'status', 'completed', 'reported', 'urgentWithNoDoctor',
         'doctorsList', 'medicalSpeciality', 'doctor', 'patient', 'createdBeforeHour',
-        'dayShift', 'onlyApprovedReferral', 'allReferrals', 'otherReferrals', 'testReferrals', 'raysReferrals'];
+        'dayShift', 'onlyApprovedReferral', 'allReferrals', 'otherReferrals', 'testReferrals', 'raysReferrals', 'nextConsultation'];
     
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
