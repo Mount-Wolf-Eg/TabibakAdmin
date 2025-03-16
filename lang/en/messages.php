@@ -499,7 +499,7 @@ return [
     'notification_messages' => [
         'user' => [
             'approve' => [
-                'title' => 'User Approved',
+                'title' => 'User Approved as a doctor',
                 'body' => 'Your account has been approved',
             ],
             'reject' => [
