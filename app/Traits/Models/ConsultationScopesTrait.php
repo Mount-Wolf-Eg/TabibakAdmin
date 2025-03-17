@@ -211,7 +211,7 @@ trait ConsultationScopesTrait
                 $query->where('consultation_doctor_replies.status', ConsultationPatientStatusConstants::APPROVED->value)
                     ->whereDate('consultation_doctor_replies.doctor_set_consultation_at', now());
             });
-        });
+        })->ofCompleted(false);
     }
     //---------------------Scopes-------------------------------------
 
