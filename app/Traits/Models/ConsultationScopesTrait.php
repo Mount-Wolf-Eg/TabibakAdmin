@@ -95,6 +95,7 @@ trait ConsultationScopesTrait
     public function scopeOfCompleted($query, $value = "true")
     {
         $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+
         $completedStatuses = [
             ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value,
             ConsultationStatusConstants::PATIENT_CANCELLED->value,
@@ -102,9 +103,13 @@ trait ConsultationScopesTrait
             ConsultationStatusConstants::REFERRED_TO_ANOTHER_DOCTOR->value,
             ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR->value
         ];
+
         if ($value) {
-            return $query->ofStatus($completedStatuses);
+            return $query->ofStatus($completedStatuses)->orWhere(function ($query) {
+                $query->ofPastConsultation();
+            });
         }
+
         return $query->whereNotIn('status', $completedStatuses);
     }
 
@@ -212,6 +217,27 @@ trait ConsultationScopesTrait
                     ->whereDate('consultation_doctor_replies.doctor_set_consultation_at', now());
             });
         })->ofCompleted(false);
+    }
+
+    public function scopeOfPastConsultation($query)
+    {
+        $query->where(function ($query) {
+            $query->whereHas('doctorScheduleDayShift', function ($query) {
+                $query->whereHas('day', function ($dayQuery) {
+                    $dayQuery->where('date', '<=', now()->format('Y-m-d'));
+                })
+                    ->whereRaw("
+            CONCAT(
+                (SELECT `date` FROM doctor_schedule_days WHERE id = doctor_schedule_day_shifts.doctor_schedule_day_id), 
+                ' ', 
+                from_time
+            ) < ?
+        ", [now()->format('Y-m-d H:i')]);
+            })->orWhereHas('replies', function ($query) {
+                $query->where('consultation_doctor_replies.status', ConsultationPatientStatusConstants::APPROVED->value)
+                    ->whereDate('consultation_doctor_replies.doctor_set_consultation_at', '<', now());
+            });
+        });
     }
     //---------------------Scopes-------------------------------------
 
