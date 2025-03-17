@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,6 +26,16 @@ class DoctorScheduleDayShift extends Model
     public array $translatable = [];
 
     //---------------------relations-------------------------------------
+    // public function getFromTimeAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('h:i A'); // 12-hour format with AM/PM
+    // }
+
+    // public function getToTimeAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('h:i A'); // 12-hour format with AM/PM
+    // }
+
     public function day(): BelongsTo
     {
         return $this->belongsTo(DoctorScheduleDay::class, 'doctor_schedule_day_id');

@@ -88,7 +88,7 @@ class MyFatoorahController extends Controller
         $callbackURL = route('payment.callback');
         $order       = Consultation::withoutGlobalScope('isActive')->findOrFail($orderId); // ->where(['patient_id' => auth()->user()->patient?->id])
 
-        $phone = $order->patient?->user?->phone;
+        $phone       = $order->patient?->user?->phone;
 
         if ($phone && str_starts_with($phone, '966')) {
             // Remove the '966' prefix
@@ -97,7 +97,7 @@ class MyFatoorahController extends Controller
 
         return [
             'CustomerName'      => $order->patient?->user?->name,
-            'InvoiceValue'      => $order->amount + 5, // TODO: handle the extra amount
+            'InvoiceValue'      => ($order->payment?->amount ?? $order->amount) + 5, // TODO: handle the extra amount
             'CallBackUrl'       => $callbackURL . '?status=success',
             'ErrorUrl'          => $callbackURL . '?status=fail',
             'Language'          => 'ar',
