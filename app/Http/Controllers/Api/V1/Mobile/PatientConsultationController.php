@@ -467,8 +467,9 @@ class PatientConsultationController extends BaseApiController
         return $mpdf->Output('report.pdf', 'I');
     }
 
-    public function sendTestFcm(Consultation $consultation)
+    public function sendTestFcm($id)
     {
+        $consultation = Consultation::findOrFail($id);
         $this->notificationService->patientAcceptDoctorOffer($consultation);
     }
 }
