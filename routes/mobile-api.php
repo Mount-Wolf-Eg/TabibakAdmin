@@ -130,5 +130,5 @@ Route::group(['middleware' => 'locale'], static function () {
     Route::get('consultations/{consultation}/medical-report', [PatientConsultationController::class, 'exportMedicalReport'])->name('consultations.medical_report');
     Route::get('consultations/{consultation}/report', [PatientConsultationController::class, 'exportReport'])->name('consultations.report');
 
-    Route::get('send-test-notification/{id}', [PatientConsultationController::class, 'sendTestFcm']);
+    Route::get('send-test-notification/{consultation}', [PatientConsultationController::class, 'sendTestFcm']);
 });
