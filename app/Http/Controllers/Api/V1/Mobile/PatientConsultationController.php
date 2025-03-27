@@ -124,6 +124,8 @@ class PatientConsultationController extends BaseApiController
      */
     public function cancel(Consultation $consultation): JsonResponse
     {
+        // check inside time range
+        // check outside time range
         if (!$consultation->patientCanCancel())
             abort(422, __('messages.patient_can_not_cancel'));
         try {
@@ -132,6 +134,24 @@ class PatientConsultationController extends BaseApiController
             return $this->respondWithModel($consultation);
         } catch (Exception $e) {
             return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Reschedule the consultation.
+     * @param Consultation $consultation
+     * @return JsonResponse
+     */
+    public function reschedule(Consultation $consultation)
+    {
+        try {
+            if (!$consultation->patientCanReschedule())
+                abort(422, __('messages.patient_can_not_reschedule', ['status' => $consultation->status->label()]));
+            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::NEEDS_RESCHEDULE->value]);
+            $this->notificationService->doctorReschedule($consultation);
+            return $this->respondWithModel($consultation);
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage(), 422);
         }
     }
 
