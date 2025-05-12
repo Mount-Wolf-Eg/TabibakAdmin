@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Repositories\Contracts\ContactContract;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseWebController;
+use App\Models\Contact;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -31,6 +32,13 @@ class ContactController extends BaseWebController
     {
         $resources = $this->contract->search($request->all(), ['user']);
         return $this->indexBlade(['resources' => $resources]);
+    }
+
+
+    public function show($id): View|Factory|Application
+    {
+        $resource = $this->contract->find($id, ['user']);
+        return $this->showBlade(['resource' => $resource]);
     }
 
 }

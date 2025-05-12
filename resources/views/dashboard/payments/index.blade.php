@@ -51,7 +51,9 @@
                 @foreach($resources as $resource)
                     <tr id="role{{$resource->id}}Row">
                         <th scope="row">
-                            <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
+                        <span class="fw-semibold text-primary cursor-context-menu">#{{$loop->iteration}}</span>
+
+                            <!-- <a href="#" class="fw-semibold">#{{$loop->iteration}}</a> -->
                         </th>
                         {{-- <td><a href="{{route('consultations.show', $resource->payable?->id)}}">#{{$resource->payable?->id}}</a></td> --}}
                         <td><a href="{{ $resource->payable ? route('consultations.show', $resource->payable->id) : '#' }}">#{{ $resource->payable?->id ?? 'N/A' }}</a></td>                        

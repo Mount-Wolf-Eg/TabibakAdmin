@@ -56,10 +56,10 @@
                                             </div>
                                         </div>
 
-                                        <div class="pb-3 {{app()->getLocale() == 'ar' ? 'float-end' : 'float-start'}}">
+                                        <!-- <div class="pb-3 {{app()->getLocale() == 'ar' ? 'float-end' : 'float-start'}}">
                                             <input class="form-check-input cursor-pointer mx-2" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                             <label class="form-check-label" for="auth-remember-check">{{__('auth.remember_me')}}</label>
-                                        </div>
+                                        </div> -->
 
                                         <div class="mt-4">
                                             <button class="btn btn-primary w-100" type="submit">{{__('auth.sign_in')}}</button>
