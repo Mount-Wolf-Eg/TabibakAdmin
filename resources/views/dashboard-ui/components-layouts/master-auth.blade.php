@@ -8,7 +8,7 @@
     <meta content="eCommerce + Admin HTML Template" name="description">
     <meta content="Themesbrand" name="author">
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ URL::asset('assets/images/tabibakLogoDark.png') }}">
 
     <!-- head css -->
     @include('components-layouts.head-css')
