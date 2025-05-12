@@ -12,7 +12,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-4 col-6 d-none d-xxl-block">
+            <!-- <div class="col-md-4 col-6 d-none d-xxl-block">
                 <div class="d-flex align-items-center justify-content-center gap-3 fs-14 fw-medium">
                     <div>
                         <i class="bi bi-envelope align-middle {{app()->getLocale() == 'ar' ? 'ms-2' : 'me-2'}}"></i> support@mount-wolf.com
@@ -21,7 +21,7 @@
                         <i class="bi bi-globe align-middle {{app()->getLocale() == 'ar' ? 'ms-2' : 'me-2'}}"></i> www.mount-wolf.com
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-4 col-3">
                 <div class="d-flex align-items-center justify-content-end gap-3 fs-14">
                     <hr class="vr d-none d-lg-block">

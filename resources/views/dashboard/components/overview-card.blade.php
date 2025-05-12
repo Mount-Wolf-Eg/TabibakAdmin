@@ -11,9 +11,9 @@
                     </div>
                     <div class="avatar-sm flex-shrink-0">
                     <!-- bg-secondary-subtle -->
-                            <span class="avatar-title text-{{$attributes['color']}} rounded fs-3" style="background-color: rgba(0, 0, 0, 0.04);">
+                            <!-- <span class="avatar-title text-{{$attributes['color']}} rounded fs-3" style="background-color: rgba(0, 0, 0, 0.04);">
                                 <i class="{{$attributes['icon']}}"></i>
-                            </span>
+                            </span> -->
                     </div>
                 </div>
             </div>

@@ -4,18 +4,18 @@
     <div class="navbar-brand-box">
         <a href="{{route('dashboard')}}" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="26">
-            </span>
+                <img src="{{ URL::asset('assets/images/tabibakLogo.svg') }}" alt="" height="26">
+             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('assets/images/logo-dark.png') }}" alt="" height="26">
-            </span>
+                <img src="{{ URL::asset('assets/images/tabibakLogo.svg') }}" alt="" height="26">
+             </span>
         </a>
         <a href="{{route('dashboard')}}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ URL::asset('assets/images/logo-sm.png') }}" alt="" height="24">
-            </span>
+                <img src="{{ URL::asset('assets/images/tabibakLogo.svg') }}" alt="" height="40">
+             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('assets/images/logo-light.png') }}" alt="" height="24">
+                 <img src="{{ URL::asset('assets/images/tabibakLogo.svg') }}" alt="" height="80" class="my-2">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item {{app()->getLocale() == 'ar' ? 'float-start' : 'float-end'}} btn-vertical-sm-hover"
@@ -34,7 +34,7 @@
                     <a href="{{route('dashboard')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('dashboard')])>
                         <i class="bi bi-speedometer2"></i>
                         <span data-key="t-dashboard">{{ __('t-dashboard') }}</span>
-                        <span class="badge badge-pill badge-soft-danger" data-key="t-hot">{{ __('t-hot') }}</span>
+                        <!-- <span class="badge badge-pill badge-soft-danger" data-key="t-hot">{{ __('t-hot') }}</span> -->
                     </a>
                 </li>
 
@@ -51,7 +51,7 @@
                 <li class="nav-item">
                     <a href="{{route('users.index')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('users.index', 'users.show', 'users.create', 'users.edit')])>
                         <i class="bi bi-person"></i>
-                        <span data-key="t-dashboard">{{ __('messages.users') }}</span>
+                        <span data-key="t-dashboard">{{ __('messages.admins') }}</span>
                     </a>
                 </li>
                 @endif
@@ -134,8 +134,44 @@
                     </a>
                 </li>
                 @endif
+                <!-- Start FAQ dropdown -->
+                <div class="accordion accordion-flush bg-transparent" id="accordionFlushExample">
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header bg-transparent">
+                        <button class="accordion-button collapsed bg-transparent " style="color:rgba(255, 255, 255, .5)  !important" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        {{ __('messages.faqs') }}                        
+                    </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                        <ul class="navbar-nav" id="navbar-nav">
 
-                @if(auth()->user()->can('read-faq-subject') || auth()->user()->can('view-all-faq-subject'))
+                            @if(auth()->user()->can('read-faq-subject') || auth()->user()->can('view-all-faq-subject'))
+                            <li class="nav-item">
+                                <a href="{{route('faq-subjects.index')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('faq-subjects.index', 'faq-subjects.show', 'faq-subjects.create',
+                                    'faq-subjects.edit')])>
+                                    <i class="bi bi-patch-question-fill"></i>
+                                    <span data-key="t-dashboard">{{ __('messages.faq_subjects') }}</span>
+                                </a>
+                            </li>
+                        @endif
+
+                        @if(auth()->user()->can('read-faq') || auth()->user()->can('view-all-faq'))
+                        <li class="nav-item">
+                            <a href="{{route('faqs.index')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('faqs.index', 'faqs.show', 'faqs.create', 'faqs.edit')])>
+                                <i class="bi bi-question-octagon"></i>
+                                <span data-key="t-dashboard">{{ __('messages.faqs') }}</span>
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End FAQ dropdown -->
+
+                <!-- @if(auth()->user()->can('read-faq-subject') || auth()->user()->can('view-all-faq-subject'))
                 <li class="nav-item">
                     <a href="{{route('faq-subjects.index')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('faq-subjects.index', 'faq-subjects.show', 'faq-subjects.create',
                         'faq-subjects.edit')])>
@@ -152,7 +188,7 @@
                         <span data-key="t-dashboard">{{ __('messages.faqs') }}</span>
                     </a>
                 </li>
-                @endif
+                @endif -->
 
                 @if(auth()->user()->can('read-coupon') || auth()->user()->can('view-all-coupon'))
                 <li class="nav-item">
