@@ -32,7 +32,9 @@
                 @foreach($resources as $resource)
                     <tr id="role{{$resource->id}}Row">
                         <th scope="row">
-                            <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
+                        <span class="fw-semibold text-primary cursor-context-menu">#{{$loop->iteration}}</span>
+
+                            <!-- <a href="#" class="fw-semibold">#{{$loop->iteration}}</a> -->
                         </th>
                         <td>{{$resource->code}}</td>
                         <td>

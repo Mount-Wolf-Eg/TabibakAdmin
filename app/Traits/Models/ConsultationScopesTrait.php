@@ -6,6 +6,8 @@ use App\Constants\ConsultationPatientStatusConstants;
 use App\Constants\ConsultationStatusConstants;
 use App\Constants\ConsultationTypeConstants;
 use App\Constants\ConsultationVendorStatusConstants;
+use App\Constants\ConsultationVendorTypeConstants;
+use App\Models\Consultation;
 
 trait ConsultationScopesTrait
 {
@@ -25,8 +27,10 @@ trait ConsultationScopesTrait
             $q->where('doctor_id', auth()->user()->doctor?->id)->whereNotNull('doctor_id');
             $q->orWhere(function ($q) {
                 $q->where('type', ConsultationTypeConstants::URGENT)
-                    ->whereIn('status', [ConsultationStatusConstants::PENDING,
-                        ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES])
+                    ->whereIn('status', [
+                        ConsultationStatusConstants::PENDING,
+                        ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES
+                    ])
                     ->whereIn('medical_speciality_id', auth()->user()->doctor?->medicalSpecialities->pluck('id'))
                     ->whereNull('doctor_id');
             });
@@ -91,10 +95,29 @@ trait ConsultationScopesTrait
     public function scopeOfCompleted($query, $value = "true")
     {
         $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+
         $completedStatuses = [
             ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value,
             ConsultationStatusConstants::PATIENT_CANCELLED->value,
             ConsultationStatusConstants::DOCTOR_CANCELLED->value,
+            ConsultationStatusConstants::REFERRED_TO_ANOTHER_DOCTOR->value,
+            ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR->value
+        ];
+
+        if ($value) {
+            return $query->ofStatus($completedStatuses)->orWhere(function ($query) {
+                $query->ofPastConsultation();
+            });
+        }
+
+        return $query->whereNotIn('status', $completedStatuses);
+    }
+
+    public function scopeOfReported($query, $value = "true")
+    {
+        $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        $completedStatuses = [
+            ConsultationStatusConstants::DOCTOR_APPROVED_MEDICAL_REPORT->value,
             ConsultationStatusConstants::REFERRED_TO_ANOTHER_DOCTOR->value,
             ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR->value
         ];
@@ -146,6 +169,76 @@ trait ConsultationScopesTrait
         return $query->where('patient_id', '!=', auth()->user()->patient?->id);
     }
 
+    public function scopeOfAllReferrals($query)
+    {
+        return $query->where(function ($query) {
+            $query->where('type', ConsultationTypeConstants::REFERRAL)
+                ->orWhereHas('vendors');
+        });
+    }
+
+    public function scopeOfOtherReferrals($query)
+    {
+        return $query->whereHas('vendors', function ($query) {
+            $query->where('type', ConsultationVendorTypeConstants::OTHER);
+        });
+    }
+
+    public function scopeOfRaysReferrals($query)
+    {
+        return $query->whereHas('vendors', function ($query) {
+            $query->where('type', ConsultationVendorTypeConstants::RAYS);
+        });
+    }
+
+    public function scopeOfTestReferrals($query)
+    {
+        return $query->whereHas('vendors', function ($query) {
+            $query->where('type', ConsultationVendorTypeConstants::TEST);
+        });
+    }
+
+    public function scopeOfNextConsultation($query)
+    {
+        $query->where(function ($query) {
+            $query->whereHas('doctorScheduleDayShift', function ($query) {
+                $query->whereHas('day', function ($dayQuery) {
+                    $dayQuery->where('date', '>=', now()->format('Y-m-d')); // Filter by date
+                })
+                    ->whereRaw("
+                CONCAT(
+                    (SELECT `date` FROM doctor_schedule_days WHERE id = doctor_schedule_day_shifts.doctor_schedule_day_id), 
+                    ' ', 
+                    from_time
+                ) > ?
+            ", [now()->format('Y-m-d H:i')]);
+            })->orWhereHas('replies', function ($query) {
+                $query->where('consultation_doctor_replies.status', ConsultationPatientStatusConstants::APPROVED->value)
+                    ->whereDate('consultation_doctor_replies.doctor_set_consultation_at', now());
+            });
+        })->ofCompleted(false);
+    }
+
+    public function scopeOfPastConsultation($query)
+    {
+        $query->where(function ($query) {
+            $query->whereHas('doctorScheduleDayShift', function ($query) {
+                $query->whereHas('day', function ($dayQuery) {
+                    $dayQuery->where('date', '<=', now()->format('Y-m-d'));
+                })
+                    ->whereRaw("
+            CONCAT(
+                (SELECT `date` FROM doctor_schedule_days WHERE id = doctor_schedule_day_shifts.doctor_schedule_day_id), 
+                ' ', 
+                from_time
+            ) < ?
+        ", [now()->format('Y-m-d H:i')]);
+            })->orWhereHas('replies', function ($query) {
+                $query->where('consultation_doctor_replies.status', ConsultationPatientStatusConstants::APPROVED->value)
+                    ->whereDate('consultation_doctor_replies.doctor_set_consultation_at', '<', now());
+            });
+        });
+    }
     //---------------------Scopes-------------------------------------
 
 }

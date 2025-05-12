@@ -20,6 +20,15 @@ enum ConsultationTransferCaseRateConstants : int
         };
     }
 
+    public static function getLabelsByValue($value):string
+    {
+        return match ($value) {
+            self::NOT_URGENT->value => __('messages.not_urgent'),
+            self::NORMAL->value => __('messages.normal'),
+            self::URGENT->value => __('messages.urgent')
+        };
+    }
+
     public function label(): string
     {
         return self::getLabels($this);

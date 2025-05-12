@@ -38,7 +38,8 @@ class FcmNotification extends Notification implements ShouldQueue
     {
         $title = $this->data['title'];
         $body = $this->data['body'];
-        $data = $data['data'] ?? [];
+        $data = $this->data['data'] ?? [];
+
         return (new FcmMessage(notification: new FcmNotificationResource(
             title: $title,
             body: $body,

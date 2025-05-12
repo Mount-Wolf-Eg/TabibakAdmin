@@ -29,7 +29,7 @@
                 @foreach($resources as $resource)
                     <tr id="user{{$resource->id}}Row">
                         <th scope="row">
-                            <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
+                            <a href="{{route('users.show', $resource->id)}}" class="fw-semibold">#{{$loop->iteration}}</a>
                         </th>
                         <td>{{$resource->name}}</td>
                         <td>{{$resource->email}}</td>

@@ -10,9 +10,9 @@ class BaseWebController extends Controller
     protected string $routeName, $viewPath;
     protected BaseContract $contract;
 
-    public function __construct(BaseContract $contract, $viewPath, bool $applyPermissions = true)
+    public function __construct(BaseContract $contract, $viewPath, $modelName = null, bool $applyPermissions = true)
     {
-        $modelName = $contract->getModelName();
+        $modelName = $modelName ?? $contract->getModelName();
         $this->contract = $contract;
         $this->routeName = Str::kebab(Str::plural($modelName));
         $this->viewPath = $viewPath . '.' . $this->routeName;

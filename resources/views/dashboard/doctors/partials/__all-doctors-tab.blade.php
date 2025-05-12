@@ -18,7 +18,8 @@
             @foreach($resources as $resource)
                 <tr id="role{{$resource->id}}Row">
                     <th scope="row">
-                        <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
+                        <a href="{{route('doctors.show', $resource->id)}}" class="fw-semibold">#{{$loop->iteration}}</a>
+                        <!-- <a href="#" class="fw-semibold">#{{$loop->iteration}}</a> -->
                     </th>
                     <td>{{$resource->user?->name}}</td>
                     <td>

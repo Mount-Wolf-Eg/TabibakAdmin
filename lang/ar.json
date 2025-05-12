@@ -1,6 +1,6 @@
 {
     "The name field is required": "حقل الاسم مطلوب",
-    "The name must consist of exactly three words": "يجب أن يتكون الاسم من ثلاث كلمات بالضبط",
+    "The name must consist of three words: first name, middle name, and last name": "يجب أن يتكون الاسم من ثلاث كلمات: الاسم الأول، الاسم الأوسط، واسم العائلة.",
     "t-menu":"قائمة",
     "t-hot":"حار",
     "t-dashboard":"لوحة القيادة",

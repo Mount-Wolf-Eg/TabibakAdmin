@@ -586,6 +586,17 @@ abstract class BaseRepository implements BaseContract
         return $query->latest()->first();
     }
 
+    public function findAllByFilters(array $filters, array $relations = [], $first = true)
+    {
+        $query = $this->query;
+        $query = $this->applyRelations($query, $relations);
+        $query = $this->withFilters($query, $filters);
+        if ($first) {
+            return $query->get();
+        }
+        return $query->latest()->get();
+    }
+
     /**
      * @param array $wheres
      * @param array|null $data

@@ -21,6 +21,10 @@ use App\Http\Controllers\Api\V1\Mobile\PatientRelativeController;
 use App\Http\Controllers\Api\V1\Mobile\PaymentController;
 use App\Http\Controllers\Api\V1\Mobile\RateController;
 use App\Http\Controllers\Api\V1\Mobile\VendorController;
+use App\Http\Controllers\Api\V1\Mobile\Wallet\WalletController;
+use App\Models\Consultation;
+use App\Services\Repositories\ConsultationNotificationService;
+use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'locale'], static function () {
     Route::post('register-user-as-patient', [AuthController::class, 'registerUserAsPatient']);
@@ -45,6 +49,8 @@ Route::group(['middleware' => 'locale'], static function () {
         Route::apiResource('notifications', NotificationController::class)->only('index');
 
         Route::group(['prefix' => 'patient', 'middleware' => 'active_patient'], static function () {
+            Route::get('consultation-files', [FileController::class, 'consultationFiles']);
+
             Route::put('update-main-info', [PatientProfileController::class, 'updateMainInfo']);
             Route::put('update-medical-records', [PatientProfileController::class, 'updateMedicalRecords']);
             Route::put('deactivate', [PatientProfileController::class, 'deactivate']);
@@ -57,6 +63,14 @@ Route::group(['middleware' => 'locale'], static function () {
                 Route::post('/{consultation}/approve-urgent-doctor-offer', 'approveUrgentDoctorOffer');
                 Route::post('/{consultation}/reject-urgent-doctor-offer',  'rejectUrgentDoctorOffer');
             });
+
+            Route::get('/referrals/vendors',  [PatientConsultationController::class, 'referralVendors']);
+            Route::get('/referrals/other',  [PatientConsultationController::class, 'otherReferralVendors']);
+            Route::get('/referrals/test',  [PatientConsultationController::class, 'testReferralVendors']);
+            Route::get('/referrals/rays',  [PatientConsultationController::class, 'raysReferralVendors']);
+            Route::get('/referrals',  [PatientConsultationController::class, 'referralsByType']);
+            Route::post('/referrals/{id}',  [PatientConsultationController::class, 'addFilesToReferral']);
+
             Route::apiResource('rates', RateController::class)->only('store', 'update', 'destroy');
             Route::apiResource('complaints', ComplaintController::class)->only('store', 'show', 'update', 'destroy');
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('index');
@@ -67,12 +81,22 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::post('register-user-as-doctor', [AuthController::class, 'registerUserAsDoctor']);
 
             Route::controller(MyFatoorahController::class)->prefix('payment')->group(function () {
-                Route::post('/', 'index');
+                Route::post('/', 'getUrl');
                 Route::get('/callback', 'callback')->name('payment.callback')->withoutMiddleware(['auth:sanctum', 'active_patient']);
+            });
+
+            Route::controller(WalletController::class)->prefix('wallet')->group(function () {
+                Route::get('/', 'wallet');
+                Route::get('/transactions', 'transactions');
+                Route::post('/deposit', 'deposit');
+                Route::post('/transfer', 'transfer');
             });
         });
 
         Route::group(['prefix' => 'doctor', 'middleware' => 'active_doctor'], static function () {
+            Route::get('consultation-files', [FileController::class, 'consultationFiles']);
+            
+            Route::put('toggle-urgent-consultation-enabled', [DoctorProfileController::class, 'toggleUrgentConsultationEnabled']);
             Route::put('update-main-info', [DoctorProfileController::class, 'updateMainInfo']);
             Route::put('update-professional-status', [DoctorProfileController::class, 'updateProfessionalStatus']);
             Route::put('update-schedule', [DoctorProfileController::class, 'updateSchedule']);
@@ -101,4 +125,10 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('nearest-doctor-schedule-day/{doctor}', [DoctorScheduleDayController::class, 'nearestAvailableDay']);
         });
     });
+
+    Route::get('consultations/{consultation}/prescription', [PatientConsultationController::class, 'exportPrescription'])->name('consultations.prescription');
+    Route::get('consultations/{consultation}/medical-report', [PatientConsultationController::class, 'exportMedicalReport'])->name('consultations.medical_report');
+    Route::get('consultations/{consultation}/report', [PatientConsultationController::class, 'exportReport'])->name('consultations.report');
+
+    Route::get('send-test-notification/{consultation}', [PatientConsultationController::class, 'sendTestFcm']);
 });

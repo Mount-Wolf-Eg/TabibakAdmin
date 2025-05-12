@@ -3,8 +3,8 @@
     {{__('messages.manage_referrals')}}
 @endsection
 @section('content')
-    <x-breadcrumb title="{{__('messages.manage_referrals')}}"
-                  pagetitle="{{__('messages.referrals')}}"
+    <x-breadcrumb title="{{__('messages.manage_consultations')}}"
+                  pagetitle="{{__('messages.consultation')}}"
                   route="{{route('consultations.index')}}"/>
     <x-filter>
         <div class="col-lg-2 py-1">
@@ -34,14 +34,14 @@
             <table class="table table-nowrap">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{{__('messages.request_id')}}</th>
+                     <th scope="col">{{__('messages.request_id')}}</th>
                     <th scope="col">{{__('messages.reporting_date')}}</th>
                     <th scope="col">{{__('messages.patient_name')}}</th>
                     <th scope="col">{{__('messages.doctor_name')}}</th>
                     <th scope="col">{{__('messages.doctor_phone')}}</th>
-                    <th scope="col">{{__('messages.urgency_level')}}</th>
-                    <th scope="col">{{__('messages.referral_reason')}}</th>
+                    <th scope="col">{{__('messages.session_type')}}</th>
+                    <th scope="col">{{__('messages.session_status')}}</th>
+                    <!-- <th scope="col">{{__('messages.referral_reason')}}</th> -->
                     <th scope="col">{{__('messages.actions')}}</th>
                     @if(auth()->user()?->vendor)
                         <th scope="col">{{__('messages.vendor_status')}}</th>
@@ -52,16 +52,15 @@
                 <tbody>
                 @foreach($resources as $resource)
                     <tr id="role{{$resource->id}}Row">
-                        <th scope="row">
-                            <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
-                        </th>
+                       
                         <td><a href="{{route('consultations.show', $resource->id)}}">#{{$resource->id}}</a></td>
                         <td>{{$resource->created_at->format('Y-m-d h:i A')}}</td>
                         <td>{{$resource->patient?->user?->name}}</td>
                         <td>{{$resource->doctor?->user?->name}}</td>
                         <td>{{$resource->doctor?->user?->phone}}</td>
                         <td>{{$resource->type?->label()}}</td>
-                        <td>{{$resource->transfer_reason}}</td>
+                        <td>session status</td>
+                        <!-- <td>{{$resource->transfer_reason}}</td> -->
                         @include('dashboard.partials.__table-actions', ['resource' => $resource, 'disableEdit' => true,
                         'disableDelete' => !auth()->user()->can('delete-consultation'),
                         'route' => 'consultations', 'hideActive' => true, 'showModel' => false])

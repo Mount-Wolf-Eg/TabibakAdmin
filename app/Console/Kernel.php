@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\SendConsultationReminder;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,6 +19,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('untracked_files:delete')->daily();
         $schedule->command('telescope:clear')->daily();
         $schedule->command('consultations:cancel-urgent')->hourly();
+
+        $schedule->job(new SendConsultationReminder())->everyMinute();
     }
 
     /**

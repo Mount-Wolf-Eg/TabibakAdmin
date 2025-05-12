@@ -1,12 +1,22 @@
 <?php
 
 return [
+    'after_meal' => 'After Meal',
+    'before_meal' => 'Before Meal',
+    'required' => 'Required',
+    'added' => 'Added',
+    'other' => 'Other',
+    'rays' => 'Rays',
+    'test' => 'Test',
     'tabibak' => 'Tabibak',
     'dashboard' => 'Dashboard',
     'overview' => 'Overview',
+    'download_PDF' => 'Download as PDF',
+    'session_insight'=>'Sessions Insights',
     'roles' => 'Roles',
     'role' => 'Role',
     'users' => 'Users',
+    'admins' => 'Admins',
     'user' => 'User',
     'articles' => 'Articles',
     'article' => 'Article',
@@ -128,6 +138,30 @@ return [
     'labs' => 'Labs',
     'total_transactions' => 'Total Transactions',
     'total_revenues' => 'Total Revenues',
+    'total_appointments'=>'Total Appointments',
+    'total_pending_bookings'=>'Total Pending Bookings',
+    'total_completed_bookings'=>'Total Completed Bookings',
+    'total_canceled_bookings'=>'Total Canceled Bookings',
+    'total_rescheduled'=>'Total Rescheduled',
+    'Average_duration_of_consultation'=>'Average Duration Of Consultation',
+    'total_video_consultations_completed'=>'Total Video Consultations Completed',
+    'total_audio_consultation_complete'=>'Total Audio Consultation Complete',
+    'total_chat_consultation_complete'=>'Total Chat Consultation Complete',
+    'total_new_patients'=>'Total New Patients',
+    'average_rating_per_doctor'=>'Average Rating Per Doctor',
+    'average_number_of_consultations_per_doctor'=>'Average Number Of Consultations Per Doctor',
+    'average_consultation_duration_per_doctor'=>'Average Consultation Duration Per Doctor',
+    'top_performing_doctors'=>'Top Performing Doctors',
+    'doctor_name'=>'Doctor Name',
+    'session_status'=>'Session Status',
+    'session_type'=>'Session Type',
+    'refer_to_doctor'=>'Referred to doctor',
+    'rating'=>'Rating',
+    'speciaity'=>'Speciaity',
+    'no_of_sessions'=>'No. of Sessions',
+    'top_lonsultation_locations'=>'Top Consultation Locations',
+     'speciality_insights'=>'Speciality Insights',
+    'most_booked_doctors'=>'Most Booked Doctors',
     'disease_list' => 'Disease List',
     'diseases' => 'Diseases',
     'manage_diseases' => 'Manage Diseases',
@@ -272,6 +306,8 @@ return [
         'note' => 'Note'
     ],
     'models' => [
+        'referral' => 'Referrals',
+        'contact' => 'Contacts',
         'city' => 'Cities',
         'complaint' => 'Complaints',
         'rate' => 'Rates',
@@ -347,6 +383,8 @@ return [
     'lowercase' => 'lowercase',
     'letter' => 'letter',
     '8_chars' => '8 characters',
+    '2_minutes' => '2 Minutes',
+    '5_minutes' => '5 Minutes',
     '10_minutes' => '10 Minutes',
     '15_minutes' => '15 Minutes',
     '30_minutes' => '30 Minutes',
@@ -460,6 +498,24 @@ return [
     'notifications' => 'Notifications',
     'notification' => 'Notification',
     'notification_messages' => [
+        'user' => [
+            'approve' => [
+                'title' => 'User Approved as a doctor',
+                'body' => 'Your account has been approved',
+            ],
+            'reject' => [
+                'title' => 'User Rejected',
+                'body' => 'Your account has been rejected',
+            ],
+            'deactivate' => [
+                'title' => 'User Deactivated',
+                'body' => 'Your account has been deactivated',
+            ],
+            'activate' => [
+                'title' => 'User Activated',
+                'body' => 'Your account has been activated',
+            ],
+        ],
         'article' => [
             'new' => [
                 'title' => 'New Article',
@@ -467,6 +523,10 @@ return [
             ]
         ],
         'consultation' => [
+            'call' => [
+                'title' => 'It is time for the consultation',
+                'body'  => 'It is time for your consultation, please log in'
+            ],
             'new' => [
                 'title' => 'New consultation',
                 'body' => 'A new consultation has been received',
@@ -511,9 +571,18 @@ return [
                 "title" => "Need Reschedule",
                 "body" => "Doctor need reschedule the consultation"
             ],
+            'doctor_reminder' => [
+                'title' => '🩺 Upcoming Consultation Reminder',
+                'body' => 'Dear Dr. :doctor_name, you have an upcoming consultation scheduled at :consultation_time. Please be prepared. 📅'
+            ],
+            'patient_reminder' => [
+                'title' => '📅 Appointment Reminder',
+                'body' => 'Hello :patient_name, this is a reminder for your consultation with Dr. :doctor_name at :consultation_time. Please be on time. 🏥'
+            ]
         ]
     ],
-    'not_active_account' => 'Your account is not active',
+    // 'not_active_account' => 'Your account is not active',
+    'not_active_account' => "Your account is under review",
     'weight' => 'Weight',
     'height' => 'Height',
     'blood_type' => 'Blood type',
@@ -539,6 +608,6 @@ return [
     "no_slots_available" => "No schedule available fot this doctor",
     "date_already_exists" => "Date Already Existed",
     "shift_time_conflict" => "Shift Time Conflict",
-    "contacts" => "Contacts",
+    "contacts" => "Contact Us",
     "manage_contacts" => "Manage Contacts",
 ];

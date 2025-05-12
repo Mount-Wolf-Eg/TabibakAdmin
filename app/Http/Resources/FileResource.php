@@ -18,7 +18,7 @@ class FileResource extends BaseResource
     {
         $this->micro = [
             'id' => $this->id,
-            'name'=> $this->original_name,
+            'name'=> $this->name,// $this->original_name,
         ];
 
         $this->mini = [

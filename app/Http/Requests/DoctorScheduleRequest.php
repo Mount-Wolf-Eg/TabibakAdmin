@@ -26,7 +26,7 @@ class DoctorScheduleRequest extends FormRequest
         // Convert each 'day' key to lowercase within the array
         $normalizedScheduleDays = array_map(function ($scheduleDay) {
             if (isset($scheduleDay['day'])) {
-                $scheduleDay['day'] = strtolower($scheduleDay['day']);
+                $scheduleDay['day'] = strtolower($this->convertArabicDayToEnglish($scheduleDay['day']));
             }
             return $scheduleDay;
         }, $scheduleDays);
@@ -50,6 +50,7 @@ class DoctorScheduleRequest extends FormRequest
                 return null;
             })->whereNotNull()->values()->toArray();
         }
+
         $validated['urgent_consultation_price'] = $validated['price'];
         $validated['with_appointment_consultation_price'] = $validated['price'];
         unset($validated['price']);
@@ -70,5 +71,21 @@ class DoctorScheduleRequest extends FormRequest
             'reminder_before_consultation' => config('validations.integer.req'),
             'price' => config('validations.integer.req')
         ];
+    }
+
+    private function convertArabicDayToEnglish($day)
+    {
+        $days = [
+            'الأحد'   => 'sunday',
+            'الإثنين' => 'monday',
+            'الاثنين' => 'monday',
+            'الثلاثاء' => 'tuesday',
+            'الأربعاء' => 'wednesday',
+            'الخميس'  => 'thursday',
+            'الجمعة'  => 'friday',
+            'السبت'   => 'saturday',
+        ];
+
+        return $days[$day] ?? $day; // Return the converted value or keep the same if not found
     }
 }
