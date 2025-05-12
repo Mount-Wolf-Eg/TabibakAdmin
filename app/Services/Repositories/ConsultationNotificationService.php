@@ -85,7 +85,7 @@ class ConsultationNotificationService
     public function patientAcceptDoctorOffer(Consultation $consultation): void
     {
         $this->notifiedUsers = [$consultation->doctor->user_id];
-        $this->doctorNotify($consultation, 'patient_accept_doctor_offer');
+        $this->doctorNotify($consultation, 'patient_accept_doctor_offer', []);
     }
 
     public function patientRejectDoctorOffer(Consultation $consultation, Doctor $doctor): void
@@ -155,6 +155,30 @@ class ConsultationNotificationService
         ]);
 
         $this->patientNotify($consultation, 'reminder', [], $title, $body);
+    }
+
+    public function doctorCall(Consultation $consultation): void
+    {
+        $this->notifiedUsers = [$consultation->doctor->user_id];
+        $this->doctorNotify($consultation, 'call', ["doctorId" => (string) $consultation->doctor->id, 
+        "doctorName" => $consultation->doctor->user->name,
+        "patientName" => $consultation->patient->user->name,
+        "patientId" => (string) $consultation->patient->id,
+        "contactType" => (string) $consultation->contact_type->value,
+        "nationalId" => (string) $consultation->doctor->national_id,
+        "createdAt" => (string) $consultation->created_at, "type" => "call", "callId" => str_pad(mt_rand(0, 9999999), 7, '0', STR_PAD_LEFT), "callerName" => "sasaa"]);
+    }
+
+    public function patientCall(Consultation $consultation): void
+    {
+        $this->notifiedUsers = [$consultation->patient->user_id];
+        $this->patientNotify($consultation, 'call', ["doctorId" => (string) $consultation->doctor->id, 
+        "doctorName" => $consultation->doctor->user->name,
+        "patientName" => $consultation->patient->user->name,
+        "patientId" => (string) $consultation->patient->id,
+        "contactType" => (string) $consultation->contact_type->value,
+        "nationalId" => (string) $consultation->doctor->national_id,
+        "createdAt" => (string) $consultation->created_at, "type" => "call", "callId" => str_pad(mt_rand(0, 9999999), 7, '0', STR_PAD_LEFT), "callerName" => "sasaa"]);
     }
 
     private function patientNotify($consultation, $message, $data = [], $title = null, $body = null): void

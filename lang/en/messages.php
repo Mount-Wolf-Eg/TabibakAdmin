@@ -522,6 +522,10 @@ return [
             ]
         ],
         'consultation' => [
+            'call' => [
+                'title' => 'It is time for the consultation',
+                'body'  => 'It is time for your consultation, please log in'
+            ],
             'new' => [
                 'title' => 'New consultation',
                 'body' => 'A new consultation has been received',
