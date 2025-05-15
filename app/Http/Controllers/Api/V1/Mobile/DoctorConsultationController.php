@@ -57,6 +57,17 @@ class DoctorConsultationController extends BaseApiController
         }
     }
 
+    public function getPatientConsultations($patient_id): JsonResponse
+    {
+        try {
+            request()->merge(['patient' => $patient_id]);
+            // $consultations = $this->contract->search(['patient' => $patient_id], $this->relations);
+            return parent::index();
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
     /**
      * Update referral vendors for the consultation.
      * @param ConsultationVendorReferralRequest $request
