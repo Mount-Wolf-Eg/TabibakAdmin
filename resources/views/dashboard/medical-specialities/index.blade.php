@@ -28,7 +28,8 @@
                 @foreach($resources as $resource)
                     <tr id="role{{$resource->id}}Row">
                         <th scope="row">
-                            <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
+                        <span class="fw-semibold text-primary cursor-context-menu">#{{$loop->iteration}}</span>
+                        <!-- <a href="#" class="fw-semibold">#{{$loop->iteration}}</a> -->
                         </th>
                         <td>{{$resource->name}}</td>
                         @include('dashboard.partials.__table-actions', ['resource' => $resource, 'route' => 'medical-specialities', 'showModel' => true])

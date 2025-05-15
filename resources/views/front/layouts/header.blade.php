@@ -21,7 +21,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-6">
                     <div class="logo">
-                        <a href="{{route('front.home')}}"><img src="{{ URL::asset('assets/images/favicon.ico') }}" alt=""
+                        <a href="{{route('front.home')}}"><img src="{{ URL::asset('assets/images/tabibakLogoDark.png') }}" alt=""
                                 style="max-width: 40px" /></a>
                     </div>
                 </div>

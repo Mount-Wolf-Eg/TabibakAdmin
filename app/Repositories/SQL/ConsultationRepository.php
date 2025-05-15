@@ -4,6 +4,7 @@ namespace App\Repositories\SQL;
 
 use App\Constants\PaymentMethodConstants;
 use App\Constants\PaymentStatusConstants;
+use App\Jobs\SendConsultationCall;
 use App\Models\Consultation;
 use App\Repositories\Contracts\ConsultationContract;
 use App\Repositories\Contracts\CouponContract;
@@ -11,6 +12,7 @@ use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\FileContract;
 use App\Repositories\Contracts\NotificationContract;
 use App\Services\Repositories\ConsultationNotificationService;
+use Carbon\Carbon;
 
 class ConsultationRepository extends BaseRepository implements ConsultationContract
 {
@@ -68,6 +70,20 @@ class ConsultationRepository extends BaseRepository implements ConsultationContr
 
     public function afterCreate($model, $attributes): void
     {
+        if ($model->medical_speciality_id && $model->doctorScheduleDayShift && $model->doctorScheduleDayShift->day) {
+            $shiftDate = $model->doctorScheduleDayShift->day->date->format('Y-m-d'); // تاريخ الشفت
+            $fromTime = $model->doctorScheduleDayShift->from_time->format('H:i:s'); // وقت الشفت
+
+            // نبني وقت كامل للتنفيذ = التاريخ + الوقت
+            $scheduledTime = Carbon::parse($shiftDate . ' ' . $fromTime);
+
+            if ($scheduledTime->isFuture()) {
+                dispatch((new SendConsultationCall($model->id))->delay($scheduledTime));
+            } else {
+                // لو الشفت وقته عدّى خلاص
+                dispatch(new SendConsultationCall($model->id));
+            }
+        }
         // $this->notificationService->newConsultation($model);
     }
 }

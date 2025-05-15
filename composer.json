@@ -19,7 +19,7 @@
         "laravelcollective/html": "^6.4",
         "mallardduck/blade-boxicons": "^2.4",
         "mcamara/laravel-localization": "^1.8",
-        "mpdf/mpdf": "^8.2",
+        "mpdf/mpdf": "*",
         "myfatoorah/laravel-package": "^2.2",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-activitylog": "^4.7",

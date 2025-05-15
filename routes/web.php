@@ -109,7 +109,7 @@ Route::group([
         Route::resource('payments', PaymentController::class)->only(['index', 'destroy']);
         Route::get('featured-list', [FeaturedListController::class, 'edit'])->name('featured-list.edit');
         Route::put('featured-list', [FeaturedListController::class, 'update'])->name('featured-list.update');
-        Route::resource('contact', ContactController::class)->only(['index']);
+        Route::resource('contact', ContactController::class)->only(['index', 'show']);
 
         Route::prefix('profile')->group(function () {
             Route::get('/', [ProfileController::class, 'profile'])->name('profile');

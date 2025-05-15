@@ -28,7 +28,9 @@
                 @foreach($resources as $resource)
                     <tr id="faq{{$resource->id}}Row">
                         <th scope="row">
-                            <a href="#" class="fw-semibold">#{{$loop->iteration}}</a>
+                             <span class="fw-semibold text-primary cursor-context-menu">#{{$loop->iteration}}</span>
+
+                            <!-- <a href="#" class="fw-semibold">#{{$loop->iteration}}</a> -->
                         </th>
                         <td>{{$resource->faqSubject->name}}</td>
                         <td>{{$resource->question}}</td>

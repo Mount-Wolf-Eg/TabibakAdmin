@@ -16,6 +16,7 @@ return [
     'roles' => 'Roles',
     'role' => 'Role',
     'users' => 'Users',
+    'admins' => 'Admins',
     'user' => 'User',
     'articles' => 'Articles',
     'article' => 'Article',
@@ -522,6 +523,10 @@ return [
             ]
         ],
         'consultation' => [
+            'call' => [
+                'title' => 'It is time for the consultation',
+                'body'  => 'It is time for your consultation, please log in'
+            ],
             'new' => [
                 'title' => 'New consultation',
                 'body' => 'A new consultation has been received',
@@ -603,6 +608,6 @@ return [
     "no_slots_available" => "No schedule available fot this doctor",
     "date_already_exists" => "Date Already Existed",
     "shift_time_conflict" => "Shift Time Conflict",
-    "contacts" => "Contacts",
+    "contacts" => "Contact Us",
     "manage_contacts" => "Manage Contacts",
 ];

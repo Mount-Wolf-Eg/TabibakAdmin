@@ -13,7 +13,7 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <meta content="eCommerce + Admin HTML Template" name="description">
     <meta content="{{config('app.name')}}" name="author">
-    <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ URL::asset('assets/images/tabibakLogoDark.png') }}">
     @include('dashboard.layouts.styles')
 </head>
 
