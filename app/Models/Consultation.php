@@ -50,7 +50,13 @@ class Consultation extends Model
         'transfer_case_rate',
         'payment_type',
         'amount',
-        'is_active'
+        'is_active',
+        'doctor_amount',
+        'app_amount',
+        'tax_amount',
+        'total_amount',
+        'coupon_discount',
+        'coupon_id',
     ];
 
     protected array $filters = [
@@ -325,22 +331,46 @@ class Consultation extends Model
             || $this->status->is(ConsultationStatusConstants::DOCTOR_CANCELLED);
     }
 
-    public function patientCanCancel(): bool
-    {
-        return $this->status->is(ConsultationStatusConstants::PENDING)
-            || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES)
-            || $this->status->is(ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR);
-    }
-
     public function patientCanConfirmReferral(): bool
     {
         return $this->status->is(ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR);
     }
 
+    public function patientCanCancel(): bool
+    {
+        $grace_period = now()->addHours(GeneralSettings::getSettingValue('normal_grace_period'));
+
+        return ($this->status->is(ConsultationStatusConstants::PENDING)
+            || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES)
+            || $this->status->is(ConsultationStatusConstants::REFERRED_FROM_ANOTHER_DOCTOR))
+            && $this->inGracePeriod($grace_period);
+    }
+
+    public function returnMony(): bool
+    {
+        $grace_period = now()->addHours(GeneralSettings::getSettingValue('normal_grace_period'));
+
+        return $this->is_active && $this->payment
+            && $this->payment->status->is(PaymentStatusConstants::COMPLETED)
+            && $this->inGracePeriod($grace_period);
+    }
+
+    public function patientCanReschedule(): bool
+    {
+        $grace_period = now()->addHours(GeneralSettings::getSettingValue('normal_grace_period'));
+
+        return $this->type->is(ConsultationTypeConstants::WITH_APPOINTMENT)
+            && $this->status->is(ConsultationStatusConstants::PENDING)
+            && $this->inGracePeriod($grace_period);
+    }
+
     public function doctorCanReschedule(): bool
     {
+        $grace_period = now()->addHours(GeneralSettings::getSettingValue('normal_grace_period'));
+
         return $this->type->is(ConsultationTypeConstants::WITH_APPOINTMENT)
-            && $this->status->is(ConsultationStatusConstants::PENDING);
+            && $this->status->is(ConsultationStatusConstants::PENDING)
+            && $this->inGracePeriod($grace_period);
     }
     //---------------------methods-------------------------------------
 

@@ -7,10 +7,13 @@ use App\Constants\ConsultationPaymentTypeConstants;
 use App\Constants\ConsultationStatusConstants;
 use App\Constants\ConsultationTypeConstants;
 use App\Constants\ReminderConstants;
+use App\Models\Doctor;
 use App\Repositories\Contracts\ConsultationContract;
+use App\Repositories\Contracts\CouponContract;
 use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\DoctorScheduleDayShiftContract;
 use App\Rules\ValidCouponRule;
+use App\Services\Repositories\PaymentCalculator;
 use Carbon\Carbon;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Foundation\Http\FormRequest;
@@ -52,7 +55,21 @@ class ConsultationRequest extends FormRequest
                 unset($validated['reminder_before']);
             }
 
-            $validated['is_active'] = false;
+            $validated['is_active'] = request(('payment_type')) == ConsultationPaymentTypeConstants::WALLET->value;
+
+            if ($couponCode = request('coupon_code')) {
+                $coupon = resolve(ConsultationContract::class)->findBy('code', $couponCode, false);
+
+                if (
+                    $coupon &&
+                    $coupon->isValidForUser(auth()->user()->patient->id, request('medical_speciality_id'))
+                ) {
+                    $discountedAmount = $coupon->applyDiscount($validated['amount']);
+
+                    // Set is_active based on whether the amount is fully covered
+                    $validated['is_active'] = $discountedAmount <= 0;
+                }
+            }
         }
         return $validated;
     }
@@ -69,7 +86,7 @@ class ConsultationRequest extends FormRequest
                 ],
                 'notExpiredUrgentConsultations' => true,
             ];
-            
+
             $patient            = auth()->user()->patient;
             $filters['patient'] = $patient->id;
             $patientCount       = resolve(ConsultationContract::class)->countWithFilters($filters);
@@ -83,6 +100,23 @@ class ConsultationRequest extends FormRequest
 
             if (($patientCount && !request('patient_id')) || $relativesCount) {
                 abort(422, __('messages.new_urgent_consultation_validation'));
+            }
+        }
+
+        if ((int) request(('payment_type')) === ConsultationPaymentTypeConstants::WALLET->value && request('doctor_id')) {
+            $amount = Doctor::find(request('doctor_id'))->with_appointment_consultation_price;
+
+            if (request('coupon_code')) {
+                $coupon = resolve(CouponContract::class)->findBy('code', request('coupon_code'), false);
+                if ($coupon?->isValidForUser(auth()->user()->patient->id, request('medical_speciality_id'))) {
+                    $amount = $coupon->applyDiscount($amount);
+                }
+            }
+
+            $amount = app(PaymentCalculator::class)->calc($amount)['total_amount'];
+
+            if ($amount > auth()->user()->wallet) {
+                abort(422, __('messages.insufficient_wallet_balance'));
             }
         }
     }

@@ -128,9 +128,8 @@ class MyFatoorahController extends Controller
 
             if ($status) {
                 $order?->payment()->update(['transaction_id' => $paymentId, 'status' => PaymentStatusConstants::COMPLETED->value]);
-
-                if ($order->status == ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value)
-                {
+                $order->doctor?->user()?->increment('wallet', $order->amount);
+                if ($order->status == ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value) {
                     $this->notificationService->patientAcceptDoctorOffer($order);
                 } else {
                     $this->notificationService->newConsultation($order);

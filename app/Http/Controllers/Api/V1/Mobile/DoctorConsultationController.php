@@ -178,6 +178,17 @@ class DoctorConsultationController extends BaseApiController
     public function cancel(Consultation $consultation)
     {
         try {
+            // if (!$consultation->doctorCanCancel()) abort(422, __('messages.doctor_cancel_validation', ['status' => $consultation->status->label()]));
+            $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_CANCELLED->value]);
+            if ($consultation->returnMony) $this->contract->refundAmount($consultation, $consultation->amount);
+            
+            $this->notificationService->doctorCancel($consultation);
+            return $this->respondWithModel($consultation);
+        } catch (Exception $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+
+        try {
             if (!$consultation->doctorCanCancel())
                 abort(422, __('messages.doctor_cancel_validation', ['status' => $consultation->status->label()]));
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_CANCELLED->value]);

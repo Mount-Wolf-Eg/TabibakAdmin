@@ -39,6 +39,11 @@ class ConsultationResource extends BaseResource
             'medical_review' => $this->medical_review,
             'prescription' => $this->prescription ?? [],
             'amount' => $this->amount,
+            'coupon_discount' => $this->coupon_discount,
+            'doctor_amount' => $this->doctor_amount,
+            'app_amount' => $this->app_amount,
+            'tax_amount' => $this->tax_amount,
+            'total_amount' => $this->total_amount,
             'contact_type' => [
                 'value' => $this->contact_type?->value,
                 'label' => $this->contact_type?->label(),

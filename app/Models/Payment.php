@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Constants\PaymentMethodConstants;
 use App\Constants\PaymentStatusConstants;
+use App\Constants\PaymentTypeConstants;
 use App\Traits\ModelTrait;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -17,10 +18,38 @@ class Payment extends Model
 {
     use SoftDeletes, ModelTrait, SearchTrait, HasTranslations;
     public const ADDITIONAL_PERMISSIONS = [];
-    protected $fillable = ['payer_id', 'beneficiary_id', 'payable_id', 'payable_type', 'coupon_id',
-        'transaction_id', 'amount', 'currency_id', 'payment_method', 'status', 'metadata'];
-    protected array $filters = ['keyword', 'status', 'paymentMethod', 'creationDate', 'payer',
-        'beneficiary', 'fromCreationDate', 'toCreationDate', 'consultationType', 'coupon'];
+    protected $fillable = [
+        'payer_id',
+        'beneficiary_id',
+        'payable_id',
+        'payable_type',
+        'coupon_id',
+        'transaction_id',
+        'currency_id',
+        'payment_method',
+        'status',
+        'metadata',
+
+        'amount',
+        'coupon_discount',
+        'app_amount',
+        'tax_amount',
+        'total_amount',
+        'type'
+    ];
+    protected array $filters = [
+        'keyword',
+        'status',
+        'paymentMethod',
+        'creationDate',
+        'payer',
+        'beneficiary',
+        'fromCreationDate',
+        'toCreationDate',
+        'consultationType',
+        'coupon',
+        'patient',
+    ];
     protected array $searchable = ['transaction_id', 'currency.name', 'payer.name', 'beneficiary.name'];
     protected array $dates = [];
     public array $filterModels = [];
@@ -29,7 +58,8 @@ class Payment extends Model
     public $casts = [
         'metadata' => 'array',
         'status' => PaymentStatusConstants::class,
-        'payment_method' => PaymentMethodConstants::class
+        'payment_method' => PaymentMethodConstants::class,
+        'type' => PaymentTypeConstants::class,
     ];
 
     //---------------------relations-------------------------------------
@@ -107,16 +137,27 @@ class Payment extends Model
     {
         return $query->where('coupon_id', $coupon_id);
     }
+
+    public function scopeOfPatient($query, $userId)
+    {
+        return $query->where(function ($query) use ($userId) {
+            $query->where('payer_id', $userId)
+                ->orWhere(function ($query) use ($userId) {
+                    $query->where('beneficiary_id', $userId)
+                        ->where('type', PaymentTypeConstants::REFUND->value);
+                });
+        });
+    }
     //---------------------Scopes-------------------------------------
 
     //---------------------Attributes-------------------------------------
-    public function appPercentage():Attribute
+    public function appPercentage(): Attribute
     {
         $appPaymentPercentage = GeneralSettings::getSettingValue('app_payment_percentage');
         return Attribute::make(fn() => $this->amount * $appPaymentPercentage);
     }
 
-    public function doctorPercentage():Attribute
+    public function doctorPercentage(): Attribute
     {
         return Attribute::make(fn() => $this->amount - $this->app_percentage);
     }

@@ -76,6 +76,7 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::apiResource('rates', RateController::class)->only('store', 'update', 'destroy');
             Route::apiResource('complaints', ComplaintController::class)->only('store', 'show', 'update', 'destroy');
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('index');
+            Route::get('calc-amount', [PaymentController::class, 'getAppAndTaxAmount']);
             Route::get('payments', [PaymentController::class, 'patientIndex']);
             Route::resource('coupons', CouponController::class)->only('index');
             Route::get('coupons/{coupon:code}/apply', [CouponController::class, 'applyCoupon']);
@@ -97,7 +98,7 @@ Route::group(['middleware' => 'locale'], static function () {
 
         Route::group(['prefix' => 'doctor', 'middleware' => 'active_doctor'], static function () {
             Route::get('consultation-files', [FileController::class, 'consultationFiles']);
-            
+
             Route::put('toggle-urgent-consultation-enabled', [DoctorProfileController::class, 'toggleUrgentConsultationEnabled']);
             Route::put('update-main-info', [DoctorProfileController::class, 'updateMainInfo']);
             Route::put('update-professional-status', [DoctorProfileController::class, 'updateProfessionalStatus']);
@@ -116,8 +117,8 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('has-new-urgent-consultation', [DoctorConsultationController::class, 'hasUrgentConsultation']);
 
             Route::controller(DoctorConsultationController::class)->prefix('consultations')->group(static function () {
-                Route::post('/{consultation}/vendor-referral','vendorReferral');
-                Route::post('/{consultation}/doctor-referral','doctorReferral');
+                Route::post('/{consultation}/vendor-referral', 'vendorReferral');
+                Route::post('/{consultation}/doctor-referral', 'doctorReferral');
                 Route::post('/{consultation}/prescription', 'prescription');
                 Route::post('/{consultation}/approve-medical-report', 'approveMedicalReport');
                 Route::post('/{consultation}/accept-urgent-case', 'acceptUrgentCase');
@@ -127,7 +128,7 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('payments', [PaymentController::class, 'doctorIndex']);
             Route::resource('payments', PaymentController::class)->only('destroy');
             Route::apiResource('doctor-schedule-days', DoctorScheduleDayController::class)->only('store', 'update', 'destroy');
-            Route::apiResource('doctor-schedule-day-shifts', DoctorScheduleDayShiftController::class)->only( 'store', 'update', 'destroy');
+            Route::apiResource('doctor-schedule-day-shifts', DoctorScheduleDayShiftController::class)->only('store', 'update', 'destroy');
             Route::get('nearest-doctor-schedule-day/{doctor}', [DoctorScheduleDayController::class, 'nearestAvailableDay']);
         });
     });
