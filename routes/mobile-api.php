@@ -64,6 +64,8 @@ Route::group(['middleware' => 'locale'], static function () {
                 Route::post('/{consultation}/reject-urgent-doctor-offer',  'rejectUrgentDoctorOffer');
             });
 
+            Route::get('has-new-urgent-replies', [PatientConsultationController::class, 'hasReplyOnNotExpiredUrgentConsultation']);
+
             Route::get('/referrals/vendors',  [PatientConsultationController::class, 'referralVendors']);
             Route::get('/referrals/other',  [PatientConsultationController::class, 'otherReferralVendors']);
             Route::get('/referrals/test',  [PatientConsultationController::class, 'testReferralVendors']);
@@ -110,6 +112,9 @@ Route::group(['middleware' => 'locale'], static function () {
             Route::get('/consultations/statistics', [DoctorConsultationController::class, 'statistics']);
             Route::apiResource('consultations', DoctorConsultationController::class)->only('index', 'show');
             Route::get('patients/{id}/consultations', [DoctorConsultationController::class, 'getPatientConsultations']);
+
+            Route::get('has-new-urgent-consultation', [DoctorConsultationController::class, 'hasUrgentConsultation']);
+
             Route::controller(DoctorConsultationController::class)->prefix('consultations')->group(static function () {
                 Route::post('/{consultation}/vendor-referral','vendorReferral');
                 Route::post('/{consultation}/doctor-referral','doctorReferral');

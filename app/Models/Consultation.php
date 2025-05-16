@@ -82,7 +82,8 @@ class Consultation extends Model
         'raysReferrals',
         'nextConsultation',
         'expiredUrgentConsultations',
-        'notExpiredUrgentConsultations'
+        'notExpiredUrgentConsultations',
+        'urgentConsultationsWithNoRepliesFromDoctor'
     ];
 
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];

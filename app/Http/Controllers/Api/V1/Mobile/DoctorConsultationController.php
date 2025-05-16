@@ -225,4 +225,19 @@ class DoctorConsultationController extends BaseApiController
         }
     }
 
+    /**
+     * Check if the patient has any reply on not expired urgent consultations
+     *
+     * @param int $patientId
+     * @return JsonResponse
+     */
+    public function hasUrgentConsultation()
+    {
+        $consultations = $this->contract->countWithFilters([
+            'notExpiredUrgentConsultations'              => true,
+            'urgentConsultationsWithNoRepliesFromDoctor' => auth()->user()->doctor?->id,
+            'medicalSpeciality'                          => auth()->user()->doctor?->medicalSpecialities?->pluck('id'),
+        ]);
+        return $this->respondWithJson(['is_read' => $consultations > 0]);
+    }
 }

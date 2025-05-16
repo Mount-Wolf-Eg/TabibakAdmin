@@ -492,4 +492,20 @@ class PatientConsultationController extends BaseApiController
         $consultation = Consultation::findOrFail($id);
         $this->notificationService->patientAcceptDoctorOffer($consultation);
     }
+
+    /**
+     * Check if the patient has any reply on not expired urgent consultations
+     *
+     * @param int $patientId
+     * @return JsonResponse
+     */
+    public function hasReplyOnNotExpiredUrgentConsultation()
+    {
+        $consultations = $this->contract->countWithFilters([
+            'notExpiredUrgentConsultations' => true,
+            'urgentWithNoDoctor'            => true,
+            'patient'                       => auth()->user()->patient?->id,
+        ]);
+        return $this->respondWithJson(['is_read' => $consultations > 0]);
+    }
 }
