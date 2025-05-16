@@ -338,7 +338,7 @@ class Consultation extends Model
 
     public function patientCanCancel(): bool
     {
-        $grace_period = now()->addHours(GeneralSettings::getSettingValue('normal_grace_period'));
+        $grace_period = now()->addHours($this->gracePeriod());
 
         return ($this->status->is(ConsultationStatusConstants::PENDING)
             || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES)
@@ -348,7 +348,7 @@ class Consultation extends Model
 
     public function returnMony(): bool
     {
-        $grace_period = now()->addHours(GeneralSettings::getSettingValue('normal_grace_period'));
+        $grace_period = now()->addHours($this->gracePeriod());
 
         return $this->is_active && $this->payment
             && $this->payment->status->is(PaymentStatusConstants::COMPLETED)
@@ -357,7 +357,7 @@ class Consultation extends Model
 
     public function patientCanReschedule(): bool
     {
-        $grace_period = now()->addHours(GeneralSettings::getSettingValue('normal_grace_period'));
+        $grace_period = now()->addHours($this->gracePeriod());
 
         return $this->type->is(ConsultationTypeConstants::WITH_APPOINTMENT)
             && $this->status->is(ConsultationStatusConstants::PENDING)
@@ -366,11 +366,16 @@ class Consultation extends Model
 
     public function doctorCanReschedule(): bool
     {
-        $grace_period = now()->addHours(GeneralSettings::getSettingValue('normal_grace_period'));
+        $grace_period = now()->addHours($this->gracePeriod());
 
         return $this->type->is(ConsultationTypeConstants::WITH_APPOINTMENT)
             && $this->status->is(ConsultationStatusConstants::PENDING)
             && $this->inGracePeriod($grace_period);
+    }
+
+    public function gracePeriod()
+    {
+        return $this->type->is(ConsultationTypeConstants::WITH_APPOINTMENT ? GeneralSettings::getSettingValue('normal_grace_period') : GeneralSettings::getSettingValue('urgent_grace_period'));
     }
     //---------------------methods-------------------------------------
 
