@@ -8,6 +8,7 @@ use App\Constants\ConsultationTypeConstants;
 use App\Constants\ConsultationVendorStatusConstants;
 use App\Constants\ConsultationVendorTypeConstants;
 use App\Models\Consultation;
+use Illuminate\Support\Arr;
 
 trait ConsultationScopesTrait
 {
@@ -146,7 +147,8 @@ trait ConsultationScopesTrait
 
     public function scopeOfMedicalSpeciality($query, $medicalSpeciality)
     {
-        return $query->whereIn('medical_speciality_id', (array) $medicalSpeciality);
+        $medicalSpeciality = Arr::flatten((array) $medicalSpeciality);
+        return $query->whereIn('medical_speciality_id', $medicalSpeciality);
     }
 
     public function scopeOfPatient($query, $patientId)

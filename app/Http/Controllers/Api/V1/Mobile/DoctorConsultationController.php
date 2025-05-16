@@ -30,10 +30,11 @@ class DoctorConsultationController extends BaseApiController
      * @param ConsultationNotificationService $notificationService
      * @param ConsultationDoctorReferralService $doctorReferralService
      */
-    public function __construct(ConsultationContract              $contract,
-                                ConsultationNotificationService   $notificationService,
-                                ConsultationDoctorReferralService $doctorReferralService)
-    {
+    public function __construct(
+        ConsultationContract              $contract,
+        ConsultationNotificationService   $notificationService,
+        ConsultationDoctorReferralService $doctorReferralService
+    ) {
         $this->middleware('role:doctor');
         $this->defaultScopes = ['doctorsList' => true, 'doctorNoConsultationPatient' => true];
         $this->relations = ['patient.parent', 'patient.diseases', 'doctorScheduleDayShift.day', 'doctor.rates', 'attachments'];
@@ -181,7 +182,7 @@ class DoctorConsultationController extends BaseApiController
             // if (!$consultation->doctorCanCancel()) abort(422, __('messages.doctor_cancel_validation', ['status' => $consultation->status->label()]));
             $consultation = $this->contract->update($consultation, ['status' => ConsultationStatusConstants::DOCTOR_CANCELLED->value]);
             if ($consultation->returnMony) $this->contract->refundAmount($consultation, $consultation->amount);
-            
+
             $this->notificationService->doctorCancel($consultation);
             return $this->respondWithModel($consultation);
         } catch (Exception $e) {
