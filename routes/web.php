@@ -30,6 +30,7 @@ use App\Http\Controllers\Dashboard\MedicalSpecialityController;
 use App\Http\Controllers\Auth\Passwords\ResetPasswordController;
 use App\Http\Controllers\Auth\Passwords\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\FeaturedListController;
+use App\Http\Controllers\Dashboard\GeneralSettingsController;
 use App\Http\Controllers\Dashboard\ReferralController;
 
 /*
@@ -119,6 +120,9 @@ Route::group([
         });
         Route::get('download', [OverviewController::class, 'download'])->name('download');
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+        Route::get('/settings', [GeneralSettingsController::class, 'edit'])->name('settings.edit');
+        Route::post('/settings', [GeneralSettingsController::class, 'update'])->name('settings.update');
     });
 });
 

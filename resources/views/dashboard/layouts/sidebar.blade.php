@@ -5,17 +5,17 @@
         <a href="{{route('dashboard')}}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ URL::asset('assets/images/tabibakLogo.svg') }}" alt="" height="26">
-             </span>
+            </span>
             <span class="logo-lg">
                 <img src="{{ URL::asset('assets/images/tabibakLogo.svg') }}" alt="" height="26">
-             </span>
+            </span>
         </a>
         <a href="{{route('dashboard')}}" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ URL::asset('assets/images/tabibakLogo.svg') }}" alt="" height="40">
-             </span>
+            </span>
             <span class="logo-lg">
-                 <img src="{{ URL::asset('assets/images/tabibakLogo.svg') }}" alt="" height="80" class="my-2">
+                <img src="{{ URL::asset('assets/images/tabibakLogo.svg') }}" alt="" height="80" class="my-2">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item {{app()->getLocale() == 'ar' ? 'float-start' : 'float-end'}} btn-vertical-sm-hover"
@@ -138,34 +138,34 @@
                 <div class="accordion accordion-flush bg-transparent" id="accordionFlushExample">
                     <div class="accordion-item bg-transparent">
                         <h2 class="accordion-header bg-transparent">
-                        <button class="accordion-button collapsed bg-transparent " style="color:rgba(255, 255, 255, .5)  !important" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        {{ __('messages.faqs') }}                        
-                    </button>
+                            <button class="accordion-button collapsed bg-transparent " style="color:rgba(255, 255, 255, .5)  !important" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                {{ __('messages.faqs') }}
+                            </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                        <ul class="navbar-nav" id="navbar-nav">
+                            <div class="accordion-body">
+                                <ul class="navbar-nav" id="navbar-nav">
 
-                            @if(auth()->user()->can('read-faq-subject') || auth()->user()->can('view-all-faq-subject'))
-                            <li class="nav-item">
-                                <a href="{{route('faq-subjects.index')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('faq-subjects.index', 'faq-subjects.show', 'faq-subjects.create',
-                                    'faq-subjects.edit')])>
-                                    <i class="bi bi-patch-question-fill"></i>
-                                    <span data-key="t-dashboard">{{ __('messages.faq_subjects') }}</span>
-                                </a>
-                            </li>
-                        @endif
+                                    @if(auth()->user()->can('read-faq-subject') || auth()->user()->can('view-all-faq-subject'))
+                                    <li class="nav-item">
+                                        <a href="{{route('faq-subjects.index')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('faq-subjects.index', 'faq-subjects.show', 'faq-subjects.create',
+                                            'faq-subjects.edit')])>
+                                            <i class="bi bi-patch-question-fill"></i>
+                                            <span data-key="t-dashboard">{{ __('messages.faq_subjects') }}</span>
+                                        </a>
+                                    </li>
+                                    @endif
 
-                        @if(auth()->user()->can('read-faq') || auth()->user()->can('view-all-faq'))
-                        <li class="nav-item">
-                            <a href="{{route('faqs.index')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('faqs.index', 'faqs.show', 'faqs.create', 'faqs.edit')])>
-                                <i class="bi bi-question-octagon"></i>
-                                <span data-key="t-dashboard">{{ __('messages.faqs') }}</span>
-                            </a>
-                        </li>
-                        @endif
-                    </ul>
-                        </div>
+                                    @if(auth()->user()->can('read-faq') || auth()->user()->can('view-all-faq'))
+                                    <li class="nav-item">
+                                        <a href="{{route('faqs.index')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('faqs.index', 'faqs.show', 'faqs.create', 'faqs.edit')])>
+                                            <i class="bi bi-question-octagon"></i>
+                                            <span data-key="t-dashboard">{{ __('messages.faqs') }}</span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -241,6 +241,15 @@
                     <a href="{{route('contact.index')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('contacts.index')])>
                         <i class="bi bi-telephone"></i>
                         <span data-key="t-dashboard">{{ __('messages.contacts') }}</span>
+                    </a>
+                </li>
+                @endif
+
+                @if(auth()->user()->can('read-general-settings') || auth()->user()->can('view-all-general-settings'))
+                <li class="nav-item">
+                    <a href="{{route('settings.edit')}}" @class(['nav-link', 'menu-link' , 'active'=> request()->routeIs('settings.edit')])>
+                        <i class="bi bi-question-octagon"></i>
+                        <span data-key="t-dashboard">{{ __('messages.settings') }}</span>
                     </a>
                 </li>
                 @endif
