@@ -239,6 +239,31 @@ trait ConsultationScopesTrait
             });
         });
     }
+
+    // scope of expired urgent consultations after 48 hours
+    public function scopeOfExpiredUrgentConsultations($query)
+    {
+        return $query->where('type', ConsultationTypeConstants::URGENT)
+            ->whereIn('status', [ConsultationStatusConstants::PENDING, ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES])
+            ->whereHas('replies', function ($query) {
+                $query->where('status', '!=', ConsultationPatientStatusConstants::APPROVED->value);
+            })
+            ->whereDate('created_at', '<=', now()->subHours(48));
+    }
+
+    // Scope to retrieve not expired urgent consultations
+    public function scopeOfNotExpiredUrgentConsultations($query)
+    {
+        return $query->where('type', ConsultationTypeConstants::URGENT)
+            ->whereIn('status', [
+                ConsultationStatusConstants::PENDING,
+                ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES
+            ])
+            ->whereDoesntHave('replies', function ($query) {
+                $query->where('status', ConsultationPatientStatusConstants::APPROVED->value);
+            })
+            ->where('created_at', '>', now()->subHours(48));
+    }
     //---------------------Scopes-------------------------------------
 
 }

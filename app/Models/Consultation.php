@@ -31,25 +31,75 @@ class Consultation extends Model
 
     public const ADDITIONAL_PERMISSIONS = [];
 
-    protected $fillable = ['parent_id', 'doctor_id', 'patient_id', 'status', 'medical_speciality_id',
-        'patient_description', 'doctor_description', 'medical_review', 'prescription', 'type',
-        'doctor_schedule_day_shift_id', 'contact_type', 'reminder_at', 'transfer_reason',
-        'transfer_notes', 'transfer_case_rate', 'payment_type', 'amount',
-        'is_active'];
-    
-    protected array $filters = ['keyword', 'mineAsPatient', 'active', 'mineAsDoctor',
-        'mineAsVendor', 'vendorAcceptedStatus', 'vendorRejectedStatus', 'type', 'doctor',
-        'myVendorStatus', 'creationDate', 'status', 'completed', 'reported', 'urgentWithNoDoctor',
-        'doctorsList', 'medicalSpeciality', 'doctor', 'patient', 'createdBeforeHour',
-        'dayShift', 'onlyApprovedReferral', 'allReferrals', 'otherReferrals', 'testReferrals', 'raysReferrals', 'nextConsultation'];
-    
+    protected $fillable = [
+        'parent_id',
+        'doctor_id',
+        'patient_id',
+        'status',
+        'medical_speciality_id',
+        'patient_description',
+        'doctor_description',
+        'medical_review',
+        'prescription',
+        'type',
+        'doctor_schedule_day_shift_id',
+        'contact_type',
+        'reminder_at',
+        'transfer_reason',
+        'transfer_notes',
+        'transfer_case_rate',
+        'payment_type',
+        'amount',
+        'is_active'
+    ];
+
+    protected array $filters = [
+        'keyword',
+        'mineAsPatient',
+        'active',
+        'mineAsDoctor',
+        'mineAsVendor',
+        'vendorAcceptedStatus',
+        'vendorRejectedStatus',
+        'type',
+        'doctor',
+        'myVendorStatus',
+        'creationDate',
+        'status',
+        'completed',
+        'reported',
+        'urgentWithNoDoctor',
+        'doctorsList',
+        'medicalSpeciality',
+        'doctor',
+        'patient',
+        'createdBeforeHour',
+        'dayShift',
+        'onlyApprovedReferral',
+        'allReferrals',
+        'otherReferrals',
+        'testReferrals',
+        'raysReferrals',
+        'nextConsultation',
+        'expiredUrgentConsultations',
+        'notExpiredUrgentConsultations'
+    ];
+
     protected array $searchable = ['patient.user.name', 'doctor.user.name', 'id'];
     protected array $dates = ['reminder_at'];
     public array $filterModels = [];
-    public array $filterCustom = ['types', 'paymentMethods', 'reminders', 'transferCaseRates',
-        'statuses', 'contactTypes', 'paymentStatuses', 'paymentTypes'];
+    public array $filterCustom = [
+        'types',
+        'paymentMethods',
+        'reminders',
+        'transferCaseRates',
+        'statuses',
+        'contactTypes',
+        'paymentStatuses',
+        'paymentTypes'
+    ];
     public array $translatable = [];
-    
+
     protected $casts = [
         'status' => ConsultationStatusConstants::class,
         'type' => ConsultationTypeConstants::class,
@@ -197,7 +247,7 @@ class Consultation extends Model
     {
         return $this->isMineAsDoctor() &&
             (($this->status->is(ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER)
-                    &&  $this->type->is(ConsultationTypeConstants::URGENT))
+                &&  $this->type->is(ConsultationTypeConstants::URGENT))
                 || $this->status->is(ConsultationStatusConstants::PENDING));
     }
 
@@ -239,9 +289,9 @@ class Consultation extends Model
     public function patientCanChangeDoctorStatusOffer($doctorId): bool
     {
         return ($this->status->is(ConsultationStatusConstants::PENDING)
-                || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES))
+            || $this->status->is(ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES))
             && $this->replies->where('id', $doctorId)
-                ->where('pivot.status', ConsultationPatientStatusConstants::PENDING->value)->isNotEmpty();
+            ->where('pivot.status', ConsultationPatientStatusConstants::PENDING->value)->isNotEmpty();
     }
 
     public function getVendorStatusColor($vendorId): string

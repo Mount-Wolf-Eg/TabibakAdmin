@@ -61,24 +61,27 @@ class ConsultationRequest extends FormRequest
     {
         if ((int) request('type') === ConsultationTypeConstants::URGENT->value) {
             $filters = [
-                'type' => ConsultationTypeConstants::URGENT->value,
+                'type'              => ConsultationTypeConstants::URGENT->value,
                 'medicalSpeciality' => request('medical_speciality_id'),
-                'status' => [
+                'status'            => [
                     ConsultationStatusConstants::PENDING,
                     ConsultationStatusConstants::URGENT_HAS_DOCTORS_REPLIES
                 ],
+                'notExpiredUrgentConsultations' => true,
             ];
-            $patient = auth()->user()->patient;
+            
+            $patient            = auth()->user()->patient;
             $filters['patient'] = $patient->id;
-            $patientCount = resolve(ConsultationContract::class)->countWithFilters($filters);
-            $relative = request('patient_id');
-            $relativesCount = 0;
-            if($relative){
+            $patientCount       = resolve(ConsultationContract::class)->countWithFilters($filters);
+            $relative           = request('patient_id');
+            $relativesCount     = 0;
+
+            if ($relative) {
                 $filters['patient'] = $patient->relatives->where('id', request('patient_id'))->first()?->id;
                 $relativesCount = resolve(ConsultationContract::class)->countWithFilters($filters);
             }
-            if (($patientCount && !request('patient_id')) || $relativesCount)
-            {
+
+            if (($patientCount && !request('patient_id')) || $relativesCount) {
                 abort(422, __('messages.new_urgent_consultation_validation'));
             }
         }
