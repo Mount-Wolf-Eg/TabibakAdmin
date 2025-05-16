@@ -138,9 +138,10 @@ trait ConsultationScopesTrait
     public function scopeOfUrgentConsultationsWithNoRepliesFromDoctor($query, int $doctorId)
     {
         return $query->where('type', ConsultationTypeConstants::URGENT)
-            ->whereHas('replies', function ($query) use ($doctorId) {
-                $query->where('status', '!=', ConsultationPatientStatusConstants::APPROVED->value)
-                    ->where('doctor_id', '!=', $doctorId);
+            ->where(function ($query) use ($doctorId) {
+                $query->whereDoesntHave('replies', function ($q) use ($doctorId) {
+                    $q->where('doctor_id', $doctorId);
+                });
             })
             ->whereNull('doctor_id');
     }
