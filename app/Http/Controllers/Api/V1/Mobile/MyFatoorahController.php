@@ -52,17 +52,19 @@ class MyFatoorahController extends Controller
     public function getUrl()
     {
         $validatedData = request()->validate([
-            'oid' => 'required|exists:consultations,id',
+            'oid'       => 'required|exists:consultations,id',
+            'doctor_id' => 'required|exists:doctors,id',
         ]);
 
         try {
             //For example: pmid=0 for MyFatoorah invoice or pmid=1 for Knet in test mode
             $orderId   = $validatedData['oid'];
+            $doctorId  = isset($validatedData['doctor_id']) ? $validatedData['doctor_id'] : null;
 
             $paymentId = request('pmid') ?: 2;
             $sessionId = request('sid') ?: null;
 
-            $curlData  = $this->getPayLoadData($orderId);
+            $curlData  = $this->getPayLoadData($orderId, $doctorId);
 
             $mfObj     = new MyFatoorahPayment($this->mfConfig);
             $payment   = $mfObj->getInvoiceURL($curlData, $paymentId, $orderId, $sessionId);
@@ -83,10 +85,15 @@ class MyFatoorahController extends Controller
      * 
      * @return array
      */
-    private function getPayLoadData($orderId)
+    private function getPayLoadData($orderId, $doctorId = null)
     {
         $callbackURL = route('payment.callback');
         $order       = Consultation::withoutGlobalScope('isActive')->findOrFail($orderId); // ->where(['patient_id' => auth()->user()->patient?->id])
+        $amount      = ($order->payment?->amount ?? $order->amount);
+
+        if ($doctorId) {
+            $amount = $order->replies->pluck('pivot')->firstWhere('doctor_id', $doctorId)['amount'] ?? null;
+        }
 
         $phone       = $order->patient?->user?->phone;
 
@@ -97,7 +104,7 @@ class MyFatoorahController extends Controller
 
         return [
             'CustomerName'      => $order->patient?->user?->name,
-            'InvoiceValue'      => ($order->payment?->amount ?? $order->amount) + 5, // TODO: handle the extra amount
+            'InvoiceValue'      => $amount + 5, // TODO: handle the extra amount
             'CallBackUrl'       => $callbackURL . '?status=success',
             'ErrorUrl'          => $callbackURL . '?status=fail',
             'Language'          => 'ar',
