@@ -493,7 +493,8 @@ class PatientConsultationController extends BaseApiController
     public function sendTestFcm($id)
     {
         $consultation = Consultation::findOrFail($id);
-        $this->notificationService->patientCall($consultation);
+        $this->notificationService->patientAcceptDoctorOffer($consultation);
+        // $this->notificationService->patientCall($consultation);
     }
 
     /**
