@@ -53,7 +53,7 @@ class MyFatoorahController extends Controller
     {
         $validatedData = request()->validate([
             'oid'       => 'required|exists:consultations,id',
-            'doctor_id' => 'required|exists:doctors,id',
+            'doctor_id' => 'nullable|exists:doctors,id',
         ]);
 
         try {
