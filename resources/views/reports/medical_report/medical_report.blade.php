@@ -51,7 +51,8 @@
         .header {
             grid-column: 1 / 2;
             grid-row: 1;
-            margin-top: 50px;
+            /* margin-top: 50px; */
+            margin-top: 20px;
         }
 
         .doctor-info h1 {
@@ -112,7 +113,7 @@
 
 
         .prescription-header {
-            text-align: right;
+            text-align: center;
             /* grid-column: 1 / 3; */
 
         }
@@ -167,7 +168,9 @@
             }
 
             .section {
-                max-width: 95%;
+                /* max-width: 95%; */
+                width: 100%;
+                margin: 0;
                 padding: 40px;
                 display: grid;
                 gap: 0px;
@@ -224,7 +227,7 @@
 <body>
     <section class="section">
         <div class="card">
-            <div class="prescription-header">
+            <div class="rprescription-heade">
                 <img style="width: 100px;" src="{{ public_path('assets/reports/medical_report/logo.png') }}" alt="Prescription Icon">
             </div>
 
@@ -250,6 +253,8 @@
                 <thead>
                         <tr>
                             <th>Medicine Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
                             <th>Time</th>
                             <th>Strength</th>
                             <th>QTY</th>
@@ -260,6 +265,8 @@
                         @foreach($medications as $medicine)
                         <tr>
                             <td>{{ $medicine['name'] }}</td>
+                            <td>age</td>
+                            <td>gender</td>
                             <td>{{ trans('messages.' . $medicine['time']) }}</td>
                             <td>{{ $medicine['strength'] }}</td>
                             <td>{{ $medicine['quantity'] }}</td>
