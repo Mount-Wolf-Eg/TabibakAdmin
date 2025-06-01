@@ -237,8 +237,8 @@
                         @foreach($medications as $medicine)
                         <tr>
                             <td>{{ $medicine['name'] }}</td>
-                            <td>age</td>
-                            <td>gender</td>
+                            <td>{{ $consultation->patient?->user?->age }}</td>
+                            <td>{{ $consultation->patient?->user?->gender?->label() }}</td>
                             <td>{{ trans('messages.' . $medicine['time']) }}</td>
                             <td>{{ $medicine['strength'] }}</td>
                             <td>{{ $medicine['quantity'] }}</td>
