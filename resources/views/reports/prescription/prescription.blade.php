@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Medical Report</title>
     <style>
         body {
             /* font-family: Arial, sans-serif; */
-            font-family: 'DejaVu Sans', Arial, sans-serif;
+            font-family: "DejaVu Sans", Arial, sans-serif;
             font-size: 16px;
             margin: 0;
             padding: 0;
@@ -58,7 +58,7 @@
         .header {
             grid-column: 1 / 2;
             grid-row: 1;
-            margin-top: 50px;
+            margin-top: 20px;
         }
 
         .doctor-info h1 {
@@ -119,9 +119,8 @@
         }
 
         .prescription-header {
-            text-align: center;
+            text-align: right;
             grid-column: 1 / 3;
-
         }
 
         .prescription-header img {
@@ -160,7 +159,7 @@
             font-size: 11px;
         }
 
-        @media (max-width:992px) {
+        @media (max-width: 992px) {
             .card {
                 width: 100%;
                 margin: unset;
@@ -206,21 +205,37 @@
 <body>
     <section class="section">
         <div class="card">
-            <div class="header">
-                <div class="doctor-info">
-                    <h1>Dr. {{ $consultation->doctor?->user?->name }}</h1>
-                    <p>{{ $consultation->medicalSpeciality?->name }}</p>
-                    <p>Date: {{ $consultation->created_at->format('d/m/Y') }} {{ $consultation->created_at->format('h:i A') }}</p>
-                </div>
+            <div class="prescription-header">
+                <img style="width: 80px; padding: 0 120 0 0" src="{{ public_path('assets/reports/medical_report/logo.png') }}" alt="Prescription Icon">
             </div>
 
-            <div class="patient-info">
-                <p>Patient Name: {{ $consultation->patient?->user?->name }}</p>
+            <div style="width: 100%; font-size: 14px;">
+                <p>Clinic: Name</p>
+                <p>Tax registration number: 1009062980</p>
+                <p>License number: 4190</p>
             </div>
 
-            <div class="prescription-header" style="padding-top: 15px;">
+            <table style="width: 100%; font-size: 14px; border: none;">
+                <tr>
+                    <!-- Doctor Info -->
+                    <td style="width: 50%; vertical-align: top; border: none">
+                        <p>Doctor Name: Dr. {{ $consultation->doctor?->user?->name }}</p>
+                        <p>Specialty: {{ $consultation->medicalSpeciality?->name }}</p>
+                        <p>Date: {{ $consultation->created_at->format('d/m/Y') }} {{ $consultation->created_at->format('h:i A') }}</p>
+                    </td>
+
+                    <!-- Patient Info -->
+                    <td style="width: 50%; vertical-align: top; border: none">
+                        <p>Patient Name: {{ $consultation->patient?->user?->name }}</p>
+                        <p>Patient age: {{ $consultation->patient?->user?->age }}</p>
+                        <p>Patient gender: {{ $consultation->patient?->user?->gender->label() }}</p>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="prescription-header" style="padding-top: 15px">
                 <!-- <img src="{{ public_path('assets/reports/prescription/cropped-cropped-transparentlogo3000x750px.jpg') }}" alt="Prescription Icon" width="30"> -->
-                <h2 style="font-size: 15px;">Prescription Details</h2>
+                <p style="font-size: 15px; text-align: center">Prescription Details</p>
                 <table>
                     <thead>
                         <tr>
@@ -245,21 +260,19 @@
                 </table>
             </div>
 
-            @if($consultation->doctor_signature)
+            <!-- @if($consultation->doctor_signature)
             <div class="signature" style="text-align: right; margin-top: 20px;">
                 <img src="{{ storage_path('app/public/signatures/'.$consultation->doctor_signature) }}" alt="Doctor Signature" width="150">
             </div>
-            @endif
-
-            <div class="qr-code">
-                <img src="data:image/png;base64,{{ $qrCode }}" alt="Prescription QR Code" width="70">
-                <p style="font-size: 7px;">Prescription code</p>
-            </div>
+            @endif -->
 
             <div class="footer">
-                <hr>
-                <p style="font-size: 14px;">This notice is an official document and does not require a signature or stamp.</p>
-                <p style="font-size: 14px;">vtmc</p>
+                <hr />
+                <p style="font-size: 14px">
+                    This notice is an official document and does not require a signature
+                    or stamp.
+                </p>
+                <p style="font-size: 14px">vtmc</p>
             </div>
         </div>
     </section>

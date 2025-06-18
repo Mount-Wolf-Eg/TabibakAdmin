@@ -438,6 +438,7 @@ class PatientConsultationController extends BaseApiController
         // Initialize mPDF and generate the PDF
         $mpdf = new Mpdf([
             'default_font' => 'dejavusans',
+            'format'       => 'A4'
         ]);
         $mpdf->WriteHTML($html);
 
