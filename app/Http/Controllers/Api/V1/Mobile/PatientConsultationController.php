@@ -223,7 +223,7 @@ class PatientConsultationController extends BaseApiController
                 'doctor_id' => $data['doctor_id'],
                 'amount' => $data['amount'],
                 'status' => ConsultationStatusConstants::URGENT_PATIENT_APPROVE_DOCTOR_OFFER->value,
-                'is_active' => false
+                // 'is_active' => false
             ]);
             $this->contract->syncWithoutDetaching($consultation, 'replies', $data['replies']);
             $this->notificationService->patientAcceptDoctorOffer($consultation);
