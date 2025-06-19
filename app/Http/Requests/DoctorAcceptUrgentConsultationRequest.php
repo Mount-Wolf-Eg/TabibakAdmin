@@ -29,7 +29,7 @@ class DoctorAcceptUrgentConsultationRequest extends FormRequest
     {
         return [
             'doctor_set_consultation_at' => config('validations.datetime.req').'|after_or_equal:now',
-            'amount' => config('validations.numeric.req') . '|min:0|max:100000',
+            'amount' => config('validations.numeric.req') . '|min:0|max:1000',
         ];
     }
 }

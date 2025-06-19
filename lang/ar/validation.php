@@ -12,6 +12,7 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
+    'amount' => "سعر",
     'failed' => 'هناك خطأ في البيانات المدخلة.',
     'accepted' => 'يجب قبول :attribute.',
     'accepted_if' => 'يجب قبول :attribute عندما تكون :other هي :value.',
