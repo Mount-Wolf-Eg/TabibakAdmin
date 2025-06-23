@@ -55,6 +55,7 @@ class PatientConsultationController extends BaseApiController
             return $this->respondWithError($e->getMessage());
         }
     }
+
     /**
      * Display the specified resource.
      * @param Consultation $consultation
@@ -71,6 +72,7 @@ class PatientConsultationController extends BaseApiController
             return $this->respondWithError($e->getMessage());
         }
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -87,6 +89,7 @@ class PatientConsultationController extends BaseApiController
             return $this->respondWithError($e->getMessage());
         }
     }
+    
     /**
      * Remove the specified resource from storage.
      * @param Consultation $consultation
@@ -406,7 +409,7 @@ class PatientConsultationController extends BaseApiController
                 'id'                     => $consultation->doctor->id,
                 'name'                   => $consultation->doctor->user->name,
                 'avatar'                 => $consultation->doctor->user->avatar ? new FileResource($consultation->doctor->user->avatar) : null,
-                'doctorScheduleDayShift' => new DoctorScheduleDayShiftResource($consultation->doctorScheduleDayShift->load('day')),
+                'doctorScheduleDayShift' => new DoctorScheduleDayShiftResource($consultation->doctorScheduleDayShift?->load('day')),
             ],
         ];
     }
