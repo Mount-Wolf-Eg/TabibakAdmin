@@ -58,7 +58,7 @@ class ConsultationRequest extends FormRequest
             $validated['is_active'] = request(('payment_type')) == ConsultationPaymentTypeConstants::WALLET->value;
 
             if ($couponCode = request('coupon_code')) {
-                $coupon = resolve(ConsultationContract::class)->findBy('code', $couponCode, false);
+                $coupon = resolve(CouponContract::class)->findBy('code', $couponCode, false);
 
                 if (
                     $coupon &&
