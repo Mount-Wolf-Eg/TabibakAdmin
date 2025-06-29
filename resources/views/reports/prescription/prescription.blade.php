@@ -242,7 +242,7 @@
                             <th>Medicine Name</th>
                             <th>Time</th>
                             <th>Strength</th>
-                            <th>QTY</th>
+                            {{-- <th>QTY</th> --}}
                             <th>Dose</th>
                         </tr>
                     </thead>
@@ -252,7 +252,7 @@
                             <td>{{ $medicine['name'] }}</td>
                             <td>{{ trans('messages.' . $medicine['time']) }}</td>
                             <td>{{ $medicine['strength'] }}</td>
-                            <td>{{ $medicine['quantity'] }}</td>
+                            {{-- <td>{{ $medicine['quantity'] }}</td> --}}
                             <td>{{ $medicine['dosage'] }}</td>
                         </tr>
                         @endforeach

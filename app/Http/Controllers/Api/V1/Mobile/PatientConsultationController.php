@@ -445,7 +445,7 @@ class PatientConsultationController extends BaseApiController
         ]);
         $mpdf->WriteHTML($html);
 
-        return $mpdf->Output('prescription.pdf', 'I');
+        return $mpdf->Output('prescription_' . now()->format('Y_m_d') . '.pdf', 'I');
     }
 
     public function exportMedicalReport(Consultation $consultation)
