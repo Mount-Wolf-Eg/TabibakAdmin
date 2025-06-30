@@ -10,6 +10,7 @@ use App\Repositories\Contracts\DoctorContract;
 use App\Repositories\Contracts\MedicalSpecialityContract;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseWebController;
+use App\Repositories\Contracts\UserContract;
 use App\Services\Repositories\UserNotificationService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -123,6 +124,7 @@ class DoctorController extends BaseWebController
      */
     public function destroy(Doctor $doctor): RedirectResponse
     {
+        resolve(UserContract::class)->remove($doctor->user);
         $this->contract->remove($doctor);
         return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
     }
