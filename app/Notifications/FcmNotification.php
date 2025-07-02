@@ -21,7 +21,8 @@ class FcmNotification extends Notification implements ShouldQueue
      */
     public function __construct($data)
     {
-        $this->data = (array)$data + ['sound' => 'default'];
+        $this->data = $data;
+        // $this->data = (array)$data + ['sound' => 'default'];
     }
 
     /**
@@ -50,17 +51,41 @@ class FcmNotification extends Notification implements ShouldQueue
                 'android' => [
                     'notification' => [
                         'color' => '#0A0A0A',
+                        'sound' => 'default', // Add sound if you want
                     ],
                     'fcm_options' => [
                         'analytics_label' => 'analytics',
                     ],
                 ],
                 'apns' => [
+                    'headers' => [
+                        'apns-priority' => '10',
+                    ],
+                    'payload' => [
+                        'aps' => [
+                            'sound' => 'default', // Add sound if you want,
+                        ],
+                    ],
                     'fcm_options' => [
                         'analytics_label' => 'analytics',
                     ],
                 ],
             ]);
+            // ->custom([
+            //     'android' => [
+            //         'notification' => [
+            //             'color' => '#0A0A0A',
+            //         ],
+            //         'fcm_options' => [
+            //             'analytics_label' => 'analytics',
+            //         ],
+            //     ],
+            //     'apns' => [
+            //         'fcm_options' => [
+            //             'analytics_label' => 'analytics',
+            //         ],
+            //     ],
+            // ]);
     }
 
 }
