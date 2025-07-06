@@ -240,6 +240,8 @@
                     <thead>
                         <tr>
                             <th>Medicine Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
                             <th>Time</th>
                             <th>Strength</th>
                             {{-- <th>QTY</th> --}}
@@ -250,6 +252,8 @@
                         @foreach($medications as $medicine)
                         <tr>
                             <td>{{ $medicine['name'] }}</td>
+                            <td>{{ $consultation->patient?->user?->age }}</td>
+                            <td>{{ $consultation->patient?->user?->gender?->label() }}</td>
                             <td>{{ trans('messages.' . $medicine['time']) }}</td>
                             <td>{{ $medicine['strength'] }}</td>
                             {{-- <td>{{ $medicine['quantity'] }}</td> --}}
